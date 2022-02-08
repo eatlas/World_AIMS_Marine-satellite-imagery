@@ -1331,9 +1331,9 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     compositeContrast = B4contrast;
   } else if (colourGradeStyle === 'Shallow') {
     //print(scaled_img);
-    var B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.02,0.3, 2);
-    var B8contrast = exports.contrastEnhance(scaled_img.select('B8'),0.02,0.3, 2);
-    var B11contrast = exports.contrastEnhance(scaled_img.select('B11'),0.02,0.3, 2);
+    var B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.02,0.7, 3);
+    var B8contrast = exports.contrastEnhance(scaled_img.select('B8'),0.013,0.7, 3);
+    var B11contrast = exports.contrastEnhance(scaled_img.select('B11'),0.005,0.7, 3);
     compositeContrast = ee.Image.rgb(B11contrast, B8contrast, B5contrast);
 
   } 
