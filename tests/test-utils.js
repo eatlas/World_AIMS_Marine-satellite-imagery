@@ -1,10 +1,10 @@
-// Copyright 2021 Eric Lawrey - Australian Institute of Marine Science
+// Copyright 2022 Eric Lawrey - Australian Institute of Marine Science
 //
 // MIT License https://mit-license.org/
 // This script is written to run on the Google Earth Engine 
 
 // This script performs various tests on the functions in utils.js.
-var utils = require('users/ericlawrey/CS_AIMS_Sentinel2-marine_V1:utils.js');
+var utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:utils.js');
 
 // -----------------------
 // Unit Testing functions
