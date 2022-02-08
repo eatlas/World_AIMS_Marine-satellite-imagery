@@ -6,7 +6,8 @@
 // This script was setup to research into how to best correct brightness
 // offsets between Sentinel 2 scenes in ocean waters. 
 // The lessons from this script development have been incorporated into the
-// utils.
+// utils.s2_composite_brightness_normalisation() function.
+//
 // When contrast enhancement is applied to Sentinel 2 composite imagery, where the
 // black level threshold is constant across all scenes then we find 
 // small differences in scene brightness. This can be seen in the 
@@ -34,7 +35,7 @@
 // Note that a summary of runs of this script are recorded in Scene-brightness.xlxs
 
 
-var utils = require('users/ericlawrey/CS_AIMS_Sentinel2-marine_V1:utils.js');
+var utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:utils.js');
 
 // This script only analyses one image at a time. The following are
 // a set of composite images that can be used for experimentation.
