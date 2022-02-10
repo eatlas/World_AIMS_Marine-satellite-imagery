@@ -8,11 +8,7 @@
 // username and repository
 var utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:utils.js');
 
-// These are the options for the primary reference imagery.
-// The primary reference imagery should correspond to a composite
-// made from the best set of images available, with the goal being
-// to get the cleanest image.
-
+// Primary imagery
 var REF1_OPTIONS = {
   colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
   exportScale: [10, 10, 10, 10, 30],
@@ -23,10 +19,7 @@ var REF1_OPTIONS = {
   applyBrightnessAdjustment: true
 };
 
-// These options correspond to the secondary reference imagery.
-// This will be made from the next best set of images. The goal
-// is to provide a second set of imagery to determine if spots
-// in the imagery are artefacts (from clouds) or real features.
+// Secondary imagery
 var REF2_OPTIONS = {
   colourGrades: ['DeepFalse','TrueColour','Slope'],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R2',
