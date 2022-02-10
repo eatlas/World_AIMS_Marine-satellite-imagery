@@ -29,10 +29,12 @@ git remote set-url --add --push all https://github.com/eatlas/World_AIMS_Marine-
 
 # Check the .git/config file to ensure the setup looks good.
 
-# Replace BRANCH with the name of the branch you want to push.
-git push all main
+# GEE seems to display and use the master branch.
+git push all master
 ```
 The .git/config file should look similar to the following (except with your Google username).
+Note: I initially pushed to the `main` branch, unfortunately the Google Earth Engine seems to
+only update from the `master` branch.
 ```
 [remote "origin"]
 	url = https://earthengine.googlesource.com/users/<username>/World_AIMS_Marine-satellite-imagery
@@ -45,4 +47,7 @@ The .git/config file should look similar to the following (except with your Goog
 	fetch = +refs/heads/*:refs/remotes/all/*
 	pushurl = https://github.com/eatlas/World_AIMS_Marine-satellite-imagery.git
 	pushurl = https://earthengine.googlesource.com/users/<username>/World_AIMS_Marine-satellite-imagery
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
 ```
