@@ -249,3 +249,48 @@ utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180703T020449_20180703T020824_T51LXH"
   ],
   false, false, REF1_OPTIONS);
+  
+// Australia, WA, Bonaparte Archipelago, Long Reef 
+// This region is very turbid due to tidal movements.
+// CLOUDY_PIXEL_PERCENTAGE = 0.1
+// 40 of 118 images
+utils.s2_composite_display_and_export(
+  [
+    //Relative water clarity index 1 - aweful, 5 - ok
+    // Excellent
+    "COPERNICUS/S2/20170903T015649_20170903T020007_T51LYE", // (3)
+    "COPERNICUS/S2/20170730T015701_20170730T015834_T51LYE", // (3)
+    "COPERNICUS/S2/20170620T015701_20170620T015836_T51LYE", // (3)
+    "COPERNICUS/S2/20180511T015619_20180511T015619_T51LYE", // (3)
+    "COPERNICUS/S2/20180710T015619_20180710T020050_T51LYE", // (3)
+    "COPERNICUS/S2/20180918T015609_20180918T020006_T51LYE", // (3)
+    //"COPERNICUS/S2/20160715T015622_20160715T015624_T51LYE", // (2) (removed due to lower water clarity)
+    //"COPERNICUS/S2/20160824T015622_20160824T015622_T51LYE", // (2) (removed due to lower water clarity)
+
+    // Good
+    "COPERNICUS/S2/20180411T015619_20180411T020056_T51LYE", // (4)
+    "COPERNICUS/S2/20180918T015609_20180918T020006_T51LYE" //(5)
+  ],
+  false, false, REF1_OPTIONS);
+  
+// North West Shelf, Australia, Timor Sea, Big Bank Shoals
+// Aligns with:
+// A. Heyward, E. Pinceratto, L. Smith (1997) Big Bank Shoals of the Timor Sea. An Environmenal Resource Atlas
+// CLOUDY_PIXEL_PERCENTAGE = 0.1
+// 34 of 34 images
+utils.s2_composite_display_and_export(
+  [
+    // Excellent
+    "COPERNICUS/S2/20180705T015621_20180705T015939_T51LZJ",
+    
+    // Good
+    "COPERNICUS/S2/20160804T015622_20160804T015624_T51LZJ",
+    "COPERNICUS/S2/20170715T015619_20170715T015902_T51LZJ",
+    "COPERNICUS/S2/20180426T015621_20180426T015622_T51LZJ",
+    "COPERNICUS/S2/20210604T015619_20210604T015621_T51LZJ",
+    "COPERNICUS/S2/20210609T015621_20210609T015621_T51LZJ",
+    
+    // OK
+    "COPERNICUS/S2/20200604T015631_20200604T015627_T51LZJ"
+  ],
+  false, false, REF1_OPTIONS);
