@@ -10,7 +10,7 @@
 // There should be three small shoals at ~10 m and a larger raised area
 // at 20 - 25 m based on the Nautical charts. None of these are visible
 // in any of the images.
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
 		"COPERNICUS/S2/20170909T012711_20170909T012714_T53LMH",
 		"COPERNICUS/S2/20190914T012629_20190914T013005_T53LMH",
@@ -49,7 +49,7 @@ utils.s2_composite_display_and_export(
 // This scene is split in two. 
 // On the inshore areas the visibility of the final image just shows
 // features that are only 1 m below LAT.
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Right
     "COPERNICUS/S2/20160302T010734_20160302T075127_T53LPE",
@@ -87,7 +87,7 @@ utils.s2_composite_display_and_export(
 // Gulf of Carpentaria
 // The DeepFeature contrast doesn't seem to work in the turbid waters
 // of the Gulf
-  utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20170707T005709_20170707T005708_T54LTH",
     "COPERNICUS/S2/20170925T005659_20170925T005654_T54LTH",
