@@ -8,10 +8,10 @@
 // using the 01-select-best-sentinel2-images script. This saves having to
 // step through all the non relevant images.
 
-// === README: Change the path to your local copy of the utils code ====
+// === README: Change the path to your local copy of the s2Utils code ====
 // The path to the util code must be an absolute path including the
 // username and repository
-var utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:utils.js');
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:s2Utils.js');
 
 // This is the list of images to look through. Think of this list as
 // as a temporary list of images that you are working on that you wish
@@ -23,4 +23,4 @@ var IMAGE_IDS =
 		"COPERNICUS/S2/20190905T001111_20190905T001109_T56KLF"
   ];
 
-utils.viewSelectedSentinel2ImagesApp(IMAGE_IDS);
+s2Utils.viewSelectedSentinel2ImagesApp(IMAGE_IDS);
