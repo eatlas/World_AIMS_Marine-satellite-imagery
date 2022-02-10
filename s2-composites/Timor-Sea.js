@@ -1,8 +1,8 @@
-// Copyright 2021 Eric Lawrey - Australian Institute of Marine Science
+// Copyright 2022 Eric Lawrey - Australian Institute of Marine Science
 //
 // MIT License https://mit-license.org/
 // This script is written to run on the Google Earth Engine 
-var utils = require('users/ericlawrey/CS_AIMS_Sentinel2-marine_V1:utils.js');
+var utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:utils.js');
 
 // These are the options for the primary reference imagery.
 // The primary reference imagery should correspond to a composite
@@ -16,8 +16,8 @@ var REF1_OPTIONS = {
   colourGrades: ['Shallow'],
   exportScale: [10],
   //colourGrades: ['DeepFalse'],//,'SlopeNew'],
-  exportBasename: 'CS_AIMS_Sentinel2-marine_V1_R1',
-  exportFolder: 'EarthEngine/CS_AIMS_Sentinel2-marine_V1/Global',
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Timor-Sea',
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };
@@ -29,8 +29,8 @@ var REF1_OPTIONS = {
 var REF2_OPTIONS = {
   colourGrades: ['DeepFalse','Slope'],
     exportScale: [10, 30],
-  exportBasename: 'CS_AIMS_Sentinel2-marine_V1_R2',
-  exportFolder: 'EarthEngine/CS_AIMS_Sentinel2-marine_V1/Global',
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Timor-Sea',
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };
