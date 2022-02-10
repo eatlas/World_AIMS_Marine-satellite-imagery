@@ -7,7 +7,7 @@
 // fix why sunglint affected areas are colour shifted.
 // CLOUDY_PIXEL_PERCENTAGE = 5
 // 38 of 38 Images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Good
     "COPERNICUS/S2/20180301T022319_20180301T022317_T51PWN",
