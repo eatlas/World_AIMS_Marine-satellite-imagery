@@ -55,7 +55,7 @@ s2Utils.s2_composite_display_and_export(
 		"COPERNICUS/S2/20210418T011721_20210418T011719_T53LMH",
 		"COPERNICUS/S2/20210513T011729_20210513T011724_T53LMH"
   ],
-  false, false, REF1_OPTIONS);
+  true, false, REF1_OPTIONS);
   
   
 // Groote Eylandt
