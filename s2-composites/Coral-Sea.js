@@ -1058,3 +1058,32 @@ utils.s2_composite_display_and_export(
 // OK
 //COPERNICUS/S2/20160930T233812_20160930T233815_T57KWU
 //COPERNICUS/S2/20170925T233811_20170925T233815_T57KWU
+
+
+// Chesterfield Reefs, South (3 images, 1 blank, 2 with heavy clouds)
+// CLOUDY_PIXEL_PERCENTAGE = 100
+// 3 of 3 images
+utils.s2_composite_display_and_export(
+  [
+    // Bad
+    "COPERNICUS/S2/20190217T233711_20190217T233710_T57KWR" // Image is 90% cloud, but does show that there is a reef
+  ],
+false, false, REF1_OPTIONS);
+
+
+// New caledonia, Lansdowne Bank
+// CLOUDY_PIXEL_PERCENTAGE = 100
+// 19 of 19 images
+utils.s2_composite_display_and_export(
+  [
+    // OK
+    "COPERNICUS/S2/20160101T232842_20160101T232840_T57KXT", // EXAMPLE: Plumes of dark water
+    "COPERNICUS/S2/20160410T232839_20160411T005026_T57KXT", // Dark water
+    "COPERNICUS/S2/20160420T232852_20160420T232920_T57KXT",
+    
+    // Maybe
+    "COPERNICUS/S2/20151112T232832_20151112T233121_T57KXT",
+    "COPERNICUS/S2/20160331T232837_20160401T005502_T57KXT",
+    "COPERNICUS/S2/20170115T232831_20170115T233115_T57KXT"
+  ],
+false, false, REF1_OPTIONS);
