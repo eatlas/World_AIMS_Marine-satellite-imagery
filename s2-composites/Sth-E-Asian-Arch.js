@@ -1,5 +1,5 @@
 // Gulf of Carpentaria (North West of the Western Cape York Marine Park)
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
 		"COPERNICUS/S2/20181005T005701_20181005T005704_T54LVP",
 		"COPERNICUS/S2/20160925T005702_20160925T054935_T54LVP",
@@ -13,7 +13,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
   
 // PNG above western TS
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20181005T005701_20181005T005704_T54LWR",	//No cloud
     "COPERNICUS/S2/20190831T005711_20190831T005709_T54LWR",	//Low cloud
@@ -29,7 +29,7 @@ utils.s2_composite_display_and_export(
 // getting good imagery very limited
 // CLOUDY_PIXEL_PERCENTAGE = 5
 // 33 of 33 Images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Good
     "COPERNICUS/S2/20200531T021351_20200531T021742_T51MWT",
