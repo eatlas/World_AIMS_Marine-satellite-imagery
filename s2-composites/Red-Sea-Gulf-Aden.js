@@ -1,7 +1,7 @@
 // 37PFT - Eritrea, Red Sea, Dahlak Marine National Park
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 30 of 106 Images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Ranking was primarily based on water clarity, as most images
     // had little cloud, but lots had turbidity issues.
