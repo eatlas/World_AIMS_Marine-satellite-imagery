@@ -2,7 +2,7 @@
 // Searched 46 out of 46 images
 // 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //Excellent images
     "COPERNICUS/S2/20211202T052201_20211202T053702_T43NCE",
@@ -16,7 +16,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Okay images
     "COPERNICUS/S2/20200307T053719_20200307T053714_T43NCE",
