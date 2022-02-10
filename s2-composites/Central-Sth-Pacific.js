@@ -2,7 +2,7 @@
 // Not enough images
 // 18 of 18 images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //okay images
     "COPERNICUS/S2/20200325T200849_20200325T200851_T06LWH",
@@ -15,7 +15,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // maybe images          
     "COPERNICUS/S2/20200315T200849_20200315T200851_T06LWH",
@@ -29,7 +29,7 @@ utils.s2_composite_display_and_export(
   // 06LUJ French Polynesia, Tikehau, Mataiva Atoll
 //searched 28 out of 28 images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //Excellent
     "COPERNICUS/S2/20200921T200859_20200921T200855_T06LUJ",
@@ -41,7 +41,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Okay images          
     "COPERNICUS/S2/20200613T200859_20200613T200855_T06LUJ",
