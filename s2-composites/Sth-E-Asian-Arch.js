@@ -23,3 +23,22 @@ utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20201113T005711_20201113T005712_T54LWR"
   ], 
   false, false, REF1_OPTIONS);
+  
+// 51MWT - Indonesia, Melilis Island
+// Very strong sunglint in this area and heavy clouds made
+// getting good imagery very limited
+// CLOUDY_PIXEL_PERCENTAGE = 5
+// 33 of 33 Images
+utils.s2_composite_display_and_export(
+  [
+    // Good
+    "COPERNICUS/S2/20200531T021351_20200531T021742_T51MWT",
+    // OK
+    "COPERNICUS/S2/20180726T021339_20180726T021609_T51MWT",
+    // Maybe
+    "COPERNICUS/S2/20180616T021349_20180616T021546_T51MWT",
+    "COPERNICUS/S2/20190517T021351_20190517T021348_T51MWT",
+    "COPERNICUS/S2/20190721T021359_20190721T021806_T51MWT",
+    "COPERNICUS/S2/20200122T021341_20200122T021338_T51MWT"
+  ],
+  false, false, REF1_OPTIONS);  
