@@ -2,7 +2,7 @@
 // Not enough images
 // 26 of 26 images searched
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //Good images
     "COPERNICUS/S2/20200626T210451_20200626T210448_T04NFH",
@@ -13,7 +13,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // maybe images          
     "COPERNICUS/S2/20190702T210451_20190702T210448_T04NFH"
@@ -24,7 +24,7 @@ utils.s2_composite_display_and_export(
 // Not enough images
 // 18 of 18 images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //good images
     "COPERNICUS/S2/20200822T232209_20200822T232212_T58PGR",
@@ -39,7 +39,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // maybe images          
     "COPERNICUS/S2/20170214T232201_20170214T232329_T58PGR",
@@ -53,7 +53,7 @@ utils.s2_composite_display_and_export(
 // Not enough images
 // 21 of 21 images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //good images
     "COPERNICUS/S2/20190314T233259_20190314T233253_T58PET",
@@ -68,7 +68,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // maybe images          
     "COPERNICUS/S2/20180508T233259_20180508T233254_T58PET", // sunglint on edge
