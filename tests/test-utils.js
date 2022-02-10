@@ -4,7 +4,7 @@
 // This script is written to run on the Google Earth Engine 
 
 // This script performs various tests on the functions in utils.js.
-var utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:utils.js');
+var utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:s2-utils.js');
 
 // -----------------------
 // Unit Testing functions
