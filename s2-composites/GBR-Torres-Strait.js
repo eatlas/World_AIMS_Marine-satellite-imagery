@@ -7,7 +7,7 @@
 
 
 // PNG above central TS
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20181005T005701_20181005T005704_T54LXR", // Clear image left
     "COPERNICUS/S2/20181007T004659_20181007T004701_T54LXR",	// Clearish image right
@@ -21,7 +21,7 @@ utils.s2_composite_display_and_export(
   
 // Fly river PNG. There are no cloud free images and so we use all the 
 // available images with cloud cover < 4% to create a composite.
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20151117T004742_20170102T064132_T54LYR", 
     "COPERNICUS/S2/20180219T004659_20180219T004658_T54LYR",
@@ -36,7 +36,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 // East of Fly river
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20161012T004702_20161012T035438_T54LZR",	// Sunglint
     "COPERNICUS/S2/20181007T004659_20181007T004701_T54LZR",	// Sunglint
@@ -46,14 +46,14 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
   
 // Western Torres Strait, PNG border (Deliverance Island)
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20200820T005709_20200820T005711_T54LWQ"
   ], 
   false, false, REF1_OPTIONS);
   
 // Bramble cay
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20181221T004701_20181221T004658_T54LZQ",	// Some sunglint
     "COPERNICUS/S2/20151117T004742_20170102T064132_T54LZQ",	// Sunglint
@@ -67,7 +67,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 // Central Torres Strait, PNG border (Boigu Island, Saibai Island)
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //"COPERNICUS/S2/20180707T005711_20180707T005709_T54LXQ", //left: high tide moderate water clarity
     "COPERNICUS/S2/20200820T005709_20200820T005711_T54LXQ", //left: low tide, low clouds, low turbidity, low sunglint
@@ -80,7 +80,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 // Eastern Torres Strait, PNG border (Warrior Reef, Daru)
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20151117T004742_20151117T004904_T54LYQ", // clear water
     "COPERNICUS/S2/20181201T004701_20181201T004657_T54LYQ", // more turbid
@@ -90,7 +90,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 // South central TS
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20180920T005659_20180920T005700_T54LXP",
 		"COPERNICUS/S2/20180930T005659_20180930T005702_T54LXP",
@@ -108,7 +108,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
   
 // Central Cape York
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20180729T004709_20180729T004703_T54LXN",
 		"COPERNICUS/S2/20180828T004659_20180828T004657_T54LXN",
@@ -131,7 +131,7 @@ utils.s2_composite_display_and_export(
   
 // Western Torres Strait, Carpentaria Shoal, Cook Reef (Queensland, Australia)
 // Aus 700 Nautical chart
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [ 
     //"COPERNICUS/S2/20180707T005711_20180707T005709_T54LWP", //3
 		"COPERNICUS/S2/20180712T005709_20180712T005934_T54LWP", //2
@@ -154,7 +154,7 @@ utils.s2_composite_display_and_export(
 // is often green or opaque water. There is seagrass meadows along the 
 // coast visible to approximately 7 m (based on nautical charts).
 // Aus301 - Nautical chart
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [ 
     "COPERNICUS/S2/20190508T005719_20190508T005716_T54LWN", //1	// Can see reef in bottom right	
 		"COPERNICUS/S2/20190910T005711_20190910T005706_T54LWN", //2
@@ -190,7 +190,7 @@ utils.s2_composite_display_and_export(
 // A lot of scenes have strong sunglint
 // CLOUDY_PIXEL_PERCENTAGE = 1
 // 42 of 58 images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Good - right
     "COPERNICUS/S2/20180924T003659_20180924T003658_T54LZM",
@@ -220,7 +220,7 @@ false, false, REF1_OPTIONS);
 // A lot of scenes have strong sunglint
 // CLOUDY_PIXEL_PERCENTAGE = 1
 // 29 of 29 images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Good
     "COPERNICUS/S2/20180614T004711_20180614T004705_T54LZN",
@@ -240,7 +240,7 @@ utils.s2_composite_display_and_export(
 false, false, REF1_OPTIONS);
 
 // Australia, GBR, Cape Melville  
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [  
     "COPERNICUS/S2/20180726T003659_20180726T003702_T55LBE", //1
 		"COPERNICUS/S2/20181004T003659_20181004T003700_T55LBE", //2
@@ -255,7 +255,7 @@ utils.s2_composite_display_and_export(
 // Australia, GBR, Cockburn Reef, Nomad Reef, Gallon Reef
 // CLOUDY_PIXEL_PERCENTAGE = 10
 // 9 of 9 images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Good
     "COPERNICUS/S2/20190907T004711_20190907T004705_T54LYM",
@@ -272,7 +272,7 @@ false, false, REF1_OPTIONS);
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 17 of 17 images
                       
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20161115T002712_20161115T002822_T55KCB", // Right
@@ -296,7 +296,7 @@ utils.s2_composite_display_and_export(
  //55KGU Australia, GBR, Hardy Reef, Block Reef
 // Searched 89 out of 89 images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //Excellent
     "COPERNICUS/S2/20170814T002109_20170814T002103_T55KGU",
@@ -308,7 +308,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
   
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Good
     "COPERNICUS/S2/20160625T002106_20160625T014132_T55KGU",
@@ -326,7 +326,7 @@ utils.s2_composite_display_and_export(
 // Searched 29 out of 29 images
 // not enough images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //Excellent
     "COPERNICUS/S2/20200819T003711_20200819T003710_T55LCD",
@@ -339,7 +339,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Okay
     "COPERNICUS/S2/20190731T003709_20190731T003712_T55LCD",
@@ -353,7 +353,7 @@ utils.s2_composite_display_and_export(
 //55KFU Australia, GBR, Dingo Reefs, Gould Reefs
 // Searched 86 out of 86 images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //Excellent
     "COPERNICUS/S2/20180730T002049_20180730T002051_T55KFU",  
@@ -367,7 +367,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Good
     "COPERNICUS/S2/20170804T002109_20170804T002104_T55KFU",
@@ -386,7 +386,7 @@ utils.s2_composite_display_and_export(
 //56KKC Australia, GBR, Cockatoo Reef, Hopley comparison
 // Searched 71 out of 71 images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //Excellent
     "COPERNICUS/S2/20180212T001111_20180212T001105_T56KKC",
@@ -406,7 +406,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Good
     "COPERNICUS/S2/20170826T001101_20170826T001104_T56KKC",
@@ -427,7 +427,7 @@ utils.s2_composite_display_and_export(
  //55KFU Australia, GBR, Dingo Reefs, Gould Reefs
 // Searched 86 out of 86 images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //Excellent
     "COPERNICUS/S2/20180730T002049_20180730T002051_T55KFU",  
@@ -441,7 +441,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Good
     "COPERNICUS/S2/20170804T002109_20170804T002104_T55KFU",
@@ -460,7 +460,7 @@ utils.s2_composite_display_and_export(
 // Aus 827 Nautical chart
 // Paluma Shoals near Saunders Beach appears to be 7 shoals, instead of one
 // with some quite close to the coastline.
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
  [                                                         // Paluma Shoals scores
     "COPERNICUS/S2/20160827T002712_20160827T051759_T55KDU", //1 // Low tide
 		"COPERNICUS/S2/20190812T002711_20190812T002711_T55KDU", //2
@@ -484,7 +484,7 @@ utils.s2_composite_display_and_export(
   true, false, REF1_OPTIONS);
   
 // Northern Cap bunkers
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20180602T001111_20180602T001110_T56KLV",
     "COPERNICUS/S2/20180821T001111_20180821T001108_T56KLV",
@@ -495,7 +495,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
   
 // Princess Charolette Bay West
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
 		// 54LYK
 		"COPERNICUS/S2/20160604T004902_20160604T004859_T54LYK",
@@ -505,7 +505,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
   
 // Princess Charolette Bay East
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Right 54LZK
     "COPERNICUS/S2/20170909T003949_20170909T004019_T54LZK",
@@ -529,7 +529,7 @@ utils.s2_composite_display_and_export(
 // 55KEV - Australia, GBR, Davies, Grub, Chicken
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 27 of 27 Images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent (Water clarity index 1 - low visibility, 5 - excellent)
     //"COPERNICUS/S2/20160708T003035_20160708T015011_T55KEV", // (2) - Removed due to lower WQ
@@ -552,7 +552,7 @@ utils.s2_composite_display_and_export(
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 30 of 68 Images
 // (X) is an estimate of water clarity 1 - low, 5 - super clear
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent 
     "COPERNICUS/S2/20160828T000222_20160828T000219_T56KMU", // (4) Can see the sea floor
@@ -578,7 +578,7 @@ utils.s2_composite_display_and_export(
 // 56KLB - Australia, GBR, Swains, Heralds Reef
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 33 of 38 Images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20190811T001119_20190811T001116_T56KLB",
@@ -610,7 +610,7 @@ utils.s2_composite_display_and_export(
 // 56KMA - Australia, GBR, South east Swains, Horseshoe, Hackle
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 46 of 46 Images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     //"COPERNICUS/S2/20170729T000219_20170729T000217_T56KMA", // (2) Removed due to lower water clarity
