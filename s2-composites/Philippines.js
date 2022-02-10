@@ -5,7 +5,7 @@ var REF1_OPTIONS = {
   colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
   exportScale: [10, 10, 10, 10, 30],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Coral-Sea',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Philippines',
   
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
