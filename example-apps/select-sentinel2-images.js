@@ -10,10 +10,10 @@
 // The IDs of the images at each step can be found in the console.
 
 
-// === README: Change the path to your local copy of the utils code ====
+// === README: Change the path to your local copy of the s2Utils code ====
 // The path to the util code must be an absolute path including the
 // username and repository
-var utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:utils.js');
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:s2Utils.js');
  
 // Date range to iterate through the Sentinel 2 imagery.
 var START_DATE = '2015-01-01';
@@ -197,5 +197,5 @@ tileID = '50KQD';   // Australia, Western Australia, North East of Port Headland
 //tileID = '50KPD';   // Australia, Western Australia, North of Port Headland
 //tileID = '50KPC';   // Australia, Western Australia, Port Headland
 
-utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
+s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
 
