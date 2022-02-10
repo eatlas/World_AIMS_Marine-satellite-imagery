@@ -1,3 +1,17 @@
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:s2Utils.js');
+
+// Primary imagery
+var REF1_OPTIONS = {
+  colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
+  exportScale: [10, 10, 10, 10, 30],
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Arafura-Sea',
+  
+  applySunglintCorrection: true,
+  applyBrightnessAdjustment: true
+};
+
+
 // ===============================================================
 //
 //                      Arafura-Sea
