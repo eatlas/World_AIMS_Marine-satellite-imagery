@@ -1,4 +1,4 @@
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent - 
     // 58KCC New Caledonia, Yande Island
@@ -15,7 +15,7 @@ utils.s2_composite_display_and_export(
 // 
 // 58 of 58 images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20170608T231141_20170608T231144_T58KFC",
@@ -25,7 +25,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Good images          
     "COPERNICUS/S2/20180213T230901_20180213T230902_T58KFC",
@@ -40,7 +40,7 @@ utils.s2_composite_display_and_export(
 // 
 // 38 of 38 images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20200808T220919_20200808T220922_T01KCV",
@@ -54,7 +54,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // okay images          
     "COPERNICUS/S2/20190605T220929_20190605T220926_T01KCV",
@@ -68,7 +68,7 @@ utils.s2_composite_display_and_export(
 // New Caledonia, Far North West
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 26 of 26 images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
   // Excellent
     "COPERNICUS/S2/20190907T232849_20190907T233010_T58KBE",
@@ -88,7 +88,7 @@ false, false, REF1_OPTIONS);
 // New Caledonia, Far North East
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 10 of 10 images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
   // Excellent
     "COPERNICUS/S2/20180716T231851_20180716T231854_T58KCE",
@@ -107,7 +107,7 @@ false, false, REF1_OPTIONS);
 // New Caledonia, North, Wala
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 10 of 10 images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20200715T231901_20200715T231857_T58KCD",
