@@ -2,7 +2,7 @@
 // Not enough images
 // 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //good images
     "COPERNICUS/S2/20211026T013459_20211026T013454_T53NMJ",
@@ -12,7 +12,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // maybe images          
     "COPERNICUS/S2/20180420T013451_20180420T013454_T53NMJ",
