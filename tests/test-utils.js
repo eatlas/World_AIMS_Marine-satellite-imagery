@@ -3,8 +3,8 @@
 // MIT License https://mit-license.org/
 // This script is written to run on the Google Earth Engine 
 
-// This script performs various tests on the functions in utils.js.
-var utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:s2-utils.js');
+// This script performs various tests on the functions in s2Utils.js.
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:s2Utils.js');
 
 // -----------------------
 // Unit Testing functions
@@ -64,13 +64,13 @@ assertTrue("compareArray empty 1", compareArray([],[]));
 
 
 // ---------------------------------------
-//        Test utils functions
+//        Test s2Utils functions
 // ---------------------------------------
-print (" ------ Test utils functions ------");
+print (" ------ Test s2Utils functions ------");
 
 
 assertTrue("unique_s2_tiles 1", compareArray(
-  utils.unique_s2_tiles([
+  s2Utils.unique_s2_tiles([
     "COPERNICUS/S2/20190115T004709_20190115T004705_T55LBK",
     "COPERNICUS/S2/20190510T004711_20190510T004710_T55LBK",
     "COPERNICUS/S2/20190907T004711_20190907T004705_T55LBK",
@@ -80,20 +80,20 @@ assertTrue("unique_s2_tiles 1", compareArray(
   ["55LBK","51LXG"]));
   
 assertTrue("unique_s2_tiles 2", compareArray(
-  utils.unique_s2_tiles([
+  s2Utils.unique_s2_tiles([
     "COPERNICUS/S2/20190115T004709_20190115T004705_T55LBK"
     ]),
   ["55LBK"]));
 
 assertExpectError("unique_s2_tiles 3", function(){
-  utils.unique_s2_tiles([
+  s2Utils.unique_s2_tiles([
     "Hello there"
     ])},
     "imageIds don't match"
     );
     
 assertExpectError("unique_s2_tiles 4", function(){  
-  utils.s2_composite([
+  s2Utils.s2_composite([
     "COPERNICUS/S2/20190115T004709_20190115T004705_T55LBK",
     "COPERNICUS/S2/20160824T015622_20160824T065137_T51LXG"
     ])},
