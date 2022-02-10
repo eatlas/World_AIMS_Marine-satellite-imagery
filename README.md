@@ -15,21 +15,27 @@ be able to push updates to both Google Earth Engine and GitHub.
 Part of the required setup is to allow Google Source to have access to your Google Account.
 I was prompted for this when I cloned the original git repository from GEE.
 
-```batch
-# From https://github.com/eatlas/World_AIMS_Marine-satellite-imagery
-# Create a new remote called "all" with the URL of the primary repo. (Unnecessary because this was already
-# set when I cloned from GEE)
-# git remote add all https://earthengine.googlesource.com/users/<username>/World_AIMS_Marine-satellite-imagery
+These instructions were based on [Working with multiple remote repositories](https://jigarius.com/blog/multiple-git-remote-repositories)
 
-# Re-register the remote as a push URL. 
-# git remote set-url --add --push all https://earthengine.googlesource.com/users/<username>/World_AIMS_Marine-satellite-imagery
+Create a new remote called "all" with the URL of the primary repo. It was unnecessary for me
+because this was already set when I cloned from GEE. This might be different when setting up
+from GitHub.
+```
+git remote add all https://earthengine.googlesource.com/users/<username>/World_AIMS_Marine-satellite-imagery
+```
 
-# Add a push URL to a remote. This means that "git push" will also push to this git URL.
+Re-register the remote as a push URL. 
+```
+git remote set-url --add --push all https://earthengine.googlesource.com/users/<username>/World_AIMS_Marine-satellite-imagery
+```
+
+Add a push URL to a remote. This means that "git push" will also push to this git URL.
+```
 git remote set-url --add --push all https://github.com/eatlas/World_AIMS_Marine-satellite-imagery.git
+```
 
-# Check the .git/config file to ensure the setup looks good.
-
-# GEE seems to display and use the master branch.
+Push local changes to both GEE and GitHub. GEE seems to display and use the master branch.
+```
 git push all master
 ```
 The .git/config file should look similar to the following (except with your Google username).
