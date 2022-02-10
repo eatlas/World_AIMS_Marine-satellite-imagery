@@ -5,7 +5,7 @@ var REF1_OPTIONS = {
   colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
   exportScale: [10, 10, 10, 10, 30],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Coral-Sea',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Sth-Western-Pacific',
   
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
@@ -15,7 +15,7 @@ var REF1_OPTIONS = {
 var REF2_OPTIONS = {
   colourGrades: ['DeepFalse','TrueColour','Slope'],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R2',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Coral-Sea',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Sth-Western-Pacific',
   exportScale: [10, 10, 30],
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
