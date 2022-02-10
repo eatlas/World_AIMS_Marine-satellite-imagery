@@ -2,7 +2,7 @@
 //
 // MIT License https://mit-license.org/
 // This script is written to run on the Google Earth Engine 
-var utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:utils.js');
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:s2Utils.js');
 
 // These are the options for the primary reference imagery.
 // The primary reference imagery should correspond to a composite
@@ -44,7 +44,7 @@ var REF2_OPTIONS = {
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 40 of 76 Images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
   // Excellent - no clouds
   // The following are ratings of the visibility of two shoals at the maximum depth of visibility
@@ -64,7 +64,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 // Excellent - no clouds, but lower water clarity
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20190506T015629_20190506T015719_T51LXG", // 0.5, 0.5 // some clouds
     "COPERNICUS/S2/20170511T015701_20170511T015839_T51LXG", // 0, 1
@@ -82,7 +82,7 @@ utils.s2_composite_display_and_export(
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 49 of 98 images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent - no clouds
     "COPERNICUS/S2/20160824T015622_20160824T015622_T51LXF",
@@ -98,7 +98,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 // Excellent - no clouds, but lower water clarity
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent - no clouds, lower water clarity
     "COPERNICUS/S2/20160804T015622_20160804T015624_T51LXF",
@@ -124,7 +124,7 @@ utils.s2_composite_display_and_export(
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 50 of 82 images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20170703T020751_20170703T020751_T51LWG",
@@ -139,7 +139,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 // Excellent - no clouds, but lower water clarity
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent, but with lower water quality          
     "COPERNICUS/S2/20180703T020449_20180703T020824_T51LWG",
@@ -164,7 +164,7 @@ utils.s2_composite_display_and_export(
   //51LUE Scott Reef, WA, Australia
 // 156 images; searched from 1-17 and 94 - 156
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //Excellent
     "COPERNICUS/S2/20210930T020451_20210930T020449_T51LUE",
@@ -183,7 +183,7 @@ utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
 
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20200831T020449_20200831T020459_T51LUE",
@@ -203,7 +203,7 @@ utils.s2_composite_display_and_export(
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 25 of 55 Images
 
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20170802T020451_20170802T020833_T51LWH",
@@ -222,7 +222,7 @@ utils.s2_composite_display_and_export(
 // 51LYH - North West Shelf
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 25 of 49 Images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20180908T015609_20180908T015611_T51LYH",
@@ -237,7 +237,7 @@ utils.s2_composite_display_and_export(
 // 51LXH - North West Shelf
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 30 of 76 Images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20170827T020749_20170827T020747_T51LXH",
@@ -254,7 +254,7 @@ utils.s2_composite_display_and_export(
 // This region is very turbid due to tidal movements.
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 40 of 118 images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     //Relative water clarity index 1 - aweful, 5 - ok
     // Excellent
@@ -278,7 +278,7 @@ utils.s2_composite_display_and_export(
 // A. Heyward, E. Pinceratto, L. Smith (1997) Big Bank Shoals of the Timor Sea. An Environmenal Resource Atlas
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 34 of 34 images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20180705T015621_20180705T015939_T51LZJ",
