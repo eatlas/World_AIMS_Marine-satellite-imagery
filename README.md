@@ -8,6 +8,10 @@ This repository contains scripts for processing Sentinel 2 imagery using the Goo
 Engine and the Python scripts for subsequent post processing
 of the imagery. 
 
+# s2 composites
+These contain manually created composite images sorted into regions based on 
+[Global reef regions)[https://github.com/eatlas/World_AIMS_Reef-regions].
+
 # Setting up pushing to both GitHub and Google Earth Engine
 The following are some of the commands needed to edit this repository locally, but to
 be able to push updates to both Google Earth Engine and GitHub.
