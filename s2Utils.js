@@ -1,4 +1,16 @@
-// Test
+/**
+* @module s2Utils
+* This library allows processing Sentinel 2 imagery on the Google Earth Engine for
+* generating cloud free composite images that have colour grading and post processing
+* that is optimised for looking at marine areas, in particular for studying coral reefs.
+*
+* To use this library (with no external code dependancies) copy and paste it
+* into you own GEE repository.
+* 
+* Scripts in s2-composites shows examples of using this library.
+*/
+
+
 /**
  * Creates a composite Sentinel2 image from the specified set of image IDs, 
  * and applies the specified colourGrading to the image, creating, displaying
