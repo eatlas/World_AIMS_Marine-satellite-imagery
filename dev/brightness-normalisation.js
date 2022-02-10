@@ -6,7 +6,7 @@
 // This script was setup to research into how to best correct brightness
 // offsets between Sentinel 2 scenes in ocean waters. 
 // The lessons from this script development have been incorporated into the
-// utils.s2_composite_brightness_normalisation() function.
+// s2Utils.s2_composite_brightness_normalisation() function.
 //
 // When contrast enhancement is applied to Sentinel 2 composite imagery, where the
 // black level threshold is constant across all scenes then we find 
@@ -29,13 +29,13 @@
 // This script is intended to allow experiementation on determining scene
 // brightness then applying these as corrections to the image. This script
 // is not part of the production workflow, but for trying out ideas. Once
-// these have been prototyped here they were incorporated into utils and the
+// these have been prototyped here they were incorporated into s2Utils and the
 // main processing pipeline.
 //
 // Note that a summary of runs of this script are recorded in Scene-brightness.xlxs
 
 
-var utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:utils.js');
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:s2Utils.js');
 
 // This script only analyses one image at a time. The following are
 // a set of composite images that can be used for experimentation.
@@ -167,7 +167,7 @@ var imageIds = scene.imageIds;
 var locTitle = scene.locTitle;
 
 //var composite = ee.Image("COPERNICUS/S2/20180426T002101_20180426T002056_T55KFA");
-var composite = utils.s2_composite(imageIds, true, false);
+var composite = s2Utils.s2_composite(imageIds, true, false);
   
 // Our goal is to create a mask that focuses on deeper water areas.
 // We will then using these areas to estimate the brightness offsets
@@ -256,7 +256,7 @@ Map.addLayer(maskedComposite,
 // centroid of 0,0 and so we can't directly zoom to the image.
 // We instead work this out from the imageIDs.
 var australia = ee.Geometry.BBox(109, -33, 158, -7);
-var tileGeom = utils.get_s2_tiles_geometry(imageIds, australia);
+var tileGeom = s2Utils.get_s2_tiles_geometry(imageIds, australia);
 // Zoom to our tile of interest.
 Map.centerObject(tileGeom, 9);
 
@@ -321,16 +321,16 @@ var adjComposite = composite
     .addBands(adjB4,['B4'], true);
 
 
-var compositeDeepFalse = utils.bake_s2_colour_grading(composite, "DeepFalse", false);
-var adjCompositeDeepFalse = utils.bake_s2_colour_grading(adjComposite, "DeepFalse", false);
+var compositeDeepFalse = s2Utils.bake_s2_colour_grading(composite, "DeepFalse", false);
+var adjCompositeDeepFalse = s2Utils.bake_s2_colour_grading(adjComposite, "DeepFalse", false);
 
 //Map.addLayer(compositeDeepFalse, 
 //  { 'min': 0, 'max': 1, 'gamma': 1}, "Composite Deep False", false, 1);
 //Map.addLayer(adjCompositeDeepFalse, 
 //  { 'min': 0, 'max': 1, 'gamma': 1}, "Adjusted Composite Deep False", false, 1);
   
-var compositeTrueColour = utils.bake_s2_colour_grading(composite, "TrueColour", false);
-var adjCompositeTrueColour = utils.bake_s2_colour_grading(adjComposite, "TrueColour", false);
+var compositeTrueColour = s2Utils.bake_s2_colour_grading(composite, "TrueColour", false);
+var adjCompositeTrueColour = s2Utils.bake_s2_colour_grading(adjComposite, "TrueColour", false);
 
 //Map.addLayer(compositeTrueColour, 
 //  { 'min': 0, 'max': 1, 'gamma': 1}, "Composite True Colour", false, 1);
@@ -341,7 +341,7 @@ Map.addLayer(composite,
 
 // Estimate slope as a method of delecting reef boundaries.
 
-var slope = utils.bake_s2_colour_grading(composite, "Slope", false);
+var slope = s2Utils.bake_s2_colour_grading(composite, "Slope", false);
 
 Map.addLayer(slope,
   { 'min': 0, 'max': 1, 'gamma': 1}, "Slope", false, 1);
