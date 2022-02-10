@@ -1,7 +1,7 @@
 // 49KGR - Australia, WA, Ningaloo reef
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 25 of 186 Images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20160617T024346_20160617T073207_T49KGR",
@@ -23,7 +23,7 @@ utils.s2_composite_display_and_export(
 // recognising dark substrates due to the seagrass meadows.
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 //  30 of 336 images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
   // Excellent - Left
     "COPERNICUS/S2/20151001T024446_20151001T024444_T49JGM", // Left
@@ -46,7 +46,7 @@ utils.s2_composite_display_and_export(
 // Australia, Western Australia, Port Headland
 //CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 60 of 180 images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     // (X) water clarity index 1 - very poor, 5 - excellent (visbility to 25 m)
@@ -69,7 +69,7 @@ utils.s2_composite_display_and_export(
 // Australia, Western Australia, North of Port Headland
 //CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 60 of 172 images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
   // Excellent
     //"COPERNICUS/S2/20160402T021342_20160402T021905_T50KPD", // (2) // Dark water
@@ -84,7 +84,7 @@ utils.s2_composite_display_and_export(
 // Australia, Western Australia, North East of Port Headland
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 45 of 164 images
-utils.s2_composite_display_and_export(
+s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20170606T021351_20170606T022113_T50KQD", // (4)
