@@ -6,7 +6,7 @@
 // === README: Change the path to your local copy of the utils code ====
 // The path to the util code must be an absolute path including the
 // username and repository
-var utils = require('users/ericlawrey/CS_AIMS_Sentinel2-marine_V1:utils.js');
+var utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:utils.js');
 
 // These are the options for the primary reference imagery.
 // The primary reference imagery should correspond to a composite
@@ -14,13 +14,10 @@ var utils = require('users/ericlawrey/CS_AIMS_Sentinel2-marine_V1:utils.js');
 // to get the cleanest image.
 
 var REF1_OPTIONS = {
-  //colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
-  //exportScale: [10, 10, 10, 10, 30],
-  colourGrades: ['Shallow'],
-  exportScale: [10],
-  //colourGrades: ['TrueColour','DeepMarine','ReefTop','Shallow','DeepFalse','B3ReefBoundary','B2ReefBoundary'],
-  exportBasename: 'CS_AIMS_Sentinel2-marine_V1_R1',
-  exportFolder: 'EarthEngine/CS_AIMS_Sentinel2-marine_V1',
+  colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
+  exportScale: [10, 10, 10, 10, 30],
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery',
   
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
@@ -32,8 +29,8 @@ var REF1_OPTIONS = {
 // in the imagery are artefacts (from clouds) or real features.
 var REF2_OPTIONS = {
   colourGrades: ['DeepFalse','TrueColour','Slope'],
-  exportBasename: 'CS_AIMS_Sentinel2-marine_V1_R2',
-  exportFolder: 'EarthEngine/CS_AIMS_Sentinel2-marine_V1',
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_R2',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery',
   exportScale: [10, 10, 30],
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
