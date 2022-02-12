@@ -10,9 +10,57 @@ of the imagery.
 
 # s2 composites
 These contain manually created composite images sorted into regions based on 
-[Global reef regions)[https://github.com/eatlas/World_AIMS_Reef-regions].
+[Global reef regions](https://github.com/eatlas/World_AIMS_Reef-regions).
 
-# Setting up pushing to both GitHub and Google Earth Engine
+# Setup
+## Low tech approach
+A low tech approach to getting the code in the GEE editor is simply copying and
+pasting the code from GitHub. This approach is only suitable if you want just a few files,
+otherwise it is much better to clone the whole repository over. 
+
+## Clone this repository into Google Earth Engine
+1. Create an empty repository in GEE using `Scripts\NEW\Repository`. Name the 
+repository `World_AIMS_Marine-satellite-imagery`. Technically the names don't need
+to match but it could get confusing if the names don't match.
+
+2. On you local machine clone the repository from GitHub. 
+```
+git clone https://github.com/eatlas/World_AIMS_Marine-satellite-imagery.git
+```
+
+3. Change into the newly downloaded empty repository, cloned from GEE. 
+```
+cd World_AIMS_Marine-satellite-imagery
+```
+
+4. Switch the push origin to the GEE repository. Find the path to your empty
+GEE repository by hovering over the new repository and select the `Configure` 
+button (it looks like a small cog). 
+This will show the command to clone the new repository to your local machine. For
+```
+git clone https://earthengine.googlesource.com/users/<username>/World_AIMS_Marine-satellite-imagery
+```
+We are interesting in the path to the repository. Add this as the push
+origin.
+```
+git remote set-url origin https://earthengine.googlesource.com/users/<username>World_AIMS_Marine-satellite-imagery
+```
+5. Push the repository up to GEE.
+```
+git push 
+```
+6. Refresh the repositories in GEE. There is a refresh button next to the `NEW` button.
+You can now make changes on your local machine and push them up to GEE. If you make changes
+on GEE you will need to perform a `git pull`. 
+
+## Pushing code back to GitHub
+To push code back to GitHub instead of GEE you can simply use.
+```
+git push https://github.com/eatlas/World_AIMS_Marine-satellite-imagery.git
+```
+
+
+## Setting up pushing to both GitHub and Google Earth Engine at same time
 The following are some of the commands needed to edit this repository locally, but to
 be able to push updates to both Google Earth Engine and GitHub.
 
