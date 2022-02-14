@@ -104,7 +104,6 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
       "must match the options.colourGrades ("+colourGrades.length+")";
   }
   
-  // Get the projection for the current Sentinel 2 tile.
 
   var composite = exports.s2_composite(imageIds, 
     options.applySunglintCorrection, options.applyBrightnessAdjustment);
@@ -165,7 +164,7 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
       '_'+utmTilesString+dateRangeStr;
 
     var final_composite = exports.bake_s2_colour_grading(
-      composite, colourGrades[i], includeCloudmask, UTMprojection);
+      composite, colourGrades[i], includeCloudmask);
   
     // Scale and convert the image to an 8 bit image to make the export
     // file size considerably smaller.
@@ -247,13 +246,6 @@ exports.unique_s2_tiles = function(imageIds) {
  * prior to creating the composite. This function does not perform any
  * brightness compensation on the image. Use s2_composite_brightness_normalisation()
  * if this is needed.
- * This saves the projection of the original images as a property ('image_projection')
- * to the resulting composite image. For Sentinel 2 this corresponds to a UTM projection. 
- * The composite image is reprojected to EPSG:4326 as part of the reduction process. This
- * projection is unsuitable for ee.Terrain.slope calculations (as the units are in degrees
- * instead of metres). The 'image_projection' property record the appropriate UTM projection
- * to reproject back to if you wish to perform a slope calculation.
- * (see 02-debug-slope.js for more information). 
  * @param {String[]} imageIds -     Google Earth image IDs of Sentinel 2 images to merge into 
  *                                  a composite.
  * @param {boolean} applyBrightnessAdjustment - If true then apply a brightness adjustment to the
@@ -276,9 +268,7 @@ exports.unique_s2_tiles = function(imageIds) {
 exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightnessAdjustment) {
   
   // We only support a single tile. This is to make processing the 
-  // projection information more straight forward. If we know the
-  // images are all from a single Sentinel 2 tile then we can get
-  // the projection information from the first image.
+  // projection information more straight forward. 
   var tiles = exports.unique_s2_tiles(imageIds);
   if (tiles.length > 1) {
     throw "s2_composite only supports images from a single tile found: "+String(tiles);  
@@ -292,7 +282,6 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
   // how to generate a proper error message when it there are requested
   // s2 tiles that are outside this boundary.
   var tilesGeometry = exports.get_s2_tiles_geometry(
-    //imageIds, ee.Geometry.BBox(109, -33, 158, -7));
     imageIds, ee.Geometry.BBox(-180, -33, 180, 33));
     
   
@@ -301,44 +290,6 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
   // cloud masks to these images. Pass in the tilesGeometry so that 
   // it only needs to be calculated once.
   var s2_cloud_collection = exports.get_s2_cloud_collection(imageIds, tilesGeometry);
-  
-  // Work out the projection of the original imagery. 
-  // The original Sentinel 2 imagery is in UTM projections. Which specific
-  // one depends on where the imagery is in the world. The units of UTM
-  // projections are in metres, which makes is suitable for slope calculations.
-  // (Although strictly speaking UTM is not an equal area and so slight errors
-  // would be introduced depending on your location on the earth).
-  // 
-  // When we create a composite image using a Reduce function the imagery
-  // is reprojected from its original UTM projection to a more universal
-  // EPSG:4326 projection. This allows imagery of multiple projections to
-  // be combine in a composite image. 
-  //
-  // This reprojection prevents slope calculations (ee.Terrain.slope) from
-  // working on composite images (see 02-debug-slope.js for more info).
-  //
-  // Since we process one Sentinel 2 tile at a time each composite should
-  // be able to be represented using a single UTM projection, the same as
-  // the images that when into it.
-  // 
-  // To perform slope calculations we need to reproject the data back to
-  // the original UTM projection. 
-  // Unfortunately the reproduction process is memory intensive and slow
-  // and thus we don't want to perform this transformation if we are not
-  // doing slope calculations. Due to memory limitations in the interactive
-  // GEE we can only reproject at 30 m resolution rather than at native
-  // 10 m scale and thus we don't perform the reprojection routinely 
-  // in this function. Instead we record the original UTM projection as
-  // a property of the composite image so that if subsequent processing
-  // (such as slope calculations) need to perform the reprojection they
-  // can easily determine the appropriate UTM projection to use.
-  
-  // At this point we know that all images are from the same Sentinel 2
-  // tile and so the projection of all images will all be the same.
-  // The projection function fails if there are multiple bands in
-  // the image, so use B1 as a reference. The projection of all the
-  // bands is the same for Sentinel 2 imagery.
-  var projection = s2_cloud_collection.first().select('B1').projection();
   
   var composite_collection = s2_cloud_collection;
   
@@ -387,9 +338,6 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
   // We work around this by clipping the output to the dissolved
   // geometry of the input collection of images.
   composite = composite.clip(composite_collection.geometry().dissolve());
-
-  // Save the projection for later if needed
-  composite = composite.set('image_projection', projection);
 
   // Perform the brightness adjustment in this function as we have the 
   // tileGeometry available. This is a bit of a hack because I couldn't
@@ -1261,13 +1209,8 @@ exports.apply_cloud_shadow_mask = function(img) {
  *            conditional GEE server side execution, and cloning the original
  *            image to include channels other than B2, B3 and B4, followed by 
  *            applying the contrast enhancement didn't seem to work.
- * @param {ee.Projection} UTMprojection - WGS84/UTM projection of the Sentinel 2 image. This
- *            relevant for the 'slope' styling, as the composite imagery needs to be converted
- *            from WGS84 to WGS84/UTM for the ee.Terrain.slope to work (see 02-debug-slope.js)
- *            
  */
-exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMask,
-  UTMprojection) {
+exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMask) {
   var compositeContrast;
   var scaled_img = img.divide(1e4);
 
@@ -1883,7 +1826,7 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     var composite = exports.removeSunGlint(image)
       .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
         'B8A','B9','B10','B11','B12','QA10','QA20','QA60']);
-    var projection = composite.select('B1').projection();
+
     var includeCloudmask = false;
     
     Map.layers().reset();
@@ -1896,7 +1839,7 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     var reefTop_composite = exports.bake_s2_colour_grading(composite, 'ReefTop', includeCloudmask);
     Map.addLayer(reefTop_composite, visParams, 'Sentinel-2 ReefTop',false);
   
-    var slope_composite = exports.bake_s2_colour_grading(composite, 'Slope', includeCloudmask, projection);
+    var slope_composite = exports.bake_s2_colour_grading(composite, 'Slope', includeCloudmask);
     Map.addLayer(slope_composite, visParams, 'Sentinel-2 Slope',false);
     
     //var deepMarine2_composite = utils.bake_s2_colour_grading(composite, 'TrueColourA', includeCloudmask);
