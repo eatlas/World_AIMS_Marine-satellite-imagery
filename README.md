@@ -120,3 +120,7 @@ update the version number in the library, commit this, then add a tag to the rep
 ```
 git tag -a v1.1 -m "Stable update for CS_AIMS_Coral-Sea-Features_Imagery dataset"
 ```
+To see existing tags:
+```
+git tag
+```
