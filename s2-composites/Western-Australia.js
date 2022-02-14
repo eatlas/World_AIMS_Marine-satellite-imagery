@@ -77,7 +77,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180904T021339_20180904T022251_T50KPC", // (4)  // Dredging plume
     "COPERNICUS/S2/20180909T021341_20180909T021620_T50KPC", // (3)  // Dredging plume
   ],
-  false, false, REF1_OPTIONS);
+  true, false, REF1_OPTIONS);
 
 // Australia, Western Australia, North of Port Headland
 //CLOUDY_PIXEL_PERCENTAGE = 0.1
