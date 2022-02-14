@@ -1,6 +1,6 @@
 # World Marine satellite imagery
 
-Eric Lawrey – 10 Feb 2022
+Eric Lawrey – 14 Feb 2022
 
 Australian Institute of Marine Science
 
