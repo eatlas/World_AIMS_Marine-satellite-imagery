@@ -1,5 +1,14 @@
+// Copyright 2022 Eric Lawrey - Australian Institute of Marine Science
+//
+// MIT License https://mit-license.org/
+//
+// Version: v1.0
+
 /**
 * @module s2Utils
+* 
+* This script is written to run on the Google Earth Engine.
+* 
 * This library allows processing Sentinel 2 imagery on the Google Earth Engine for
 * generating cloud free composite images that have colour grading and post processing
 * that is optimised for looking at marine areas, in particular for studying coral reefs.
