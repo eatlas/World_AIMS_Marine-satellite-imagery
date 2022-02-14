@@ -104,18 +104,6 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
       "must match the options.colourGrades ("+colourGrades.length+")";
   }
   
-  // Save the projection of the Sentinel 2 tile using the first
-  // image and first band. (All images and bands should be the same)
-  // This is needed for the slope styling as it needs to reproject
-  // the composite back to this projection (a UTM projection) for the
-  // slope calculation. (see 02-debug-slope.js) 
-  // Images of different regions of the world will have different 
-  // UTM projections. 
-  // We don't save this information in the composite image as a
-  // property because any operations on the image delete the property
-  // (see 02-debug-saving-projection.js).
-  var UTMprojection = ee.Image(imageIds[0]).select('B1').projection();
-  
   // Get the projection for the current Sentinel 2 tile.
 
   var composite = exports.s2_composite(imageIds, 
@@ -123,32 +111,39 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
 
   var utmTilesString = uniqueUtmTiles.join('-');
   
-  // Get the years and months of the images in the composite to
-  // generate a date range to put in the filename
-  // COPERNICUS/S2/20170812T003031_20170812T003034_T55KDV"
-  // To:
-  // "2017"
-  var tileDates = imageIds.map(function(id) {
-    // Find the position of the characters just after S2/
-    // tile in the Sentinel-2 IDs. 
-    var n = id.lastIndexOf("S2/")+3;
-    return id.substr(n,4);
-  });
-  
-  var dateRangeStr;
-  
-  // This works because the date strings are in yyyymm format
-  var datesInOrder = tileDates.sort();
-  
-  if (tileDates.length === 1) {
-    // Just use the one date in the name
-    // 2016-n1
-    dateRangeStr = datesInOrder[0]+'-n1';
-  } else {
-    // Get the start and end dates
-    // 2016-2020-n5
-    dateRangeStr = datesInOrder[0]+'-'+datesInOrder[datesInOrder.length-1]+
-      '-n'+datesInOrder.length;
+  // Add the date range and number of images in the composite.
+  // This code is disabled to shorten the final file names to
+  // reduce the chance of running into Windows file path issues.
+  // Can't quite bring myself to delete this section of code yet
+  // though.
+  var includeDateStr = false; 
+  var dateRangeStr = "";
+  if (includeDateStr) {
+    // Get the years and months of the images in the composite to
+    // generate a date range to put in the filename
+    // COPERNICUS/S2/20170812T003031_20170812T003034_T55KDV"
+    // To:
+    // "2017"
+    var tileDates = imageIds.map(function(id) {
+      // Find the position of the characters just after S2/
+      // tile in the Sentinel-2 IDs. 
+      var n = id.lastIndexOf("S2/")+3;
+      return id.substr(n,4);
+    });
+
+    // This works because the date strings are in yyyymm format
+    var datesInOrder = tileDates.sort();
+    
+    if (tileDates.length === 1) {
+      // Just use the one date in the name
+      // 2016-n1
+      dateRangeStr = '_'+datesInOrder[0]+'-n1';
+    } else {
+      // Get the start and end dates
+      // 2016-2020-n5
+      dateRangeStr = '_'+datesInOrder[0]+'-'+datesInOrder[datesInOrder.length-1]+
+        '-n'+datesInOrder.length;
+    }
   }
     
   var includeCloudmask = false;
@@ -162,12 +157,12 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
     
     // Example name: AU_AIMS_Sentinel2-marine_V1_TrueColour_55KDU_2016-2020-n10
     var exportName = exportBasename+'_'+colourGrades[i]+
-      '_'+utmTilesString+'_'+dateRangeStr;
+      '_'+utmTilesString+dateRangeStr;
       
     // Create a shorter display name for on the map.
     // Example name: TrueColour_55KDU_2016-2020-n10
     var displayName = colourGrades[i]+
-      '_'+utmTilesString+'_'+dateRangeStr;
+      '_'+utmTilesString+dateRangeStr;
 
     var final_composite = exports.bake_s2_colour_grading(
       composite, colourGrades[i], includeCloudmask, UTMprojection);
