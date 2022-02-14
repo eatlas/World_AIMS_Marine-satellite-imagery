@@ -8,17 +8,21 @@ This repository contains scripts for processing Sentinel 2 imagery using the Goo
 Engine and the Python scripts for subsequent post processing
 of the imagery. 
 
-# s2 composites
+## s2 composites
 These contain manually created composite images sorted into regions based on 
 [Global reef regions](https://github.com/eatlas/World_AIMS_Reef-regions).
 
-# Setup
-## Low tech approach
+## Change log
+`2022-02-14` - *v1.0* - Initial release of the s2Utils for use in the 
+`CS_AIMS_Coral-Sea-Features_Imagery` dataset.
+
+## Setup
+
 A low tech approach to getting the code in the GEE editor is simply copying and
 pasting the code from GitHub. This approach is only suitable if you want just a few files,
 otherwise it is much better to clone the whole repository over. 
 
-## Clone this repository into Google Earth Engine
+### Clone this repository into Google Earth Engine
 1. Create an empty repository in GEE using `Scripts\NEW\Repository`. Name the 
 repository `World_AIMS_Marine-satellite-imagery`. Technically the names don't need
 to match but it could get confusing if the names don't match.
@@ -53,14 +57,14 @@ git push
 You can now make changes on your local machine and push them up to GEE. If you make changes
 on GEE you will need to perform a `git pull`. 
 
-## Pushing code back to GitHub
+### Pushing code back to GitHub
 To push code back to GitHub instead of GEE you can simply use.
 ```
 git push https://github.com/eatlas/World_AIMS_Marine-satellite-imagery.git
 ```
 
 
-## Setting up pushing to both GitHub and Google Earth Engine at same time
+### Setting up pushing to both GitHub and Google Earth Engine at same time
 The following are some of the commands needed to edit this repository locally, but to
 be able to push updates to both Google Earth Engine and GitHub.
 
@@ -108,4 +112,11 @@ only update from the `master` branch.
 [branch "master"]
 	remote = origin
 	merge = refs/heads/master
+```
+
+## Tagging new versions of the library
+When there is a new release version of this dataset or the utility libraries (s2Utils.js) then
+update the version number in the library, commit this, then add a tag to the repo.
+```
+git tag -a v1.1 -m "Stable update for CS_AIMS_Coral-Sea-Features_Imagery dataset"
 ```
