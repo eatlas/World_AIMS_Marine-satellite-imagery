@@ -1077,3 +1077,14 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20170115T232831_20170115T233115_T57KXT"
   ],
 false, false, REF1_OPTIONS);
+
+
+
+// ===============================================================
+//
+//                 CORAL SEA - OPEN WATER
+//
+// ===============================================================
+// These images correspond to areas that should have no reefs
+// in the Coral Sea. These scenes are include for checking that
+// there are no unknown reefs.
