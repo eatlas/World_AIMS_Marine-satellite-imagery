@@ -105,6 +105,27 @@ var tileID;
 //tileID = '56KKG';     // Magdelaine Cays, Coringa Islet (Coral Sea, Australia) (Boundaries: 8, Dry Reefs: 2, Cays/Islands: 2 )
 
 
+// Additional tiles in search of new platforms
+tileID = '55LBJ';   // (North Western) Coral Sea 
+tileID = '55LBH';   // (North Western) Coral Sea 
+tileID = '55LCH';   // (North Western) Coral Sea 
+tileID = '55LBG';   // (North Western) Coral Sea 
+tileID = '55LBF';   // (North Western) Coral Sea 
+tileID = '55LCF';   // (North Western) Coral Sea 
+tileID = '55LDF';   // (North Western) Coral Sea, north of Osprey
+tileID = '55LCE';   // (North Western) Coral Sea, west of Osprey
+tileID = '55LEE';   // (North Western) Coral Sea, east of Osprey
+tileID = '55LDD';   // (Central) Coral Sea
+tileID = '55LED';   // (Central) Coral Sea
+tileID = '55LFD';   // (Central) Coral Sea
+tileID = '55LGD';   // (Central) Coral Sea
+tileID = '55LDC';   // (Central) Coral Sea, west Bougainville Reef
+tileID = '55LFC';   // (Central) Coral Sea, east Bougainville Reef
+tileID = '56LKH';   // (Central) Coral Sea, west Dianne bank
+tileID = '56LLH';   // (Central) Coral Sea, west Dianne bank
+
+
+
 // Potential shallow areas in Eastern Coral Sea
 // These areas were identified as having potentially shallow areas based
 // on the SRTM30-plus v8.0 dataset. 
@@ -158,6 +179,7 @@ var tileID;
 //tileID = '43NCE';   // Maldives, Hulhumale
 //tileID = '56LKR';   // PNG, Trobriand Islands
 //tileID = '56LLN';   // PNG, 
+
 //tileID = '54LZN';   // Australia, GBR, Raine Island
 //tileID = '54LZM';   // Australia, GBR, Great Detached reef, Wishbone reef
 //tileID = '54LYM';   // Australia, GBR, Cockburn Reef, Nomad Reef, Gallon Reef
