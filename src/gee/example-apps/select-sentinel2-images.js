@@ -50,6 +50,7 @@ var tileID;
 // Where a reef has been split across multiple tiles then which section of the reef is
 // on the tile is indicated in brackets after the reef name.
 
+// ---------- Coral Sea -------------------
 //tileID = '55LBK';     // Boot Reef, Portlock Reefs (Coral Sea) - Far North
 //tileID = '54LZP';     // Ashmore Reef (Coral Sea) - Far North
 //tileID = '55LDE';     // Osprey Reef (Coral Sea) - North
@@ -105,7 +106,7 @@ var tileID;
 //tileID = '56KKG';     // Magdelaine Cays, Coringa Islet (Coral Sea, Australia) (Boundaries: 8, Dry Reefs: 2, Cays/Islands: 2 )
 
 
-// Additional tiles in search of new platforms
+// Additional tiles in search of new reefs
 tileID = '55LBJ';   // (North Western) Coral Sea 
 tileID = '55LBH';   // (North Western) Coral Sea 
 tileID = '55LCH';   // (North Western) Coral Sea 
@@ -215,7 +216,7 @@ tileID = '56LLH';   // (Central) Coral Sea, west Dianne bank
 //tileID = '37PFT';   // Eritrea, Red Sea, Dahlak Marine National Park
 
 // Western Australia - Pilbra
-tileID = '50KQD';   // Australia, Western Australia, North East of Port Headland
+//tileID = '50KQD';   // Australia, Western Australia, North East of Port Headland
 //tileID = '50KPD';   // Australia, Western Australia, North of Port Headland
 //tileID = '50KPC';   // Australia, Western Australia, Port Headland
 
