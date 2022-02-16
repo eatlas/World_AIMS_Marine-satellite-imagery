@@ -121,7 +121,7 @@ tileID = '55LED';   // (Central) Coral Sea
 tileID = '55LFD';   // (Central) Coral Sea
 tileID = '55LGD';   // (Central) Coral Sea
 tileID = '55LDC';   // (Central) Coral Sea, west Bougainville Reef
-tileID = '55LFC';   // (Central) Coral Sea, east Bougainville Reef
+//tileID = '55LFC';   // (Central) Coral Sea, east Bougainville Reef
 //tileID = '56LKH';   // (Central) Coral Sea, west Dianne bank
 //tileID = '56LLH';   // (Central) Coral Sea, west Dianne bank
 
