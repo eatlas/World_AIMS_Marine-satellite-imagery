@@ -99,10 +99,10 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
   }
   var uniqueUtmTiles = exports.unique_s2_tiles(imageIds);
   // Make sure we are dealing with a single image tile.
-  if (uniqueUtmTiles.length > 1) {
-    throw "s2_composite only supports images from a single tile found: "+
-      String(uniqueUtmTiles);  
-  }
+  //if (uniqueUtmTiles.length > 1) {
+  //  throw "s2_composite only supports images from a single tile found: "+
+  //    String(uniqueUtmTiles);  
+  //}
   
   if (is_export && !Array.isArray(exportScale)) {
     throw "options.exportScale should be an array was: "+exportScale;
