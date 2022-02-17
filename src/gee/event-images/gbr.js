@@ -1,3 +1,16 @@
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/gee/s2Utils.js');
+
+var IMG_OPTIONS = {
+  colourGrades: ['DeepFalse'],
+  exportScale: [30],
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Event-images',
+  
+  applySunglintCorrection: true,
+  applyBrightnessAdjustment: true
+};
+
+
 // This image shows a large flood plumes along the coast that spreads
 // offshore near cairns.
 // This image represents a single day over a large area.
@@ -19,4 +32,4 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180330T002711_20180330T002706_T55KDU",
     "COPERNICUS/S2/20180330T002711_20180330T002706_T55KEU"
   ],
-  false, false, OPEN_WATER_OPTIONS);
+  false, false, IMG_OPTIONS);
