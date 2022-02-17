@@ -15,6 +15,8 @@ var IMG_OPTIONS = {
 // offshore near cairns. This image covered from the burdekin to
 // north of Cairns.
 // This image represents a single day over a large area.
+// This can't be exported as a single composite as it exceeds the
+// GEE memory limit.
 s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20180330T002711_20180330T002706_T55LCC",
