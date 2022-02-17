@@ -1634,7 +1634,7 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
   // date range and with a suitable cloud cover.
   var images = ee.ImageCollection('COPERNICUS/S2')
       .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', cloudPixelPercentage))
-      .filter(ee.Filter.gt('system:asset_size', 500E6))  // Remove small fragments of tiles
+      //.filter(ee.Filter.gt('system:asset_size', 500E6))  // Remove small fragments of tiles
       .filterDate(ee.Date(startDate), ee.Date(endDate))
       .filter(ee.Filter.inList('MGRS_TILE', ee.List([tileID])));
   
