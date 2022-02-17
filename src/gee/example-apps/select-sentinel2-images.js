@@ -140,9 +140,9 @@ tileID = '56LUD';   // (Central eastern) Coral Sea
 //tileID = '56LLH';   // (Central) Coral Sea, west Dianne bank
 tileID = '56LMH';   // (Central) Coral Sea, North west of Lihou
 tileID = '56LNH';   // (Central) Coral Sea, North west of Lihou
-tileID = '55KDB';   // (Central) Coral Sea
+//tileID = '55KDB';   // (Central) Coral Sea
 
-tileID = '55KCV';
+
 
 // Potential shallow areas in Eastern Coral Sea
 // These areas were identified as having potentially shallow areas based
