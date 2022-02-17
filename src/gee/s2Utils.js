@@ -3,7 +3,8 @@
 // MIT License https://mit-license.org/
 //
 // Version: v1.0   initial release
-// Version: v1.0.1 Removed the small tile filter
+// Version: v1.0.1 Adjusted the small tile filter in createSelectSentinel2ImagesApp so that
+//                 more images are available for selection.
 
 /**
 * @module s2Utils
