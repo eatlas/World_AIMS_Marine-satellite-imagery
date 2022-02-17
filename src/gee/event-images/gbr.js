@@ -36,3 +36,8 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180330T002711_20180330T002706_T55KEU"
   ],
   false, true, IMG_OPTIONS);
+  
+  
+// This image shows dark water tracers from reefs near Cairns showing 
+// connectivity in Oct 
+COPERNICUS/S2/20201030T002709_20201030T002710_T55KDB 
