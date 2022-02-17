@@ -16,11 +16,11 @@
 var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/gee/s2Utils.js');
  
 // Date range to iterate through the Sentinel 2 imagery.
-//var START_DATE = '2015-01-01';
-//var END_DATE = '2022-1-20';
+var START_DATE = '2015-01-01';
+var END_DATE = '2022-1-20';
 
-var START_DATE = '2020-10-29';
-var END_DATE = '2020-10-31';
+//var START_DATE = '2020-10-29';
+//var END_DATE = '2020-10-31';
 
 // Maximum cloud cover to include the image. Setting a low value removes
 // images that have lots of cloud that will probably not be useful for
@@ -30,7 +30,7 @@ var END_DATE = '2020-10-31';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 100;
+var CLOUDY_PIXEL_PERCENTAGE = 1;
 
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
