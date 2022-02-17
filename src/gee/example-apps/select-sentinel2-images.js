@@ -108,7 +108,7 @@ var tileID;
 
 // Additional tiles in search of new reefs
 tileID = '55LBJ';   // (North Western) Coral Sea 
-tileID = '55LBH';   // (North Western) Coral Sea 
+//tileID = '55LBH';   // (North Western) Coral Sea 
 //tileID = '55LCH';   // (North Western) Coral Sea 
 //tileID = '55LBG';   // (North Western) Coral Sea 
 //tileID = '55LBF';   // (North Western) Coral Sea 
