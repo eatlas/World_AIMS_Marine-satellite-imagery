@@ -19,6 +19,9 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 var START_DATE = '2015-01-01';
 var END_DATE = '2022-1-20';
 
+var START_DATE = '2018-03-29';
+var END_DATE = '2018-03-31';
+
 // Maximum cloud cover to include the image. Setting a low value removes
 // images that have lots of cloud that will probably not be useful for
 // subsequent processing. 
@@ -27,7 +30,7 @@ var END_DATE = '2022-1-20';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 0.5;
+var CLOUDY_PIXEL_PERCENTAGE = 0.1;
 
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
@@ -107,23 +110,37 @@ var tileID;
 
 
 // Additional tiles in search of new reefs
-tileID = '55LBJ';   // (North Western) Coral Sea 
+//tileID = '55LBJ';   // (North Western) Coral Sea 
 //tileID = '55LBH';   // (North Western) Coral Sea 
 //tileID = '55LCH';   // (North Western) Coral Sea 
 //tileID = '55LBG';   // (North Western) Coral Sea 
 //tileID = '55LBF';   // (North Western) Coral Sea 
 //tileID = '55LCF';   // (North Western) Coral Sea 
 //tileID = '55LDF';   // (North Western) Coral Sea, north of Osprey
+tileID = '55LEF';     // (North Western) Coral Sea, north of Osprey
 //tileID = '55LCE';   // (North Western) Coral Sea, west of Osprey
 //tileID = '55LEE';   // (North Western) Coral Sea, east of Osprey
+tileID = '55LFE';   // (North Western) Coral Sea, east of Osprey
+tileID = '55LGE';   // (North Western) Coral Sea, east of Osprey
+tileID = '56LQK';   // (North Eastern) Coral Sea
+tileID = '56LRK';   // (North Eastern) Coral Sea
+tileID = '56LTE';   // (North Eastern) Coral Sea
 //tileID = '55LDD';   // (Central) Coral Sea
 //tileID = '55LED';   // (Central) Coral Sea
 //tileID = '55LFD';   // (Central) Coral Sea
-//tileID = '55LGD';   // (Central) Coral Sea
+tileID = '55LGD';   // (Central) Coral Sea
+tileID = '55LHD';   // (Central) Coral Sea
+tileID = '56LQJ';   // (Central eastern) Coral Sea
+tileID = '56LRJ';   // (Central eastern) Coral Sea
+tileID = '56LTD';   // (Central eastern) Coral Sea
+tileID = '56LUD';   // (Central eastern) Coral Sea
 //tileID = '55LDC';   // (Central) Coral Sea, west Bougainville Reef
 //tileID = '55LFC';   // (Central) Coral Sea, east Bougainville Reef
 //tileID = '56LKH';   // (Central) Coral Sea, west Dianne bank
 //tileID = '56LLH';   // (Central) Coral Sea, west Dianne bank
+tileID = '56LMH';   // (Central) Coral Sea, North west of Lihou
+tileID = '56LNH';   // (Central) Coral Sea, North west of Lihou
+tileID = '55KDB';   // (Central) Coral Sea
 
 
 
