@@ -278,10 +278,11 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
   
   // We only support a single tile. This is to make processing the 
   // projection information more straight forward. 
-  var tiles = exports.unique_s2_tiles(imageIds);
-  if (tiles.length > 1) {
-    throw "s2_composite only supports images from a single tile found: "+String(tiles);  
-  }
+  //var tiles = exports.unique_s2_tiles(imageIds);
+  //if (tiles.length > 1) {
+  //  throw "s2_composite only supports images from a single tile found: "+String(tiles);  
+  //}
+  
   // Get the outter boundary polygon of the tiles
   // This is to help make the get_s2_cloud_collection process more
   // efficient. This part can be reused, however we only need it 
