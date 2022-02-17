@@ -12,7 +12,8 @@ var IMG_OPTIONS = {
 
 
 // This image shows a large flood plumes along the coast that spreads
-// offshore near cairns.
+// offshore near cairns. This image covered from the burdekin to
+// north of Cairns.
 // This image represents a single day over a large area.
 s2Utils.s2_composite_display_and_export(
   [
