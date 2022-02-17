@@ -19,8 +19,8 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 //var START_DATE = '2015-01-01';
 //var END_DATE = '2022-1-20';
 
-var START_DATE = '2018-03-29';
-var END_DATE = '2018-03-31';
+var START_DATE = '2020-10-29';
+var END_DATE = '2020-10-31';
 
 // Maximum cloud cover to include the image. Setting a low value removes
 // images that have lots of cloud that will probably not be useful for
@@ -142,7 +142,7 @@ tileID = '56LMH';   // (Central) Coral Sea, North west of Lihou
 tileID = '56LNH';   // (Central) Coral Sea, North west of Lihou
 tileID = '55KDB';   // (Central) Coral Sea
 
-tileID = '55KDB';
+tileID = '55KCV';
 
 // Potential shallow areas in Eastern Coral Sea
 // These areas were identified as having potentially shallow areas based
