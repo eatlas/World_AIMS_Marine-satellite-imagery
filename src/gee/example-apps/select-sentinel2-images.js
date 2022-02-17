@@ -16,8 +16,8 @@
 var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/gee/s2Utils.js');
  
 // Date range to iterate through the Sentinel 2 imagery.
-var START_DATE = '2015-01-01';
-var END_DATE = '2022-1-20';
+//var START_DATE = '2015-01-01';
+//var END_DATE = '2022-1-20';
 
 var START_DATE = '2018-03-29';
 var END_DATE = '2018-03-31';
