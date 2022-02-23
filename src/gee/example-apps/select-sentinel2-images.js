@@ -30,7 +30,7 @@ var END_DATE = '2022-1-20';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 100;
+var CLOUDY_PIXEL_PERCENTAGE = 0.1;
 
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
