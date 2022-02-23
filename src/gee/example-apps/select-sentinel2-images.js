@@ -30,7 +30,7 @@ var END_DATE = '2022-1-20';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 100;
+var CLOUDY_PIXEL_PERCENTAGE = 0.5;
 
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
@@ -120,9 +120,9 @@ var tileID;
 tileID = '55LEF';     // (North Western) Coral Sea, north of Osprey
 //tileID = '55LCE';   // (North Western) Coral Sea, west of Osprey
 //tileID = '55LEE';   // (North Western) Coral Sea, east of Osprey
-tileID = '55LFE';   // (North Western) Coral Sea, east of Osprey
-tileID = '55LGE';   // (North Western) Coral Sea, east of Osprey
-tileID = '56LQK';   // (North Eastern) Coral Sea
+//tileID = '55LFE';   // (North Western) Coral Sea, east of Osprey
+//tileID = '55LGE';   // (North Western) Coral Sea, east of Osprey
+//tileID = '56LQK';   // (North Eastern) Coral Sea
 //tileID = '56LRK';   // (North Eastern) Coral Sea
 //tileID = '56LTE';   // (North Eastern) Coral Sea (0 images at 100% cloud threshold)
 //tileID = '55LDD';   // (Central) Coral Sea
