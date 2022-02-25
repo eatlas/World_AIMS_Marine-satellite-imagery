@@ -1,0 +1,12 @@
+*.tif
+*.vrt
+*.png
+*.jpg
+repo-only/*
+!repo-only/README.md
+big-files/*
+!big-files/README.md
+unprocessed-data/*
+!unprocessed-data/README.md
+data/**/*.png
+data/*/*.jpg
