@@ -141,6 +141,17 @@ var tileID;
 //tileID = '56LMH';   // (Central) Coral Sea, North west of Lihou
 //tileID = '56LNH';   // (Central) Coral Sea, North west of Lihou
 //tileID = '55KDB';   // (Central) Coral Sea
+tileID = '55KFV';     // (Central) Coral Sea, North of Prawn and Castor Reef
+tileID = '55KGV';     // (Central western) Coral Sea
+tileID = '55KHV';     // (Central western) Coral Sea
+tileID = '56KKE';     // (Central western) Coral Sea
+tileID = '56KLE';     // (Central western) Coral Sea
+tileID = '55KHU';     // (Southern) Coral Sea, Hyde Reef, Wyatt Reef (Edge of GBR)
+tileID = '56KKD';     // (Southern) Coral Sea, Wyatt Reef (Edge of GBR)
+tileID = '56KLD';     // (Southern) Coral Sea
+tileID = '56KLC';     // (Southern) Coral Sea, Olympic Reef (Edge of GBR)
+tileID = '56KMC';     // (Southern) Coral Sea
+tileID = '57KTR';     // (Southern western) Coral Sea, West of Wreck reef
 
 
 
