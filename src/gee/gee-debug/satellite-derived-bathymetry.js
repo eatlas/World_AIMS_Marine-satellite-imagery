@@ -55,10 +55,22 @@
     
     // With an offset applied to the images prior to log transformation
     var nB3B2 = 0.01;
-    var m1B3B2 = 10;
+    var m1B3B2 = 2;
     var m0B3B2 = 0.90;
-    var oB2 = 0.00;
-    var oB3 = 0.01;
+    // Changing these parameters seems to change the relative compensation of dark benthic cover compensation at
+    // particular depths. When oB3 is 0.03 and oB2 is 0 the result is dark (though could be compensated for with other parameters)
+    // the shallow seagrass is not compensated for very well and these areas still remain dark.
+    // When the values are reverse 0b3 is 0 and oB2 is 0.03 then shallow seagrass areas are well compensated for (i.e. they
+    // appear as a similar brightness to surrounding similar depth areas), where as deeper seagrass (around 8 m) is over compensated
+    // for and seagrass areas appear lighter than expected, resulting in an inversion of depth, in effect the seagrass substrate
+    // makes the depth estimate shallower than it should be. 
+    // Therefore the relative tonal adjustment on the bands will have a significant effect on the depth estimation of any one image.
+    // Additionally the substrate compensation only works because the dominant dark substrate is green (i.e. seagrass), we would therefore
+    // expect that the algorithm will not work so well on other substrates such as coral.
+    // Additionally the algorithm appears to only allow an optimal compensation at a particular depth. It therefore might be useful for
+    // creating a specific depth contour.
+    var oB2 = 0.03;
+    var oB3 = 0.0;
     var depthB3B2offset = B2contrast.subtract(oB2).multiply(nB3B2).log().divide(B3contrast.subtract(oB3).multiply(nB3B2).log()).subtract(m0B3B2).multiply(m1B3B2); 
     var depthB3B2offsetscaled = depthB3B2offset.multiply(30).subtract(20);
     
