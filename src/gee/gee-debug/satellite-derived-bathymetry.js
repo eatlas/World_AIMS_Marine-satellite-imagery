@@ -51,6 +51,17 @@
     var m0B3B2 = 0.90;
     var depthB3B2 = B2contrast.multiply(nB3B2).log().divide(B3contrast.multiply(nB3B2).log()).subtract(m0B3B2).multiply(m1B3B2); 
     var depthB3B2scaled = depthB3B2.multiply(40).subtract(40);
+    
+    
+    // With an offset applied to the images prior to log transformation
+    var nB3B2 = 0.01;
+    var m1B3B2 = 10;
+    var m0B3B2 = 0.90;
+    var oB2 = 0.00;
+    var oB3 = 0.01;
+    var depthB3B2offset = B2contrast.subtract(oB2).multiply(nB3B2).log().divide(B3contrast.subtract(oB3).multiply(nB3B2).log()).subtract(m0B3B2).multiply(m1B3B2); 
+    var depthB3B2offsetscaled = depthB3B2offset.multiply(30).subtract(20);
+    
 
     var filteredB2 = B2contrast.focal_median(
       {kernel: ee.Kernel.circle({radius: 60, units: 'meters'}), iterations: 2}
@@ -67,8 +78,9 @@
 // Zoom to our tile of interest.
 Map.centerObject(scaled_img.geometry(), 10);
 
-Map.addLayer(depthB3B2scaled, {min: -50, max: 0}, 'Sentinel 2 - SDB - B3B2');
-Map.addLayer(depthB2B1scaled, {min: -50, max: 0}, 'Sentinel 2 - SDB - B2B1');
-Map.addLayer(scaled_img, {bands:['B4','B3','B2'], min: [0.02, 0.04, 0.08], max: 0.2, gamma: 2}, 'Sentinel 2 - Image');
+//Map.addLayer(depthB3B2scaled, {min: -50, max: 0}, 'Sentinel 2 - SDB - B3B2');
+Map.addLayer(depthB3B2offsetscaled, {min: -30, max:0}, 'Sentinel 2 - SDB - B3B2');
+//Map.addLayer(depthB2B1scaled, {min: -50, max: 0}, 'Sentinel 2 - SDB - B2B1');
+//Map.addLayer(scaled_img, {bands:['B4','B3','B2'], min: [0.02, 0.04, 0.08], max: 0.2, gamma: 2}, 'Sentinel 2 - Image');
 
 //Map.addLayer(scaled_img, {bands:['B2'], min: [0.08], max: 0.2, gamma: 2}, 'Sentinel 2 - Image');
