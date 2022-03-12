@@ -29,8 +29,8 @@ var depthB3B2scaled = depthB3B2;
 Map.centerObject(composite.geometry(), 10);
 
 //Map.addLayer(depthB3B2scaled, {min: -50, max:0}, 'Sentinel 2 - SDB - B3B2 composite');
-Map.addLayer(B2.multiply(nB3B2).log(), {min: 1, max:3}, 'B2.multiply(nB3B2).log()');
-Map.addLayer(B3.multiply(nB3B2).log(), {min: 1, max:3}, 'B3.multiply(nB3B2).log()');
+Map.addLayer(B2log, {min: 1, max:3}, 'B2log');
+Map.addLayer(B2log, {min: 1, max:3}, 'B3log');
 Map.addLayer(depthB3B2, {min: 1, max:3}, ' B2log.divide(B3log)');
 
 Map.addLayer(composite, {'bands':['B4', 'B3', 'B2'], min: 0, max:1400}, 'Sentinel 2 - composite');
