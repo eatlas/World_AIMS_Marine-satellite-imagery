@@ -11,7 +11,7 @@ var imageIDs = [
   ];
   
 var composite = s2Utils.s2_composite(imageIDs, true, true); 
-/*
+
 var B3 = composite.select('B3');
 var B2 = composite.select('B2');
 
@@ -20,11 +20,11 @@ var m1B3B2 = 10;
 var m0B3B2 = 0.90;
 var depthB3B2 = B2.multiply(nB3B2).log().divide(B3.multiply(nB3B2).log()).subtract(m0B3B2).multiply(m1B3B2); 
 var depthB3B2scaled = depthB3B2.multiply(40).subtract(40);
-*/
+
 
 // Zoom to our tile of interest.
 Map.centerObject(composite.geometry(), 10);
 
-//Map.addLayer(depthB3B2scaled, {min: -50, max:0}, 'Sentinel 2 - SDB - B3B2 composite');
+Map.addLayer(depthB3B2scaled, {min: -50, max:0}, 'Sentinel 2 - SDB - B3B2 composite');
 
-Map.addLayer(composite, {min: 0, max:1000}, 'Sentinel 2 - composite');
+Map.addLayer(composite, {min: 0, max:1400}, 'Sentinel 2 - composite');
