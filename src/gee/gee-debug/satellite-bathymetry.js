@@ -16,15 +16,21 @@ var B3 = composite.select('B3');
 var B2 = composite.select('B2');
 
 var nB3B2 = 0.01;
-var m1B3B2 = 10;
+var m1B3B2 = 2;
 var m0B3B2 = 0.90;
-var depthB3B2 = B2.multiply(nB3B2).log().divide(B3.multiply(nB3B2).log()).subtract(m0B3B2).multiply(m1B3B2); 
-var depthB3B2scaled = depthB3B2.multiply(40).subtract(40);
+var B2log = B2.multiply(1).log();
+var B3log = B3.multiply(1).log();
+
+var depthB3B2 = B2log.divide(B3log); //.subtract(m0B3B2).multiply(m1B3B2); 
+var depthB3B2scaled = depthB3B2;
 
 
 // Zoom to our tile of interest.
 Map.centerObject(composite.geometry(), 10);
 
-Map.addLayer(depthB3B2scaled, {min: -50, max:0}, 'Sentinel 2 - SDB - B3B2 composite');
+//Map.addLayer(depthB3B2scaled, {min: -50, max:0}, 'Sentinel 2 - SDB - B3B2 composite');
+Map.addLayer(B2.multiply(nB3B2).log(), {min: 1, max:3}, 'B2.multiply(nB3B2).log()');
+Map.addLayer(B3.multiply(nB3B2).log(), {min: 1, max:3}, 'B3.multiply(nB3B2).log()');
+Map.addLayer(depthB3B2, {min: 1, max:3}, ' B2log.divide(B3log)');
 
 Map.addLayer(composite, {'bands':['B4', 'B3', 'B2'], min: 0, max:1400}, 'Sentinel 2 - composite');
