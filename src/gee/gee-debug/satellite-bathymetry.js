@@ -27,4 +27,4 @@ Map.centerObject(composite.geometry(), 10);
 
 Map.addLayer(depthB3B2scaled, {min: -50, max:0}, 'Sentinel 2 - SDB - B3B2 composite');
 
-Map.addLayer(composite, {min: 0, max:1400}, 'Sentinel 2 - composite');
+Map.addLayer(composite, {'bands':['B4', 'B3', 'B2'], min: 0, max:1400}, 'Sentinel 2 - composite');
