@@ -12,6 +12,7 @@ var imageIDs = [
   
 var composite = s2Utils.s2_composite(imageIDs, true, true); 
 
+/*
 var B3 = composite.select('B3');
 var B2 = composite.select('B2');
 
@@ -34,3 +35,13 @@ Map.addLayer(B3log, {min: 1, max:10}, 'B3log');
 Map.addLayer(depthB3B2, {min: 1, max:3}, ' B2log.divide(B3log)');
 
 Map.addLayer(composite, {'bands':['B4', 'B3', 'B2'], min: 0, max:1400}, 'Sentinel 2 - composite');
+*/
+
+var B3 = composite.select('B3');
+var B2 = composite.select('B2');
+
+Map.centerObject(composite.geometry(), 10);
+
+// Create an image that gets brighter as we approach the dark threshold caused by seagrass.
+var seagrassImg = ee.Image(900).subtract(B2).max(ee.Image(0));
+Map.addLayer(seagrassImg, {min: 0, max:200}, 'Below 900');
