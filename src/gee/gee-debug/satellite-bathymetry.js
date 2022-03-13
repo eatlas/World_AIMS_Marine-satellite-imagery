@@ -52,3 +52,8 @@ Map.addLayer(darkOrDeepImg, {min: 0, max:1}, 'Dark or deep');
 // Normalise the brightness to 0 - 1, where 1 corresponds to open water.
 var deep = ee.Image(400).subtract(B3).max(ee.Image(0)).divide(60);
 Map.addLayer(deep, {min: 0, max:1}, 'Deep');
+
+// Now combine to focus on seagrass areas
+var darkImg = darkOrDeepImg.subtract(deep);
+
+Map.addLayer(darkImg, {min: 0, max:1}, 'Dark');
