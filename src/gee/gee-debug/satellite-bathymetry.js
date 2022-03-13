@@ -68,4 +68,4 @@ Map.addLayer(darkImg, {min: 0, max:1}, 'Dark');
 // Make sure water areas are black. Scale to approx 0 - 1. Land areas are 400 - 2500
 var water = ee.Image(400).subtract(B8).divide(1000); 
 
-Map.addLayer(B8, {min: 0, max:1}, 'Water');
+Map.addLayer(water, {min: 0, max:1}, 'Water');
