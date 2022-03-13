@@ -42,6 +42,11 @@ var B2 = composite.select('B2');
 
 Map.centerObject(composite.geometry(), 10);
 
+// Dark or deep
 // Create an image that gets brighter as we approach the dark threshold caused by seagrass.
-var seagrassImg = ee.Image(900).subtract(B2).max(ee.Image(0));
-Map.addLayer(seagrassImg, {min: 0, max:200}, 'Below 900');
+var darkOrDeepImg = ee.Image(900).subtract(B2).max(ee.Image(0));
+Map.addLayer(darkOrDeepImg, {min: 0, max:200}, 'Dark or deep');
+
+// Deep. Find areas deeper than can be detected with green (~15 m)
+var deep = ee.Image(380).subtract(B3).max(ee.Image(0));
+Map.addLayer(deep, {min: 0, max:200}, 'Deep');
