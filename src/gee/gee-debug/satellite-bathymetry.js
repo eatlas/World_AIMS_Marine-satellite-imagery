@@ -48,8 +48,8 @@ Map.centerObject(composite.geometry(), 10);
 // This works because we are focusing on areas shallow than 15 m and areas that have a
 // dark substrate from seagrass are darker in B2 at all depths than sand even at -15 m.
 // Normalise the brightness to 0 - 1, where 1 corresponds to open water or dark seagrass.
-//var darkOrDeepImg = ee.Image(900).subtract(B2).max(ee.Image(0)).divide(160);
-var darkOrDeepImg = ee.Image(1000).subtract(B2).max(ee.Image(0)).divide(260);
+var darkOrDeepImg = ee.Image(900).subtract(B2).max(ee.Image(0)).divide(160);
+
 //Map.addLayer(darkOrDeepImg, {min: 0, max:1}, 'Dark or deep');
 
 // Deep. Find areas deeper than can be detected with green (~15 m)
@@ -98,7 +98,9 @@ var darkWater = water.multiply(darkImg);
 // than in deeper waters.
 // Create a scalar to apply to B3. For areas with no compensation the value should be 1. In
 // shallow areas with dark seagrass the compensation is 2.5.
-var substrateScalar = darkWater.multiply(0.25).add(1);
+
+
+var substrateScalar = darkWater.multiply(darkWater).multiply(0.25).add(1);
 
 var B3substrateNorm = B3.multiply(substrateScalar);
 Map.addLayer(B3substrateNorm, {min: 0, max:1400}, 'B3 substrate Norm');
