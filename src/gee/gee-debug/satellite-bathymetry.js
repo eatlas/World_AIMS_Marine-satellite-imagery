@@ -64,7 +64,7 @@ Map.addLayer(darkOrDeepImg, {min: 0, max:1}, 'darkOrDeepImg');
 // Clip this so it doesn't exceed  1.
 // Invert the image so that deep areas are dark, so that multiplying by this 
 // mask will remove the deep areas.
-var deep = ee.Image(1).subtract(ee.Image(400).subtract(B3).max(0).divide(50).min(1));
+var deep = ee.Image(1).subtract(ee.Image(380).subtract(B3).max(0).divide(40).min(1));
 Map.addLayer(deep, {min: 0, max:1}, 'Deep');
 
 // Now combine to focus on seagrass areas
@@ -86,7 +86,7 @@ var water = ee.Image(1).subtract(B8.subtract(400).max(ee.Image(0)).divide(1000).
 Map.addLayer(water, {min: 0, max:1}, 'Water');
 
 // Remove the land areas from the dark water estimate by multiplying by the water mask.
-var darkWater = water.multiply(darkImg).pow(1);
+var darkWater = water.multiply(darkImg).pow(3);
 
 Map.addLayer(darkWater, {min: 0, max:1}, 'darkWater');
 
