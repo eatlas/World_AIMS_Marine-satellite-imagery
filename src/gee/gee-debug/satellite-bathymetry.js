@@ -53,11 +53,20 @@ var darkOrDeepImg = ee.Image(900).subtract(B2).max(ee.Image(0)).divide(160);
 
 // Deep. Find areas deeper than can be detected with green (~15 m)
 // Normalise the brightness to 0 - 1, where 1 corresponds to open water.
-var deep = ee.Image(400).subtract(B3).max(ee.Image(0)).divide(60);
-//Map.addLayer(deep, {min: 0, max:1}, 'Deep');
+// Areas above 400 in brightness could be that bright due to depth or 
+// substrate. Below 400, and for areas shallower than -15 m, the reason is that
+// the substrate is dark,
+// 400 - B3 will be negative for areas brighter than 400 (not dark substrate)
+// Clip this to 0.
+// Divide this so that dark areas between 350 - 400 will be normalised to 0 - 1.
+// Clip this so it doesn't exceed  1.
+// Invert the image so that deep areas are dark, so that multiplying by this 
+// mask will remove the dark areas.
+var deep = ee.Image(1).subtract(ee.Image(400).subtract(B3).max(0).divide(50).min(1));
+Map.addLayer(deep, {min: 0, max:1}, 'Deep');
 
 // Now combine to focus on seagrass areas
-var darkImg = darkOrDeepImg.subtract(deep);
+var darkImg = darkOrDeepImg.multiply(deep);
 
 Map.addLayer(darkImg, {min: 0, max:1}, 'Dark');
 
