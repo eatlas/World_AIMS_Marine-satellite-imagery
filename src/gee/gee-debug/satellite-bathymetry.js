@@ -63,12 +63,12 @@ var darkOrDeepImg = ee.Image(900).subtract(B2).max(ee.Image(0)).divide(160);
 // Invert the image so that deep areas are dark, so that multiplying by this 
 // mask will remove the deep areas.
 var deep = ee.Image(1).subtract(ee.Image(400).subtract(B3).max(0).divide(50).min(1));
-Map.addLayer(deep, {min: 0, max:1}, 'Deep');
+//Map.addLayer(deep, {min: 0, max:1}, 'Deep');
 
 // Now combine to focus on seagrass areas
 var darkImg = darkOrDeepImg.multiply(deep);
 
-Map.addLayer(darkImg, {min: 0, max:1}, 'Dark');
+//Map.addLayer(darkImg, {min: 0, max:1}, 'Dark');
 
 
 // We need to exclude dry areas as we don't which to apply any compensation to land areas.
@@ -86,7 +86,7 @@ var water = ee.Image(1).subtract(B8.subtract(400).max(ee.Image(0)).divide(1000).
 // Remove the land areas from the dark water estimate by multiplying by the water mask.
 var darkWater = water.multiply(darkImg);
 
-Map.addLayer(darkWater, {min: 0, max:1}, 'Dark water');
+//Map.addLayer(darkWater, {min: 0, max:1}, 'Dark water');
 
 // The darkWater layer is an estimate of dark substrate areas. We can now use this to create
 // an approaximate compensation to lighten the B3 channel, so that its brightness is closer
@@ -97,7 +97,8 @@ Map.addLayer(darkWater, {min: 0, max:1}, 'Dark water');
 // than in deeper waters.
 // Create a scalar to apply to B3. For areas with no compensation the value should be 1. In
 // shallow areas with dark seagrass the compensation is 2.5.
-var substrateScalar = darkWater.multiply(1.5).add(1);
+var substrateScalar = darkWater.multiply(0.5).add(1);
 
 var B3substrateNorm = B3.multiply(substrateScalar);
 Map.addLayer(B3substrateNorm, {min: 0, max:1400}, 'B3 substrate Norm');
+Map.addLayer(B3, {min: 0, max:1400}, 'B3');
