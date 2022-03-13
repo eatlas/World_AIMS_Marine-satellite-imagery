@@ -43,7 +43,7 @@ var B8 = composite.select('B8');
 
 Map.centerObject(composite.geometry(), 10);
 
-Map.addLayer(B2, {min: 0, max:1400}, 'B2');
+//Map.addLayer(B2, {min: 0, max:1400}, 'B2');
 // Dark or deep
 // Create an image that gets brighter as we approach the dark threshold caused by seagrass.
 // This works because we are focusing on areas shallow than 15 m and areas that have a
@@ -51,7 +51,7 @@ Map.addLayer(B2, {min: 0, max:1400}, 'B2');
 // Normalise the brightness to 0 - 1, where 1 corresponds to open water or dark seagrass.
 var darkOrDeepImg = ee.Image(980).subtract(B2).max(ee.Image(0)).divide(210);
 
-Map.addLayer(darkOrDeepImg, {min: 0, max:1}, 'Dark or deep');
+Map.addLayer(darkOrDeepImg, {min: 0, max:1}, 'darkOrDeepImg');
 
 // Deep. Find areas deeper than can be detected with green (~15 m)
 // Normalise the brightness to 0 - 1, where 1 corresponds to open water.
@@ -65,7 +65,7 @@ Map.addLayer(darkOrDeepImg, {min: 0, max:1}, 'Dark or deep');
 // Invert the image so that deep areas are dark, so that multiplying by this 
 // mask will remove the deep areas.
 var deep = ee.Image(1).subtract(ee.Image(400).subtract(B3).max(0).divide(50).min(1));
-//Map.addLayer(deep, {min: 0, max:1}, 'Deep');
+Map.addLayer(deep, {min: 0, max:1}, 'Deep');
 
 // Now combine to focus on seagrass areas
 var darkImg = darkOrDeepImg.multiply(deep);
@@ -88,7 +88,7 @@ Map.addLayer(water, {min: 0, max:1}, 'Water');
 // Remove the land areas from the dark water estimate by multiplying by the water mask.
 var darkWater = water.multiply(darkImg).pow(1);
 
-Map.addLayer(darkWater, {min: 0, max:1}, 'Dark water');
+Map.addLayer(darkWater, {min: 0, max:1}, 'darkWater');
 
 // The darkWater layer is an estimate of dark substrate areas. We can now use this to create
 // an approaximate compensation to lighten the B3 channel, so that its brightness is closer
