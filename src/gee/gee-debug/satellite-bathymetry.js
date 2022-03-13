@@ -66,6 +66,15 @@ Map.addLayer(darkImg, {min: 0, max:1}, 'Dark');
 // Use B8 channel as a simple land mask.
 // Water areas with sunglint can reflect up to 400. So we use this as a threshold.
 // Make sure water areas are black. Scale to approx 0 - 1. Land areas are 400 - 2500
-var water = ee.Image(400).subtract(B8).divide(1000); 
+// Subtract 400 from B8 to make water areas below 0. Then clip to 0. Scale the bright
+// land areas to approx 1 by dividing by 1000, then clip to a maximum of 1. Now invert
+// the image by subtracting from 1.
+var water = ee.Image(1).subtract(B8.subtract(400).max(ee.Image(0)).divide(1000).min(ee.Image(1)));
+//var water = ee.Image(400).subtract(B8).divide(1000); 
 
-Map.addLayer(water, {min: 0, max:1}, 'Water');
+//Map.addLayer(water, {min: 0, max:1}, 'Water');
+
+// Remove the land areas from the dark water estimate by multiplying by the water mask.
+var darkWater = water.multiply(darkImg);
+
+Map.addLayer(darkWater, {min: 0, max:1}, 'Dark water');
