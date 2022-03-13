@@ -36,21 +36,22 @@ Map.addLayer(depthB3B2, {min: 1, max:3}, ' B2log.divide(B3log)');
 
 Map.addLayer(composite, {'bands':['B4', 'B3', 'B2'], min: 0, max:1400}, 'Sentinel 2 - composite');
 */
-
+var B4 = composite.select('B4');
 var B3 = composite.select('B3');
 var B2 = composite.select('B2');
 var B8 = composite.select('B8');
 
 Map.centerObject(composite.geometry(), 10);
 
+Map.addLayer(B2, {min: 0, max:1400}, 'B2');
 // Dark or deep
 // Create an image that gets brighter as we approach the dark threshold caused by seagrass.
 // This works because we are focusing on areas shallow than 15 m and areas that have a
 // dark substrate from seagrass are darker in B2 at all depths than sand even at -15 m.
 // Normalise the brightness to 0 - 1, where 1 corresponds to open water or dark seagrass.
-var darkOrDeepImg = ee.Image(900).subtract(B2).max(ee.Image(0)).divide(160);
+var darkOrDeepImg = ee.Image(980).subtract(B2).max(ee.Image(0)).divide(210);
 
-//Map.addLayer(darkOrDeepImg, {min: 0, max:1}, 'Dark or deep');
+Map.addLayer(darkOrDeepImg, {min: 0, max:1}, 'Dark or deep');
 
 // Deep. Find areas deeper than can be detected with green (~15 m)
 // Normalise the brightness to 0 - 1, where 1 corresponds to open water.
@@ -82,12 +83,12 @@ var darkImg = darkOrDeepImg.multiply(deep);
 var water = ee.Image(1).subtract(B8.subtract(400).max(ee.Image(0)).divide(1000).min(ee.Image(1)));
 //var water = ee.Image(400).subtract(B8).divide(1000); 
 
-//Map.addLayer(water, {min: 0, max:1}, 'Water');
+Map.addLayer(water, {min: 0, max:1}, 'Water');
 
 // Remove the land areas from the dark water estimate by multiplying by the water mask.
-var darkWater = water.multiply(darkImg);
+var darkWater = water.multiply(darkImg).pow(1);
 
-//Map.addLayer(darkWater, {min: 0, max:1}, 'Dark water');
+Map.addLayer(darkWater, {min: 0, max:1}, 'Dark water');
 
 // The darkWater layer is an estimate of dark substrate areas. We can now use this to create
 // an approaximate compensation to lighten the B3 channel, so that its brightness is closer
@@ -100,8 +101,14 @@ var darkWater = water.multiply(darkImg);
 // shallow areas with dark seagrass the compensation is 2.5.
 
 
-var substrateScalar = darkWater.multiply(darkWater).multiply(0.25).add(1);
+var substrateScalar = darkWater.multiply(0.5).add(1);
 
 var B3substrateNorm = B3.multiply(substrateScalar);
-Map.addLayer(B3substrateNorm, {min: 0, max:1400}, 'B3 substrate Norm');
-Map.addLayer(B3, {min: 0, max:1400}, 'B3');
+//Map.addLayer(B3substrateNorm, {min: 0, max:1400}, 'B3 substrate Norm');
+//Map.addLayer(B3, {min: 0, max:1400}, 'B3');
+
+// The level of compensation seems to work quite well from -15 - -10m, but shallower
+// areas are not compensated enough by a low shot. It is difficult to distinguish
+// shallow areas that are dark and deep areas and thus it is difficult to know the
+// correct amount of compensation needed.
+//Map.addLayer(B4, {min: 0, max:1400}, 'B4');
