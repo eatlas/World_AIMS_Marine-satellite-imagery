@@ -12,36 +12,51 @@ var imageIDs = [
   
 var composite = s2Utils.s2_composite(imageIDs, true, true); 
 
-/*
+
 var B3 = composite.select('B3');
 var B2 = composite.select('B2');
 
-var nB3B2 = 0.01;
-var m1B3B2 = 2;
-var m0B3B2 = 0.90;
-var B2log = B2.multiply(1).log();
-var B3log = B3.multiply(1).log();
+//var nB3B2 = 0.01;
+//var m1B3B2 = 2;
+//var m0B3B2 = 0.90;
+//var B2log = B2.multiply(1).log();
+//var B3log = B3.multiply(1).log();
 
-var depthB3B2 = B2log.divide(B3log); //.subtract(m0B3B2).multiply(m1B3B2); 
-var depthB3B2scaled = depthB3B2;
+// Offset that corrects for the colour balance of the image. This also allows the depth
+// estimate to be optimised for a particular depth. 
+var B2_OFFSET = 150;
+
+// Minimum value see when dividing ln(B3)/ln(B2). This offset shifts the deepest location
+// to 0 to make the scaling more sensible
+var DEPTH_OFFSET = 0.918;
+
+// Scaling factor so that the range of the ln(B3)/ln(B2) is expanded to cover the range of
+// depths measured in metres.
+var DEPTH_SCALAR = 144;
+
+// Lower depth threshold used for estimating the DEPTH_OFFSET
+var OFFSET_DEPTH = -15;
+
+var depthB3B2 = B3.log().divide(B2.log().substract(B2_OFFSET)).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH);  
 
 
 // Zoom to our tile of interest.
 Map.centerObject(composite.geometry(), 10);
 
 //Map.addLayer(depthB3B2scaled, {min: -50, max:0}, 'Sentinel 2 - SDB - B3B2 composite');
-Map.addLayer(B2log, {min: 1, max:10}, 'B2log');
-Map.addLayer(B3log, {min: 1, max:10}, 'B3log');
-Map.addLayer(depthB3B2, {min: 1, max:3}, ' B2log.divide(B3log)');
+//Map.addLayer(B2log, {min: 1, max:10}, 'B2log');
+//Map.addLayer(B3log, {min: 1, max:10}, 'B3log');
+Map.addLayer(depthB3B2, {min: -20, max:0}, 'depthB3B2');
 
 Map.addLayer(composite, {'bands':['B4', 'B3', 'B2'], min: 0, max:1400}, 'Sentinel 2 - composite');
-*/
+
+
 var B4 = composite.select('B4');
-var B3 = composite.select('B3');
-var B2 = composite.select('B2');
+//var B3 = composite.select('B3');
+//var B2 = composite.select('B2');
 var B8 = composite.select('B8');
 
-Map.centerObject(composite.geometry(), 10);
+//Map.centerObject(composite.geometry(), 10);
 
 //Map.addLayer(B2, {min: 0, max:1400}, 'B2');
 // Dark or deep
