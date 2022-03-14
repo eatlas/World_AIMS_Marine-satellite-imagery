@@ -56,7 +56,16 @@ Map.addLayer(depthB3B2, {min: -20, max:0}, 'depthB3B2');
 Map.addLayer(composite, {'bands':['B4', 'B3', 'B2'], min: 0, max:1400}, 'Sentinel 2 - composite');
 
 var B4 = composite.select('B4');
-Map.addLayer(B4, {min: 0, max:400}, 'depthB3B2');
+Map.addLayer(B4, {min: 0, max:400}, 'B4');
+
+// Knock down areas that are shallow, but not dark substrate this will partly compensate for
+// shallow and dark areas. Though possibly at the linearity of the response with depth.
+var B4_BLACK_POINT = 190;
+var B4_NORM_SCALAR = 400;
+var B4_SCALAR = 0.5;
+var b4scale = ee.Image(1).subtract(B4.subtract(B4_BLACK_POINT).max(0).divide(B4_NORM_SCALAR).max(1).multiply(B4_SCALAR));
+Map.addLayer(b4scale, {min: 0, max:1}, 'B4 scale');
+
 // =====================================================================
 //                Piece wise depth model
 // =====================================================================
