@@ -62,8 +62,8 @@ Map.addLayer(B4, {min: 0, max:400}, 'B4');
 // shallow and dark areas. Though possibly at the linearity of the response with depth.
 var B4_BLACK_POINT = 190;
 var B4_NORM_SCALAR = 400;
-var B4_SCALAR = 0.5;
-var b4scale = ee.Image(1).subtract(B4.subtract(B4_BLACK_POINT).max(0).divide(B4_NORM_SCALAR).max(1).multiply(B4_SCALAR));
+var B4_SCALAR = 1;
+var b4scale = ee.Image(1).subtract(B4.subtract(B4_BLACK_POINT).max(0).divide(B4_NORM_SCALAR).min(1).multiply(B4_SCALAR));
 Map.addLayer(b4scale, {min: 0, max:1}, 'B4 scale');
 
 // =====================================================================
