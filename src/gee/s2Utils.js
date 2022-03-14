@@ -178,8 +178,12 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
       composite, colourGrades[i], includeCloudmask);
       
     var convertTo8Bit = true;
+    var displayMin = 0;
+    var displayMax = 1;
     if (colourGrades[i] === 'Depth') {
       convertTo8Bit = false;
+      displayMin = -25;
+      displayMax = 0;
     }
   
     var export_composite;
@@ -218,7 +222,7 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
       });
     }
     if (is_display) {
-      Map.addLayer(final_composite, {'min': 0, 'max': 1, 'gamma': 1},
+      Map.addLayer(final_composite, {'min': displayMin, 'max': displayMax, 'gamma': 1},
                       displayName, false, 1);
       if (includeCloudmask) {
         Map.addLayer(final_composite.select('cloudmask').selfMask(), {'palette': 'orange'},
