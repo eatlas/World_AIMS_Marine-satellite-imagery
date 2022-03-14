@@ -1624,16 +1624,18 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // sunglint images from our analysis, and the colourGradeStyles are optimised for composite
     // images we can assume that any remaining sunglint will be minimal.
     var B8LAND_THRESHOLD = 600; 
-    var LAND_DEPTH = 0;
+    var waterMask = img.select('B8').lt(B8LAND_THRESHOLD);
     
-    var depthWithLand = depthB3B2.where(img.select('B8').gt(B8LAND_THRESHOLD),LAND_DEPTH);
+    // Mask out any land areas because the depth estimates would 
+    var depthWithLandMask = depthB3B2.updateMask(waterMask);
+    
     // Perform spatial filtering to reduce the noise. This will make the depth estimates between for creating contours.
     //compositeContrast = depthB3B2; //.focal_mean({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 2});
     
     // Didn't work
     //compositeContrast = scaled_img.select('B3').log().divide(scaled_img.select('B2').subtract(ee.Image(B2_OFFSET)).log());
     
-    compositeContrast = depthWithLand;
+    compositeContrast = depthWithLandMask;
     //compositeContrast = exports.contrastEnhance(depthB3B2,-25.5,0, 1);
     
   } else {
