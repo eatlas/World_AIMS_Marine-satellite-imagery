@@ -1617,13 +1617,23 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     
     var depthB3B2 = img.select('B3').log().divide(img.select('B2').subtract(B2_OFFSET).log()).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH); 
     
+    // Consider anything brighter than this as land. This is the same threshold as used in the 
+    // sunglint correction. There are moderately often sunglint situations where B8 is greater
+    // than 600 and thus would be falsely interpretted as land, however setting this any higher
+    // will result in dark land areas being interpretted as water. Since we tend to exclude 
+    // sunglint images from our analysis, and the colourGradeStyles are optimised for composite
+    // images we can assume that any remaining sunglint will be minimal.
+    var B8LAND_THRESHOLD = 600; 
+    var LAND_DEPTH = 0;
+    
+    var depthWithLand = depthB3B2.where(img.select('B8').gt(B8LAND_THRESHOLD),LAND_DEPTH);
     // Perform spatial filtering to reduce the noise. This will make the depth estimates between for creating contours.
     //compositeContrast = depthB3B2; //.focal_mean({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 2});
     
     // Didn't work
     //compositeContrast = scaled_img.select('B3').log().divide(scaled_img.select('B2').subtract(ee.Image(B2_OFFSET)).log());
     
-    compositeContrast = depthB3B2;
+    compositeContrast = depthWithLand;
     //compositeContrast = exports.contrastEnhance(depthB3B2,-25.5,0, 1);
     
   } else {
