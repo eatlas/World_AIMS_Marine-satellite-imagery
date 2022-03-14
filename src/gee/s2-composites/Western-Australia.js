@@ -2,8 +2,11 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 // Primary imagery
 var REF1_OPTIONS = {
-  colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
-  exportScale: [10, 10, 10, 10, 30],
+ // colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
+ // exportScale: [10, 10, 10, 10, 30],
+  
+  colourGrades: ['Depth'],
+  exportScale: [20],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Western-Australia',
   
@@ -54,7 +57,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20161012T023442_20161012T023437_T49JGM",
     "COPERNICUS/S2/20161022T023242_20161022T023245_T49JGM",
   ],
-  false, false, REF1_OPTIONS);
+  true, false, REF1_OPTIONS);
   
 // Australia, Western Australia, Port Headland
 //CLOUDY_PIXEL_PERCENTAGE = 0.1
