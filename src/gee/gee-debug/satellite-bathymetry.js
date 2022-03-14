@@ -40,6 +40,8 @@ var OFFSET_DEPTH = -15;
 var depthB3B2 = B3.log().divide(B2.subtract(B2_OFFSET).log()).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH);  
 
 
+
+
 // Zoom to our tile of interest.
 Map.centerObject(composite.geometry(), 10);
 
@@ -50,6 +52,25 @@ Map.addLayer(depthB3B2, {min: -20, max:0}, 'depthB3B2');
 
 Map.addLayer(composite, {'bands':['B4', 'B3', 'B2'], min: 0, max:1400}, 'Sentinel 2 - composite');
 
+
+// =====================================================================
+//                Piece wise depth model
+// =====================================================================
+
+// In this model we try to decompose the image into areas that have a dark
+// substrate then use this information to generate a compensation to the
+// brightness of the B3 channel.
+// This algorithm focuses on the fact that in depths of 0 - 15 in dark
+// subtrate areas B2 is darker than water at -15 m, even for quite shallow
+// areas.
+// We can use this to segment the image. 
+// 
+// Overall result: This algorithm sort of works, but is worse than a simple
+// ln(B3)/ln(B2). The thresholds in the algorithm are senstive and have overlapping
+// conflicting requirements. The level of compensation in shallow areas is significantly
+// too low and with very little information available to determine how much adjustment
+// should be applied.
+// Valiant attempt, but not better.
 
 var B4 = composite.select('B4');
 //var B3 = composite.select('B3');
