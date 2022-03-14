@@ -69,7 +69,7 @@ Map.addLayer(b4scale, {min: 0, max:1}, 'B4 scale');
 
 // Scaled
 var depthB4B3B2 = b4scale.multiply(depthB3B2)
-Map.addLayer(depthB4B3B2, {min: -15, max:1}, 'depthB4B3B2');
+Map.addLayer(depthB4B3B2, {min: -20, max:0}, 'depthB4B3B2');
 
 // =====================================================================
 //                Piece wise depth model
