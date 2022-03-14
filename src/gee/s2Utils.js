@@ -1636,7 +1636,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // Consider anything brighter than this as land. This threshold is chosen slightly higher than
     // the sunglint correction LAND THRESHOLD and we want to ensure that it is dry land and not simply
     // shallow.  
-    var B8LAND_THRESHOLD = 800; 
+    var B8LAND_THRESHOLD = 1000; 
     var waterMask = img.select('B8').lt(B8LAND_THRESHOLD);
     
     // Mask out any land areas because the depth estimates would 
