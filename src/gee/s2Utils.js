@@ -1588,6 +1588,36 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
       exports.contrastEnhance(ee.Terrain.slope(B2contrast),0.006,0.05, 3)
     );
 
+  } else if (colourGradeStyle === 'Depth10m') {
+    
+    reefKernel = ee.Kernel.circle({radius: 30, units: 'meters'});
+    B2Filtered = scaled_img.select('B2').focal_mean({kernel: reefKernel, iterations: 2});
+    
+    // Result: This depth model seems to work quite well for depths between 5 - 15 m. In shallow areas
+    // dark seagrass is not compensated for very well (althouth between than my piece wise algorithm).
+    // In shallow areas the seagrass introduces a 4 - 6 m error in the depth estimate, appearing to
+    // be deeper than it is. This is based on the assumption that neighbouring sand areas are at a
+    // similar depth to the seagrass. 
+    
+    // Offset that corrects for the colour balance of the image. This also allows the depth
+    // estimate to be optimised for a particular depth. 
+    // If this is increased to say 250 the compensation for seagrass is slightly between for shallower
+    // areas (3 - 5 m), but still far from good. The downside is that in deep areas the seagrass gets
+    // over compensated so seagrass areas appear shallower than intended.
+    var B2_OFFSET = 120;
+    
+    // Minimum value see when dividing ln(B3)/ln(B2). This offset shifts the deepest location
+    // to 0 to make the scaling more sensible
+    var DEPTH_OFFSET = 0.918;
+    
+    // Scaling factor so that the range of the ln(B3)/ln(B2) is expanded to cover the range of
+    // depths measured in metres.
+    var DEPTH_SCALAR = 144;
+    
+    // Lower depth threshold used for estimating the DEPTH_OFFSET
+    var OFFSET_DEPTH = -15;
+    
+    var depthB3B2 = B3.log().divide(B2.subtract(B2_OFFSET).log()).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH); 
   } else {
     print("Error: unknown colourGradeStyle: "+colourGradeStyle);
   }
