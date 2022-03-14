@@ -24,6 +24,9 @@ var B2 = composite.select('B2');
 
 // Offset that corrects for the colour balance of the image. This also allows the depth
 // estimate to be optimised for a particular depth. 
+// If this is increased to say 250 the compensation for seagrass is slightly between for shallower
+// areas (3 - 5 m), but still far from good. The downside is that in deep areas the seagrass gets
+// over compensated so seagrass areas appear shallower than intended.
 var B2_OFFSET = 150;
 
 // Minimum value see when dividing ln(B3)/ln(B2). This offset shifts the deepest location
@@ -52,7 +55,8 @@ Map.addLayer(depthB3B2, {min: -20, max:0}, 'depthB3B2');
 
 Map.addLayer(composite, {'bands':['B4', 'B3', 'B2'], min: 0, max:1400}, 'Sentinel 2 - composite');
 
-
+var B4 = composite.select('B4');
+Map.addLayer(B4, {min: 0, max:400}, 'depthB3B2');
 // =====================================================================
 //                Piece wise depth model
 // =====================================================================
