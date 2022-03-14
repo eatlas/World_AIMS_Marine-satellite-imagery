@@ -1619,7 +1619,11 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     
     // Perform spatial filtering to reduce the noise. This will make the depth estimates between for creating contours.
     //compositeContrast = depthB3B2; //.focal_mean({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 2});
-    compositeContrast = scaled_img.select('B3').log().divide(scaled_img.select('B2').subtract(ee.Image(B2_OFFSET)).log());
+    
+    // Didn't work
+    //compositeContrast = scaled_img.select('B3').log().divide(scaled_img.select('B2').subtract(ee.Image(B2_OFFSET)).log());
+    
+    compositeContrast = scaled_img.select('B2').subtract(ee.Image(B2_OFFSET));
     //compositeContrast = exports.contrastEnhance(depthB3B2,-25.5,0, 1);
     
   } else {
