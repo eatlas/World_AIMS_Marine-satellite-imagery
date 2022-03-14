@@ -1615,7 +1615,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // Lower depth threshold used for estimating the DEPTH_OFFSET and DEPTH SCALAR.
     var OFFSET_DEPTH = -15;
     
-    var depthB3B2 = img.select('B3').log().divide(mg.select('B2').subtract(B2_OFFSET).log()).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH); 
+    var depthB3B2 = img.select('B3').log().divide(img.select('B2').subtract(B2_OFFSET).log()).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH); 
     
     // Perform spatial filtering to reduce the noise. This will make the depth estimates between for creating contours.
     //compositeContrast = depthB3B2; //.focal_mean({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 2});
