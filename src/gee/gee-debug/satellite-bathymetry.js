@@ -55,8 +55,15 @@ Map.addLayer(depthB3B2, {min: -20, max:0}, 'depthB3B2');
 
 Map.addLayer(composite, {'bands':['B4', 'B3', 'B2'], min: 0, max:1400}, 'Sentinel 2 - composite');
 
+
+// ====================================================================
+//    Try to reduce the effect of substrate in shallow areas.
+//    Do this by reducing areas that are known to be shallow as determined
+//    by B4.
+// ====================================================================
 var B4 = composite.select('B4');
 Map.addLayer(B4, {min: 0, max:400}, 'B4');
+
 
 // Knock down areas that are shallow, but not dark substrate this will partly compensate for
 // shallow and dark areas. Though possibly at the linearity of the response with depth.
@@ -68,7 +75,7 @@ Map.addLayer(b4scale, {min: 0, max:1}, 'B4 scale');
 
 
 // Scaled
-var depthB4B3B2 = b4scale.multiply(depthB3B2)
+var depthB4B3B2 = b4scale.multiply(B3).log().divide(B2.subtract(B2_OFFSET).log()).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH); 
 Map.addLayer(depthB4B3B2, {min: -20, max:0}, 'depthB4B3B2');
 
 // =====================================================================
