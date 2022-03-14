@@ -16,11 +16,11 @@ var composite = s2Utils.s2_composite(imageIDs, true, true);
 var B3 = composite.select('B3');
 var B2 = composite.select('B2');
 
-//var nB3B2 = 0.01;
-//var m1B3B2 = 2;
-//var m0B3B2 = 0.90;
-//var B2log = B2.multiply(1).log();
-//var B3log = B3.multiply(1).log();
+// Result: This depth model seems to work quite well for depths between 5 - 15 m. In shallow areas
+// dark seagrass is not compensated for very well (althouth between than my piece wise algorithm).
+// In shallow areas the seagrass introduces a 4 - 6 m error in the depth estimate, appearing to
+// be deeper than it is. This is based on the assumption that neighbouring sand areas are at a
+// similar depth to the seagrass. 
 
 // Offset that corrects for the colour balance of the image. This also allows the depth
 // estimate to be optimised for a particular depth. 
