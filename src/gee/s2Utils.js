@@ -176,13 +176,23 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
 
     var final_composite = exports.bake_s2_colour_grading(
       composite, colourGrades[i], includeCloudmask);
+      
+    var convertTo8Bit = true;
+    if (colourGrades[i] === 'Depth') {
+      convertTo8Bit = false;
+    }
   
-    // Scale and convert the image to an 8 bit image to make the export
-    // file size considerably smaller.
-    // Reserve 0 for no_data so that the images can be converted to not
-    // have black borders. Scaling the data ensures that no valid data
-    // is 0.
-    var uint8_composite = final_composite.multiply(254).add(1).toUint8();
+    var export_composite;
+    if (convertTo8Bit) {
+      // Scale and convert the image to an 8 bit image to make the export
+      // file size considerably smaller.
+      // Reserve 0 for no_data so that the images can be converted to not
+      // have black borders. Scaling the data ensures that no valid data
+      // is 0.
+      export_composite = final_composite.multiply(254).add(1).toUint8();
+    } else {
+      export_composite = final_composite;
+    }
     
     // Export the image, specifying scale and region.
     // Only trigger the export when we want. The export process can take quite a while
@@ -197,7 +207,7 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
     
       Export.image.toDrive({
         //image: final_composite,
-        image: uint8_composite,
+        image: export_composite,
         description: exportName,
         folder:exportFolder,
         fileNamePrefix: exportName,
