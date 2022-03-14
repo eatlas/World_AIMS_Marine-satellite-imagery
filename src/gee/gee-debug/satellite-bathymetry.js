@@ -27,7 +27,7 @@ var B2 = composite.select('B2');
 // If this is increased to say 250 the compensation for seagrass is slightly between for shallower
 // areas (3 - 5 m), but still far from good. The downside is that in deep areas the seagrass gets
 // over compensated so seagrass areas appear shallower than intended.
-var B2_OFFSET = 150;
+var B2_OFFSET = 120;
 
 // Minimum value see when dividing ln(B3)/ln(B2). This offset shifts the deepest location
 // to 0 to make the scaling more sensible
@@ -60,22 +60,27 @@ Map.addLayer(composite, {'bands':['B4', 'B3', 'B2'], min: 0, max:1400}, 'Sentine
 //    Try to reduce the effect of substrate in shallow areas.
 //    Do this by reducing areas that are known to be shallow as determined
 //    by B4.
+// With a B4_SCALAR of 0.15 we can reduce the difference between the 
+// shallow sand and seagrass from 6 m to 5 m. A slight improvement. Trying to
+// crank up the correction leads to tonal inversions at the limit of visibility
+// of B4 (~ 6 m). Much of depth estimate errors with seagrass occur at about 8m
+// for which B4 can not help. As such this algorithm is of limited value.
 // ====================================================================
 var B4 = composite.select('B4');
-Map.addLayer(B4, {min: 0, max:400}, 'B4');
+//Map.addLayer(B4, {min: 0, max:400}, 'B4');
 
 
 // Knock down areas that are shallow, but not dark substrate this will partly compensate for
 // shallow and dark areas. Though possibly at the linearity of the response with depth.
-var B4_BLACK_POINT = 190;
+var B4_BLACK_POINT = 150;
 var B4_NORM_SCALAR = 400;
-var B4_SCALAR = 0.5;
+var B4_SCALAR = 0.15;
 var b4scale = ee.Image(1).subtract(B4.subtract(B4_BLACK_POINT).max(0).divide(B4_NORM_SCALAR).min(1).multiply(B4_SCALAR));
-Map.addLayer(b4scale, {min: 0, max:1}, 'B4 scale');
+//Map.addLayer(b4scale, {min: 0, max:1}, 'B4 scale');
 
 
 // Scaled
-var depthB4B3B2 = b4scale.multiply(B3).log().divide(B2.subtract(B2_OFFSET).log()).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH); 
+var depthB4B3B2 = b4scale.multiply(B3).log().divide(B2.subtract(B2_OFFSET).log()).subtract(DEPTH_OFFSET).multiply(180).add(OFFSET_DEPTH); 
 Map.addLayer(depthB4B3B2, {min: -20, max:0}, 'depthB4B3B2');
 
 // =====================================================================
