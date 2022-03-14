@@ -37,7 +37,7 @@ var DEPTH_SCALAR = 144;
 // Lower depth threshold used for estimating the DEPTH_OFFSET
 var OFFSET_DEPTH = -15;
 
-var depthB3B2 = B3.log().divide(B2.log().subtract(B2_OFFSET)).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH);  
+var depthB3B2 = B3.log().divide(B2.subtract(B2_OFFSET).log()).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH);  
 
 
 // Zoom to our tile of interest.
