@@ -1615,15 +1615,14 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // Lower depth threshold used for estimating the DEPTH_OFFSET and DEPTH SCALAR.
     var OFFSET_DEPTH = -15;
     
-    var depthB3B2 = img.select('B3').log().divide(img.select('B2').subtract(B2_OFFSET).log()).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH); 
+    var depthB3B2 = ee.Image(0).subtract(                                           // Make negative values, positive
+      img.select('B3').log().divide(img.select('B2').subtract(B2_OFFSET).log())     // core depth estimation (unscaled)
+      .subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH));            // Scale the results to metres
     
-    // Consider anything brighter than this as land. This is the same threshold as used in the 
-    // sunglint correction. There are moderately often sunglint situations where B8 is greater
-    // than 600 and thus would be falsely interpretted as land, however setting this any higher
-    // will result in dark land areas being interpretted as water. Since we tend to exclude 
-    // sunglint images from our analysis, and the colourGradeStyles are optimised for composite
-    // images we can assume that any remaining sunglint will be minimal.
-    var B8LAND_THRESHOLD = 600; 
+    // Consider anything brighter than this as land. This threshold is chosen slightly higher than
+    // the sunglint correction LAND THRESHOLD and we want to ensure that it is dry land and not simply
+    // shallow.  
+    var B8LAND_THRESHOLD = 800; 
     var waterMask = img.select('B8').lt(B8LAND_THRESHOLD);
     
     // Mask out any land areas because the depth estimates would 
@@ -1635,8 +1634,10 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // Didn't work
     //compositeContrast = scaled_img.select('B3').log().divide(scaled_img.select('B2').subtract(ee.Image(B2_OFFSET)).log());
     
-    compositeContrast = depthWithLandMask;
-    //compositeContrast = exports.contrastEnhance(depthB3B2,-25.5,0, 1);
+    //compositeContrast = depthWithLandMask;
+    
+    // Scale the results so in 8 bit the brightness will be 0.1 m per level.
+    compositeContrast = exports.contrastEnhance(depthWithLandMask,0,25.5, 1);
     
   } else {
     print("Error: unknown colourGradeStyle: "+colourGradeStyle);
