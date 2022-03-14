@@ -1588,14 +1588,11 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
       exports.contrastEnhance(ee.Terrain.slope(B2contrast),0.006,0.05, 3)
     );
 
-  } else if (colourGradeStyle === 'Depth10m') {
-    
-    reefKernel = ee.Kernel.circle({radius: 30, units: 'meters'});
-    B2Filtered = scaled_img.select('B2').focal_mean({kernel: reefKernel, iterations: 2});
-    
+  } else if (colourGradeStyle === 'Depth') {
+
     // Result: This depth model seems to work quite well for depths between 5 - 15 m. In shallow areas
-    // dark seagrass is not compensated for very well (althouth between than my piece wise algorithm).
-    // In shallow areas the seagrass introduces a 4 - 6 m error in the depth estimate, appearing to
+    // dark seagrass is not compensated for very well.
+    // In shallow areas seagrass introduces a 4 - 6 m error in the depth estimate, appearing to
     // be deeper than it is. This is based on the assumption that neighbouring sand areas are at a
     // similar depth to the seagrass. 
     
@@ -1604,6 +1601,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // If this is increased to say 250 the compensation for seagrass is slightly between for shallower
     // areas (3 - 5 m), but still far from good. The downside is that in deep areas the seagrass gets
     // over compensated so seagrass areas appear shallower than intended.
+    // An offset of 120 is chosen to optimise the dark substrate compensation from 10 - 15 m.
     var B2_OFFSET = 120;
     
     // Minimum value see when dividing ln(B3)/ln(B2). This offset shifts the deepest location
@@ -1614,10 +1612,15 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // depths measured in metres.
     var DEPTH_SCALAR = 144;
     
-    // Lower depth threshold used for estimating the DEPTH_OFFSET
+    // Lower depth threshold used for estimating the DEPTH_OFFSET and DEPTH SCALAR.
     var OFFSET_DEPTH = -15;
     
-    var depthB3B2 = B3.log().divide(B2.subtract(B2_OFFSET).log()).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH); 
+    var depthB3B2 = scaled_img.select('B3').log().divide(scaled_img.select('B2').subtract(B2_OFFSET).log()).subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH); 
+    
+    // Perform spatial filtering to reduce the noise. This will make the depth estimates between for creating contours.
+    reefKernel = ee.Kernel.circle({radius: 20, units: 'meters'});
+    compositeContrast = depthB3B2.focal_mean({kernel: reefKernel, iterations: 2});
+    
   } else {
     print("Error: unknown colourGradeStyle: "+colourGradeStyle);
   }
