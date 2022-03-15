@@ -5,6 +5,8 @@
 // Version: v1.0   initial release
 // Version: v1.0.1 Adjusted the small tile filter in createSelectSentinel2ImagesApp so that
 //                 more images are available for selection.
+// Version: v1.1   Added styles Depth, Depth10m, Depth5m, DryReef. Also changed ReefTop 
+//                 to export as a shapefile instead of a raster.
 
 /**
 * @module s2Utils
@@ -1686,7 +1688,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
 
 // Utility function for estimating the depth from the image. This assumes that the image
 // has had sunglint correction and brightness normalisation. If not the output values
-// will not be accurate. This method is only moderately accurate from 3 - 12 m of depth.
+// will not be accurate. This method is only moderately accurate from 4 - 12 m of depth.
 // Its primary goal is to help with the determining the -5 and -10 m contour lines.
 // This algorithm performs better than simply performing the ln(B3), but is still
 // suseptible to dark substrates, particularly in shallow areas. These can introduce
