@@ -1664,7 +1664,9 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // Remove all areas where the depth estimate is likely to be poor.
     // Smooth the edges of the mask by applying a dilate. This is equivalent to applying a buffer to the mask image, 
     // helping to fill in neighbouring holes in the mask. This will expand the mask slightly.
-    var depthMask = filteredDepth.gt(MAX_DEPTH).focal_max({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 1});
+    var depthMask = filteredDepth.gt(MAX_DEPTH)
+      .focal_min({kernel: ee.Kernel.circle({radius: 10, units: 'meters'}), iterations: 1})  // Remove single pixel elements
+      .focal_max({kernel: ee.Kernel.circle({radius: 30, units: 'meters'}), iterations: 1}); // Expand back out, plus a bit more to merge
     compositeContrast = filteredDepth.updateMask(depthMask);
     //compositeContrast = depthWithLandMask;
     
