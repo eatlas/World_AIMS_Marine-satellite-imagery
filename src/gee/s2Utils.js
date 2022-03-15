@@ -1649,15 +1649,15 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
 
   } else if (colourGradeStyle === 'Depth') {
 
-    compositeContrast = exports.estimateDepth(img);
+    compositeContrast = exports.estimateDepth(img, 20, 2);
     
   } else if (colourGradeStyle === 'Depth10m') {
     
-    compositeContrast = exports.estimateDepth(img).gt(-10);
+    compositeContrast = exports.estimateDepth(img, 20, 2).gt(-10);
     
   } else if (colourGradeStyle === 'Depth5m') {
     
-    compositeContrast = exports.estimateDepth(img).gt(-5);
+    compositeContrast = exports.estimateDepth(img, 10, 2).gt(-5);
     
   } else {
     print("Error: unknown colourGradeStyle: "+colourGradeStyle);
