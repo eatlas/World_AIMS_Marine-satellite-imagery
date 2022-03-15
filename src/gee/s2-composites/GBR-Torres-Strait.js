@@ -4,8 +4,8 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 var REF1_OPTIONS = {
   //colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
   //exportScale: [10, 10, 10, 10, 30],
-  colourGrades: ['Depth10m'],
-  exportScale: [10],
+  colourGrades: ['ReefTop','Depth5m'],
+  exportScale: [20, 20],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/GBR-Torres-Strait',
   
@@ -289,7 +289,7 @@ s2Utils.s2_composite_display_and_export(
     // OK
     "COPERNICUS/S2/20180729T004709_20180729T004703_T54LYM"
   ],
-true, false, REF1_OPTIONS);
+false, false, REF1_OPTIONS);
 
 // Australia, Cairns, GBR, Green Island, Arlington, Hopley comparison
 // For comparision with Hopley D, et. al., (2007), 
@@ -428,7 +428,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20210721T001109_20210721T001111_T56KKC",
     "COPERNICUS/S2/20210726T001111_20210726T001112_T56KKC"
   ],
-  false, false, REF1_OPTIONS);
+  true, false, REF1_OPTIONS);
 
 
 s2Utils.s2_composite_display_and_export(
