@@ -1618,24 +1618,35 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // An offset of 120 is chosen to optimise the dark substrate compensation from 10 - 15 m.
     var B2_OFFSET = 150;
     
-    // Minimum value see when dividing ln(B3)/ln(B2). This offset shifts the deepest location
-    // to 0 to make the scaling more sensible
-    var DEPTH_OFFSET = 0.918;
     
     // Scaling factor so that the range of the ln(B3)/ln(B2) is expanded to cover the range of
-    // depths measured in metres.
-    var DEPTH_SCALAR = 150;
+    // depths measured in metres. Changing this changes the slope of the relationship between
+    // the depth estimate and the real depth. 
+    // This scalar and depth offset were determined by sampling matching locations on Gallon Reef 
+    // and Quion Reef in northern GBR with the GBR30 dataset (which for these reef locations
+    // was itself estimately by satellite derived bathmetry and so should be only a rough calibration)
+    // 
+    var DEPTH_SCALAR = 135;
     
-    // Lower depth threshold used for estimating the DEPTH_OFFSET and DEPTH SCALAR.
-    var OFFSET_DEPTH = -15;
+    // Shift the origin of the depth. This is shifted so that values hit the origin at 0 m.
+    // Changing this modifies the intercept of the depth relationship. If the 
+    // DEPTH_SCALAR with modified then the DEPTH_OFFSET needs to be adjusted to ensure
+    // that the depth passes through the origin. For each unit increase in DEPTH_SCALAR
+    // the DEPTH_OFFSET needs to be adjusted by approx -1. 
+    var DEPTH_OFFSET = -136.3;
     
+    // This depth estimation is still suspetible to dark substrates at shallow depths (< 5m).
+    // It also doesn't work in turbid water. It is also slight non-linear with the depth
+    // estimate asympotically approach ~-15 m. As a result depths below -10 m are
+    // reported as shallower than reality.
     var depthB3B2 = 
       img.select('B3').log().divide(img.select('B2').subtract(B2_OFFSET).log())     // core depth estimation (unscaled)
-      .subtract(DEPTH_OFFSET).multiply(DEPTH_SCALAR).add(OFFSET_DEPTH);            // Scale the results to metres
+      .multiply(DEPTH_SCALAR).add(OFFSET_DEPTH);            // Scale the results to metres
     
     // Consider anything brighter than this as land. This threshold is chosen slightly higher than
     // the sunglint correction LAND THRESHOLD and we want to ensure that it is dry land and not simply
-    // shallow.  
+    // shallow.  Chosing this at 1000 brings the estimates close to the high mean tide mark, but also
+    // result in dark areas on land (such as on Magnetic Island) as appearing as water.
     var B8LAND_THRESHOLD = 900; 
     var waterMask = img.select('B8').lt(B8LAND_THRESHOLD);
     
@@ -1644,7 +1655,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     
     
     // Perform spatial filtering to reduce the noise. This will make the depth estimates between for creating contours.
-    var filteredDepth = depthWithLandMask.focal_mean({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 2});
+    var filteredDepth = depthWithLandMask.focal_mean({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 1});
     
     var MAX_DEPTH = -13.5;
     // Remove all areas where the depth estimate is likely to be poor.
