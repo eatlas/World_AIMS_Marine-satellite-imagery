@@ -1649,7 +1649,40 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
 
   } else if (colourGradeStyle === 'Depth') {
 
-    // Result: This depth model seems to work quite well for depths between 5 - 15 m. In shallow areas
+    compositeContrast = exports.estimateDepth(img);
+    
+  } else if (colourGradeStyle === 'Depth10m') {
+    
+    compositeContrast = exports.estimateDepth(img).gt(-10);
+    
+  } else if (colourGradeStyle === 'Depth5m') {
+    
+    compositeContrast = exports.estimateDepth(img).gt(-5);
+    
+  } else {
+    print("Error: unknown colourGradeStyle: "+colourGradeStyle);
+  }
+  if (processCloudMask) {
+    var cloudmask = img.select('cloudmask');
+    return compositeContrast.addBands(cloudmask);
+  } else {
+    return compositeContrast;
+  }
+};
+
+
+
+// Utility function for estimating the depth from the image. This assumes that the image
+// has had sunglint correction and brightness normalisation. If not the output values
+// will not be accurate. This method is only moderately accurate from 3 - 12 m of depth.
+// Its primary goal is to help with the determining the -5 and -10 m contour lines.
+// This algorithm performs better than simply performing the ln(B3), but is still
+// suseptible to dark substrates, particularly in shallow areas. These can introduce
+// errors of up to 5 m, this is compared with an error of about 8 m by just using the
+// B3 channel. 
+
+exports.estimateDepth = function(img) {
+    // Result: This depth model seems to work quite well for depths between 5 - 12 m. In shallow areas
     // dark seagrass is not compensated for very well.
     // In shallow areas seagrass introduces a 4 - 6 m error in the depth estimate, appearing to
     // be deeper than it is. This is based on the assumption that neighbouring sand areas are at a
@@ -1713,25 +1746,8 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
       .focal_min({kernel: ee.Kernel.circle({radius: 10, units: 'meters'}), iterations: 1})  // (Erode) Remove single pixel elements
       .focal_max({kernel: ee.Kernel.circle({radius: 40, units: 'meters'}), iterations: 1}); // (Dilate) Expand back out, plus a bit more to merge
     compositeContrast = filteredDepth.updateMask(depthMask);
-    //compositeContrast = depthWithLandMask;
-    
-    // Scale the results so in 8 bit the brightness will be 0.1 m per level.
-    //compositeContrast = exports.contrastEnhance(depthWithLandMask,0,25.5, 1);
-    
-  } else {
-    print("Error: unknown colourGradeStyle: "+colourGradeStyle);
-  }
-  if (processCloudMask) {
-    var cloudmask = img.select('cloudmask');
-    return compositeContrast.addBands(cloudmask);
-  } else {
-    return compositeContrast;
-  }
+    return(compositeContrast);
 };
-
-
-
-
 
 
 
