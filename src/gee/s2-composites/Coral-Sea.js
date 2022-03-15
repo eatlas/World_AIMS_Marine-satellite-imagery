@@ -253,7 +253,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190812T002711_20190812T002711_T55KFB",
     "COPERNICUS/S2/20190827T002709_20190827T002712_T55KFB"
   ],
-  false, false, REF1_OPTIONS);
+  true, false, REF1_OPTIONS);
 
 // Left as is - RB
 // 6 OK right images, 5 Maybe left images
