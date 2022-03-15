@@ -1340,17 +1340,17 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     B1contrast = exports.contrastEnhance(scaled_img.select('B1'),0.1075,0.237, 2.7); 
     compositeContrast = ee.Image.rgb(B3contrast, B2contrast, B1contrast);
 
-  } else if (colourGradeStyle === 'ReefTop2m') {
-    //B4contrast = exports.contrastEnhance(scaled_img.select('B4'),0.02,0.021, 1);
-    //var B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.02,0.05, 1);
-    //var waveKernel = ee.Kernel.gaussian({radius: 40, sigma: 1, units: 'meters'});
+  } else if (colourGradeStyle === 'DryReef') {
 
-    B4Filtered = scaled_img.select('B4').focal_mean({kernel: ee.Kernel.circle({radius: 10, units: 'meters'}), iterations: 4});
-    //B4contrast = exports.contrastEnhance(B4Filtered,0.015,0.016, 1);
-    // This threshold was chosen so that it would reject most waves in the Coral Sea
-    // but be as sensitive as possible.
-    B4contrast = exports.contrastEnhance(B4Filtered,0.025,0.026, 1);
-    compositeContrast = B4contrast;
+    // This is intended to detect very shallow areas that are likely to become dry during
+    // very low tides. These act as a proxy for locations that will have no significant
+    // live coral (because of the exposure). We use B5 instead of B4 or the Depth estimate because
+    // B5 penetrates into the water less than B4, (something like 3 - 5 m) and so is guaranteed 
+    // not to pick up deeper areas. A comparison showed that it was far more accurate than the
+    // B3/B2 depth estimate. B5 does not have sunglint correction, however the threshold we are
+    // using is above typical effects of sunglint.
+    compositeContrast = scaled_img('B5').gt(0.06);
+
   } else if (colourGradeStyle === 'ReefTop') {
     //B4contrast = exports.contrastEnhance(scaled_img.select('B4'),0.02,0.021, 1);
     //var B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.02,0.05, 1);
