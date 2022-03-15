@@ -233,6 +233,47 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
 };
 
 
+// Helper function that converts the provided image into a vector image and saves it
+// as a SHP file in Google Drive. Use 3 m resolution.
+// If the image is large then the vectorisation may fail or be very slow.
+// img - image to vectorise. Should be grey scale 0 - 1. A 0.5 threshold is applied
+// layerName - Display name to give to the vector layer.
+// fileName - Name to give in the export task
+// scale - scale to export the vector at. Recommend 3 for 3 m.
+// geometry - limit of the vectorisation.
+function makeAndSaveShp(img, layerName, fileName, scale, geometry, is_display, is_export) {
+  // Apply a threshold to the image
+  var imgContour = img.gt(0.5);
+  // Make the water area transparent
+  imgContour = imgContour.updateMask(imgContour.neq(0));
+  // Convert the image to vectors.
+  var vector = imgContour.reduceToVectors({
+    geometry: geometry,
+    crs: imgContour.projection(),
+    scale: scale,
+    geometryType: 'polygon',
+    eightConnected: false,
+    labelProperty: 'DIN',
+    maxPixels: 3e8
+  });
+  
+  if (is_display) {
+    // Make a display image for the vectors, add it to the map.
+    var display = ee.Image(0).updateMask(0).paint(vector, '000000', 2);
+    Map.addLayer(display, {palette: '000000'}, layerName, false);
+  }
+  if (is_export) {
+    // Export the FeatureCollection to a KML file.
+    Export.table.toDrive({
+      collection: vector,
+      description: fileName,
+      folder:'EarthEngine\\Keppel-Islands',
+      fileNamePrefix: fileName,
+      fileFormat: 'SHP'
+    });
+  }
+}
+
 /**
  * This function returns an array of the unique set of Sentinel 2 tiles from
  * the provided set of image Ids. For example:
