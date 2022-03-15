@@ -1624,7 +1624,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     
     // Scaling factor so that the range of the ln(B3)/ln(B2) is expanded to cover the range of
     // depths measured in metres.
-    var DEPTH_SCALAR = 144;
+    var DEPTH_SCALAR = 150;
     
     // Lower depth threshold used for estimating the DEPTH_OFFSET and DEPTH SCALAR.
     var OFFSET_DEPTH = -15;
@@ -1636,15 +1636,19 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // Consider anything brighter than this as land. This threshold is chosen slightly higher than
     // the sunglint correction LAND THRESHOLD and we want to ensure that it is dry land and not simply
     // shallow.  
-    var B8LAND_THRESHOLD = 1000; 
+    var B8LAND_THRESHOLD = 900; 
     var waterMask = img.select('B8').lt(B8LAND_THRESHOLD);
     
     // Mask out any land areas because the depth estimates would 
     var depthWithLandMask = depthB3B2.updateMask(waterMask);
     
-    // Perform spatial filtering to reduce the noise. This will make the depth estimates between for creating contours.
-    compositeContrast = depthWithLandMask.focal_mean({kernel: ee.Kernel.circle({radius: 30, units: 'meters'}), iterations: 2});
     
+    // Perform spatial filtering to reduce the noise. This will make the depth estimates between for creating contours.
+    var filteredDepth = depthWithLandMask.focal_mean({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 2});
+    
+    var MAX_DEPTH = -12;
+    // Remove all areas where the depth estimate is likely to be poor.
+    compositeContrast = filteredDepth.updateMask(filteredDepth.lt(MAX_DEPTH));
     //compositeContrast = depthWithLandMask;
     
     // Scale the results so in 8 bit the brightness will be 0.1 m per level.
