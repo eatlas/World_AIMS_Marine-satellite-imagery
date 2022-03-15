@@ -1666,7 +1666,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // helping to fill in neighbouring holes in the mask. This will expand the mask slightly.
     var depthMask = filteredDepth.gt(MAX_DEPTH)
       .focal_min({kernel: ee.Kernel.circle({radius: 10, units: 'meters'}), iterations: 1})  // (Erode) Remove single pixel elements
-      .focal_max({kernel: ee.Kernel.circle({radius: 30, units: 'meters'}), iterations: 1}); // (Dilate) Expand back out, plus a bit more to merge
+      .focal_max({kernel: ee.Kernel.circle({radius: 40, units: 'meters'}), iterations: 1}); // (Dilate) Expand back out, plus a bit more to merge
     compositeContrast = filteredDepth.updateMask(depthMask);
     //compositeContrast = depthWithLandMask;
     
