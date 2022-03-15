@@ -1087,7 +1087,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20160403T000742_20160403T000911_T56LNH",
     "COPERNICUS/S2/20170826T001101_20170826T001104_T56LNH"
   ],
-  false, true, OPEN_WATER_OPTIONS); 
+  false, false, OPEN_WATER_OPTIONS); 
   
 // (Central) Coral Sea, North west of Lihou
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
@@ -1105,7 +1105,7 @@ s2Utils.s2_composite_display_and_export(
     // OK
     "COPERNICUS/S2/20170905T000731_20170905T000731_T56LMH"
   ],
-  false, true, OPEN_WATER_OPTIONS); 
+  false, false, OPEN_WATER_OPTIONS); 
   
 
 // (Central eastern) Coral Sea
@@ -1125,7 +1125,7 @@ s2Utils.s2_composite_display_and_export(
     //"COPERNICUS/S2/20160317T234812_20160317T234939_T56LRJ",
     //"COPERNICUS/S2/20160406T234812_20160406T234954_T56LRJ"
   ],
-  false, true, OPEN_WATER_OPTIONS); 
+  false, false, OPEN_WATER_OPTIONS); 
 
 
 // (Central eastern) Coral Sea
@@ -1140,7 +1140,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20160409T235756_20160410T012314_T56LQJ",
     "COPERNICUS/S2/20160429T235802_20160429T235802_T56LQJ"
   ],
-  false, true, OPEN_WATER_OPTIONS); 
+  false, false, OPEN_WATER_OPTIONS); 
 
 
 // (Central) Coral Sea
@@ -1170,7 +1170,7 @@ s2Utils.s2_composite_display_and_export(
     //COPERNICUS/S2/20200629T002059_20200629T002057_T55LHD
     //COPERNICUS/S2/20200729T002059_20200729T002057_T55LHD
   ],
-  false, true, OPEN_WATER_OPTIONS); 
+  false, false, OPEN_WATER_OPTIONS); 
 
 
 // (Central) Coral Sea
@@ -1195,7 +1195,7 @@ s2Utils.s2_composite_display_and_export(
     //COPERNICUS/S2/20171127T002051_20171127T002049_T55LGD
     //COPERNICUS/S2/20180426T002101_20180426T002056_T55LGD
   ],
-  false, true, OPEN_WATER_OPTIONS);
+  false, false, OPEN_WATER_OPTIONS);
   
 // (North Eastern) Coral Sea
 // CLOUDY_PIXEL_PERCENTAGE = 100
@@ -1214,7 +1214,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20160409T235756_20160410T012314_T56LRK",
     "COPERNICUS/S2/20160429T235802_20160429T235802_T56LRK"
   ],
-  false, true, OPEN_WATER_OPTIONS);
+  false, false, OPEN_WATER_OPTIONS);
   
   
 // (North Eastern) Coral Sea
@@ -1231,7 +1231,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20160409T235756_20160410T012314_T56LQK",
     "COPERNICUS/S2/20160429T235802_20160429T235802_T56LQK"
   ],
-  false, true, OPEN_WATER_OPTIONS);
+  false, false, OPEN_WATER_OPTIONS);
   
   
 // (North Western) Coral Sea, east of Osprey
@@ -1254,7 +1254,7 @@ s2Utils.s2_composite_display_and_export(
     //COPERNICUS/S2/20200821T002709_20200821T002711_T55LGE
     //COPERNICUS/S2/20210811T002711_20210811T002710_T55LGE
   ],
-  false, true, OPEN_WATER_OPTIONS);
+  false, false, OPEN_WATER_OPTIONS);
   
   
 // (North Western) Coral Sea, east of Osprey
@@ -1280,7 +1280,7 @@ s2Utils.s2_composite_display_and_export(
     // Maybe right
     //COPERNICUS/S2/20160117T001732_20160117T001824_T55LFE
   ],
-  false, true, OPEN_WATER_OPTIONS);
+  false, false, OPEN_WATER_OPTIONS);
   
   
 // (North Western) Coral Sea, north of Osprey
@@ -1307,7 +1307,7 @@ s2Utils.s2_composite_display_and_export(
     //COPERNICUS/S2/20190424T002711_20190424T002711_T55LEF
     //COPERNICUS/S2/20211005T002709_20211005T002707_T55LEF
   ],
-  false, true, OPEN_WATER_OPTIONS);
+  false, false, OPEN_WATER_OPTIONS);
   
   
   
@@ -1693,7 +1693,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20210724T235249_20210724T235247_T56KQU",
     "COPERNICUS/S2/20210828T235251_20210828T235246_T56KQU"
   ],
-  false, true, OPEN_WATER_OPTIONS);
+  false, false, OPEN_WATER_OPTIONS);
 
 
 s2Utils.s2_composite_display_and_export(
@@ -1703,7 +1703,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190908T235241_20190908T235244_T56KQU",
     "COPERNICUS/S2/20200823T235251_20200823T235250_T56KQU"
   ],
-  false, true, REF2_OPTIONS); 
+  false, false, REF2_OPTIONS); 
   
 // ======== U/N Sea mount - Central =========
 // Searched 6 out of 6 images
@@ -1713,4 +1713,4 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20151128T234812_20170509T143613_T56KQE",
     "COPERNICUS/S2/20160416T235041_20160417T061750_T56KQE"
   ],
-  false, true, OPEN_WATER_OPTIONS);
+  false, false, OPEN_WATER_OPTIONS);
