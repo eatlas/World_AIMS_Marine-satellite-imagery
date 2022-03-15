@@ -1646,9 +1646,9 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // Perform spatial filtering to reduce the noise. This will make the depth estimates between for creating contours.
     var filteredDepth = depthWithLandMask.focal_mean({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 2});
     
-    var MAX_DEPTH = -12;
+    var MAX_DEPTH = -13.5;
     // Remove all areas where the depth estimate is likely to be poor.
-    compositeContrast = filteredDepth.updateMask(filteredDepth.lt(MAX_DEPTH));
+    compositeContrast = filteredDepth.updateMask(filteredDepth.gt(MAX_DEPTH));
     //compositeContrast = depthWithLandMask;
     
     // Scale the results so in 8 bit the brightness will be 0.1 m per level.
