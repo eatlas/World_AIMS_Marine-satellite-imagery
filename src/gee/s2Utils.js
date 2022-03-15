@@ -180,32 +180,27 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
     // Work out whether the style should be converted to a shapefile
     // or be kept as an image
 
-    if (colourGrades[i] === 'ReefTop' || colourGrades[i] === 'Depth10m' || colourGrades[i] === 'Depth4m') {
+    if (colourGrades[i] === 'ReefTop' || colourGrades[i] === 'Depth10m' || colourGrades[i] === 'Depth5m') {
       makeAndSaveShp(img, displayName, exportName, exportScale[i], tilesGeometry, is_display, is_export);
     } else {
       
       // Keep as raster
-      
-      
-      var convertTo8Bit = true;
+
       var displayMin = 0;
       var displayMax = 1;
-      if (colourGrades[i] === 'Depth') {
-        convertTo8Bit = false;
-        displayMin = -25;
-        displayMax = 0;
-      }
     
       var export_composite;
-      if (convertTo8Bit) {
+      if (colourGrades[i] === 'Depth') {
+        export_composite = final_composite;
+        displayMin = -25;
+        displayMax = 0;
+      } else {
         // Scale and convert the image to an 8 bit image to make the export
         // file size considerably smaller.
         // Reserve 0 for no_data so that the images can be converted to not
         // have black borders. Scaling the data ensures that no valid data
         // is 0.
         export_composite = final_composite.multiply(254).add(1).toUint8();
-      } else {
-        export_composite = final_composite;
       }
       
       // Export the image, specifying scale and region.
