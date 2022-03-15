@@ -176,59 +176,70 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
 
     var final_composite = exports.bake_s2_colour_grading(
       composite, colourGrades[i], includeCloudmask);
-      
-    var convertTo8Bit = true;
-    var displayMin = 0;
-    var displayMax = 1;
-    if (colourGrades[i] === 'Depth') {
-      convertTo8Bit = false;
-      displayMin = -25;
-      displayMax = 0;
-    }
-  
-    var export_composite;
-    if (convertTo8Bit) {
-      // Scale and convert the image to an 8 bit image to make the export
-      // file size considerably smaller.
-      // Reserve 0 for no_data so that the images can be converted to not
-      // have black borders. Scaling the data ensures that no valid data
-      // is 0.
-      export_composite = final_composite.multiply(254).add(1).toUint8();
+    
+    // Work out whether the style should be converted to a shapefile
+    // or be kept as an image
+
+    if (colourGrades[i] === 'ReefTop' || colourGrades[i] === 'Depth10m' || colourGrades[i] === 'Depth4m') {
+      makeAndSaveShp(img, displayName, exportName, exportScale[i], tilesGeometry, is_display, is_export);
     } else {
-      export_composite = final_composite;
-    }
-    
-    // Export the image, specifying scale and region.
-    // Only trigger the export when we want. The export process can take quite a while
-    // due to the queue time on the Earth Engine. The first export I did was
-    // 3 days on the queue.
-  
-    if (is_export) {
-      print("======= Exporting image "+exportName+" =======");
-      //var saLayer = ui.Map.Layer(tilesGeometry, {color: 'FF0000'}, 'Export Area');
-      //Map.layers().add(saLayer);
       
-    
-      Export.image.toDrive({
-        //image: final_composite,
-        image: export_composite,
-        description: exportName,
-        folder:exportFolder,
-        fileNamePrefix: exportName,
-        scale: exportScale[i],          // Native image resolution of Sentinel 2 is 10m.
-        region: tilesGeometry,
-        maxPixels: 3e8                  // Raise the default limit of 1e8 to fit the export 
-                                        // of full sized Sentinel 2 images
-      });
-    }
-    if (is_display) {
-      Map.addLayer(final_composite, {'min': displayMin, 'max': displayMax, 'gamma': 1},
-                      displayName, false, 1);
-      if (includeCloudmask) {
-        Map.addLayer(final_composite.select('cloudmask').selfMask(), {'palette': 'orange'},
-                     displayName+'_cloudmask', false, 0.5);
+      // Keep as raster
+      
+      
+      var convertTo8Bit = true;
+      var displayMin = 0;
+      var displayMax = 1;
+      if (colourGrades[i] === 'Depth') {
+        convertTo8Bit = false;
+        displayMin = -25;
+        displayMax = 0;
       }
-    } 
+    
+      var export_composite;
+      if (convertTo8Bit) {
+        // Scale and convert the image to an 8 bit image to make the export
+        // file size considerably smaller.
+        // Reserve 0 for no_data so that the images can be converted to not
+        // have black borders. Scaling the data ensures that no valid data
+        // is 0.
+        export_composite = final_composite.multiply(254).add(1).toUint8();
+      } else {
+        export_composite = final_composite;
+      }
+      
+      // Export the image, specifying scale and region.
+      // Only trigger the export when we want. The export process can take quite a while
+      // due to the queue time on the Earth Engine. The first export I did was
+      // 3 days on the queue.
+    
+      if (is_export) {
+        print("======= Exporting image "+exportName+" =======");
+        //var saLayer = ui.Map.Layer(tilesGeometry, {color: 'FF0000'}, 'Export Area');
+        //Map.layers().add(saLayer);
+        
+      
+        Export.image.toDrive({
+          //image: final_composite,
+          image: export_composite,
+          description: exportName,
+          folder:exportFolder,
+          fileNamePrefix: exportName,
+          scale: exportScale[i],          // Native image resolution of Sentinel 2 is 10m.
+          region: tilesGeometry,
+          maxPixels: 3e8                  // Raise the default limit of 1e8 to fit the export 
+                                          // of full sized Sentinel 2 images
+        });
+      }
+      if (is_display) {
+        Map.addLayer(final_composite, {'min': displayMin, 'max': displayMax, 'gamma': 1},
+                        displayName, false, 1);
+        if (includeCloudmask) {
+          Map.addLayer(final_composite.select('cloudmask').selfMask(), {'palette': 'orange'},
+                       displayName+'_cloudmask', false, 0.5);
+        }
+      } 
+    }
   }
 };
 
