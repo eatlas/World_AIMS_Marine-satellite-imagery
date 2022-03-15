@@ -12,8 +12,8 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 var REF1_OPTIONS = {
   //colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
   //exportScale: [10, 10, 10, 10, 30],
-  colourGrades: ['Depth10m'],
-  exportScale: [20],
+  colourGrades: ['ReefTop','Depth5m'],
+  exportScale: [20, 20],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Coral-Sea',
   
