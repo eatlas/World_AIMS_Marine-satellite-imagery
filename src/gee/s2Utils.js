@@ -1660,6 +1660,10 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     
     compositeContrast = exports.estimateDepth(img, 10, 2).gt(-5);
     
+  } else if (colourGradeStyle === 'Depth2m') {
+    
+    compositeContrast = exports.estimateDepth(img, 10, 2).gt(-3);
+    
   } else {
     print("Error: unknown colourGradeStyle: "+colourGradeStyle);
   }
