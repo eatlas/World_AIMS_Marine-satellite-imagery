@@ -1616,7 +1616,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // areas (3 - 5 m), but still far from good. The downside is that in deep areas the seagrass gets
     // over compensated so seagrass areas appear shallower than intended.
     // An offset of 120 is chosen to optimise the dark substrate compensation from 10 - 15 m.
-    var B2_OFFSET = 120;
+    var B2_OFFSET = 150;
     
     // Minimum value see when dividing ln(B3)/ln(B2). This offset shifts the deepest location
     // to 0 to make the scaling more sensible
