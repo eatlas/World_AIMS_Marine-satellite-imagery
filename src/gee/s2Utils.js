@@ -177,9 +177,7 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
     var final_composite = exports.bake_s2_colour_grading(
       composite, colourGrades[i], includeCloudmask);
     
-    // Work out whether the style should be converted to a shapefile
-    // or be kept as an image
-
+    // If the style corresponds to a contour then convert and export as a shapefile
     if (colourGrades[i] === 'ReefTop' || colourGrades[i] === 'Depth10m' || colourGrades[i] === 'Depth5m') {
       makeAndSaveShp(img, displayName, exportName, exportScale[i], tilesGeometry, is_display, is_export);
     } else {
