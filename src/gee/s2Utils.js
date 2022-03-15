@@ -179,7 +179,7 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
     
     // If the style corresponds to a contour then convert and export as a shapefile
     if (colourGrades[i] === 'ReefTop' || colourGrades[i] === 'Depth10m' || colourGrades[i] === 'Depth5m') {
-      makeAndSaveShp(final_composite, displayName, exportName, exportScale[i], tilesGeometry, is_display, is_export);
+      makeAndSaveShp(final_composite, displayName, exportName, exportFolder, exportScale[i], tilesGeometry, is_display, is_export);
     } else {
       
       // Keep as raster
@@ -243,9 +243,10 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
 // img - image to vectorise. Should be grey scale 0 - 1. A 0.5 threshold is applied
 // layerName - Display name to give to the vector layer.
 // fileName - Name to give in the export task
+// exportFolder - folder to save into on Google Drive
 // scale - scale to export the vector at. Recommend 3 for 3 m.
 // geometry - limit of the vectorisation.
-function makeAndSaveShp(img, layerName, fileName, scale, geometry, is_display, is_export) {
+function makeAndSaveShp(img, layerName, fileName, exportFolder, scale, geometry, is_display, is_export) {
   // Apply a threshold to the image
   var imgContour = img.gt(0.5);
   // Make the water area transparent
@@ -271,7 +272,7 @@ function makeAndSaveShp(img, layerName, fileName, scale, geometry, is_display, i
     Export.table.toDrive({
       collection: vector,
       description: fileName,
-      folder:'EarthEngine\\Keppel-Islands',
+      folder:exportFolder,
       fileNamePrefix: fileName,
       fileFormat: 'SHP'
     });
