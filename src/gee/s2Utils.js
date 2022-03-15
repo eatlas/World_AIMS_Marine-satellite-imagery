@@ -1340,6 +1340,17 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     B1contrast = exports.contrastEnhance(scaled_img.select('B1'),0.1075,0.237, 2.7); 
     compositeContrast = ee.Image.rgb(B3contrast, B2contrast, B1contrast);
 
+  } else if (colourGradeStyle === 'ReefTop2m') {
+    //B4contrast = exports.contrastEnhance(scaled_img.select('B4'),0.02,0.021, 1);
+    //var B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.02,0.05, 1);
+    //var waveKernel = ee.Kernel.gaussian({radius: 40, sigma: 1, units: 'meters'});
+
+    B4Filtered = scaled_img.select('B4').focal_mean({kernel: ee.Kernel.circle({radius: 10, units: 'meters'}), iterations: 4});
+    //B4contrast = exports.contrastEnhance(B4Filtered,0.015,0.016, 1);
+    // This threshold was chosen so that it would reject most waves in the Coral Sea
+    // but be as sensitive as possible.
+    B4contrast = exports.contrastEnhance(B4Filtered,0.025,0.026, 1);
+    compositeContrast = B4contrast;
   } else if (colourGradeStyle === 'ReefTop') {
     //B4contrast = exports.contrastEnhance(scaled_img.select('B4'),0.02,0.021, 1);
     //var B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.02,0.05, 1);
