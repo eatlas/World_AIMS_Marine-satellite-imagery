@@ -2,8 +2,10 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 // Primary imagery
 var REF1_OPTIONS = {
-  colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
-  exportScale: [10, 10, 10, 10, 30],
+  //colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
+  //exportScale: [10, 10, 10, 10, 30],
+  colourGrades: ['Depth'],
+  exportScale: [10],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/GBR-Torres-Strait',
   
@@ -564,7 +566,7 @@ s2Utils.s2_composite_display_and_export(
     //"COPERNICUS/S2/20200821T002709_20200821T002711_T55KEV", // (1) Low Water Quality, bit excellent view of plumes around reefs.
     "COPERNICUS/S2/20210915T002709_20210915T002703_T55KEV"  // (3)
   ],
-  false, false, REF1_OPTIONS);
+  true, false, REF1_OPTIONS);
 // Good
 //COPERNICUS/S2/20180802T002709_20180802T002704_T55KEV
 //COPERNICUS/S2/20180827T002711_20180827T002706_T55KEV
