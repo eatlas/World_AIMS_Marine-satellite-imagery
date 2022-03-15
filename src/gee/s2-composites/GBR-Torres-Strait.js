@@ -6,7 +6,7 @@ var REF1_OPTIONS = {
   //exportScale: [10, 10, 10, 10, 30],
   //colourGrades: ['ReefTop','Depth5m', 'Depth10m'],
   //exportScale: [10, 10, 10],
-  colourGrades: ['Depth2m', 'ReefTop2m'],
+  colourGrades: ['DryReef'],
   exportScale: [10, 10],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/GBR-Torres-Strait',
