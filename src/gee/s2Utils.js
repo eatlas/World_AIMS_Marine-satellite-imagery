@@ -1745,7 +1745,7 @@ exports.estimateDepth = function(img) {
     var depthMask = filteredDepth.gt(MAX_DEPTH)
       .focal_min({kernel: ee.Kernel.circle({radius: 10, units: 'meters'}), iterations: 1})  // (Erode) Remove single pixel elements
       .focal_max({kernel: ee.Kernel.circle({radius: 40, units: 'meters'}), iterations: 1}); // (Dilate) Expand back out, plus a bit more to merge
-    compositeContrast = filteredDepth.updateMask(depthMask);
+    var compositeContrast = filteredDepth.updateMask(depthMask);
     return(compositeContrast);
 };
 
