@@ -1641,7 +1641,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // reported as shallower than reality.
     var depthB3B2 = 
       img.select('B3').log().divide(img.select('B2').subtract(B2_OFFSET).log())     // core depth estimation (unscaled)
-      .multiply(DEPTH_SCALAR).add(OFFSET_DEPTH);            // Scale the results to metres
+      .multiply(DEPTH_SCALAR).add(DEPTH_OFFSET);            // Scale the results to metres
     
     // Consider anything brighter than this as land. This threshold is chosen slightly higher than
     // the sunglint correction LAND THRESHOLD and we want to ensure that it is dry land and not simply
