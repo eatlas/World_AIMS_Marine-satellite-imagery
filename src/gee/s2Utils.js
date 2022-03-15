@@ -1680,8 +1680,12 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
 // suseptible to dark substrates, particularly in shallow areas. These can introduce
 // errors of up to 5 m, this is compared with an error of about 8 m by just using the
 // B3 channel. 
+// @param {integer} filterRadius - Radius of the filter (m) to apply to the depth to reduce
+//                                spatial noise. Typically: 20. Should be multiples of the
+//                                native image pixel resolution.
+// @param {integer} filterIterations - Number of iterations of the filter to apply. Typically: 1-2
 
-exports.estimateDepth = function(img) {
+exports.estimateDepth = function(img, filterRadius, filterIterations) {
     // Result: This depth model seems to work quite well for depths between 5 - 12 m. In shallow areas
     // dark seagrass is not compensated for very well.
     // In shallow areas seagrass introduces a 4 - 6 m error in the depth estimate, appearing to
@@ -1733,7 +1737,7 @@ exports.estimateDepth = function(img) {
     
     
     // Perform spatial filtering to reduce the noise. This will make the depth estimates between for creating contours.
-    var filteredDepth = depthWithLandMask.focal_mean({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 2});
+    var filteredDepth = depthWithLandMask.focal_mean({kernel: ee.Kernel.circle({radius: filterRadius, units: 'meters'}), iterations: filterIterations});
     
     // This slope of the depth estimate becomes very flat below -12 m, thus we need to remove this data from the
     // result to limit the improper use of the data.
