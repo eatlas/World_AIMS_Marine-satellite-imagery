@@ -1349,7 +1349,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // not to pick up deeper areas. A comparison showed that it was far more accurate than the
     // B3/B2 depth estimate. B5 does not have sunglint correction, however the threshold we are
     // using is above typical effects of sunglint.
-    compositeContrast = scaled_img.select('B5'); //.gt(0.06);
+    compositeContrast = scaled_img.select('B5').gt(0.06);
 
   } else if (colourGradeStyle === 'ReefTop') {
     //B4contrast = exports.contrastEnhance(scaled_img.select('B4'),0.02,0.021, 1);
@@ -1670,10 +1670,6 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
   } else if (colourGradeStyle === 'Depth5m') {
     
     compositeContrast = exports.estimateDepth(img, 10, 2).gt(-5);
-    
-  } else if (colourGradeStyle === 'Depth2m') {
-    
-    compositeContrast = exports.estimateDepth(img, 10, 2).gt(-2);
     
   } else {
     print("Error: unknown colourGradeStyle: "+colourGradeStyle);
