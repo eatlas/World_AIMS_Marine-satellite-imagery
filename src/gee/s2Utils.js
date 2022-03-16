@@ -1395,7 +1395,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // in width).
     filtered = scaled_img.select('B5').focal_mean(
       //{kernel:ee.Kernel.gaussian({radius: 3, sigma: 1, units:'pixels', normalize:true, magnitude:1}), iterations:1}
-      {kernel:ee.Kernel.gaussian({radius: 40, sigma: 10, units:'metrers', normalize:true, magnitude:1}), iterations:1}
+      {kernel:ee.Kernel.gaussian({radius: 40, sigma: 10, units:'meters', normalize:true, magnitude:1}), iterations:1}
       //{kernel: ee.Kernel.circle({radius: 40, units: 'meters'}), iterations: 1}
     );
 
