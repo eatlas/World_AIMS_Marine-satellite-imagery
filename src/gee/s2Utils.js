@@ -184,7 +184,7 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
     // If the style corresponds to a contour then convert and export as a shapefile
     if (colourGrades[i] === 'ReefTop' || colourGrades[i] === 'Depth10m' || 
       colourGrades[i] === 'Depth5m' || colourGrades[i] === 'DryReef' ||
-      colourGrades[i] === 'Breaking' || colourGrades[i] === 'DryReef') {
+      colourGrades[i] === 'Breaking') {
       makeAndSaveShp(final_composite, displayName, exportName, exportFolder, exportScale[i], tilesGeometry, is_display, is_export);
     } else {
       
