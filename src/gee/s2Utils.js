@@ -1394,8 +1394,6 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // This process is important because the DryReef areas are often long and thin (often 20 - 40 m
     // in width).
     filtered = scaled_img.select('B5').focal_mean(
-      //{kernel:ee.Kernel.gaussian({radius: 3, sigma: 1, units:'pixels', normalize:true, magnitude:1}), iterations:1}
-      //{kernel:ee.Kernel.gaussian({radius: 40, sigma: 3, units:'meters', normalize:true, magnitude:1}), iterations:1}
       {kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 1}
     );
 
@@ -1423,10 +1421,8 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // 40 m in size. By applying a spatial filter we can interpolate B5 to 10 m resolution
     // so that there is less loss in the polygon conversion process.
     // This process is important because the DryReef areas are often long and thin (often 20 - 40 m
-    // in width).ee.Kernel.gaussian({radius: 3, sigma: 1, units:'pixels', normalize:true, magnitude:1})
-    //filtered = scaled_img.select('B5')
-    //  .focal_mean({kernel:ee.Kernel.gaussian({radius: 40, sigma: 3, units:'meters', normalize:true, magnitude:1}), iterations:1})
-    //  .focal_max({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 1});
+    // in width)
+
     filtered = scaled_img.select('B5')
       .focal_max({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 1});
     // Breaking waves occur at values significantly brighter than 0.12, measuremennts
