@@ -8,6 +8,7 @@
 // Version: v1.1   Added styles Depth, Depth10m, Depth5m, DryReef. Also changed ReefTop 
 //                 to export as a shapefile instead of a raster.
 // Version: v1.1.1 Tweaking of the DryReef algorithm to improve the conversion to polygons.
+//                 Added Breaking stylings.
 //                 
 
 /**
