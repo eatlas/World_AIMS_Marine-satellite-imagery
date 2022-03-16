@@ -31,4 +31,16 @@ Map.addLayer(B5.subtract(B11), {min: 0, max:1500}, 'B5-B11');
 // sunglint correction in water areas and so we must set it high enough so as to not
 // interfer.
 var correction = B11;
-B11.gt(1000)
+var LOWER_THRES = 730;
+var HIGHER_THRES = 1000;
+var ATMOS_CORRECTION = 200;
+// Cap the correction for the cross over from ocean to land
+correction = correction.where(B11.gt(LOWER_THRES),LOWER_THRES);
+
+// Above the the upper threshold we are confident that this part of the image is land
+// and thus we should be applying a fixed atmospheric correction so that the brightness
+// of the resulting image is consistent (i.e. there are no sudden jumps in brightness at
+// the land and sea boundary)
+correction = correction.where(B11.gt(HIGHER_THRES), ATMOS_CORRECTION);
+
+Map.addLayer(B5.subtract(correction), {min: 0, max:1500}, 'B5-correction');
