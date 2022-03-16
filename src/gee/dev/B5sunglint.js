@@ -3,11 +3,11 @@
 
 // Hearld reef
 // This shows breaking waves.
-var img = ee.Image("COPERNICUS/S2/20200930T002709_20200930T002710_T55KFB");
+//var img = ee.Image("COPERNICUS/S2/20200930T002709_20200930T002710_T55KFB");
 
 // Cairns region.
 // This shows shallow reefs and land areas for consideration.
-//var img = ee.Image("COPERNICUS/S2/20161115T002712_20161115T002822_T55KCB");
+var img = ee.Image("COPERNICUS/S2/20161115T002712_20161115T002822_T55KCB");
 
 var B5 = img.select('B5');
 var B11 = img.select('B11');
