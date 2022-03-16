@@ -1409,7 +1409,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // not to pick up deeper areas. A comparison showed that it was far more accurate than the
     // B3/B2 depth estimate. B5 does not have sunglint correction, however the threshold we are
     // using is above typical effects of sunglint.
-    compositeContrast = scaled_img.select('B5').gt(0.026);
+    compositeContrast = filtered.gt(0.026);
 
   } else if (colourGradeStyle === 'Breaking') {
     // Detect breaking waves. This is not a super reliable method as it will also
@@ -1423,13 +1423,13 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // so that there is less loss in the polygon conversion process.
     // This process is important because the DryReef areas are often long and thin (often 20 - 40 m
     // in width).ee.Kernel.gaussian({radius: 3, sigma: 1, units:'pixels', normalize:true, magnitude:1})
-    scaled_img.select('B5')
+    filtered = scaled_img.select('B5')
       .focal_mean({kernel:ee.Kernel.gaussian({radius: 3, sigma: 1, units:'pixels', normalize:true, magnitude:1}), iterations:1})
       .focal_max({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 1});
 
     // Breaking waves occur at values significantly brighter than 0.12, measuremennts
     // Measurements 0.28, 0.38, 0.12, 0.54
-    compositeContrast = scaled_img.select('B5').gt(0.12);
+    compositeContrast = filtered.gt(0.12);
 
   } else if (colourGradeStyle === 'ReefTop') {
     //B4contrast = exports.contrastEnhance(scaled_img.select('B4'),0.02,0.021, 1);
