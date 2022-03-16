@@ -947,6 +947,36 @@ exports.removeSunGlint = function(image) {
   // DryReefs. Without applying any sunglint correction this process picks up
   // sunglint and waves in B5 making the results noiser than ideal. 
   
+  // B11 appears to be less sensitive to surface water spray then B5 and so breaking waves are 
+  // dimmer in B11. This is good as it means that B5-B11 doesn't result in B11 removing the
+  // breaking waves from B5. 
+  // The sensitivity of B11 and B5 to clouds is similar and so B5-B11 removes much of the clouds
+  // from the image. The edges of clouds are reasonably corrected and solid cloud areas turn black.
+
+  // Don't apply sunglint to the land areas. Breaking waves have a brightness of up to 1000,
+  // While mangroves have a brightness of as low as 730 and so we have an overlap that makes
+  // it impossible to separate land and water perfectly. We want to preference correct
+  // sunglint correction in water areas and so we must set it high enough so as to not
+  // interfer.
+  var B5correction = B11;
+  var LOWER_THRES = 800;          // Cap the correction at this level (mangrove areas)
+  var HIGHER_THRES = 1000;        // Above this consider areas to be land
+  var ATMOS_CORRECTION = 600;     // Correction to apply to land areas
+  // Cap the correction for the cross over from ocean to land
+  B5correction = B5correction.where(B11.gt(LOWER_THRES),LOWER_THRES);
+  
+  // Above the the upper threshold we are confident that this part of the image is land
+  // and thus we should be applying a fixed atmospheric correction so that the brightness
+  // of the resulting image is consistent (i.e. there are no sudden jumps in brightness at
+  // the land and sea boundary)
+  B5correction = B5correction.where(B11.gt(HIGHER_THRES), ATMOS_CORRECTION);
+  
+  // The final B5 corrected image has a poor tonal inconsistancy for mangrove areas, with some
+  // areas of the mangroves appearing significantly darker than they should. In breaking
+  // waves on Hearld reef the threshold being slightly below the maximum breaking wave brightness
+  // doesn't result in much disturbance of the image and so these values seem like a 
+  // reasonable compromise.
+
 
   // Apply the sunglint and land atmospheric correction to the visible
   // channels.
@@ -971,7 +1001,8 @@ exports.removeSunGlint = function(image) {
     .addBands(image.select('B1').subtract(sunglintCorr.multiply(0.75)),['B1'], true)
     .addBands(image.select('B2').subtract(sunglintCorr.multiply(0.75)),['B2'], true)
     .addBands(image.select('B3').subtract(sunglintCorr.multiply(0.9)),['B3'], true)
-    .addBands(image.select('B4').subtract(sunglintCorr.multiply(1)),['B4'], true);
+    .addBands(image.select('B4').subtract(sunglintCorr.multiply(1)),['B4'], true)
+    .addBands(image.select('B5').subtract(B5correction),['B5'], true);
 
   return(sunGlintComposite);
 };
