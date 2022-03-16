@@ -1,5 +1,5 @@
 // This has strong white caps, strong waves and lots of clouds.
-//var img = ee.Image("COPERNICUS/S2/20190220T234701_20190220T234701_T56KQB");
+var img = ee.Image("COPERNICUS/S2/20190220T234701_20190220T234701_T56KQB");
 
 // Hearld reef
 // This shows breaking waves.
@@ -7,7 +7,7 @@
 
 // Cairns region.
 // This shows shallow reefs and land areas for consideration.
-var img = ee.Image("COPERNICUS/S2/20161115T002712_20161115T002822_T55KCB");
+//var img = ee.Image("COPERNICUS/S2/20161115T002712_20161115T002822_T55KCB");
 
 var B5 = img.select('B5');
 var B11 = img.select('B11');
@@ -22,8 +22,8 @@ var B11 = img.select('B11');
 Map.centerObject(img.geometry(), 10);
 
 Map.addLayer(B5, {min: 0, max:1500}, 'B5');
-Map.addLayer(B11, {min: 0, max:1500}, 'B11');
-Map.addLayer(B5.subtract(B11), {min: 0, max:1500}, 'B5-B11');
+//Map.addLayer(B11, {min: 0, max:1500}, 'B11');
+//Map.addLayer(B5.subtract(B11), {min: 0, max:1500}, 'B5-B11');
 
 // Don't apply sunglint to the land areas. Breaking waves have a brightness of up to 1000,
 // While mangroves have a brightness of as low as 730 and so we have an overlap that makes
