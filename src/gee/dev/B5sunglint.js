@@ -1,5 +1,5 @@
 // This has strong white caps, strong waves and lots of clouds.
-var img = ee.Image("COPERNICUS/S2/20190220T234701_20190220T234701_T56KQB");
+//var img = ee.Image("COPERNICUS/S2/20190220T234701_20190220T234701_T56KQB");
 
 // Hearld reef
 // This shows breaking waves.
