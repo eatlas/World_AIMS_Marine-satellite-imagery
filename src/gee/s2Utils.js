@@ -1422,8 +1422,8 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // so that there is less loss in the polygon conversion process.
     // This process is important because the DryReef areas are often long and thin (often 20 - 40 m
     // in width).
-    filtered = scaled_img.select('B5').focal_mean(
-      {kernel: ee.Kernel.circle({radius: 10, units: 'meters'}), iterations: 2}
+    filtered = scaled_img.select('B5').focal_max(
+      {kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 1}
     );
 
     // Breaking waves occur at values significantly brighter than 0.12, measuremennts
