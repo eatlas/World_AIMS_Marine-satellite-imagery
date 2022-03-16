@@ -849,7 +849,7 @@ exports.removeSunGlint = function(image) {
   
   // Sun Glint Correction
   // Previously I had used the the near-infra red B8 channel for sun glint removal.
-  // I has a brightness response very similar to the visible channels, is the same
+  // It has a brightness response very similar to the visible channels, is the same
   // resolution, but doesn't penetrate the water much.
   //
   // Unfortunately in very shallow areas B8 slightly penetrates the water enough
@@ -941,6 +941,12 @@ exports.removeSunGlint = function(image) {
   // end up being black. Switching to B8 fixed this problem. Presumably
   // mangroves are much brighter on B8 than in B11.
   var sunglintCorr = rawSunGlint.where(b8.gt(LAND_THRES),LAND_ATMOS_OFFSET);
+  
+  // B5 sunglint correction. 
+  // We use B5 for generating the shallow image style and for estimating the
+  // DryReefs. Without applying any sunglint correction this process picks up
+  // sunglint and waves in B5 making the results noiser than ideal. 
+  
 
   // Apply the sunglint and land atmospheric correction to the visible
   // channels.
