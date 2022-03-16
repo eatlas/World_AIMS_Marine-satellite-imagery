@@ -960,7 +960,7 @@ exports.removeSunGlint = function(image) {
   // it impossible to separate land and water perfectly. We want to preference correct
   // sunglint correction in water areas and so we must set it high enough so as to not
   // interfer.
-  var B5correction = B11;
+  var B5correction = image.select('B11');
   var LOWER_THRES = 800;          // Cap the correction at this level (mangrove areas)
   var HIGHER_THRES = 1000;        // Above this consider areas to be land
   var ATMOS_CORRECTION = 600;     // Correction to apply to land areas
