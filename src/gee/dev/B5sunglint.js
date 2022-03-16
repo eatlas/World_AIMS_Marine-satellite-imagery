@@ -3,11 +3,11 @@
 
 // Hearld reef
 // This shows breaking waves.
-//var img = ee.Image("COPERNICUS/S2/20200930T002709_20200930T002710_T55KFB");
+var img = ee.Image("COPERNICUS/S2/20200930T002709_20200930T002710_T55KFB");
 
 // Cairns region.
 // This shows shallow reefs and land areas for consideration.
-var img = ee.Image("COPERNICUS/S2/20161115T002712_20161115T002822_T55KCB");
+//var img = ee.Image("COPERNICUS/S2/20161115T002712_20161115T002822_T55KCB");
 
 var B5 = img.select('B5');
 var B11 = img.select('B11');
@@ -31,9 +31,9 @@ Map.addLayer(B5.subtract(B11), {min: 0, max:1500}, 'B5-B11');
 // sunglint correction in water areas and so we must set it high enough so as to not
 // interfer.
 var correction = B11;
-var LOWER_THRES = 730;
+var LOWER_THRES = 800;
 var HIGHER_THRES = 1000;
-var ATMOS_CORRECTION = 200;
+var ATMOS_CORRECTION = 600;
 // Cap the correction for the cross over from ocean to land
 correction = correction.where(B11.gt(LOWER_THRES),LOWER_THRES);
 
@@ -43,4 +43,8 @@ correction = correction.where(B11.gt(LOWER_THRES),LOWER_THRES);
 // the land and sea boundary)
 correction = correction.where(B11.gt(HIGHER_THRES), ATMOS_CORRECTION);
 
-Map.addLayer(B5.subtract(correction), {min: 0, max:1500}, 'B5-correction');
+// The final corrected image has a poor tonal inconsistancy for mangrove areas, with some
+// areas of the mangroves appearing significantly darker than ideally. 
+var final = B5.subtract(correction);
+
+Map.addLayer(final, {min: 0, max:1500}, 'B5-correction');
