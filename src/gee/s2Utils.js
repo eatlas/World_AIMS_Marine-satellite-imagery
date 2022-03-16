@@ -1343,6 +1343,17 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     compositeContrast = ee.Image.rgb(B3contrast, B2contrast, B1contrast);
 
   } else if (colourGradeStyle === 'DryReef') {
+    
+    // The B5 channel has a resolution of 20 m, which once turned to polygons results
+    // in 20 m steps in the polygons. Once polygon simplification is applied, to remove
+    // the raster stair case, it results in poor representation of features smaller than 
+    // 40 m in size. By applying a spatial filter we can interpolate B5 to 10 m resolution
+    // so that there is less loss in the polygon conversion process.
+    // This process is important because the DryReef areas are often long and thin (often 20 - 40 m
+    // in width).
+    filtered = scaled_img.select('B5').focal_median(
+      {kernel: ee.Kernel.circle({radius: 10, units: 'meters'}), iterations: 2}
+    );
 
     // This is intended to detect very shallow areas that are likely to become dry during
     // very low tides. These act as a proxy for locations that will have no significant
