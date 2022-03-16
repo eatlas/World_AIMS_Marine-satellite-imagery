@@ -1394,7 +1394,8 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // This process is important because the DryReef areas are often long and thin (often 20 - 40 m
     // in width).
     filtered = scaled_img.select('B5').focal_mean(
-      {kernel:ee.Kernel.gaussian({radius: 3, sigma: 1, units:'pixels', normalize:true, magnitude:1}), iterations:1}
+      //{kernel:ee.Kernel.gaussian({radius: 3, sigma: 1, units:'pixels', normalize:true, magnitude:1}), iterations:1}
+      {kernel:ee.Kernel.gaussian({radius: 40, sigma: 10, units:'metrers', normalize:true, magnitude:1}), iterations:1}
       //{kernel: ee.Kernel.circle({radius: 40, units: 'meters'}), iterations: 1}
     );
 
@@ -1424,12 +1425,12 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // This process is important because the DryReef areas are often long and thin (often 20 - 40 m
     // in width).ee.Kernel.gaussian({radius: 3, sigma: 1, units:'pixels', normalize:true, magnitude:1})
     filtered = scaled_img.select('B5')
-      .focal_mean({kernel:ee.Kernel.gaussian({radius: 3, sigma: 1, units:'pixels', normalize:true, magnitude:1}), iterations:1})
+      .focal_mean({kernel:ee.Kernel.gaussian({radius: 40, sigma: 10, units:'meters', normalize:true, magnitude:1}), iterations:1})
       .focal_max({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 1});
 
     // Breaking waves occur at values significantly brighter than 0.12, measuremennts
     // Measurements 0.28, 0.38, 0.12, 0.54
-    compositeContrast = filtered.gt(0.12);
+    compositeContrast = filtered.gt(0.1);
 
   } else if (colourGradeStyle === 'ReefTop') {
     //B4contrast = exports.contrastEnhance(scaled_img.select('B4'),0.02,0.021, 1);
