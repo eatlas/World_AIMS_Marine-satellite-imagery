@@ -44,7 +44,10 @@ correction = correction.where(B11.gt(LOWER_THRES),LOWER_THRES);
 correction = correction.where(B11.gt(HIGHER_THRES), ATMOS_CORRECTION);
 
 // The final corrected image has a poor tonal inconsistancy for mangrove areas, with some
-// areas of the mangroves appearing significantly darker than ideally. 
+// areas of the mangroves appearing significantly darker than they should. In breaking
+// waves on Hearld reef the threshold being slightly below the maximum breaking wave brightness
+// doesn't result in much disturbance of the image and so these values seem like a 
+// reasonable compromise.
 var final = B5.subtract(correction);
 
 Map.addLayer(final, {min: 0, max:1500}, 'B5-correction');
