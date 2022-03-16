@@ -182,7 +182,9 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
       composite, colourGrades[i], includeCloudmask);
     
     // If the style corresponds to a contour then convert and export as a shapefile
-    if (colourGrades[i] === 'ReefTop' || colourGrades[i] === 'Depth10m' || colourGrades[i] === 'Depth5m' || colourGrades[i] === 'DryReef') {
+    if (colourGrades[i] === 'ReefTop' || colourGrades[i] === 'Depth10m' || 
+      colourGrades[i] === 'Depth5m' || colourGrades[i] === 'DryReef' ||
+      colourGrades[i] === 'Breaking' || colourGrades[i] === 'DryReef') {
       makeAndSaveShp(final_composite, displayName, exportName, exportFolder, exportScale[i], tilesGeometry, is_display, is_export);
     } else {
       
@@ -1406,6 +1408,26 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // B3/B2 depth estimate. B5 does not have sunglint correction, however the threshold we are
     // using is above typical effects of sunglint.
     compositeContrast = scaled_img.select('B5').gt(0.028);
+
+  } else if (colourGradeStyle === 'Breaking') {
+    // Detect breaking waves. This is not a super reliable method as it will also
+    // detect land areas and is dependent on the selection of images in the analysis
+    
+    
+    // The B5 channel has a resolution of 20 m, which once turned to polygons results
+    // in 20 m steps in the polygons. Once polygon simplification is applied, to remove
+    // the raster stair case, it results in poor representation of features smaller than 
+    // 40 m in size. By applying a spatial filter we can interpolate B5 to 10 m resolution
+    // so that there is less loss in the polygon conversion process.
+    // This process is important because the DryReef areas are often long and thin (often 20 - 40 m
+    // in width).
+    filtered = scaled_img.select('B5').focal_median(
+      {kernel: ee.Kernel.circle({radius: 10, units: 'meters'}), iterations: 2}
+    );
+
+    // Breaking waves occur at values significantly brighter than 0.12, measuremennts
+    // Measurements 0.28, 0.38, 0.12, 0.54
+    compositeContrast = scaled_img.select('B5').gt(0.12);
 
   } else if (colourGradeStyle === 'ReefTop') {
     //B4contrast = exports.contrastEnhance(scaled_img.select('B4'),0.02,0.021, 1);
