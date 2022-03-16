@@ -9,6 +9,9 @@ var img = ee.Image("COPERNICUS/S2/20190220T234701_20190220T234701_T56KQB");
 // This shows shallow reefs and land areas for consideration.
 //var img = ee.Image("COPERNICUS/S2/20161115T002712_20161115T002822_T55KCB");
 
+// South central Torres Strait
+var img = ee.Image("COPERNICUS/S2/20180920T005659_20180920T005700_T54LXP");
+
 var B5 = img.select('B5');
 var B11 = img.select('B11');
 
