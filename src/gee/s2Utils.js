@@ -284,7 +284,7 @@ function makeAndSaveShp(img, layerName, fileName, exportFolder, scale, geometry,
       description: fileName,
       folder:exportFolder,
       fileNamePrefix: fileName,
-      fileFormat: 'SHP'
+      fileFormat: 'GeoJSON'
     });
   }
 }
