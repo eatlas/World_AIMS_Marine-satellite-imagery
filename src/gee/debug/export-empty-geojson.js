@@ -11,6 +11,10 @@
 
 // You then need to check in Google Drive for the resulting generated file.
 
+// Result: This test does confirm that Google Earth Engine generates an invalid
+// GeoJSON file when exporting an empty vector. It creates a file containing two
+// close brackets "]}"
+
 // Get a real image to ensure the geopatial coordinates are valid
 var img = ee.Image("COPERNICUS/S2/20200909T005709_20200909T005710_T54LXP");
 // Make sure there is nothing to generate a vector from, and simplify to a single band.
