@@ -12,6 +12,10 @@
 // Version: v1.1.2 Adjusted polygon export to GeoJSON to minimise the number of export 
 //                 files as Google Drive struggles with the number generated when using
 //                 shapefiles.
+// Version: v1.2   Added Basic land layer. Added land masking to DryReef and Breaking
+//                 styles. Adjusted the cut off threshold for DryReef to be more representative
+//                 of reef tops that are dry or exposed at low tide. This was done by tweaking
+//                 based on the boundary extent on Green Island and South Warden Reef.
 //                 
 
 /**
@@ -1467,6 +1471,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     
     compositeContrast = filtered.gt(B8LAND_THRESHOLD);
 
+  // DEPRECATED
   } else if (colourGradeStyle === 'ReefTop') {
     //B4contrast = exports.contrastEnhance(scaled_img.select('B4'),0.02,0.021, 1);
     //var B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.02,0.05, 1);
