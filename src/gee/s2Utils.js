@@ -1459,6 +1459,14 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // Mask out any land areas because the depth estimates would 
     compositeContrast = compositeContrast.updateMask(waterMask);
 
+  }  else if (colourGradeStyle === 'Land') {
+    // Perform a basic mapping of land areas
+
+    filtered = img.select('B8')
+      .focal_max({kernel: ee.Kernel.circle({radius: 10, units: 'meters'}), iterations: 1});
+    
+    compositeContrast = filtered.gt(B8LAND_THRESHOLD);
+
   } else if (colourGradeStyle === 'ReefTop') {
     //B4contrast = exports.contrastEnhance(scaled_img.select('B4'),0.02,0.021, 1);
     //var B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.02,0.05, 1);
