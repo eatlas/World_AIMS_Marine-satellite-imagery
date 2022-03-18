@@ -12,7 +12,6 @@ var emptyImg = img.multiply(0);
 
 // Convert the image to vectors.
 var vector = emptyImg.reduceToVectors({
-  geometry: geometry,
   crs: emptyImg.projection(),
   scale: 100,
   geometryType: 'polygon',
