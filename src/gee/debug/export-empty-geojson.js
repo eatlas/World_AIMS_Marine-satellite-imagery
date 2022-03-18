@@ -5,10 +5,16 @@
 // broken files made that consist of just two brackets "]}". This debug script is to test
 // if this problem is caused by exporting empty vectors.
 
+// This script needs to be run, then the Task needs to be run to generate the output which
+// is saved to Google Drive. The execution can take a few minutes as it needs to be scheduled
+// in to the GEE task pool.
+
+// You then need to check in Google Drive for the resulting generated file.
+
 // Get a real image to ensure the geopatial coordinates are valid
 var img = ee.Image("COPERNICUS/S2/20200909T005709_20200909T005710_T54LXP");
-// Make sure there is nothing to generate a vector from.
-var emptyImg = img.multiply(0);
+// Make sure there is nothing to generate a vector from, and simplify to a single band.
+var emptyImg = img.multiply(0).select('B2');
 
 // Convert the image to vectors.
 var vector = emptyImg.reduceToVectors({
