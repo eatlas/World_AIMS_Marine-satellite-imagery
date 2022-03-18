@@ -1341,7 +1341,11 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
   // the sunglint correction LAND THRESHOLD and we want to ensure that it is dry land and not simply
   // shallow.  Chosing this at 1000 brings the estimates close to the high mean tide mark, but also
   // result in dark areas on land (such as on Magnetic Island) as appearing as water.
-  var B8LAND_THRESHOLD = 1000; 
+  // Mask the land in reef layers that is less severe then the land mask. The aim here is to
+  // ensure that the reef feature overlaps with the land by a small amount to allow better
+  // cookie cutting the land out in later processing.
+  var B8LANDMASK_THRESHOLD = 1400; 
+  var B8LAND_THRESHOLD = 800; 
   
   var B4contrast;
   var B3contrast;
@@ -1424,9 +1428,9 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // 0.026 - This detects an area that is too large, picking up areas that clearly have 
     //         live coral, i.e. they don't get exposed. Based on South Warden Reef (55LBE)
     // 0.031 - This theshold was chosen so that the known exposed extent of Green Island (55KCB)
-    compositeContrast = filtered.gt(0.026);
+    compositeContrast = filtered.gt(0.031);
     
-    waterMask = img.select('B8').lt(B8LAND_THRESHOLD);
+    waterMask = img.select('B8').lt(B8LANDMASK_THRESHOLD);
     
     // Mask out any land areas because the depth estimates would 
     compositeContrast = compositeContrast.updateMask(waterMask);
@@ -1458,7 +1462,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     compositeContrast = filtered.gt(0.16);
 
     // Exclude land areas to help clean up the data a bit. 
-    waterMask = img.select('B8').lt(B8LAND_THRESHOLD);
+    waterMask = img.select('B8').lt(B8LANDMASK_THRESHOLD);
     
     // Mask out any land areas because the depth estimates would 
     compositeContrast = compositeContrast.updateMask(waterMask);
