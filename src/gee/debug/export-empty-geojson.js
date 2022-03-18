@@ -11,7 +11,7 @@
 
 // You then need to check in Google Drive for the resulting generated file.
 
-// Result: This test does confirm that Google Earth Engine generates an invalid
+// Result: This test confirms that Google Earth Engine generates an invalid
 // GeoJSON file when exporting an empty vector. It creates a file containing two
 // close brackets "]}"
 
