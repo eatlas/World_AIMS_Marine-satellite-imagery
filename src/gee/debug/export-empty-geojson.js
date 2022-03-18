@@ -16,10 +16,15 @@ var img = ee.Image("COPERNICUS/S2/20200909T005709_20200909T005710_T54LXP");
 // Make sure there is nothing to generate a vector from, and simplify to a single band.
 var emptyImg = img.multiply(0).select('B2');
 
+// Apply a threshold to the image
+var imgContour = emptyImg.gt(0.5);
+// Make the water area transparent
+imgContour = imgContour.updateMask(imgContour.neq(0));
+  
 // Need to set the image mask, otherwise it generates a polygon of the image extents.
 // Convert the image to vectors.
-var vector = emptyImg.reduceToVectors({
-  crs: emptyImg.projection(),
+var vector = imgContour.reduceToVectors({
+  crs: imgContour.projection(),
   scale: 100,
   geometryType: 'polygon',
   eightConnected: false,
