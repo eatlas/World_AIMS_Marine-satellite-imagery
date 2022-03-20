@@ -1339,20 +1339,44 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
   var scaled_img = img.divide(1e4);
   // Consider anything brighter than this as land. This threshold is chosen slightly higher than
   // the sunglint correction LAND THRESHOLD and we want to ensure that it is dry land and not simply
-  // shallow.  Chosing this at 1000 brings the estimates close to the high mean tide mark, but also
-  // result in dark areas on land (such as on Magnetic Island) as appearing as water.
-  // Mask the land in reef layers that is less severe then the land mask. The aim here is to
-  // ensure that the reef feature overlaps with the land by a small amount to allow better
-  // cookie cutting the land out in later processing.
-  var B8LANDMASK_THRESHOLD = 1400; 
+  // shallow. The aim here is to ensure that the reef feature overlaps with the land by a small amount 
+  // to allow better cookie cutting the land out in later processing. Unfortunately it is impossible
+  // to reach the high water mark using B8 since most of the imagery is at a mid tide level. 
+  // Setting the threshold high enough to get close to the high water mark results in lots of 
+  // land areas being considered as water because they are darker than the threshold.
+  var B8LANDMASK_THRESHOLD = 1800; 
   
   // This threshold was adjusted to best align with the Geoscience Australia Geodata Coast100k 2004
   // dataset in locations along the Queensland coastline, and Sharkbay (WA).
+  // The optimal theshold was determined against multiple tiles around Australia by 
+  // adjusting the B8 threshold so that it best matched the coastline visible in the 
+  // Allen Coral Atlas satellite imagery.
+  // In most scenes it was difficult to get a high tide mark from the B8 imagery, as the 
+  // imagery is typically close to mean tide and so the high tide mark is not underwater and
+  // this part of the B8 gradient. 
+  // Some of the tiles were clearly a collection of lower tide images making the maximum
+  // tide mask using B8 more like a mean or slightly low tide. Raising the threshold higher
+  // simply resulted in lots of holes on the land area (dark patches on the land that
+  // are darker than the water threshold). 
   // Threshold tested:
   // 800 - This consistantly included shallow foreshore elements in the boundary making the
-  //       boundary closer to mean low tide.
-  
-  var B8LAND_THRESHOLD = 800; 
+  //       boundary closer to mean low tide. This detects breaking waves quite well.
+  // tile,  location,     8bit-value, original-value,   note 
+  // 49JGW, Sharkbay,     155 - 160,  1750,             This is still not high enough. Imagery is too low tide.
+  // 49KGR, Ningaloo,     155 - 160,  1750,             Sharp gradient. Still picks some breaking waves.
+  // 50KPC, Port Headland,140 - 145,  1330,             The port is very dark and the mangroves are just 
+  //                                                    detected at this threshold. 
+  // 53LPE, Groote Island,155 - 160,  1750,             This is still not high enough. There is significant
+  //                                                    cut out of the land at this level.
+  // 54LYM, GBR,          155 - 160,  1750,             Not high enough. Imagery too shallow. 
+  // 54LXP, Torres Strait,150 - 155,  1600,             Good fit.
+  // 55KCB, Cairns,       150 - 155,  1600,             Good fit.
+  // A threshold of 1600 provides a good match for some scenes. In other scenes this is
+  // not high enough. However the problem with these scenes is that the source imagery is not
+  // a high enough tide and thus B8 doesn't work very well. 
+  // Improving the land making will require careful selection of images that are high tide images.
+  // This can be an improvement for the future.
+  var B8LAND_THRESHOLD = 1600; 
   
   var B4contrast;
   var B3contrast;
