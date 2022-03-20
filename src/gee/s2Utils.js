@@ -16,6 +16,10 @@
 //                 styles. Adjusted the cut off threshold for DryReef to be more representative
 //                 of reef tops that are dry or exposed at low tide. This was done by tweaking
 //                 based on the boundary extent on Green Island and South Warden Reef.
+// Version: v1.2.1 Adjusted the land layer threshold to more be more accurate. It is still
+//                 imperfect because to get close to high water mark the threshold starts
+//                 to cut out dark land features. As such it is a noisy layer that would
+//                 require considerable manual clean up.
 //                 
 
 /**
