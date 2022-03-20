@@ -1468,6 +1468,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     
 
   } else if (colourGradeStyle === 'Breaking') {
+    // The development of this style is incomplete. It currently has some holes in the land
     // Detect breaking waves. This is not a super reliable method as it will also
     // detect land areas and is dependent on the selection of images in the analysis.
     // It detect and shallow or dry area.
