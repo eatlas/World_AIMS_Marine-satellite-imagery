@@ -1345,6 +1345,13 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
   // ensure that the reef feature overlaps with the land by a small amount to allow better
   // cookie cutting the land out in later processing.
   var B8LANDMASK_THRESHOLD = 1400; 
+  
+  // This threshold was adjusted to best align with the Geoscience Australia Geodata Coast100k 2004
+  // dataset in locations along the Queensland coastline, and Sharkbay (WA).
+  // Threshold tested:
+  // 800 - This consistantly included shallow foreshore elements in the boundary making the
+  //       boundary closer to mean low tide.
+  
   var B8LAND_THRESHOLD = 800; 
   
   var B4contrast;
@@ -1468,7 +1475,8 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     compositeContrast = compositeContrast.updateMask(waterMask);
 
   }  else if (colourGradeStyle === 'Land') {
-    // Perform a basic mapping of land areas
+    // Perform a basic mapping of land areas.
+    
 
     filtered = img.select('B8')
       .focal_max({kernel: ee.Kernel.circle({radius: 10, units: 'meters'}), iterations: 1});
