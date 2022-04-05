@@ -129,4 +129,4 @@ git tag
 To expand the selection of tiles that have been analysed use the `src\gee\apps\select-sentinel2-images.js`
 app to select the best images for area of interest.
 
-To 
+To determine the Sentinel 2 tile for the area of interest find the tile ID from [this interactive map](https://maps.eatlas.org.au/index.html?intro=false&z=7&ll=146.90137,-19.07287&l0=ea_ref%3AWorld_ESA_Sentinel-2-tiling-grid_Poly,ea_ea-be%3AWorld_Bright-Earth-e-Atlas-basemap,google_SATELLITE&v0=,,f).
