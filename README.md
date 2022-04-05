@@ -124,3 +124,9 @@ To see existing tags:
 ```
 git tag
 ```
+
+## Choosing new image tiles
+To expand the selection of tiles that have been analysed use the `src\gee\apps\select-sentinel2-images.js`
+app to select the best images for area of interest.
+
+To 
