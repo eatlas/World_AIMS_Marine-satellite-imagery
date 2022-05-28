@@ -405,7 +405,8 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
   // is why we don't use it here.
   
   // Don't apply a cloud mask if there is only a single image
-  var applyCloudMask = imageIds.length > 1;
+  //var applyCloudMask = imageIds.length > 1;
+  var applyCloudMask = false;
   if (applyCloudMask) {
     composite = composite_collection.map(exports.add_s2_cloud_shadow_mask)
       .map(exports.apply_cloud_shadow_mask)
