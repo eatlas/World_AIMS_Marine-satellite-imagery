@@ -404,9 +404,44 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
   // lower threshold comes with a slight increase in image noise, which
   // is why we don't use it here.
   
+  // Layering composites - Cloud masking
+  // One problem with the existing cloud masking is that there are some
+  // coral cays that are consistently detected as clouds. As a result they are cut 
+  // out from every images resulting in a final composite with holes where the
+  // coral cays are. I tried adjusting the detection threholds for clouds to reduce
+  // this problem. The trade off is if you raise the cloud detection threshold
+  // it will slightly reduce the chance of thinking a cay is a cloud, but will come
+  // with the trade off that more cloud will end up not being filtered out.
+  
+  // To get around this problem we create the composite twice. Once with cloud
+  // masking and one with no cloud masking. We layer the cloud masked layer over the top
+  // of the non cloud masked image. Any holes in the cloud masked image (due to a cay)
+  // will show the non-cloud masked image underneith. This should the cay. 
+  // Since we only make composites from images with a low cloud cover the cays
+  // should appear relatively noise free, even with no cloud masking.
+  
+  var compositeNoCloudMask = composite_collection
+      .reduce(ee.Reducer.percentile([50],["p50"]))
+      .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
+        'B8A','B9','B10','B11','B12','QA10','QA20','QA60']);
+        
+  var applyCloudMask = imageIds.length > 1;
+  if (applyCloudMask) {    
+    var compositeCloudMask = composite_collection.map(exports.add_s2_cloud_shadow_mask)
+      .map(exports.apply_cloud_shadow_mask)
+      .reduce(ee.Reducer.percentile([50],["p50"]))
+      .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
+        'B8A','B9','B10','B11','B12','QA10','QA20','QA60','cloudmask']);
+    composite = compositeCloudMask;
+  } else {
+
+    composite = compositeNoCloudMask;
+  }
+  
+  
   // Don't apply a cloud mask if there is only a single image
   //var applyCloudMask = imageIds.length > 1;
-  var applyCloudMask = false;
+  /*var applyCloudMask = false;
   if (applyCloudMask) {
     composite = composite_collection.map(exports.add_s2_cloud_shadow_mask)
       .map(exports.apply_cloud_shadow_mask)
@@ -419,7 +454,7 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
       .reduce(ee.Reducer.percentile([50],["p50"]))
       .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
         'B8A','B9','B10','B11','B12','QA10','QA20','QA60']);
-  }
+  }*/
   
   // Correct for a bug in the reduce process. The reduce process
   // does not generate an image with the correct geometry. Instead
