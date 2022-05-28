@@ -2,8 +2,10 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 // Primary imagery
 var REF1_OPTIONS = {
-  colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
-  exportScale: [10, 10, 10, 10, 30],
+  //colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
+  //exportScale: [10, 10, 10, 10, 30],
+  colourGrades: ['DeepFalse'],
+  exportScale: [10],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Central-Sth-Pacific',
   
@@ -61,7 +63,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20210628T200859_20210628T200854_T06LUJ",
     "COPERNICUS/S2/20211016T200859_20211016T200854_T06LUJ"
   ],
-  false, false, REF1_OPTIONS);
+  true, false, REF1_OPTIONS);
 
 
 s2Utils.s2_composite_display_and_export(
