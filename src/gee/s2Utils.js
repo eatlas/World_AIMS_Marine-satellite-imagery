@@ -20,6 +20,11 @@
 //                 imperfect because to get close to high water mark the threshold starts
 //                 to cut out dark land features. As such it is a noisy layer that would
 //                 require considerable manual clean up.
+// Version: v1.3.0 Changed the generation of the image composition. Previously some cays 
+//                 were being interpretted as clouds, resulting in permanent gaps in the 
+//                 composite images. The new approach layers a composite with no cloud 
+//                 masking underneath the cloud masked composite, resulting in gaps being
+//                 in filled.
 //                 
 
 /**
@@ -431,7 +436,14 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
       .reduce(ee.Reducer.percentile([50],["p50"]))
       .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
         'B8A','B9','B10','B11','B12','QA10','QA20','QA60','cloudmask']);
-    composite = compositeCloudMask;
+    
+    // Layer the Cloud masked image over the composite with no cloud masking.
+    // Use layering as the Cloud masked composite should be a better image than
+    // the no cloud masked composite everywhere except over coral cays (as they
+    // are interpretted as clouds)
+    // Last layer is on top
+    composite = ee.ImageCollection([compositeNoCloudMask, compositeCloudMask]).mosaic();
+    //composite = compositeCloudMask;
   } else {
     // If there is only a single image then don't use cloud masking.
     composite = compositeNoCloudMask;
