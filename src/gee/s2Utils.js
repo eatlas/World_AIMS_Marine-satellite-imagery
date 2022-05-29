@@ -434,7 +434,7 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
       .rename(IMG_BANDS);
   
   // Only process with cloud mask if there is more than one image
-  if (imageIds.length > 1) {    
+/*  if (imageIds.length > 1) {    
     var compositeCloudMask = composite_collection.map(exports.add_s2_cloud_shadow_mask)
       .map(exports.apply_cloud_shadow_mask)
       .reduce(ee.Reducer.percentile([50],["p50"]))
@@ -456,10 +456,10 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
     composite = composite.addBands(cloudmask);
     
     //composite = compositeCloudMask;
-  } else {
+  } else { */
     // If there is only a single image then don't use cloud masking.
     composite = compositeNoCloudMask;
-  }
+  //}
   
   
   // Don't apply a cloud mask if there is only a single image
