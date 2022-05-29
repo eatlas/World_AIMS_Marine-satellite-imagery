@@ -114,7 +114,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190110T004701_20190110T004701_T54LYQ",
     "COPERNICUS/S2/20190115T004709_20190115T004705_T54LYQ"
   ], 
-  false, false, REF1_OPTIONS);
+  true, false, REF1_OPTIONS);
 
 // South central TS
 s2Utils.s2_composite_display_and_export(
@@ -568,7 +568,7 @@ s2Utils.s2_composite_display_and_export(
     //"COPERNICUS/S2/20200821T002709_20200821T002711_T55KEV", // (1) Low Water Quality, bit excellent view of plumes around reefs.
     "COPERNICUS/S2/20210915T002709_20210915T002703_T55KEV"  // (3)
   ],
-  true, false, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
 // Good
 //COPERNICUS/S2/20180802T002709_20180802T002704_T55KEV
 //COPERNICUS/S2/20180827T002711_20180827T002706_T55KEV
