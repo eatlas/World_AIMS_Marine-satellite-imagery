@@ -420,14 +420,12 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
   // Since we only make composites from images with a low cloud cover the cays
   // should appear relatively noise free, even with no cloud masking.
   
-
   var compositeNoCloudMask = composite_collection
       .reduce(ee.Reducer.percentile([50],["p50"]))
       .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
         'B8A','B9','B10','B11','B12','QA10','QA20','QA60']);
         
-  var applyCloudMask = imageIds.length > 1;
-  if (applyCloudMask) {    
+  if (imageIds.length > 1) {    
     var compositeCloudMask = composite_collection.map(exports.add_s2_cloud_shadow_mask)
       .map(exports.apply_cloud_shadow_mask)
       .reduce(ee.Reducer.percentile([50],["p50"]))
