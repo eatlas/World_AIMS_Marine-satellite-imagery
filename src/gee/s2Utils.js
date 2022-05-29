@@ -760,7 +760,8 @@ exports.add_s2_cloud_shadow_mask = function(img) {
   // Cloud probability threshold (%); values greater are considered cloud
   
   var low_cloud_mask = exports.get_s2_cloud_shadow_mask(img, 
-    35,   // (cloud predication prob) Use low probability to pick up smaller
+    5,
+    //35,   // (cloud predication prob) Use low probability to pick up smaller
           // clouds. This threshold still misses a lot of small clouds. 
           // unfortunately lowering the threshold anymore results in sand cays
           // being detected as clouds.
