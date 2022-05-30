@@ -428,10 +428,6 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
   // All the bands to process  
   var IMG_BANDS = ['B1','B2','B3','B4','B5','B6','B7','B8',
         'B8A','B9','B10','B11','B12','QA10','QA20','QA60'];
-
-  //var compositeNoCloudMask = composite_collection
-  //    .reduce(ee.Reducer.percentile([50],["p50"]))
-  //    .rename(IMG_BANDS);
       
   var compositeNoCloudMask = composite_collection
       .reduce(ee.Reducer.percentile([50],["p50"]))
@@ -464,24 +460,6 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
     // If there is only a single image then don't use cloud masking.
     composite = compositeNoCloudMask;
   }
-  
-  
-  // Don't apply a cloud mask if there is only a single image
-  //var applyCloudMask = imageIds.length > 1;
-  /*var applyCloudMask = false;
-  if (applyCloudMask) {
-    composite = composite_collection.map(exports.add_s2_cloud_shadow_mask)
-      .map(exports.apply_cloud_shadow_mask)
-      .reduce(ee.Reducer.percentile([50],["p50"]))
-      .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
-        'B8A','B9','B10','B11','B12','QA10','QA20','QA60','cloudmask']);
-  } else {
-
-    composite = composite_collection
-      .reduce(ee.Reducer.percentile([50],["p50"]))
-      .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
-        'B8A','B9','B10','B11','B12','QA10','QA20','QA60']);
-  }*/
   
   // Correct for a bug in the reduce process. The reduce process
   // does not generate an image with the correct geometry. Instead
