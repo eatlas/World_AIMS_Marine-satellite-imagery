@@ -283,7 +283,7 @@ function makeAndSaveShp(img, layerName, fileName, exportFolder, scale, geometry,
   // Indicate that bilinear resampling should be used rather than nearest neighbour if the 
   // scale is set to upsample the image. Note: This doesn't do anything until the 
   // reprojection is applied.
-  img = img.resample('bilinear');
+  imgUpsampled = img.resample('bilinear');
   var imgContour = imgUpsampled.gt(0.5);
   
   // Make the water area transparent
