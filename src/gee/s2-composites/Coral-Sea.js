@@ -12,8 +12,8 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 var REF1_OPTIONS = {
   //colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
   //exportScale: [10, 10, 10, 10, 30],
-  colourGrades: ['DryReef','Breaking'],
-  exportScale: [10, 10],
+  colourGrades: ['Depth5m'],
+  exportScale: [10],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Coral-Sea',
   
@@ -255,7 +255,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190812T002711_20190812T002711_T55KFB",
     "COPERNICUS/S2/20190827T002709_20190827T002712_T55KFB"
   ],
-  true, false, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
 
 // Left as is - RB
 // 6 OK right images, 5 Maybe left images
@@ -584,7 +584,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180811T001111_20180811T001108_T56KLF",
     "COPERNICUS/S2/20201019T001111_20201019T001114_T56KLF" // Sunglint in corner
   ],
-  false, false, REF1_OPTIONS);
+  true, false, REF1_OPTIONS);
 
 s2Utils.s2_composite_display_and_export(
   [
