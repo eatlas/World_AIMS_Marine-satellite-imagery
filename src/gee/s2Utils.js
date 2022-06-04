@@ -270,8 +270,15 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
 // scale - scale to export the vector at. Recommend 3 for 3 m.
 // geometry - limit of the vectorisation.
 function makeAndSaveShp(img, layerName, fileName, exportFolder, scale, geometry, is_display, is_export) {
+  
+  // Display a bilinear resampled image with 5m pixel spacing.
+  var imgUpsampled = img.resample('bilinear').reproject({
+    crs: img.projection().crs(),
+    scale: 5
+  });
+  
   // Apply a threshold to the image
-  var imgContour = img.gt(0.5);
+  var imgContour = imgUpsampled.gt(0.5);
   // Make the water area transparent
   imgContour = imgContour.updateMask(imgContour.neq(0));
   // Convert the image to vectors.
