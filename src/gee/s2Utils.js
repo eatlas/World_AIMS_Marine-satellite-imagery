@@ -272,20 +272,27 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
 function makeAndSaveShp(img, layerName, fileName, exportFolder, scale, geometry, is_display, is_export) {
   
   // Display a bilinear resampled image with 5m pixel spacing.
-  var imgUpsampled = img.resample('bilinear').reproject({
-    crs: img.projection().crs(),
-    scale: 5
-  });
+  //var imgUpsampled = img.resample('bilinear').reproject({
+  //  crs: img.projection().crs(),
+  //  scale: 5
+  //});
   
   // Apply a threshold to the image
+  //var imgContour = imgUpsampled.gt(0.5);
+  
+  // Indicate that bilinear resampling should be used rather than nearest neighbour if the 
+  // scale is set to upsample the image. Note: This doesn't do anything until the 
+  // reprojection is applied.
+  img = img.resample('bilinear');
   var imgContour = imgUpsampled.gt(0.5);
+  
   // Make the water area transparent
   imgContour = imgContour.updateMask(imgContour.neq(0));
   // Convert the image to vectors.
   var vector = imgContour.reduceToVectors({
     geometry: geometry,
     crs: imgContour.projection(),
-    scale: scale,
+    scale: 5,
     geometryType: 'polygon',
     eightConnected: false,
     labelProperty: 'DIN',
