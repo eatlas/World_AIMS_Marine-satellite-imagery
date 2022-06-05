@@ -124,6 +124,16 @@ To see existing tags:
 ```
 git tag
 ```
+To push this tag to GitHub:
+```
+git push https://github.com/eatlas/CS_AIMS_Coral-Sea-Features_Img.git <name of tag>
+```
+
+To push this to Google Earth Engine, assuming it is set as the origin. Note: I don't think Google Earth Engine 
+does anything with the tags.
+```
+git push origin <name of tag>
+```
 
 ## Choosing new image tiles
 To expand the selection of tiles that have been analysed use the `src\gee\apps\select-sentinel2-images.js`
