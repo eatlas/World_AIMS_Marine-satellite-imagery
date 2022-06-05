@@ -25,7 +25,8 @@
 //                 composite images. The new approach layers a composite with no cloud 
 //                 masking underneath the cloud masked composite, resulting in gaps being
 //                 in filled.
-//                 
+// Version: v1.3.1 Change the depth mapping so that land areas are marked as 1 m above sea
+//                 level rather than masked out. 
 
 /**
 * @module s2Utils
