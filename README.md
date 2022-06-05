@@ -126,7 +126,7 @@ git tag
 ```
 To push this tag to GitHub:
 ```
-git push https://github.com/eatlas/CS_AIMS_Coral-Sea-Features_Img.git <name of tag>
+git push https://github.com/eatlas/World_AIMS_Marine-satellite-imagery.git <name of tag>
 ```
 
 To push this to Google Earth Engine, assuming it is set as the origin. Note: I don't think Google Earth Engine 
