@@ -17,7 +17,7 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
  
 // Date range to iterate through the Sentinel 2 imagery.
 var START_DATE = '2015-01-01';
-var END_DATE = '2022-1-20';
+var END_DATE = '2022-06-20';
 
 //var START_DATE = '2020-10-29';
 //var END_DATE = '2020-10-31';
@@ -153,6 +153,7 @@ tileID = '56KLC';     // (Southern) Coral Sea, Olympic Reef (Edge of GBR)
 tileID = '56KMC';     // (Southern) Coral Sea
 tileID = '57KTR';     // (Southern western) Coral Sea, West of Wreck reef
 
+tileID = '55KDB';     // Australia, GBR, Moore Reef
 
 
 // Potential shallow areas in Eastern Coral Sea
