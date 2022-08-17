@@ -635,9 +635,11 @@ s2Utils.s2_composite_display_and_export(
 // COPERNICUS/S2/20180816T001059_20180816T001102_T56KLB" // Large amount of organics at edge of the shelf.
 // COPERNICUS/S2/20180821T001111_20180821T001108_T56KLB" // Excellent image. Large amount of organics at edge of the shelf.
 
-
+// Australia, GBR, North east Swains, Elusive Reef
 // 0.1% Cloud cover
 // 130 of 160 images
+// In this area there are significant tidal currents in the bottom right reefs
+// this limited the visibility in many of the images.
 s2Utils.s2_composite_display_and_export(
   [
     // Excellent
