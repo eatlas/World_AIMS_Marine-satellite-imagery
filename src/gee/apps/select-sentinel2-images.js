@@ -223,7 +223,7 @@ tileID = '55KDB';     // Australia, GBR, Moore Reef
                       // The Geomorphology of the Great Barrier Reef
 //tileID = '56KLB';   // Australia, GBR, North west Swains, Heralds Reef
 //tileID = '56KMA';   // Australia, GBR, South east Swains, Horseshoe, Hackle
-tileID = '56KMB';   // Australia, GBR, North east Swains, Elusive Reef
+//tileID = '56KMB';   // Australia, GBR, North east Swains, Elusive Reef
 //tileID = '56KMU';   // Australia, GBR, Lady Musgrave
 //tileID = '55KEV';   // Australia, GBR, Davies, Grub, Chicken
 
