@@ -243,7 +243,12 @@ tileID = '56KMB';   // Australia, GBR, North east Swains, Elusive Reef
 //tileID = '51LYH';   // North West Shelf
 //tileID = '51LWH';   // North West Shelf
 //tileID = '51LUE';   // Australia, WA, Scott Reef
-
+tileID = '52LDK';   // Australia, WA, Joseph Bonaparte Gulf, Ord River
+tileID = '52LDJ';   // Australia, WA, Joseph Bonaparte Gulf, Ord River
+tileID = '52LEL';   // Australia, NT, Joseph Bonaparte Gulf, Daly
+tileID = '52LFL';   // Australia, NT, Joseph Bonaparte Gulf, Daly
+tileID = '52LEJ';   // Australia, WA, Joseph Bonaparte Gulf, Ord River
+                    // Ord-East Kimberly Expansion Project (https://www.abc.net.au/news/rural/2012-12-19/northern-territory-pushing-hard-to-develop-ord/6129516)
 
 // ======== Sth-E-Asian-Arch =======
 //tileID = '51MWT';   // Indonesia, Melilis Island
