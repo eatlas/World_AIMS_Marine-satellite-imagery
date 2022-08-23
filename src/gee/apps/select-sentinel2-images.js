@@ -30,7 +30,7 @@ var END_DATE = '2022-06-20';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 0.5;
+var CLOUDY_PIXEL_PERCENTAGE = 0.1;
 
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
@@ -247,7 +247,7 @@ tileID = '52LDK';   // Australia, WA, Joseph Bonaparte Gulf, Ord River
 tileID = '52LDJ';   // Australia, WA, Joseph Bonaparte Gulf, Ord River
 tileID = '52LEL';   // Australia, NT, Joseph Bonaparte Gulf, Daly
 tileID = '52LFL';   // Australia, NT, Joseph Bonaparte Gulf, Daly
-tileID = '52LEJ';   // Australia, WA, Joseph Bonaparte Gulf, Ord River
+//tileID = '52LEJ';   // Australia, WA, Joseph Bonaparte Gulf, Ord River
                     // Ord-East Kimberly Expansion Project (https://www.abc.net.au/news/rural/2012-12-19/northern-territory-pushing-hard-to-develop-ord/6129516)
 
 // ======== Sth-E-Asian-Arch =======
