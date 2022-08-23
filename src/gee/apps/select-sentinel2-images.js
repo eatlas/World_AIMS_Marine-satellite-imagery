@@ -226,11 +226,12 @@ tileID = '55KDB';     // Australia, GBR, Moore Reef
 tileID = '56KMB';   // Australia, GBR, North east Swains, Elusive Reef
 //tileID = '56KMU';   // Australia, GBR, Lady Musgrave
 //tileID = '55KEV';   // Australia, GBR, Davies, Grub, Chicken
-//tileID = '51LUE';   // Australia, WA, Scott Reef
-//tileID = '49KGR';   // Australia, WA, Ningaloo reef
-//tileID = '51LYE';   // Australia, WA, Bonaparte Archipelago, Long Reef 
-//tileID = '49JGM';   // Australia, WA, Shark bay. This scene is used to highlight
-                      // recognising dark substrates due to the seagrass meadows.
+
+
+
+
+
+// ======== Timor-Sea =======
 //tileID = '51LZJ';   // North West Shelf, Australia, Timor Sea, Big Bank Shoals
                       // Aligns with:
                       // A. Heyward, E. Pinceratto, L. Smith (1997) Big Bank Shoals of the Timor Sea. An Environmenal Resource Atlas
@@ -241,7 +242,14 @@ tileID = '56KMB';   // Australia, GBR, North east Swains, Elusive Reef
 //tileID = '51LXH';   // North West Shelf
 //tileID = '51LYH';   // North West Shelf
 //tileID = '51LWH';   // North West Shelf
+//tileID = '51LUE';   // Australia, WA, Scott Reef
+
+
+// ======== Sth-E-Asian-Arch =======
 //tileID = '51MWT';   // Indonesia, Melilis Island
+
+
+// ======== Philippines =======
 //tileID = '51PWN';   // Philippines, Visayan Sea, Bantayan Island
 //tileID = '37PFT';   // Eritrea, Red Sea, Dahlak Marine National Park
 
@@ -249,6 +257,12 @@ tileID = '56KMB';   // Australia, GBR, North east Swains, Elusive Reef
 //tileID = '50KQD';   // Australia, Western Australia, North East of Port Headland
 //tileID = '50KPD';   // Australia, Western Australia, North of Port Headland
 //tileID = '50KPC';   // Australia, Western Australia, Port Headland
+//tileID = '49KGR';   // Australia, WA, Ningaloo reef
+//tileID = '51LYE';   // Australia, WA, Bonaparte Archipelago, Long Reef 
+//tileID = '49JGM';   // Australia, WA, Shark bay. This scene is used to highlight
+                      // recognising dark substrates due to the seagrass meadows.
+                      
+                      
 
 s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
 
