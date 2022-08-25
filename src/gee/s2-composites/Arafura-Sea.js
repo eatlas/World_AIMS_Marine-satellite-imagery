@@ -120,3 +120,5 @@ s2Utils.s2_composite_display_and_export(
     //"COPERNICUS/S2/20200924T005711_20200924T005713_T54LTH"
   ],
   false, false, REF1_OPTIONS);
+  
+// 

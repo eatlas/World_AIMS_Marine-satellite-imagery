@@ -17,7 +17,7 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
  
 // Date range to iterate through the Sentinel 2 imagery.
 var START_DATE = '2015-01-01';
-var END_DATE = '2022-1-20';
+var END_DATE = '2022-06-20';
 
 //var START_DATE = '2020-10-29';
 //var END_DATE = '2020-10-31';
@@ -30,7 +30,7 @@ var END_DATE = '2022-1-20';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 0.5;
+var CLOUDY_PIXEL_PERCENTAGE = 0.1;
 
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
@@ -153,6 +153,7 @@ tileID = '56KLC';     // (Southern) Coral Sea, Olympic Reef (Edge of GBR)
 tileID = '56KMC';     // (Southern) Coral Sea
 tileID = '57KTR';     // (Southern western) Coral Sea, West of Wreck reef
 
+tileID = '55KDB';     // Australia, GBR, Moore Reef
 
 
 // Potential shallow areas in Eastern Coral Sea
@@ -222,13 +223,15 @@ tileID = '57KTR';     // (Southern western) Coral Sea, West of Wreck reef
                       // The Geomorphology of the Great Barrier Reef
 //tileID = '56KLB';   // Australia, GBR, North west Swains, Heralds Reef
 //tileID = '56KMA';   // Australia, GBR, South east Swains, Horseshoe, Hackle
+//tileID = '56KMB';   // Australia, GBR, North east Swains, Elusive Reef
 //tileID = '56KMU';   // Australia, GBR, Lady Musgrave
 //tileID = '55KEV';   // Australia, GBR, Davies, Grub, Chicken
-//tileID = '51LUE';   // Australia, WA, Scott Reef
-//tileID = '49KGR';   // Australia, WA, Ningaloo reef
-//tileID = '51LYE';   // Australia, WA, Bonaparte Archipelago, Long Reef 
-//tileID = '49JGM';   // Australia, WA, Shark bay. This scene is used to highlight
-                      // recognising dark substrates due to the seagrass meadows.
+
+
+
+
+
+// ======== Timor-Sea =======
 //tileID = '51LZJ';   // North West Shelf, Australia, Timor Sea, Big Bank Shoals
                       // Aligns with:
                       // A. Heyward, E. Pinceratto, L. Smith (1997) Big Bank Shoals of the Timor Sea. An Environmenal Resource Atlas
@@ -239,7 +242,22 @@ tileID = '57KTR';     // (Southern western) Coral Sea, West of Wreck reef
 //tileID = '51LXH';   // North West Shelf
 //tileID = '51LYH';   // North West Shelf
 //tileID = '51LWH';   // North West Shelf
+//tileID = '51LUE';   // Australia, WA, Scott Reef
+tileID = '52LDL';   // Australia, WA, Joseph Bonaparte Gulf, North of Ord River, East of Daly
+tileID = '52LCL';   // Australia, WA, Joseph Bonaparte Gulf, North West of Ord River
+//tileID = '52LEK';   // Australia, WA, Joseph Bonaparte Gulf, East of Ord River
+//tileID = '52LDK';   // Australia, WA, Joseph Bonaparte Gulf, Ord River
+//tileID = '52LDJ';   // Australia, WA, Joseph Bonaparte Gulf, Ord River
+//tileID = '52LEL';   // Australia, NT, Joseph Bonaparte Gulf, Daly
+//tileID = '52LFL';   // Australia, NT, Joseph Bonaparte Gulf, Daly
+//tileID = '52LEJ';   // Australia, WA, Joseph Bonaparte Gulf, Ord River
+                    // Ord-East Kimberly Expansion Project (https://www.abc.net.au/news/rural/2012-12-19/northern-territory-pushing-hard-to-develop-ord/6129516)
+
+// ======== Sth-E-Asian-Arch =======
 //tileID = '51MWT';   // Indonesia, Melilis Island
+
+
+// ======== Philippines =======
 //tileID = '51PWN';   // Philippines, Visayan Sea, Bantayan Island
 //tileID = '37PFT';   // Eritrea, Red Sea, Dahlak Marine National Park
 
@@ -247,6 +265,12 @@ tileID = '57KTR';     // (Southern western) Coral Sea, West of Wreck reef
 //tileID = '50KQD';   // Australia, Western Australia, North East of Port Headland
 //tileID = '50KPD';   // Australia, Western Australia, North of Port Headland
 //tileID = '50KPC';   // Australia, Western Australia, Port Headland
+//tileID = '49KGR';   // Australia, WA, Ningaloo reef
+//tileID = '51LYE';   // Australia, WA, Bonaparte Archipelago, Long Reef 
+//tileID = '49JGM';   // Australia, WA, Shark bay. This scene is used to highlight
+                      // recognising dark substrates due to the seagrass meadows.
+                      
+                      
 
 s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
 
