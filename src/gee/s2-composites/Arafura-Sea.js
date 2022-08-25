@@ -121,4 +121,4 @@ s2Utils.s2_composite_display_and_export(
   ],
   false, false, REF1_OPTIONS);
   
-// 
+// Australia, Gulf of Carpentaria, South East
