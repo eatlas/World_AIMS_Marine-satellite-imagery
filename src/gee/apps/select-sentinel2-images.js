@@ -232,7 +232,7 @@ tileID = '55KDB';     // Australia, GBR, Moore Reef
 // ======== Arafura-Sea ======
 tileID = '54LVJ';      // Gulf of Carpentaria, South East (3 north of Karumba) (Two shoals on marine charts)
 tileID = '54LVH';      // Gulf of Carpentaria, South East (2 north of Karumba) (Two shoals on marine charts)
-tileID = '54KVG';      // Gulf of Carpentaria, South East (1 north of Karumba) (Two shoals on marine charts)
+//tileID = '54KVG';      // Gulf of Carpentaria, South East (1 north of Karumba) (Two shoals on marine charts)
 
 // ======== Timor-Sea =======
 //tileID = '51LZJ';   // North West Shelf, Australia, Timor Sea, Big Bank Shoals
