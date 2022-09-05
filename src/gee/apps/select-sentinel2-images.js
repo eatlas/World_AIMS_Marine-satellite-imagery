@@ -487,7 +487,7 @@ tileID = '52LGM'; // Timor Sea
 tileID = '54KTG'; // Arafura Sea
 tileID = '53LQE'; // Arafura Sea
 tileID = '49KGQ'; // Western Australia
-tileID = '51LXD'; // Timor Sea
+//tileID = '51LXD'; // Timor Sea
 
 s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
 
