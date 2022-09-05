@@ -2117,7 +2117,8 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     var composite = imagesFiltered
       //.map(exports.removeSunGlint)
-      .reduce(ee.Reducer.percentile([50],["p50"]))
+      //.reduce(ee.Reducer.percentile([50],["p50"]))
+      .reduce(ee.Reducer.first())
       .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
         'B8A','B9','B10','B11','B12','QA10','QA20','QA60']);
     var includeCloudmask = false;
