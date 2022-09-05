@@ -479,7 +479,7 @@ tileID = '58JGM'; // Sth-West-Pacific
 tileID = '58JGN'; // Sth-West-Pacific
 tileID = '58JGP'; // Sth-West-Pacific
 tileID = '59JKG'; // Sth-West-Pacific
-tileID = '59JKH'; // Sth-West-Pacific
+//tileID = '59JKH'; // Sth-West-Pacific (no images)
 //tileID = '59JKJ'; // Sth-West-Pacific (no images)
 
 
