@@ -122,3 +122,107 @@ s2Utils.s2_composite_display_and_export(
   false, false, REF1_OPTIONS);
   
 // Australia, Gulf of Carpentaria, South East
+
+
+
+// Speed run
+// Cloud pixel percentage = 0
+// 10 of X
+imgIds = [
+    
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+
+
+// Speed run
+// Cloud pixel percentage = 0
+// 13 of83
+imgIds = [
+    "COPERNICUS/S2/20160716T012722_20160716T012759_T53LLG",
+    "COPERNICUS/S2/20170731T012721_20170731T012717_T53LLG"
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+
+// Speed run
+// Cloud pixel percentage = 0
+// 13 of 41
+imgIds = [
+    "COPERNICUS/S2/20170825T012709_20170825T012711_T53LKH",
+    "COPERNICUS/S2/20180820T012709_20180820T012901_T53LKH",
+    "COPERNICUS/S2/20190527T012729_20190527T012724_T53LKH",
+    "COPERNICUS/S2/20190616T012729_20190616T012723_T53LKH"
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+
+// Speed run
+// Cloud pixel percentage = 0
+// 10 of 85
+imgIds = [
+    "COPERNICUS/S2/20160619T013712_20160619T013859_T52LHP", //Left
+    "COPERNICUS/S2/20160805T012720_20160805T062009_T52LHP", // Right
+    "COPERNICUS/S2/20160825T012722_20160825T012717_T52LHP", // Right
+    "COPERNICUS/S2/20170808T013709_20170808T013711_T52LHP" // Left
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+
+// Speed run
+// Cloud pixel percentage = 0
+// 10 of 129
+imgIds = [
+    "COPERNICUS/S2/20170422T012721_20170422T012717_T52LHN", // Right
+    "COPERNICUS/S2/20170505T013721_20170505T013715_T52LHN", // Left
+    "COPERNICUS/S2/20170614T013711_20170614T013713_T52LHN", // Left
+    "COPERNICUS/S2/20170621T012721_20170621T012715_T52LHN", // Right
+    "COPERNICUS/S2/20170808T013709_20170808T013711_T52LHN" // Left
+    
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+
+
+// Speed run
+// Cloud pixel percentage = 0
+// 11 of 107
+imgIds = [
+    "COPERNICUS/S2/20160716T012722_20160716T012759_T52LHM",
+    "COPERNICUS/S2/20170621T012721_20170621T012715_T52LHM"
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+
+// Speed run
+// Cloud pixel percentage = 0
+// 10 of 23
+imgIds = [
+    "COPERNICUS/S2/20160111T013712_20160111T013707_T52LGQ",
+    "COPERNICUS/S2/20170828T013709_20170828T013707_T52LGQ",
+    "COPERNICUS/S2/20180927T013711_20180927T013708_T52LGQ"
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+
+// Speed run
+// Cloud pixel percentage = 0
+// 16 of 41
+imgIds = [
+    "COPERNICUS/S2/20170808T013709_20170808T013711_T52LGP"
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+
+// Speed run
+// Cloud pixel percentage = 0
+// 11 of 55
+imgIds = [
+    "COPERNICUS/S2/20170808T013709_20170808T013711_T52LGN",
+    "COPERNICUS/S2/20170828T013709_20170828T013707_T52LGN",
+    "COPERNICUS/S2/20180525T013709_20180525T013909_T52LGN"
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+
+// Speed run
+// Cloud pixel percentage = 0
+// 10 of 175
+imgIds = [
+    "COPERNICUS/S2/20160729T013722_20160729T013908_T52LGM",
+    "COPERNICUS/S2/20160520T014042_20160520T014043_T52LGM", // Bottom
+    "COPERNICUS/S2/20160629T014038_20160629T062926_T52LGM", // Bottom
+    "COPERNICUS/S2/20170505T013721_20170505T013715_T52LGM"
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
