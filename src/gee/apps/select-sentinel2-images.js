@@ -480,7 +480,7 @@ tileID = '58JGN'; // Sth-West-Pacific
 tileID = '58JGP'; // Sth-West-Pacific
 tileID = '59JKG'; // Sth-West-Pacific
 tileID = '59JKH'; // Sth-West-Pacific
-tileID = '59JKJ'; // Sth-West-Pacific
+//tileID = '59JKJ'; // Sth-West-Pacific (no images)
 
 
 s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
