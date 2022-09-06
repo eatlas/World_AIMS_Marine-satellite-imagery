@@ -226,3 +226,15 @@ imgIds = [
     "COPERNICUS/S2/20170505T013721_20170505T013715_T52LGM"
 ];
 s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+
+// 8:11 am - 8:20 am
+// Speed run
+// Cloud pixel percentage = 0
+// 12 of 60
+imgIds = [
+    "COPERNICUS/S2/20161207T010722_20161207T010825_T53LQE",
+    "COPERNICUS/S2/20170814T010731_20170814T010729_T53LQE",
+    "COPERNICUS/S2/20171107T010719_20171107T010713_T53LQE",  // sunglint on right side of image
+    "COPERNICUS/S2/20180610T010731_20180610T010727_T53LQE"
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
