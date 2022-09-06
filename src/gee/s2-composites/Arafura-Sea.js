@@ -238,3 +238,14 @@ imgIds = [
     "COPERNICUS/S2/20180610T010731_20180610T010727_T53LQE"
 ];
 s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+
+// 8:20 - 8:30 am
+// Speed run
+// Cloud pixel percentage = 0
+// 10 of 224
+imgIds = [
+    "COPERNICUS/S2/20160727T005712_20160727T005806_T54KTG", // low tide
+    "COPERNICUS/S2/20160816T005712_20160816T005809_T54KTG",
+    "COPERNICUS/S2/20170925T005659_20170925T005654_T54KTG"
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
