@@ -13,8 +13,8 @@ var REF1_OPTIONS = {
   //colourGrades: ['TrueColour','DeepFalse','ReefTop','Shallow','Slope'],
   //exportScale: [10, 10, 10, 10, 30],
 
-  colourGrades: ['TrueColour', 'DeepFalse'],
-  exportScale: [10, 10],
+  colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
+  exportScale: [10, 10, 10, 10],
   //colourGrades: ['DeepFalse'],//,'SlopeNew'],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Timor-Sea',
