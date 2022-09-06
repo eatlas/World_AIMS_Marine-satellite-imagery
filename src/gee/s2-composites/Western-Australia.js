@@ -123,3 +123,17 @@ s2Utils.s2_composite_display_and_export(
     //"COPERNICUS/S2/20180507T021349_20180507T021828_T50KQD" // (3)
   ],
   false, false, REF1_OPTIONS);
+  
+//8:39 pm - 8:52 pm (13 min)
+// Speed run
+// Cloud pixel percentage = 0
+// 42 of 419
+imgIds = [
+    //"COPERNICUS/S2/20160309T021612_20160309T023621_T49KGQ", // 3 nutrient plumes 
+    "COPERNICUS/S2/20160915T024322_20160915T024317_T49KGQ", // 2 nutrient plumes
+    //"COPERNICUS/S2/20170222T024321_20170222T024315_T49KGQ", // 3 nutrient plumes
+    "COPERNICUS/S2/20170513T024321_20170513T024338_T49KGQ", // 2
+    "COPERNICUS/S2/20170717T024319_20170717T024321_T49KGQ", // 2
+    "COPERNICUS/S2/20170806T024319_20170806T024320_T49KGQ"  // 2
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
