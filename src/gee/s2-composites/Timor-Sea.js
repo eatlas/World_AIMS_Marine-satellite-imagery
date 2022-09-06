@@ -35,6 +35,7 @@ var REF2_OPTIONS = {
   applyBrightnessAdjustment: true
 };
 
+var imgIds;
 // ===============================================================
 //
 //                    Timor Sea
