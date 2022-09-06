@@ -2,8 +2,8 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 // Primary imagery
 var REF1_OPTIONS = {
-  colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
-  exportScale: [10, 10, 10, 10, 30],
+  colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
+  exportScale: [10, 10, 10, 10],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Arafura-Sea',
   
@@ -55,7 +55,7 @@ s2Utils.s2_composite_display_and_export(
 		"COPERNICUS/S2/20210418T011721_20210418T011719_T53LMH",
 		"COPERNICUS/S2/20210513T011729_20210513T011724_T53LMH"
   ],
-  true, false, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
   
 // Groote Eylandt
@@ -123,15 +123,6 @@ s2Utils.s2_composite_display_and_export(
   
 // Australia, Gulf of Carpentaria, South East
 
-
-
-// Speed run
-// Cloud pixel percentage = 0
-// 10 of X
-imgIds = [
-    
-];
-s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
 
 
 // Speed run
@@ -237,7 +228,7 @@ imgIds = [
     "COPERNICUS/S2/20171107T010719_20171107T010713_T53LQE",  // sunglint on right side of image
     "COPERNICUS/S2/20180610T010731_20180610T010727_T53LQE"
 ];
-s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+s2Utils.s2_composite_display_and_export(imgIds, false, true, REF1_OPTIONS);
 
 // 8:20 - 8:30 am
 // Speed run
@@ -248,4 +239,4 @@ imgIds = [
     "COPERNICUS/S2/20160816T005712_20160816T005809_T54KTG",
     "COPERNICUS/S2/20170925T005659_20170925T005654_T54KTG"
 ];
-s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+s2Utils.s2_composite_display_and_export(imgIds, false, true, REF1_OPTIONS);
