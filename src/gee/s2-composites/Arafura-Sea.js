@@ -11,7 +11,7 @@ var REF1_OPTIONS = {
   applyBrightnessAdjustment: true
 };
 
-
+var imgIds;
 // ===============================================================
 //
 //                      Arafura-Sea
