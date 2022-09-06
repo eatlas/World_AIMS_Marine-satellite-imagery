@@ -14,6 +14,8 @@ var REF1_OPTIONS = {
   applyBrightnessAdjustment: true
 };
 
+var imgIds;
+
 // 49KGR - Australia, WA, Ningaloo reef
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
 // 25 of 186 Images
@@ -136,4 +138,4 @@ imgIds = [
     "COPERNICUS/S2/20170717T024319_20170717T024321_T49KGQ", // 2
     "COPERNICUS/S2/20170806T024319_20170806T024320_T49KGQ"  // 2
 ];
-s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
+s2Utils.s2_composite_display_and_export(imgIds, false, true, REF1_OPTIONS);
