@@ -5,8 +5,10 @@ var REF1_OPTIONS = {
  // colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
  // exportScale: [10, 10, 10, 10, 30],
   
-  colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
-  exportScale: [10, 10, 10, 10],
+  //colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
+  //exportScale: [10, 10, 10, 10],
+  colourGrades: ['Shallow'],
+  exportScale: [10],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Western-Australia',
   
@@ -138,4 +140,4 @@ imgIds = [
     "COPERNICUS/S2/20170717T024319_20170717T024321_T49KGQ", // 2
     "COPERNICUS/S2/20170806T024319_20170806T024320_T49KGQ"  // 2
 ];
-s2Utils.s2_composite_display_and_export(imgIds, false, true, REF1_OPTIONS);
+s2Utils.s2_composite_display_and_export(imgIds, true, false, REF1_OPTIONS);
