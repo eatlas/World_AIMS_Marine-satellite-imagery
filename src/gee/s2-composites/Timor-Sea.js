@@ -16,7 +16,7 @@ var REF1_OPTIONS = {
   colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
   exportScale: [10, 10, 10, 10],
   //colourGrades: ['DeepFalse'],//,'SlopeNew'],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Timor-Sea',
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
@@ -29,7 +29,7 @@ var REF1_OPTIONS = {
 var REF2_OPTIONS = {
   colourGrades: ['DeepFalse','Slope'],
     exportScale: [10, 30],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Timor-Sea',
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
