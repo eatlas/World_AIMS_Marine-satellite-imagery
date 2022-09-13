@@ -6,7 +6,7 @@ var REF1_OPTIONS = {
   //exportScale: [10, 10, 10, 10, 30],
   //colourGrades: ['ReefTop','Depth5m', 'Depth10m'],
   //exportScale: [10, 10, 10],
-  colourGrades: ['DeepFalse'],
+  colourGrades: ['TrueColour'],
   exportScale: [10],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/GBR-Torres-Strait',
@@ -113,7 +113,7 @@ s2Utils.s2_composite_display_and_export(
     // adding them makes the image worse.
     "COPERNICUS/S2/20151117T004742_20151117T004904_T54LYQ", // clear water
   ], 
-  true, false, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
   //  "COPERNICUS/S2/20181201T004701_20181201T004657_T54LYQ", // more turbid
   //  "COPERNICUS/S2/20190110T004701_20190110T004701_T54LYQ",
@@ -323,7 +323,33 @@ s2Utils.s2_composite_display_and_export(
 //COPERNICUS/S2/20191110T002711_20191110T002710_T55KCB // Right
 //COPERNICUS/S2/20200526T003709_20200526T003705_T55KCB // Left
 
+// Australia, GBR, Howies Reef, Nathan Reefm Otter Reef, King reef
+// 0.1% cloud cover
+// 22 of 22 images
 
+s2Utils.s2_composite_display_and_export(
+  [ 
+    // Excellent
+    "COPERNICUS/S2/20190906T002709_20190906T002709_T55KDA",
+    "COPERNICUS/S2/20200727T002711_20200727T002713_T55KDA",
+    "COPERNICUS/S2/20200816T002711_20200816T002713_T55KDA"
+  ],
+  false, true, REF1_OPTIONS);
+// Good
+//COPERNICUS/S2/20180827T002711_20180827T002706_T55KDA
+//COPERNICUS/S2/20190812T002711_20190812T002711_T55KDA
+//COPERNICUS/S2/20200119T002701_20200119T002701_T55KDA
+
+// Australia, GBR, Mission beach
+// 0.1% cloud cover
+// 11 of 71 images
+s2Utils.s2_composite_display_and_export(
+  [
+    // Excellent
+    "COPERNICUS/S2/20160219T003032_20160219T003057_T55KCA",
+    "COPERNICUS/S2/20170906T002659_20170906T002700_T55KCA"
+  ],
+  false, true, REF1_OPTIONS);
 
  //55KGU Australia, GBR, Hardy Reef, Block Reef
 // Searched 89 out of 89 images
