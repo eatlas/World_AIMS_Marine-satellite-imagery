@@ -12,7 +12,7 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 var REF1_OPTIONS = {
   //colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
   //exportScale: [10, 10, 10, 10, 30],
-  colourGrades: ['TrueColour'],
+  colourGrades: ['DeepFalse'],
   exportScale: [10],
   //colourGrades: ['Depth5m'],
   //exportScale: [10],
