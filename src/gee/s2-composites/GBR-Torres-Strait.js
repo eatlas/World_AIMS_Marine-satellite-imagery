@@ -323,6 +323,8 @@ s2Utils.s2_composite_display_and_export(
 //COPERNICUS/S2/20191110T002711_20191110T002710_T55KCB // Right
 //COPERNICUS/S2/20200526T003709_20200526T003705_T55KCB // Left
 
+
+
  //55KGU Australia, GBR, Hardy Reef, Block Reef
 // Searched 89 out of 89 images
 
