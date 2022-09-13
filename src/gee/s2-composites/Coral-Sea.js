@@ -1055,15 +1055,6 @@ false, false,REF1_OPTIONS);
 // in the Coral Sea. These scenes are include for checking that
 // there are no unknown reefs.
 
-var REF1_OPTIONS = {
-  colourGrades: ['DeepFalse'],
-  exportScale: [10],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Event-images',
-  
-  applySunglintCorrection: true,
-  applyBrightnessAdjustment: true
-};
 
 // (Central) Coral Sea, North west of Lihou
 // CLOUDY_PIXEL_PERCENTAGE = 10
