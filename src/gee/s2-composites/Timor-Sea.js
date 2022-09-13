@@ -13,10 +13,10 @@ var REF1_OPTIONS = {
   //colourGrades: ['TrueColour','DeepFalse','ReefTop','Shallow','Slope'],
   //exportScale: [10, 10, 10, 10, 30],
 
-  colourGrades: ['TrueColour', 'DeepFalse'],
-  exportScale: [10, 10],
+  colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
+  exportScale: [10, 10, 10, 10],
   //colourGrades: ['DeepFalse'],//,'SlopeNew'],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Timor-Sea',
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
@@ -29,12 +29,13 @@ var REF1_OPTIONS = {
 var REF2_OPTIONS = {
   colourGrades: ['DeepFalse','Slope'],
     exportScale: [10, 30],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Timor-Sea',
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };
 
+var imgIds;
 // ===============================================================
 //
 //                    Timor Sea
@@ -61,7 +62,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190426T015629_20190426T015717_T51LXG", // 1, 1
     "COPERNICUS/S2/20190824T015029_20190824T015926_T51LXG"  // 0.5, 1.5
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
 
 // Excellent - no clouds, but lower water clarity
 s2Utils.s2_composite_display_and_export(
@@ -95,7 +96,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180918T015609_20180918T020006_T51LXF",
     "COPERNICUS/S2/20181008T015619_20181008T020050_T51LXF"  // 0.5, 1.5
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
 
 // Excellent - no clouds, but lower water clarity
 s2Utils.s2_composite_display_and_export(
@@ -136,7 +137,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190807T020029_20190807T020716_T51LWG",
     "COPERNICUS/S2/20190901T020021_20190901T020607_T51LWG"
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
 
 // Excellent - no clouds, but lower water clarity
 s2Utils.s2_composite_display_and_export(
@@ -180,7 +181,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200910T020449_20200910T020454_T51LUE",
     "COPERNICUS/S2/20200905T020451_20200905T020822_T51LUE"
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
 
 
 s2Utils.s2_composite_display_and_export(
@@ -217,7 +218,7 @@ s2Utils.s2_composite_display_and_export(
     // ok
     "COPERNICUS/S2/20180613T020449_20180613T020758_T51LWH"
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
 // 51LYH - North West Shelf
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
@@ -232,7 +233,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180610T015619_20180610T015817_T51LYH",
     "COPERNICUS/S2/20190809T015631_20190809T015625_T51LYH"
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
 
 // 51LXH - North West Shelf
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
@@ -248,7 +249,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20170713T020451_20170713T020619_T51LXH",
     "COPERNICUS/S2/20180703T020449_20180703T020824_T51LXH"
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
 // Australia, WA, Bonaparte Archipelago, Long Reef 
 // This region is very turbid due to tidal movements.
@@ -271,7 +272,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180411T015619_20180411T020056_T51LYE", // (4)
     "COPERNICUS/S2/20180918T015609_20180918T020006_T51LYE" //(5)
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
 // North West Shelf, Australia, Timor Sea, Big Bank Shoals
 // Aligns with:
@@ -293,7 +294,7 @@ s2Utils.s2_composite_display_and_export(
     // OK
     "COPERNICUS/S2/20200604T015631_20200604T015627_T51LZJ"
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
   
 // Australia, WA, Joseph Bonaparte Gulf, Ord River
@@ -311,7 +312,7 @@ s2Utils.s2_composite_display_and_export(
 //COPERNICUS/S2/20181007T013711_20181007T013709_T52LEJ
 s2Utils.s2_composite_display_and_export([
     "COPERNICUS/S2/20171231T013711_20171231T013706_T52LEJ" // Extra low tide
-  ],false, true, REF1_OPTIONS);
+  ],false, false, REF1_OPTIONS);
 
 // Good
 //COPERNICUS/S2/20170902T013711_20170902T013712_T52LEJ // Low tide
@@ -327,7 +328,7 @@ s2Utils.s2_composite_display_and_export([
     "COPERNICUS/S2/20170525T013721_20170525T013715_T52LFL", // 2
     "COPERNICUS/S2/20180515T013709_20180515T013736_T52LFL", // 2
     "COPERNICUS/S2/20180609T013711_20180609T013712_T52LFL" // 3
-  ],false, true, REF1_OPTIONS);
+  ],false, false, REF1_OPTIONS);
 // Good
 //COPERNICUS/S2/20160818T013712_20160818T014059_T52LFL //2
 
@@ -347,7 +348,7 @@ s2Utils.s2_composite_display_and_export([
     "COPERNICUS/S2/20170614T013711_20170614T013713_T52LEL",
     "COPERNICUS/S2/20170724T013711_20170724T013714_T52LEL",
     "COPERNICUS/S2/20180505T013709_20180505T013711_T52LEL"
-  ],false, true, REF1_OPTIONS);
+  ],false, false, REF1_OPTIONS);
 
 // Australia, WA, Joseph Bonaparte Gulf, Ord River
 //Cloud percentage: 0.1%
@@ -362,7 +363,7 @@ s2Utils.s2_composite_display_and_export([
     "COPERNICUS/S2/20170821T014659_20170821T014837_T52LDJ", // Left
     //COPERNICUS/S2/20170902T013711_20170902T013712_T52LDJ // Right
     "COPERNICUS/S2/20171231T013711_20171231T013706_T52LDJ" // Right, Extra low tide
-  ],false, true, REF1_OPTIONS);
+  ],false, false, REF1_OPTIONS);
 
 // Australia, WA, Joseph Bonaparte Gulf, Ord River
 //Cloud percentage: 0.1%
@@ -379,7 +380,7 @@ s2Utils.s2_composite_display_and_export([
     "COPERNICUS/S2/20170712T014659_20170712T015057_T52LDK", // Left
     "COPERNICUS/S2/20170719T013709_20170719T013712_T52LDK", // Right
     "COPERNICUS/S2/20170717T014701_20170717T015058_T52LDK" // Left
-  ],false, true, REF1_OPTIONS);
+  ],false, false, REF1_OPTIONS);
 
 // Australia, WA, Joseph Bonaparte Gulf, East of Ord River
 //Cloud percentage: 0.1%
@@ -394,7 +395,7 @@ s2Utils.s2_composite_display_and_export([
     "COPERNICUS/S2/20180709T013711_20180709T013714_T52LEK",
     "COPERNICUS/S2/20180724T013709_20180724T013717_T52LEK",
     "COPERNICUS/S2/20180808T013711_20180808T013712_T52LEK",
-  ],false, true, REF1_OPTIONS);
+  ],false, false, REF1_OPTIONS);
 
 // Australia, WA, Joseph Bonaparte Gulf, North West of Ord River
 //Cloud percentage: 0.1%
@@ -405,4 +406,20 @@ s2Utils.s2_composite_display_and_export([
     "COPERNICUS/S2/20180707T014659_20180707T014658_T52LCL",
     "COPERNICUS/S2/20180727T014659_20180727T014754_T52LCL",
     "COPERNICUS/S2/20180806T014659_20180806T014655_T52LCL"
-  ],false, true, REF1_OPTIONS);
+  ],false, false, REF1_OPTIONS);
+  
+// 8:54 pm - 9:07 pm
+// Speed run
+// Cloud pixel percentage = 0
+// 25 of 119
+imgIds = [
+    "COPERNICUS/S2/20160913T015622_20160913T015617_T51LXD", // 2
+    
+    // Maybe
+    "COPERNICUS/S2/20170620T015701_20170620T015836_T51LXD", // 2
+    "COPERNICUS/S2/20171013T015639_20171013T020003_T51LXD", // 2 turbid but low tide
+    "COPERNICUS/S2/20180610T015619_20180610T015817_T51LXD", // 2.5
+    "COPERNICUS/S2/20180705T015621_20180705T015939_T51LXD", // 2
+    "COPERNICUS/S2/20180710T015619_20180710T020050_T51LXD" // 2
+];
+s2Utils.s2_composite_display_and_export(imgIds, false, true, REF1_OPTIONS);

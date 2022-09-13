@@ -14,7 +14,7 @@ var REF1_OPTIONS = {
   //exportScale: [10, 10, 10, 10, 30],
   colourGrades: ['Depth5m'],
   exportScale: [10],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Coral-Sea',
   
   applySunglintCorrection: true,
@@ -24,7 +24,7 @@ var REF1_OPTIONS = {
 // Secondary imagery
 var REF2_OPTIONS = {
   colourGrades: ['DeepFalse','TrueColour','Slope'],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_R2',
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R2',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Coral-Sea',
   exportScale: [10, 10, 30],
   applySunglintCorrection: true,

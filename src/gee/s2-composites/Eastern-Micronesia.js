@@ -4,7 +4,7 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 var REF1_OPTIONS = {
   colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
   exportScale: [10, 10, 10, 10, 30],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Eastern-Micronesia',
   
   applySunglintCorrection: true,
@@ -14,7 +14,7 @@ var REF1_OPTIONS = {
 // Secondary imagery
 var REF2_OPTIONS = {
   colourGrades: ['DeepFalse','TrueColour','Slope'],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_R2',
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R2',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Eastern-Micronesia',
   exportScale: [10, 10, 30],
   applySunglintCorrection: true,

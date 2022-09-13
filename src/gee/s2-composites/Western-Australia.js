@@ -5,14 +5,18 @@ var REF1_OPTIONS = {
  // colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
  // exportScale: [10, 10, 10, 10, 30],
   
-  colourGrades: ['Depth'],
-  exportScale: [20],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_R1',
+  //colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
+  //exportScale: [10, 10, 10, 10],
+  colourGrades: ['Shallow'],
+  exportScale: [10],
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Western-Australia',
   
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };
+
+var imgIds;
 
 // 49KGR - Australia, WA, Ningaloo reef
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
@@ -57,7 +61,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20161012T023442_20161012T023437_T49JGM",
     "COPERNICUS/S2/20161022T023242_20161022T023245_T49JGM"
   ],
-  true, false, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
 // Australia, Western Australia, Port Headland
 //CLOUDY_PIXEL_PERCENTAGE = 0.1
@@ -123,3 +127,17 @@ s2Utils.s2_composite_display_and_export(
     //"COPERNICUS/S2/20180507T021349_20180507T021828_T50KQD" // (3)
   ],
   false, false, REF1_OPTIONS);
+  
+//8:39 pm - 8:52 pm (13 min)
+// Speed run
+// Cloud pixel percentage = 0
+// 42 of 419
+imgIds = [
+    //"COPERNICUS/S2/20160309T021612_20160309T023621_T49KGQ", // 3 nutrient plumes 
+    "COPERNICUS/S2/20160915T024322_20160915T024317_T49KGQ", // 2 nutrient plumes
+    //"COPERNICUS/S2/20170222T024321_20170222T024315_T49KGQ", // 3 nutrient plumes
+    "COPERNICUS/S2/20170513T024321_20170513T024338_T49KGQ", // 2
+    "COPERNICUS/S2/20170717T024319_20170717T024321_T49KGQ", // 2
+    "COPERNICUS/S2/20170806T024319_20170806T024320_T49KGQ"  // 2
+];
+s2Utils.s2_composite_display_and_export(imgIds, true, false, REF1_OPTIONS);
