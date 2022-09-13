@@ -490,7 +490,7 @@ tileID = '54KTG'; // Arafura Sea
 //tileID = '51LXD'; // Timor Sea 
 
 tileID = '55KCA';     // Australia, GBR, Mission beach
-tileID = '55KDA';     // Australia, GBR, Howies Reef, Nathan Reefm Otter Reef, King reef
+//tileID = '55KDA';     // Australia, GBR, Howies Reef, Nathan Reefm Otter Reef, King reef
 
 s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
 
