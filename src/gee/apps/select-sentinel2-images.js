@@ -210,6 +210,7 @@ tileID = '55KDB';     // Australia, GBR, Moore Reef
 //tileID = '56LKR';   // PNG, Trobriand Islands
 //tileID = '56LLN';   // PNG, 
 
+
 //tileID = '54LZN';   // Australia, GBR, Raine Island
 //tileID = '54LZM';   // Australia, GBR, Great Detached reef, Wishbone reef
 //tileID = '54LYM';   // Australia, GBR, Cockburn Reef, Nomad Reef, Gallon Reef
@@ -493,6 +494,8 @@ tileID = '54KTG'; // Arafura Sea
 
 //tileID = '55KCA';     // Australia, GBR, Mission beach
 //tileID = '55KDA';     // Australia, GBR, Howies Reef, Nathan Reefm Otter Reef, King reef
+tileID = '54LZQ';   // Australia, Torres Strait, Mer, Bramble Cay
+tileID = '54LYP';   // Australia, Torres Strait, South East
 
 s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
 
