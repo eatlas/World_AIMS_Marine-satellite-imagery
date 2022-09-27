@@ -1994,6 +1994,8 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     prevButton.setDisabled(selectedIndex <= 0);
   };
   
+  
+  
   // Gets the index of the next/previous image in the collection and sets the
   // thumbnail to that image.  Disables the appropriate button when we hit an end.
   var setImage = function(button, increment) {
@@ -2007,5 +2009,5 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
   prevButton.onClick(function(button) { setImage(button, -1); });
   nextButton.onClick(function(button) { setImage(button, 1); });
   
-  //updateUI();
+  updateUI();
 };
