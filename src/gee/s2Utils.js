@@ -2011,7 +2011,7 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     var composite = imagesFiltered
-      .map(exports.removeSunGlint)
+      //.map(exports.removeSunGlint)
       .reduce(ee.Reducer.percentile([50],["p50"]))
       //.reduce(ee.Reducer.first())
       .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
