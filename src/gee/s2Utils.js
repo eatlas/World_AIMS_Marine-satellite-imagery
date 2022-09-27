@@ -35,7 +35,8 @@
 //                 colour balance for images close to the maximum sunglint correction. This
 //                 was needed in Torres Strait where most images had strong sunglint.
 //                 Added removeSunGlintNormal and removeSunGlintHigh as two thresholds of
-//                 sunglint removal that can be 
+//                 sunglint removal that can be specied with option.sunglintCorrectionLevel.
+//                 option.applySunglintCorrection is now deprecated.
 //                
 
 /**
@@ -109,7 +110,7 @@
  *        {boolean} applyBrightnessAdjustment - Apply brightness adjustment to the composite to normalise
  *                                  the brightness of marine areas across scenes.
  *        {int} sunglintCorrectionLevel - Amount of sunglint correction to apply (0-2). 0 - none
- *        {boolean} applySunglintCorrection - deprecated, specify sunglintCorrectionLevel instead.
+ *        {boolean} applySunglintCorrection - DEPRECATED, specify sunglintCorrectionLevel instead.
  */
 exports.s2_composite_display_and_export = function(imageIds, is_display, is_export, options) {
   
