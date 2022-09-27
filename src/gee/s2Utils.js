@@ -417,10 +417,11 @@ exports.s2_composite = function(imageIds, sunglintCorrectionLevel, applyBrightne
   
   var composite_collection = s2_cloud_collection;
   
-  
-  if (sunglintCorrectionLevel == 1) {
+  if (sunglintCorrectionLevel === 0) {
+    composite_collection = s2_cloud_collection.map(exports.removeSunGlintNone);
+  } else if (sunglintCorrectionLevel === 1) {
     composite_collection = s2_cloud_collection.map(exports.removeSunGlintNormal);
-  } else if (sunglintCorrectionLevel == 2) {
+  } else if (sunglintCorrectionLevel === 2) {
     composite_collection = s2_cloud_collection.map(exports.removeSunGlintHigh);
   }
   print(composite_collection);
@@ -925,6 +926,10 @@ exports.removeSunGlintHigh = function(image) {
 
 exports.removeSunGlintNormal = function(image) {
   return exports.removeSunGlint(image, 600);
+};
+
+exports.removeSunGlintNone = function(image) {
+  return exports.removeSunGlint(image, 100000);
 };
 
 /**
