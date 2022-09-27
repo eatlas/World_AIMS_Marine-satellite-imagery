@@ -1907,7 +1907,10 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
   // Setup the user interface
   var progressLabel = ui.Label({style: {margin: '2px 0'}});
   var idLabel = ui.Label({style: {margin: '2px 0'}});
-  var sgSelect = ui.Select(["None (0)","Normal (1)", "High (2)"],
+  var sgSelect = ui.Select([
+    {label:"None (0)", value:0},
+    {label:"Normal (1)", value:1},
+    {label:"High (2)", value:2}],
     "Select sunglint correction level", "Normal");
   
   sgSelect.onChange(updateUI);
@@ -1933,19 +1936,7 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     
-    var sgLevel;
-    switch(sgSelect.getValue()) {
-      case "None (0)":
-        sgLevel = 0; // Passthrough
-        break;
-      case "Normal (1)":
-        sgLevel = 1;
-        break;
-      case "High (2)":
-        sgLevel = 2;
-    }
-    
-    var composite = exports.s2_composite([imageIds[selectedIndex]], sgLevel, true);
+    var composite = exports.s2_composite([imageIds[selectedIndex]], sgSelect.getValue(), true);
 
     var includeCloudmask = false;
     
