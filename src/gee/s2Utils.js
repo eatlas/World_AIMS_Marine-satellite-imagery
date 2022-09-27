@@ -2028,13 +2028,13 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
   
     var sunglintFunc;
     switch(sgSelect.getValue()) {
-      case "None":
+      case "None (0)":
         sunglintFunc = function(image) { return image; }; // Passthrough
         break;
-      case "Normal":
+      case "Normal (1)":
         sunglintFunc = exports.removeSunGlintNormal;
         break;
-      case "High":
+      case "High (2)":
         sunglintFunc = exports.removeSunGlintHigh;
     }
     // Don't perform the cloud removal because this is computationally
@@ -2060,9 +2060,9 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
   var progressLabel = ui.Label({style: {margin: '2px 0'}});
   var idLabel = ui.Label({style: {margin: '2px 0'}});
 
-  var sgSelect = ui.Select(["None","Normal", "High"],
+  var sgSelect = ui.Select(["None (0)","Normal (1)", "High (2)"],
     "Select sunglint correction level", "Normal");
-  //sgSelect.onChange(function() {print("Hello"); updateUI()});
+  
   sgSelect.onChange(updateUI);
   var sgPanel = new ui.Panel(
       [ui.Label("Sunglint correction level:"),sgSelect],
