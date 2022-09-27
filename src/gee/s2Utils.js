@@ -2018,7 +2018,8 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
 
   var sgSelect = ui.Select(["None","Normal", "High"],
     "Select sunglint correction level", "Normal");
-  sgSelect.onChange(function() {print("Hello"); updateUI()});
+  //sgSelect.onChange(function() {print("Hello"); updateUI()});
+  sgSelect.onChange(updateUI);
   var sgPanel = new ui.Panel(
       [ui.Label("Sunglint correction level:"),sgSelect],
       ui.Panel.Layout.Flow('horizontal')
