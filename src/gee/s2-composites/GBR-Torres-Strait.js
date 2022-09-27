@@ -145,6 +145,42 @@ s2Utils.s2_composite_display_and_export(
 		"COPERNICUS/S2/20190510T004711_20190510T004710_T54LXP" 
   ], 
   false, false, REF1_OPTIONS);
+
+// South Eastern Torres Strait
+// 10% clouds
+// 102 of 102 images
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20181126T004659_20181126T004702_T54LYP" // Low cloud and very clear
+  ], 
+  false, false, REF1_OPTIONS_HSG);
+  
+// South Eastern Torres Strait
+// 10% clouds
+// 102 of 102 images
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20151117T004742_20151117T004904_T54LYP", // Scattered clouds, clear water
+    //"COPERNICUS/S2/20160823T004902_20160823T004856_T54LYP", // Scattered clouds, Clear patch top, middle right
+    //"COPERNICUS/S2/20160922T004702_20160922T004701_T54LYP", // Scattered clouds, Clear patch middle right
+    "COPERNICUS/S2/20161012T004702_20161012T004701_T54LYP", // Low level scattered clouds, clear right side
+    "COPERNICUS/S2/20161221T004852_20161221T004848_T54LYP", // Clear top right
+    "COPERNICUS/S2/20170510T004901_20170510T004857_T54LYP", // Clear bottom right
+    "COPERNICUS/S2/20180604T004711_20180604T004706_T54LYP", // Clear right side
+    "COPERNICUS/S2/20180609T004709_20180609T004703_T54LYP", // Clear bottom right
+    "COPERNICUS/S2/20180927T004659_20180927T004700_T54LYP", // Clear middle
+    "COPERNICUS/S2/20190907T004711_20190907T004705_T54LYP", // Clear bottom right
+    //"COPERNICUS/S2/20200414T004711_20200414T004705_T54LYP", // Scattered clouds, Clear right
+    //"COPERNICUS/S2/20200822T004711_20200822T004712_T54LYP", // Scattered clouds, clear top right
+    "COPERNICUS/S2/20200926T004709_20200926T004709_T54LYP", // Clear right
+    "COPERNICUS/S2/20210603T004709_20210603T004707_T54LYP", // Clear right
+    "COPERNICUS/S2/20211016T004711_20211016T004711_T54LYP", // Low cloud in middle, clarity OK
+    "COPERNICUS/S2/20211021T004709_20211021T004707_T54LYP", // Low cloud, clarity good
+    "COPERNICUS/S2/20211110T004709_20211110T004706_T54LYP" // Clear middle, scattered top and bottom
+  ], 
+  false, false, REF2_OPTIONS_HSG);
+  
+
   
 // Central Cape York
 s2Utils.s2_composite_display_and_export(
