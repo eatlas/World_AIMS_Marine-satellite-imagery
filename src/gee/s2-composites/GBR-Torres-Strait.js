@@ -16,7 +16,7 @@ var REF1_OPTIONS = {
 };
 
 // High SunGlint
-var REF1_OPTIONS_HSG = REF2_OPTIONS;
+var REF1_OPTIONS_HSG = REF1_OPTIONS;
 REF1_OPTIONS_HSG.sunglintCorrectionLevel = 2;
 
 
