@@ -20,7 +20,8 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 // in reviewing.
 var IMAGE_IDS = 
   [
-		"COPERNICUS/S2/20181126T004659_20181126T004702_T54LYP"
+		"COPERNICUS/S2/20180927T004659_20180927T004700_T54LZQ", // Scattered clouds, bit dark
+    "COPERNICUS/S2/20181221T004701_20181221T004658_T54LZQ", // Moderately low cloud, bit dark
   ];
 
 s2Utils.viewSelectedSentinel2ImagesApp(IMAGE_IDS);
