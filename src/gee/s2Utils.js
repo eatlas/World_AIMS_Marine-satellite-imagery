@@ -893,10 +893,12 @@ exports.get_s2_tiles_geometry = function(image_ids, search_bbox) {
   return tileFeatures.geometry(0.1);
 };
 
-// Wrap the removeSunGlint function with the sunGlintThres parameter so that
-// this parameter can be used in a map function.
+// I can't work out how to pass a parameter to a function that will be passed
+// into the map function. I tried bind and currying but without success.
+// As a crappy alternative I will have multiple functions with different
+// thresholds
 exports.removeSunGlintMap = function(image) {
-  return exports.removeSunGlint(image, 600);
+  return exports.removeSunGlint(image, 900);
 };
 
 /**
