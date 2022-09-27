@@ -108,7 +108,8 @@
  *                                  colourGrades.
  *        {boolean} applyBrightnessAdjustment - Apply brightness adjustment to the composite to normalise
  *                                  the brightness of marine areas across scenes.
- *        {boolean} sunglintCorrectionLevel - Amount of sunglint correction to apply (0-2)
+ *        {int} sunglintCorrectionLevel - Amount of sunglint correction to apply (0-2). 0 - none
+ *        {boolean} applySunglintCorrection - deprecated, specify sunglintCorrectionLevel instead.
  */
 exports.s2_composite_display_and_export = function(imageIds, is_display, is_export, options) {
   
@@ -117,7 +118,10 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
   var exportBasename = options.exportBasename;
   var exportScale = options.exportScale;
   
-  
+  // Handle legacy option of applySunglintCorrection
+  if (typeof options.applySunglintCorrection !== 'undefined') {
+    options.sunglintCorrectionLevel = options.applySunglintCorrection ? 1 : 0;
+  }
   
   // Skip over if nothing to do
   if (!(is_export || is_display)) {
