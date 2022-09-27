@@ -1969,5 +1969,5 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
   prevButton.onClick(function(button) { setImage(button, -1); });
   nextButton.onClick(function(button) { setImage(button, 1); });
   
-  updateUI();
+  viewUpdateUI();
 };
