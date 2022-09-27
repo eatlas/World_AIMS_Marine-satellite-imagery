@@ -138,6 +138,12 @@ s2Utils.s2_composite_display_and_export(
   //  "COPERNICUS/S2/20190110T004701_20190110T004701_T54LYQ",
   //  "COPERNICUS/S2/20190115T004709_20190115T004705_T54LYQ"
 
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20200120T004659_20200120T004659_T54LYQ", // clear sky, less clear water
+  ], 
+  false, false, REF2_OPTIONS);
+
 // South central TS
 s2Utils.s2_composite_display_and_export(
   [
