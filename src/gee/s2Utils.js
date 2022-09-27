@@ -1817,7 +1817,7 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
   var idLabel = ui.Label({style: {margin: '2px 0'}});
 
   var sgSelect = ui.Select(["None (0)","Normal (1)", "High (2)"],
-    "Select sunglint correction level", "Normal");
+    "Select sunglint correction level", "Normal (1)");
   
   sgSelect.onChange(updateUI);
   var sgPanel = new ui.Panel(
@@ -1911,7 +1911,7 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     {label:"None (0)", value:0},
     {label:"Normal (1)", value:1},
     {label:"High (2)", value:2}],
-    "Select sunglint correction level", "Normal");
+    "Select sunglint correction level", 1);
   
   var selectedIndex = 0;
   var collectionLength = imageIds.length;
