@@ -2010,41 +2010,6 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     ui.Label('IDs are listed in Console. Copy and paste the good ones.')
   ]);
   
-  
-  // Setup the user interface
-  var dateLabel = ui.Label({style: {margin: '2px 0'}});
-  var progressLabel = ui.Label({style: {margin: '2px 0'}});
-  var idLabel = ui.Label({style: {margin: '2px 0'}});
-
-  var sgSelect = ui.Select(["None","Normal", "High"],
-    "Select sunglint correction level", "Normal");
-  //sgSelect.onChange(function() {print("Hello"); updateUI()});
-  sgSelect.onChange(updateUI);
-  var sgPanel = new ui.Panel(
-      [ui.Label("Sunglint correction level:"),sgSelect],
-      ui.Panel.Layout.Flow('horizontal')
-    );
-  var mainPanel = ui.Panel({
-    //widgets: [introPanel, imagePanel, idLabel, dateLabel, progressLabel, buttonPanel,],
-    widgets: [introPanel, idLabel, sgPanel, dateLabel, progressLabel, buttonPanel,],
-    style: {position: 'bottom-left', width: '340px'}
-  });
-  Map.add(mainPanel);
-  
-  
-  
-  var selectedIndex = 0;
-  var collectionLength = 0;
-  // Get the total number of images asynchronously, so we know how far to step.
-  // This async process because we want the value on the client but the size
-  // is a server side value.
-  dates.size().evaluate(function(length) {
-    collectionLength = length;
-    updateUI();
-  });
-  
-
-  
   var updateUI = function() {
     dates.get(selectedIndex).evaluate(function(date) {
       dateLabel.setValue('Date: ' + date);
@@ -2089,6 +2054,42 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     nextButton.setDisabled(selectedIndex >= collectionLength - 1);
     prevButton.setDisabled(selectedIndex <= 0);
   };
+  
+  // Setup the user interface
+  var dateLabel = ui.Label({style: {margin: '2px 0'}});
+  var progressLabel = ui.Label({style: {margin: '2px 0'}});
+  var idLabel = ui.Label({style: {margin: '2px 0'}});
+
+  var sgSelect = ui.Select(["None","Normal", "High"],
+    "Select sunglint correction level", "Normal");
+  //sgSelect.onChange(function() {print("Hello"); updateUI()});
+  sgSelect.onChange(updateUI);
+  var sgPanel = new ui.Panel(
+      [ui.Label("Sunglint correction level:"),sgSelect],
+      ui.Panel.Layout.Flow('horizontal')
+    );
+  var mainPanel = ui.Panel({
+    //widgets: [introPanel, imagePanel, idLabel, dateLabel, progressLabel, buttonPanel,],
+    widgets: [introPanel, idLabel, sgPanel, dateLabel, progressLabel, buttonPanel,],
+    style: {position: 'bottom-left', width: '340px'}
+  });
+  Map.add(mainPanel);
+  
+  
+  
+  var selectedIndex = 0;
+  var collectionLength = 0;
+  // Get the total number of images asynchronously, so we know how far to step.
+  // This async process because we want the value on the client but the size
+  // is a server side value.
+  dates.size().evaluate(function(length) {
+    collectionLength = length;
+    updateUI();
+  });
+  
+
+  
+  
   
   // Gets the index of the next/previous image in the collection and sets the
   // thumbnail to that image.  Disables the appropriate button when we hit an end.
