@@ -2060,7 +2060,7 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     print(IDs);
   
     var sunglintFunc;
-    switch(sunglintCorrectionLevelSelect.getValue()) {
+    switch(sgSelect.getValue()) {
       case "None":
         sunglintFunc = function(image) { return image; }; // Passthrough
         break;
