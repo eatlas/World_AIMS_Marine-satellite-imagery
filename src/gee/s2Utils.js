@@ -1884,7 +1884,7 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
   // to the tropics where reefs are found. This is to speed up the code.
   var tilesGeometry = exports.get_s2_tiles_geometry(imageIds, ee.Geometry.BBox(-180, -33, 180, 33));
   
-  var s2_cloud_collection = exports.get_s2_cloud_collection(imageIds, tilesGeometry);
+  //var s2_cloud_collection = exports.get_s2_cloud_collection(imageIds, tilesGeometry);
   
   // Zoom to our tile of interest.
   Map.centerObject(tilesGeometry, 9);
@@ -1893,7 +1893,7 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
   var collection = s2_cloud_collection;
     //.map(utils.removeSunGlint);
   
-  var listOfImage = collection.toList(collection.size());
+  //var listOfImage = collection.toList(collection.size());
   
   // Sets up next and previous buttons used to navigate through previews of the
   // images in the collection.
@@ -1923,14 +1923,14 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
   
   
   var selectedIndex = 0;
-  var collectionLength = 0;
+  var collectionLength = imageIds.length;
   // Get the total number of images asynchronously, so we know how far to step.
   // This async process because we want the value on the client but the size
   // is a server side value.
-  listOfImage.size().evaluate(function(length) {
-    collectionLength = length;
-    updateUI();
-  });
+  //listOfImage.size().evaluate(function(length) {
+  //  collectionLength = length;
+  //  updateUI();
+  //});
   
   
   var updateUI = function() {
@@ -1943,7 +1943,7 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     
-    var composite = exports.s2_composite([listOfImage.get(selectedIndex)], 1, true);
+    var composite = exports.s2_composite([imageIds[selectedIndex]], 1, true);
     //var composite = exports.removeSunGlint(image)
     //  .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
     //    'B8A','B9','B10','B11','B12','QA10','QA20','QA60']);
