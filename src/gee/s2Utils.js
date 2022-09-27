@@ -1980,14 +1980,14 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     Map.addLayer(composite.select("B4"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B4 after glint removal',false);
     Map.addLayer(composite.select("B5"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B5 raw',false);
     Map.addLayer(composite.select("B8"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B8 raw',false);
-    Map.addLayer(composite.select("B11"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B11 raw',false);*/
+    Map.addLayer(composite.select("B11"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B11 raw',false);
     Map.addLayer(image, {
         bands: ['B4', 'B3', 'B2'],
         min: [130, 200, 500],
         max: [1700, 1900, 2000],
         gamma: [2, 2, 2]
       }, 'Sentinel-2 Raw',false);
-  
+    */
     
   
     nextButton.setDisabled(selectedIndex >= collectionLength - 1);
