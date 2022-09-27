@@ -2024,7 +2024,7 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     );
   var mainPanel = ui.Panel({
     //widgets: [introPanel, imagePanel, idLabel, dateLabel, progressLabel, buttonPanel,],
-    widgets: [introPanel, idLabel, dateLabel, sgPanel, progressLabel, buttonPanel,],
+    widgets: [introPanel, idLabel, sgPanel, dateLabel, progressLabel, buttonPanel,],
     style: {position: 'bottom-left', width: '340px'}
   });
   Map.add(mainPanel);
