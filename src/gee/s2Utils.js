@@ -418,12 +418,12 @@ exports.s2_composite = function(imageIds, sunglintCorrectionLevel, applyBrightne
   var composite_collection = s2_cloud_collection;
   
   
-  /*if (sunglintCorrectionLevel == 1) {
+  if (sunglintCorrectionLevel == 1) {
     composite_collection = s2_cloud_collection.map(exports.removeSunGlintNormal);
   } else if (sunglintCorrectionLevel == 2) {
     composite_collection = s2_cloud_collection.map(exports.removeSunGlintHigh);
-  }*/
-
+  }
+  print(composite_collection);
   var composite;  
   
   // When creating the composite we are using the 50 percentile (median).
