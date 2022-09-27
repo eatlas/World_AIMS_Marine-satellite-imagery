@@ -909,7 +909,7 @@ exports.get_s2_tiles_geometry = function(image_ids, search_bbox) {
  * @return {ee.Image} RGB image based on bands B2 - B4 with sunglint
  *    removal based on B8.
  */ 
-exports.removeSunGlint = function(image) {
+exports.removeSunGlint = function(image, sunGlintThres = 600) {
   
   // Sun Glint Correction
   // Previously I had used the the near-infra red B8 channel for sun glint removal.
@@ -970,7 +970,7 @@ exports.removeSunGlint = function(image) {
   // To further refine the land atmospheric correction we allow manual control over the 
   // land atmospheric offset. 
 
-  var LAND_THRES = 600;    // Linear up to this threshold (sunglint correction)
+  var LAND_THRES = sunGlintThres;    // Linear up to this threshold (sunglint correction)
                             // Sunglint in very reflective scenes can reach 900 however
                             // Setting the threshold that high results in an overlap in
                             // close in land areas and shadow areas on land, leading them
@@ -1989,6 +1989,7 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     updateUI();
   });
   
+  var sunGlintThreshold = 600;
   
   var updateUI = function() {
     dates.get(selectedIndex).evaluate(function(date) {
