@@ -909,7 +909,7 @@ exports.get_s2_tiles_geometry = function(image_ids, search_bbox) {
  * @return {ee.Image} RGB image based on bands B2 - B4 with sunglint
  *    removal based on B8.
  */ 
-exports.removeSunGlint = function(image, sunGlintThres = 600) {
+exports.removeSunGlint = function(image, sunGlintThres) {
   
   // Sun Glint Correction
   // Previously I had used the the near-infra red B8 channel for sun glint removal.
@@ -970,7 +970,8 @@ exports.removeSunGlint = function(image, sunGlintThres = 600) {
   // To further refine the land atmospheric correction we allow manual control over the 
   // land atmospheric offset. 
 
-  var LAND_THRES = sunGlintThres;    // Linear up to this threshold (sunglint correction)
+  // Assign default value if none provided. This is because GEE seems to use Pre ES2015
+  var LAND_THRES = typeof sunGlintThres !== 'undefined' ? sunGlintThres : 600;    // Linear up to this threshold (sunglint correction)
                             // Sunglint in very reflective scenes can reach 900 however
                             // Setting the threshold that high results in an overlap in
                             // close in land areas and shadow areas on land, leading them
@@ -2012,7 +2013,7 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     var composite = imagesFiltered
-      //.map(exports.removeSunGlint)
+      .map(exports.removeSunGlint)
       .reduce(ee.Reducer.percentile([50],["p50"]))
       //.reduce(ee.Reducer.first())
       .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
