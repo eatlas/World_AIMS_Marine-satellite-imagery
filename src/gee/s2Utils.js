@@ -893,6 +893,12 @@ exports.get_s2_tiles_geometry = function(image_ids, search_bbox) {
   return tileFeatures.geometry(0.1);
 };
 
+// Wrap the removeSunGlint function with the sunGlintThres parameter so that
+// this parameter can be used in a map function.
+exports.removeSunGlintMap = function(sunGlintThres) {
+  return exports.removeSunGlint(image);
+};
+
 /**
  * This function estimates the sunglint from the B8 and B11 Sentinel channels.
  * This estimate is then subtracted from the visible colour bands to
@@ -2013,7 +2019,7 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     var composite = imagesFiltered
-      .map(exports.removeSunGlint(sunGlintThreshold))
+      .map(exports.removeSunGlintMap(sunGlintThreshold))
       .reduce(ee.Reducer.percentile([50],["p50"]))
       //.reduce(ee.Reducer.first())
       .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
