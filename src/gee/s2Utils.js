@@ -404,10 +404,6 @@ exports.s2_composite = function(imageIds, sunglintCorrectionLevel, applyBrightne
   // This reduces the number of s2 tiles. Note I couldn't work out
   // how to generate a proper error message when it there are requested
   // s2 tiles that are outside this boundary.
-  print(imageIds.lastIndexOf());
-  var utmTiles = imageIds.map(function(id) {
-    print(id);
-  });
   
   var tilesGeometry = exports.get_s2_tiles_geometry(
     imageIds, ee.Geometry.BBox(-180, -33, 180, 33));
@@ -1942,12 +1938,12 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     progressLabel.setValue('Image: '+(selectedIndex+1)+' of '+(collectionLength));
   
   
-    var image = ee.Image(listOfImage.get(selectedIndex));
+    //var image = ee.Image(listOfImage.get(selectedIndex));
     // Don't perform the cloud removal because this is computationally
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     
-    var composite = exports.s2_composite([image], 1, true);
+    var composite = exports.s2_composite([listOfImage.get(selectedIndex)], 1, true);
     //var composite = exports.removeSunGlint(image)
     //  .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
     //    'B8A','B9','B10','B11','B12','QA10','QA20','QA60']);
