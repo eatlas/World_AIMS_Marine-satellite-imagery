@@ -16,8 +16,8 @@
 var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/gee/s2Utils.js');
  
 // Date range to iterate through the Sentinel 2 imagery.
-var START_DATE = '2016-10-12';
-var END_DATE = '2021-03-19';
+var START_DATE = '2020-01-20';
+var END_DATE = '2020-01-20';
 
 //var START_DATE = '2020-10-29';
 //var END_DATE = '2020-10-31';
@@ -30,7 +30,7 @@ var END_DATE = '2021-03-19';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 10;
+var CLOUDY_PIXEL_PERCENTAGE = 100;
 
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
@@ -496,6 +496,7 @@ tileID = '54KTG'; // Arafura Sea
 //tileID = '55KDA';     // Australia, GBR, Howies Reef, Nathan Reefm Otter Reef, King reef
 tileID = '54LZQ';   // Australia, Torres Strait, Mer, Bramble Cay
 tileID = '54LYP';   // Australia, Torres Strait, South East
+tileID = '54LYQ';   // Australia Eastern Torres Strait, PNG border (Warrior Reef, Daru)
 
 s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
 
