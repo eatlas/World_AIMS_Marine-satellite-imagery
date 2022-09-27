@@ -2015,9 +2015,11 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
   var dateLabel = ui.Label({style: {margin: '2px 0'}});
   var progressLabel = ui.Label({style: {margin: '2px 0'}});
   var idLabel = ui.Label({style: {margin: '2px 0'}});
+  var sunglintCorrectionLevelSelect = ui.Select(["None","Normal", "High"],
+    "Select sunglint correction level", "Normal", updateUI);
   var mainPanel = ui.Panel({
     //widgets: [introPanel, imagePanel, idLabel, dateLabel, progressLabel, buttonPanel,],
-    widgets: [introPanel, idLabel, dateLabel, progressLabel, buttonPanel,],
+    widgets: [introPanel, idLabel, dateLabel, sunglintCorrectionLevelSelect, progressLabel, buttonPanel,],
     style: {position: 'bottom-left', width: '340px'}
   });
   Map.add(mainPanel);
@@ -2052,12 +2054,22 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     // image is a good one.
     print(IDs);
   
-
+    var sunglintFunc;
+    switch(sunglintCorrectionLevelSelect.getValue()) {
+      case "None":
+        sunglintFunc = function(image) { return image; }; // Passthrough
+        break;
+      case "Normal":
+        sunglintFunc = exports.removeSunGlintNormal;
+        break;
+      case "High":
+        sunglintFunc = exports.removeSunGlintHigh;
+    }
     // Don't perform the cloud removal because this is computationally
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     var composite = imagesFiltered
-      .map(exports.removeSunGlintNormal)
+      .map(exports.sunglintFunc)
       .reduce(ee.Reducer.percentile([50],["p50"]))
       //.reduce(ee.Reducer.first())
       .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
