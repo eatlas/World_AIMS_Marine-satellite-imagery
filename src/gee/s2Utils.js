@@ -1913,22 +1913,9 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     {label:"High (2)", value:2}],
     "Select sunglint correction level", "Normal");
   
-  sgSelect.onChange(updateUI);
-  var sgPanel = new ui.Panel(
-      [ui.Label("Sunglint correction level:"),sgSelect],
-      ui.Panel.Layout.Flow('horizontal')
-    );
-  var mainPanel = ui.Panel({
-    widgets: [introPanel, idLabel, sgPanel, progressLabel, buttonPanel,],
-    style: {position: 'bottom-left', width: '340px'}
-  });
-  Map.add(mainPanel);
-  
-  
   var selectedIndex = 0;
   var collectionLength = imageIds.length;
-  
-  var updateUI = function() {
+  var viewUpdateUI = function() {
   
     progressLabel.setValue('Image: '+(selectedIndex+1)+' of '+(collectionLength));
 
@@ -1950,6 +1937,22 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     nextButton.setDisabled(selectedIndex >= collectionLength - 1);
     prevButton.setDisabled(selectedIndex <= 0);
   };
+  
+  sgSelect.onChange(viewUpdateUI);
+  var sgPanel = new ui.Panel(
+      [ui.Label("Sunglint correction level:"),sgSelect],
+      ui.Panel.Layout.Flow('horizontal')
+    );
+  var mainPanel = ui.Panel({
+    widgets: [introPanel, idLabel, sgPanel, progressLabel, buttonPanel,],
+    style: {position: 'bottom-left', width: '340px'}
+  });
+  Map.add(mainPanel);
+  
+  
+
+  
+
   
   
   
