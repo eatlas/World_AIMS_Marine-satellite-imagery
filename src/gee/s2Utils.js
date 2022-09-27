@@ -929,7 +929,7 @@ exports.removeSunGlintNormal = function(image) {
 };
 
 exports.removeSunGlintNone = function(image) {
-  return exports.removeSunGlint(image, 100000);
+  return exports.removeSunGlint(image, 0);
 };
 
 /**
