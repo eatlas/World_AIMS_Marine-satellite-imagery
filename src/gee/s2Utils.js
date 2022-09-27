@@ -1072,8 +1072,14 @@ exports.removeSunGlint = function(image, sunGlintThres) {
   // COPERNICUS/S2/20180212T001111_20180212T001105_T56KME (Marion Reef Coral Sea)
   
   var  sunGlintComposite =  image
+    //.addBands(image.select('B1').subtract(sunglintCorr.multiply(0.75)),['B1'], true)
+    //.addBands(image.select('B2').subtract(sunglintCorr.multiply(0.75)),['B2'], true)
+    //.addBands(image.select('B3').subtract(sunglintCorr.multiply(0.9)),['B3'], true)
+    //.addBands(image.select('B4').subtract(sunglintCorr.multiply(1)),['B4'], true)
+    //.addBands(image.select('B5').subtract(B5correction),['B5'], true);
+    
     .addBands(image.select('B1').subtract(sunglintCorr.multiply(0.75)),['B1'], true)
-    .addBands(image.select('B2').subtract(sunglintCorr.multiply(0.75)),['B2'], true)
+    .addBands(image.select('B2').subtract(sunglintCorr.multiply(0.8)),['B2'], true)
     .addBands(image.select('B3').subtract(sunglintCorr.multiply(0.9)),['B3'], true)
     .addBands(image.select('B4').subtract(sunglintCorr.multiply(1)),['B4'], true)
     .addBands(image.select('B5').subtract(B5correction),['B5'], true);
