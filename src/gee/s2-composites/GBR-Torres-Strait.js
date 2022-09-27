@@ -87,20 +87,30 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200820T005709_20200820T005711_T54LWQ"
   ], 
   false, false, REF1_OPTIONS);
-  
+
+// Bramble cay
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20200120T004659_20200120T004659_T54LZQ" // Mostly clear, somecloud on right.
+  ], 
+  false, true, REF1_OPTIONS_HSG);
+
 // Bramble cay
 s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20181221T004701_20181221T004658_T54LZQ",	// Some sunglint
     // "COPERNICUS/S2/20151117T004742_20170102T064132_T54LZQ",	// Strong sunglint
     //"COPERNICUS/S2/20171121T004659_20171121T004654_T54LZQ",	// Strong Sunglint
+    "COPERNICUS/S2/20180219T004659_20180219T004658_T54LZQ", // Fair amount of cloudy clumps
+    "COPERNICUS/S2/20180927T004659_20180927T004700_T54LZQ", // Scattered clouds, bit dark
+    "COPERNICUS/S2/20181221T004701_20181221T004658_T54LZQ", // Moderately low cloud, bit dark
     "COPERNICUS/S2/20190115T004709_20190115T004705_T54LZQ",	// Scattered clouds
     "COPERNICUS/S2/20191211T004659_20191211T004700_T54LZQ",	// Scattered clouds
-    "COPERNICUS/S2/20200120T004659_20200120T004659_T54LZQ",	// Sunglint
     //"COPERNICUS/S2/20200229T004709_20200229T004703_T54LZQ",	// Scattered clouds, strong sunglint
     //"COPERNICUS/S2/20200419T004659_20200419T004701_T54LZQ"	// Some banding, scattered clouds, moderate turbidity
   ], 
-  false, false, REF1_OPTIONS_HSG);
+  false, true, REF2_OPTIONS_HSG);
+
 
 // Central Torres Strait, PNG border (Boigu Island, Saibai Island)
 s2Utils.s2_composite_display_and_export(
@@ -153,7 +163,7 @@ s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20181126T004659_20181126T004702_T54LYP" // Low cloud and very clear
   ], 
-  false, false, REF1_OPTIONS_HSG);
+  false, true, REF1_OPTIONS_HSG);
   
 // South Eastern Torres Strait
 // 10% clouds
@@ -178,7 +188,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20211021T004709_20211021T004707_T54LYP", // Low cloud, clarity good
     "COPERNICUS/S2/20211110T004709_20211110T004706_T54LYP" // Clear middle, scattered top and bottom
   ], 
-  false, false, REF2_OPTIONS_HSG);
+  false, true, REF2_OPTIONS_HSG);
   
 
   
@@ -379,7 +389,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200727T002711_20200727T002713_T55KDA",
     "COPERNICUS/S2/20200816T002711_20200816T002713_T55KDA"
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
 // Good
 //COPERNICUS/S2/20180827T002711_20180827T002706_T55KDA
 //COPERNICUS/S2/20190812T002711_20190812T002711_T55KDA
@@ -402,7 +412,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190906T002709_20190906T002709_T55KCA", //1, 1
     //"COPERNICUS/S2/20191016T002709_20191016T002708_T55KCA"  //3, 2
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
 // Mission Beach
 // 0.1% Cloud cover
@@ -417,7 +427,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200727T002711_20200727T002713_T55KDA", // 2
     "COPERNICUS/S2/20200816T002711_20200816T002713_T55KDA", // 2
    ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
 // Palm Island, Orpheus Island
 s2Utils.s2_composite_display_and_export(
@@ -434,7 +444,7 @@ s2Utils.s2_composite_display_and_export(
   "COPERNICUS/S2/20200727T002711_20200727T002713_T55KDV", //1
   "COPERNICUS/S2/20200816T002711_20200816T002713_T55KDV" //2
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
 
  //55KGU Australia, GBR, Hardy Reef, Block Reef
 // Searched 89 out of 89 images
