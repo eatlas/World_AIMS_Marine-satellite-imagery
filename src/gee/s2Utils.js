@@ -1123,7 +1123,7 @@ exports.removeSunGlint = function(image, sunGlintThres) {
     // of the angled banding in the images).
     // This level was adjusted for image: COPERNICUS/S2/20161012T004702_20161012T004701_T54LYP
     // in Torres Strait.
-    .addBands(image.select('B1').subtract(sunglintCorr.multiply(0.75)),['B1'], true)
+    .addBands(image.select('B1').subtract(sunglintCorr.multiply(0.7)),['B1'], true)
     .addBands(image.select('B2').subtract(sunglintCorr.multiply(0.85)),['B2'], true)
     .addBands(image.select('B3').subtract(sunglintCorr.multiply(0.9)),['B3'], true)
     .addBands(image.select('B4').subtract(sunglintCorr.multiply(1)),['B4'], true)
