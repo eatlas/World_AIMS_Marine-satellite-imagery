@@ -1942,7 +1942,7 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     
-    var composite = s2_composite([image], 1, true);
+    var composite = exports.s2_composite([image], 1, true);
     //var composite = exports.removeSunGlint(image)
     //  .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
     //    'B8A','B9','B10','B11','B12','QA10','QA20','QA60']);
