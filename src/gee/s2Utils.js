@@ -1884,16 +1884,8 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
   // to the tropics where reefs are found. This is to speed up the code.
   var tilesGeometry = exports.get_s2_tiles_geometry(imageIds, ee.Geometry.BBox(-180, -33, 180, 33));
   
-  //var s2_cloud_collection = exports.get_s2_cloud_collection(imageIds, tilesGeometry);
-  
   // Zoom to our tile of interest.
   Map.centerObject(tilesGeometry, 9);
-  
-  // Adjust the collection of images
-  //var collection = s2_cloud_collection;
-    //.map(utils.removeSunGlint);
-  
-  //var listOfImage = collection.toList(collection.size());
   
   // Sets up next and previous buttons used to navigate through previews of the
   // images in the collection.
@@ -1915,8 +1907,16 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
   // Setup the user interface
   var progressLabel = ui.Label({style: {margin: '2px 0'}});
   var idLabel = ui.Label({style: {margin: '2px 0'}});
+  var sgSelect = ui.Select(["None (0)","Normal (1)", "High (2)"],
+    "Select sunglint correction level", "Normal");
+  
+  sgSelect.onChange(updateUI);
+  var sgPanel = new ui.Panel(
+      [ui.Label("Sunglint correction level:"),sgSelect],
+      ui.Panel.Layout.Flow('horizontal')
+    );
   var mainPanel = ui.Panel({
-    widgets: [introPanel, idLabel, progressLabel, buttonPanel,],
+    widgets: [introPanel, idLabel, sgPanel, progressLabel, buttonPanel,],
     style: {position: 'bottom-left', width: '340px'}
   });
   Map.add(mainPanel);
@@ -1924,29 +1924,16 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
   
   var selectedIndex = 0;
   var collectionLength = imageIds.length;
-  // Get the total number of images asynchronously, so we know how far to step.
-  // This async process because we want the value on the client but the size
-  // is a server side value.
-  //listOfImage.size().evaluate(function(length) {
-  //  collectionLength = length;
-  //  updateUI();
-  //});
-  
   
   var updateUI = function() {
   
     progressLabel.setValue('Image: '+(selectedIndex+1)+' of '+(collectionLength));
-  
-  
-    //var image = ee.Image(listOfImage.get(selectedIndex));
+
     // Don't perform the cloud removal because this is computationally
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     
     var composite = exports.s2_composite([imageIds[selectedIndex]], 1, true);
-    //var composite = exports.removeSunGlint(image)
-    //  .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
-    //    'B8A','B9','B10','B11','B12','QA10','QA20','QA60']);
 
     var includeCloudmask = false;
     
@@ -1956,39 +1943,6 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     
     var deepMarine_composite = exports.bake_s2_colour_grading(composite, 'DeepFalsePreview', includeCloudmask);
     Map.addLayer(deepMarine_composite, visParams, 'Sentinel-2 Deep False',true);
-  
-   /* var reefTop_composite = exports.bake_s2_colour_grading(composite, 'ReefTop', includeCloudmask);
-    Map.addLayer(reefTop_composite, visParams, 'Sentinel-2 ReefTop',false);
-  
-    var slope_composite = exports.bake_s2_colour_grading(composite, 'Slope', includeCloudmask);
-    Map.addLayer(slope_composite, visParams, 'Sentinel-2 Slope',false);
-    
-    //var deepMarine2_composite = utils.bake_s2_colour_grading(composite, 'TrueColourA', includeCloudmask);
-    //print(deepMarine_composite);
-    //print(deepMarine2_composite);
-    
-    //Map.addLayer(deepMarine2_composite, visParams, 'Sentinel-2 Deep Marine2',true);
-    
-    var shallow_composite = exports.bake_s2_colour_grading(composite, 'Shallow', includeCloudmask);
-    Map.addLayer(shallow_composite, visParams, 'Sentinel-2 Shallow',false);
-  
-    Map.addLayer(deepMarine_composite.select('vis-blue'), visParams, 'Sentinel-2 Deep Marine vis-blue',false);
-    Map.addLayer(deepMarine_composite.select('vis-green'), visParams, 'Sentinel-2 Deep Marine vis-green',false);
-    Map.addLayer(deepMarine_composite.select('vis-red'), visParams, 'Sentinel-2 Deep Marine vis-red',false);
-    Map.addLayer(composite.select("B1"), {'min': 1100, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B1 after glint removal',false);
-    Map.addLayer(composite.select("B2"), {'min': 650, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B2 after glint removal',false);
-    Map.addLayer(composite.select("B4"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B4 after glint removal',false);
-    Map.addLayer(composite.select("B5"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B5 raw',false);
-    Map.addLayer(composite.select("B8"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B8 raw',false);
-    Map.addLayer(composite.select("B11"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B11 raw',false);
-    Map.addLayer(image, {
-        bands: ['B4', 'B3', 'B2'],
-        min: [130, 200, 500],
-        max: [1700, 1900, 2000],
-        gamma: [2, 2, 2]
-      }, 'Sentinel-2 Raw',false);
-    */
-    
   
     nextButton.setDisabled(selectedIndex >= collectionLength - 1);
     prevButton.setDisabled(selectedIndex <= 0);
