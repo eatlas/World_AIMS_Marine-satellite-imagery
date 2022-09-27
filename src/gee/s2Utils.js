@@ -1962,7 +1962,7 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     if (button.getDisabled()) return;
     //setImageByIndex(selectedIndex += increment);
     selectedIndex += increment;
-    updateUI();
+    viewUpdateUI();
   };
   
   // Set up the next and previous buttons.
