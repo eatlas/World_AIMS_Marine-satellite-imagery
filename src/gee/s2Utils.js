@@ -30,6 +30,7 @@
 // Version: v1.3.2 Fixed scaling code for polygon generation. Had attempted to export at
 //                 5 m resolution, but GEE just doesn't work (it runs out of memory), thus
 //                 10 m is the maximum resolution for Sentinel 2 imagery.
+// Version: v1.4.0 Removed deprecated removeSunGlintB8() function.
 
 /**
 * @module s2Utils
@@ -916,7 +917,7 @@ exports.removeSunGlint = function(image) {
   // resolution, but doesn't penetrate the water much.
   //
   // Unfortunately in very shallow areas B8 slightly penetrates the water enough
-  // that it picks up the subtrate, making it much brighter than for open water.  
+  // that it picks up the substrate, making it much brighter than for open water.  
   // When we use B8 to perform a sunglint correction we substract B8 from the visible 
   // colour bands. In these very shallow areas B8 picks up the bottom resulting 
   // in a very strong correction being applied, causing them to become unnaturally dark.
@@ -998,7 +999,7 @@ exports.removeSunGlint = function(image) {
   
   var b8 = image.select('B8');
 
-  // Determin the land sea boundary using the B8 channel rather than the 
+  // Determine the land sea boundary using the B8 channel rather than the 
   // combined B8 + B11 rawSunGlint variable. Using the rawSunGlint it was
   // found that mangrove areas tended to be treated as water and thus
   // end up being black. Switching to B8 fixed this problem. Presumably
@@ -1071,112 +1072,6 @@ exports.removeSunGlint = function(image) {
   return(sunGlintComposite);
 };
 
-/**
- * This function is deprecated in preference of 'removeSunGlint()'.
- * This function estimates the sunglint from the B8 Sentinel channel.
- * This estimate is then subtracted from the visible colour bands to
- * create a new image. The compensation only works for images with
- * light sunglint.
- * The removeSunGlint function is an improvement on this function.
- * This function has the artifact that the edges of clouds become very dark.
- * This is because clouds are bright in the B8 channel and thus result in
- * a large subtraction from the ocean areas at the edge of the cloud making
- * it black. In the fully clouded area the value of the compensation is
- * clipped resulting in white clouds.
- * @param {ee.Image} img - Sentinel 2 image
- * @return {ee.Image} RGB image based on bands B2 - B4 with sunglint
- *    removal based on B8.
- */ 
-exports.removeSunGlintB8 = function(img) {
-  
-  // The brightness fluctuation of the waves and the sun glint
-  // in B8 matches the same in B2, B3 and B4. Unfortunately
-  // B8 is very bright for clouds and land and so these become
-  // black if B8 is simply subtracted from these channels. We therefore
-  // need to only apply the compensation when the brightness is not too
-  // much. Cloud are assumed to be masked out in a separate process
-  // and so we focus here on the transition from land to sea.
-  
-  var B8 = img.select('B8');
-  var B4 = img.select('B4');
-  var B3 = img.select('B3');
-  var B2 = img.select('B2');
-  
-
-  // Provide linear compensation up to a moderate amount of sun glint.
-  // Above this level clip the amount we subtract so that land areas
-  // don't turn black. At high levels of B8 we can be pretty sure that
-  // we have land pixels and so reduce the amount that we subtract so that
-  // the contrast on the land does not get too high.
-  // We still subtract a small amount even from land areas to compensate 
-  // of haze in the atmosphere making dark areas brighter.
-  
-  // The limitations of this algorithm are that:
-  // 1. land areas with deep shadows such as on the side of mountains or 
-  // cliffs have very low B8 brightness and so are considered water and 
-  // thus receive the full subtraction of the B8 channel from the other 
-  // colours making them black. 
-  // 2. At low tides some reef flats have bright B8 channels resulting
-  // resulting in them being treated as land, resulting in less sun glint
-  // compensation. This leads to an artifical step in brightness across
-  // across the reef flat.
-  // 3. When the sun glint is strong the brightness of the water, overlaps
-  // in values with the brightness of the land and so the algorithm can not
-  // be used. Essentially images with a high sunglint should not be used.
-  // Calculate the amount of sunglint removal to apply. By default
-  // for areas where the sunglint is low (B8 < 200) then keep this as-is.
-  // For areas between 200 - 300, cap the amount to remove at 200. At this
-  // brightness for B8 we can't distinguish between very shallow water (< 0.5 m)
-  // and high levels of sunglint. We therefore choose this threshold as
-  // the maximum level of compensation that we can apply to the image.
-  // In areas where there is high sunglint this limitation will make the
-  // image unusable.
-  
-  // Deep cloud shadows have a B8 value lower than the surrounding water
-  // due to being in a shadow. However the linearity of the sunglint
-  // compensation seems to slightly break down in these conditions.
-  // The visible channels seem to be darkened slightly more than the
-  // B8 channel and so the compensation in these areas results in
-  // very dark areas. This dark cloud shadows can then mess up subsequent
-  // processing. Additionally these large dark shadows seem to be associated
-  // with high clouds that not easy to mask out automatically, as the shadows
-  // are quite separated from the clouds. These clouds have B8 values in
-  // the order of 180 - 240 for high sunglint scene and 100 - 115 for a
-  // low sunglint scene.
-  //var TRANSITION_THRES = 450;
-  //var TRANSITION_THRES = 800;
-  //var PEAK_THRES = 1000;
-  var THRES = 800;
-  var TRANSITION_THRES = 1000;
-  var PEAK_THRES = 1200;
-  var B8new = B8.where(B8.gt(THRES), 
-    B8.subtract(THRES).divide(2).add(THRES));
-
-  // This threshold is intended to help with the transition from very shallow
-  // areas to land. We want land areas to have less compensation for sunglint,
-  // because it makes no sense to apply it to land.
-  B8new = B8new.where(B8.gt(TRANSITION_THRES), ee.Image((TRANSITION_THRES-THRES)/2+THRES));
-  
-  B8new = B8new.where(B8.gt(PEAK_THRES), ee.Image(300));
-  
-  // For really bright areas this probably corresponds to land, so don't
-  // try to remove sunglint. i.e. we only subtract 100 from the image,
-  // which acts as a slight haze removal and reduces the transition gradient
-  // between the land and the ocean making the blending less severe. 
-  // If we let B8 go through for land areas, unclipped then the very high B8
-  // brightness on land results in black land areas after the B8 has been
-  // subtracted from the other colour bands.
-  //B8new = B8new.where(B8.gt(500), ee.Image(150));
-  //B8new = B8new.where(B8.gt(800), ee.Image(400));
-  //B8new = B8new.where(B8.gt(1200), ee.Image(350));
-  //B8new = B8new.where(B8.gt(1800), ee.Image(300));
-
-  // The remaining sunglint is brighter in the red band so increase the
-  // compensation in the red band, to achieve a more pleasing image.
-  return img.addBands(B4.subtract(B8new.multiply(1.15)),['B4'],true)
-    .addBands(B3.subtract(B8new),['B3'], true)
-    .addBands(B2.subtract(B8new),['B2'], true);
-};
 
 
 /**
