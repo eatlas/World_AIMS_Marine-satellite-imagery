@@ -1890,7 +1890,7 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
   Map.centerObject(tilesGeometry, 9);
   
   // Adjust the collection of images
-  var collection = s2_cloud_collection;
+  //var collection = s2_cloud_collection;
     //.map(utils.removeSunGlint);
   
   //var listOfImage = collection.toList(collection.size());
