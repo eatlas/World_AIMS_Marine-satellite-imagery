@@ -895,8 +895,8 @@ exports.get_s2_tiles_geometry = function(image_ids, search_bbox) {
 
 // Wrap the removeSunGlint function with the sunGlintThres parameter so that
 // this parameter can be used in a map function.
-exports.removeSunGlintMap = function(sunGlintThres) {
-  return exports.removeSunGlint(image);
+exports.removeSunGlintMap = function(image) {
+  return exports.removeSunGlint(image, 600);
 };
 
 /**
@@ -2014,13 +2014,13 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     // image is a good one.
     print(IDs);
   
-    var sunGlintThreshold = 300;
-    var removeSunGlint = exports.removeSunGlint.bind(null, sunGlintThreshold);
+    //var sunGlintThreshold = 300;
+    //var removeSunGlint = exports.removeSunGlint.bind(null, sunGlintThreshold);
     // Don't perform the cloud removal because this is computationally
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     var composite = imagesFiltered
-      .map(removeSunGlint)
+      .map(exports.removeSunGlintMap)
       .reduce(ee.Reducer.percentile([50],["p50"]))
       //.reduce(ee.Reducer.first())
       .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
