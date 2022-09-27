@@ -404,6 +404,7 @@ exports.s2_composite = function(imageIds, sunglintCorrectionLevel, applyBrightne
   // This reduces the number of s2 tiles. Note I couldn't work out
   // how to generate a proper error message when it there are requested
   // s2 tiles that are outside this boundary.
+  print(imageIds);
   var tilesGeometry = exports.get_s2_tiles_geometry(
     imageIds, ee.Geometry.BBox(-180, -33, 180, 33));
     
