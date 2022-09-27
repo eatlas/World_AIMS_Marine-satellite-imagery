@@ -22,10 +22,10 @@ REF1_OPTIONS_HSG.sunglintCorrectionLevel = 2;
 
 // Secondary imagery
 var REF2_OPTIONS = {
-  colourGrades: ['DeepFalse','TrueColour','Slope'],
+  colourGrades: ['DeepFalse','TrueColour'],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R2',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/GBR-Torres-Strait',
-  exportScale: [10, 10, 30],
+  exportScale: [10, 10],
   sunglintCorrectionLevel: 1,
   applyBrightnessAdjustment: true
 };
