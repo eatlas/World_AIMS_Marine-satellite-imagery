@@ -1933,7 +1933,19 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     
-    var composite = exports.s2_composite([imageIds[selectedIndex]], 1, true);
+    var sgLevel;
+    switch(sgSelect.getValue()) {
+      case "None (0)":
+        sgLevel = 0; // Passthrough
+        break;
+      case "Normal (1)":
+        sgLevel = 1;
+        break;
+      case "High (2)":
+        sgLevel = 2;
+    }
+    
+    var composite = exports.s2_composite([imageIds[selectedIndex]], sgLevel, true);
 
     var includeCloudmask = false;
     
