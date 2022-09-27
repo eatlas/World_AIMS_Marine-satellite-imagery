@@ -418,13 +418,14 @@ exports.s2_composite = function(imageIds, sunglintCorrectionLevel, applyBrightne
   var composite_collection = s2_cloud_collection;
   
   if (sunglintCorrectionLevel === 0) {
+    // Perform this transform (even though it doesn't logically do anything) to 
+    // ensure consistent channel data types
     composite_collection = s2_cloud_collection.map(exports.removeSunGlintNone);
   } else if (sunglintCorrectionLevel === 1) {
     composite_collection = s2_cloud_collection.map(exports.removeSunGlintNormal);
   } else if (sunglintCorrectionLevel === 2) {
     composite_collection = s2_cloud_collection.map(exports.removeSunGlintHigh);
   }
-  print(composite_collection);
   var composite;  
   
   // When creating the composite we are using the 50 percentile (median).
@@ -928,6 +929,10 @@ exports.removeSunGlintNormal = function(image) {
   return exports.removeSunGlint(image, 600);
 };
 
+// Seems inefficient to do all the calculations to not change the data. However
+// the removeSunGlint function changes the data type of some of the individual
+// channels from integer to doubles. As a result if we don't perform the same 
+// format transformations the subsequent processing fails. 
 exports.removeSunGlintNone = function(image) {
   return exports.removeSunGlint(image, 0);
 };
