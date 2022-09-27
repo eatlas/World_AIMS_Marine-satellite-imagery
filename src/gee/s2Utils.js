@@ -405,6 +405,10 @@ exports.s2_composite = function(imageIds, sunglintCorrectionLevel, applyBrightne
   // how to generate a proper error message when it there are requested
   // s2 tiles that are outside this boundary.
   print(imageIds.lastIndexOf());
+  var utmTiles = imageIds.map(function(id) {
+    print(id);
+  });
+  
   var tilesGeometry = exports.get_s2_tiles_geometry(
     imageIds, ee.Geometry.BBox(-180, -33, 180, 33));
     
