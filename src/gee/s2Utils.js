@@ -30,7 +30,13 @@
 // Version: v1.3.2 Fixed scaling code for polygon generation. Had attempted to export at
 //                 5 m resolution, but GEE just doesn't work (it runs out of memory), thus
 //                 10 m is the maximum resolution for Sentinel 2 imagery.
-// Version: v1.4.0 Removed deprecated removeSunGlintB8() function.
+// Version: v1.4.0 Removed deprecated removeSunGlintB8() function. Adjusted the strength
+//                 of the B2 sunglint correction scalar from 0.75 to 0.85 to give a better
+//                 colour balance for images close to the maximum sunglint correction. This
+//                 was needed in Torres Strait where most images had strong sunglint.
+//                 Added removeSunGlintNormal and removeSunGlintHigh as two thresholds of
+//                 sunglint removal that can be 
+//                
 
 /**
 * @module s2Utils
@@ -102,11 +108,7 @@
  *                                  colourGrades.
  *        {boolean} applyBrightnessAdjustment - Apply brightness adjustment to the composite to normalise
  *                                  the brightness of marine areas across scenes.
- *        {boolean} applySunglintCorrection - Apply sunglint correction to the imagery prior to
- *                                  creating as a composite. Note that turning off sunglint
- *                                  correction will significantly alter the brightness of the
- *                                  imagery as the contrast enhancements are tailored to 
- *                                  sunglint being applied.
+ *        {boolean} sunglintCorrectionLevel - Amount of sunglint correction to apply (0-2)
  */
 exports.s2_composite_display_and_export = function(imageIds, is_display, is_export, options) {
   
@@ -143,7 +145,7 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
   
 
   var composite = exports.s2_composite(imageIds, 
-    options.applySunglintCorrection, options.applyBrightnessAdjustment);
+    options.sunglintCorrectionLevel, options.applyBrightnessAdjustment);
 
   var utmTilesString = uniqueUtmTiles.join('-');
   
@@ -358,7 +360,15 @@ exports.unique_s2_tiles = function(imageIds) {
  *                                  the generation of example images to show the effect of the 
  *                                  brightness adjustment in the dataset documentation and reporting. 
  *                                  Note: version 0 of this dataset did not have this correction.
- * @param {boolean} applySunglintCorrection - If true then apply sunglint correction (marine areas)
+ * @param {int} sunglintCorrectionLevel - 0 - no sunglint correction
+ *                                  1 - normal sunglint - best balance between sunglint removal and
+ *                                      introduced shoreline artefacts. (threshold 600)
+ *                                  2 - strong sunglint removal - extra sunglint removal. This can 
+ *                                      be used in areas where there are limited images available
+ *                                      and they all have strong sunglint. (threshold 900)
+ *                                  Note: This is quantised because I could work out how to pass a
+ *                                  continuous variable into the map function.
+ * //@param {boolean} applySunglintCorrection - If true then apply sunglint correction (marine areas)
  *                                  and matching static atmospheric for land areas to the imagery
  *                                  prior to creating the composite image. 
  *                                  Normally this parameter should be true, but was added to allow
@@ -368,7 +378,7 @@ exports.unique_s2_tiles = function(imageIds) {
  *                                  image can be ignored if you are using isDisplay or isExport
  *                                  as true and don't wish to perform additional processing.
  */
-exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightnessAdjustment) {
+exports.s2_composite = function(imageIds, sunglintCorrectionLevel, applyBrightnessAdjustment) {
   
   // We only support a single tile. This is to make processing the 
   // projection information more straight forward. 
@@ -398,9 +408,11 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
   var composite_collection = s2_cloud_collection;
   
   
-  if (applySunglintCorrection) {
-    composite_collection = s2_cloud_collection.map(exports.removeSunGlint);
-  } 
+  if (sunglintCorrectionLevel == 1) {
+    composite_collection = s2_cloud_collection.map(exports.removeSunGlintNormal);
+  } else if (sunglintCorrectionLevel == 2) {
+    composite_collection = s2_cloud_collection.map(exports.removeSunGlintHigh);
+  }
 
   var composite;  
   
@@ -897,8 +909,12 @@ exports.get_s2_tiles_geometry = function(image_ids, search_bbox) {
 // into the map function. I tried bind and currying but without success.
 // As a crappy alternative I will have multiple functions with different
 // thresholds
-exports.removeSunGlintMap = function(image) {
+exports.removeSunGlintHigh = function(image) {
   return exports.removeSunGlint(image, 900);
+};
+
+exports.removeSunGlintNormal = function(image) {
+  return exports.removeSunGlint(image, 600);
 };
 
 /**
@@ -1072,12 +1088,21 @@ exports.removeSunGlint = function(image, sunGlintThres) {
   // COPERNICUS/S2/20180212T001111_20180212T001105_T56KME (Marion Reef Coral Sea)
   
   var  sunGlintComposite =  image
+  
+    // v1.3.2
     //.addBands(image.select('B1').subtract(sunglintCorr.multiply(0.75)),['B1'], true)
     //.addBands(image.select('B2').subtract(sunglintCorr.multiply(0.75)),['B2'], true)
     //.addBands(image.select('B3').subtract(sunglintCorr.multiply(0.9)),['B3'], true)
     //.addBands(image.select('B4').subtract(sunglintCorr.multiply(1)),['B4'], true)
     //.addBands(image.select('B5').subtract(B5correction),['B5'], true);
     
+    // v1.4.0 Adjusted the compensation on the blue channel because in areas where
+    // there was high sunglint the compensation would result in too much green in the 
+    // DeepFalse styling, indicating too little B2 sunglint correction. The level was adjusted
+    // from 0.75 to 0.85 so that the correction was better (it is still not perfect because
+    // of the angled banding in the images).
+    // This level was adjusted for image: COPERNICUS/S2/20161012T004702_20161012T004701_T54LYP
+    // in Torres Strait.
     .addBands(image.select('B1').subtract(sunglintCorr.multiply(0.75)),['B1'], true)
     .addBands(image.select('B2').subtract(sunglintCorr.multiply(0.85)),['B2'], true)
     .addBands(image.select('B3').subtract(sunglintCorr.multiply(0.9)),['B3'], true)
@@ -2022,13 +2047,12 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     // image is a good one.
     print(IDs);
   
-    //var sunGlintThreshold = 300;
-    //var removeSunGlint = exports.removeSunGlint.bind(null, sunGlintThreshold);
+
     // Don't perform the cloud removal because this is computationally
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     var composite = imagesFiltered
-      .map(exports.removeSunGlintMap)
+      .map(exports.removeSunGlintNormal)
       .reduce(ee.Reducer.percentile([50],["p50"]))
       //.reduce(ee.Reducer.first())
       .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
