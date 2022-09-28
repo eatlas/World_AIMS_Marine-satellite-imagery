@@ -1398,8 +1398,8 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // process we want to minimise the process time to make the preview images
     // fast to render. As such we make the DeepFalsePreview just a bit brighter.
 
-    B3contrast = exports.contrastEnhance(scaled_img.select('B3'),0.033,0.235, 2.3);
-    B2contrast = exports.contrastEnhance(scaled_img.select('B2'),0.067,0.235, 2.7);
+    B3contrast = exports.contrastEnhance(scaled_img.select('B3'),0.030,0.235, 2.3);
+    B2contrast = exports.contrastEnhance(scaled_img.select('B2'),0.065,0.235, 2.7);
     B1contrast = exports.contrastEnhance(scaled_img.select('B1'),0.101,0.237, 2.7); 
     compositeContrast = ee.Image.rgb(B3contrast, B2contrast, B1contrast);
 
