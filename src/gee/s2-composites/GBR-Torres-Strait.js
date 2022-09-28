@@ -93,7 +93,7 @@ s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20200120T004659_20200120T004659_T54LZQ" // Mostly clear, somecloud on right.
   ], 
-  false, true, REF1_OPTIONS_HSG);
+  false, false, REF1_OPTIONS_HSG);
 
 // Bramble cay
 s2Utils.s2_composite_display_and_export(
@@ -169,7 +169,7 @@ s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20181126T004659_20181126T004702_T54LYP" // Low cloud and very clear
   ], 
-  false, true, REF1_OPTIONS_HSG);
+  false, false, REF1_OPTIONS_HSG);
   
 // South Eastern Torres Strait
 // 10% clouds
@@ -194,7 +194,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20211021T004709_20211021T004707_T54LYP", // Low cloud, clarity good
     "COPERNICUS/S2/20211110T004709_20211110T004706_T54LYP" // Clear middle, scattered top and bottom
   ], 
-  false, true, REF2_OPTIONS_HSG);
+  false, false, REF2_OPTIONS_HSG);
   
 
   
