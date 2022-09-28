@@ -93,7 +93,7 @@ s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20200120T004659_20200120T004659_T54LZQ" // Mostly clear, somecloud on right.
   ], 
-  false, false, REF1_OPTIONS_HSG);
+  true, false, REF1_OPTIONS_HSG);
 
 // Bramble cay
 s2Utils.s2_composite_display_and_export(
