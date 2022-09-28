@@ -1312,34 +1312,11 @@ exports.apply_cloud_shadow_mask = function(img) {
  *      'Shallow'     - False colour image that highlights shallow areas. This is useful
  *                      for determining islands and cays, along with dry exposed reef areas.
  *                      It is determined B5, B8 and B11.
- *      'ReefTop'     - This is a grey scale image with a threshold that is applied to the
- *                      red channel (B4) to approximate reef top areas (~5 m depth) in 
- *                      clear oceananic water. This is close to a binary mask, but has a
- *                      small smooth grey scale transition to help with smooth digitisation.
- *                      This reef top masking has a 10 m radius circular spatial filter applied to
- *                      the image to reduce the noise. The threshold chosen was intended to be close
- *                      to the deepest features visible in red, as this will naturally be close to
- *                      a 6 m depth. The threshold was raised above the noise floor to reduce false
- *                      positives. This threshold was chosen to not have too many false positive 
- *                      in the coral sea, where waves contribute significant noise into the red channel.
- *      'B3ReefBoundary' - This corresponds to a grey scale high contrast (almost binary) image
- *                      with a threshold chosen to match reef boundaries. This threshold was derived
- *                      from the B3 channel.
- *                      This provides a proxy for approximately 20 - 25 m depth in clear water, 
- *                      and is a useful reference in determining reef boundaries, particularly 
- *                      determining sand areas that should be included in the reef boundary. 
- *                      The threshold was chosen to be close to as deep as possible in this channel, 
- *                      without introducing too many false positives due to wave and cloud noise. 
- *                      The threshold was tweaked to approximately match reef boundaries on the GBR.
- *      'B2ReefBoundary' - This corresponds to a grey scale high contrast (almost binary) image
- *                      with a threshold chosen to match reef boundaries. This threshold was derived
- *                      from the B2 channel. 
  *      'Slope' -       This calculates the slope based on the change in the brightness of the imagery.
  *                      In clear water, with a uniform sea bed substrate the brightness is
  *                      can be used to approximate the depth and thus a change in brightness
  *                      represents a change in depth. Steep sloped areas typically correspond to
  *                      the boundaries of marine features. This is based on B2, B3, B4
- *      'SlopeFalse' -  Same as slope but based on B1, B2, B3
  * @param {Boolean} processCloudMask - If true then copy over the cloudMask band.
  *            This is a slight hack because I couldn't work out how to perform
  *            conditional GEE server side execution, and cloning the original
@@ -1440,8 +1417,13 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // doesn't change the contrast much because we are applying a strong nonlinear
     // gamma correction to the image (i.e. values near the minimum are stretched,
     // values near the maximum are compressed.)
+    //B3contrast = exports.contrastEnhance(scaled_img.select('B3'),0.033,0.235, 2.3);
+    //B2contrast = exports.contrastEnhance(scaled_img.select('B2'),0.0721,0.235, 2.7);
+    //B1contrast = exports.contrastEnhance(scaled_img.select('B1'),0.1075,0.237, 2.7); 
+    
+    // Version 1.4.0 - Adjustment for change in sunglint correction
     B3contrast = exports.contrastEnhance(scaled_img.select('B3'),0.033,0.235, 2.3);
-    B2contrast = exports.contrastEnhance(scaled_img.select('B2'),0.0721,0.235, 2.7);
+    B2contrast = exports.contrastEnhance(scaled_img.select('B2'),0.07,0.235, 2.7);
     B1contrast = exports.contrastEnhance(scaled_img.select('B1'),0.1075,0.237, 2.7); 
     compositeContrast = ee.Image.rgb(B3contrast, B2contrast, B1contrast);
 
