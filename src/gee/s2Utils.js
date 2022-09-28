@@ -1423,7 +1423,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     
     // Version 1.4.0 - Adjustment for change in sunglint correction
     B3contrast = exports.contrastEnhance(scaled_img.select('B3'),0.031,0.235, 2.3);
-    B2contrast = exports.contrastEnhance(scaled_img.select('B2'),0.068,0.235, 2.7);
+    B2contrast = exports.contrastEnhance(scaled_img.select('B2'),0.068,0.235, 2.6);
     B1contrast = exports.contrastEnhance(scaled_img.select('B1'),0.1075,0.237, 2.7); 
     compositeContrast = ee.Image.rgb(B3contrast, B2contrast, B1contrast);
 
