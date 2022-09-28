@@ -105,7 +105,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180927T004659_20180927T004700_T54LZQ", // Scattered clouds, bit dark
     "COPERNICUS/S2/20181221T004701_20181221T004658_T54LZQ", // Moderately low cloud, bit dark
     "COPERNICUS/S2/20190115T004709_20190115T004705_T54LZQ",	// Scattered clouds
-    "COPERNICUS/S2/20191211T004659_20191211T004700_T54LZQ",	// Scattered clouds
+    "COPERNICUS/S2/20191211T004659_20191211T004700_T54LZQ"	// Scattered clouds
     //"COPERNICUS/S2/20200229T004709_20200229T004703_T54LZQ",	// Scattered clouds, strong sunglint
     //"COPERNICUS/S2/20200419T004659_20200419T004701_T54LZQ"	// Some banding, scattered clouds, moderate turbidity
   ], 
