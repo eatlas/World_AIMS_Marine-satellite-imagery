@@ -1123,6 +1123,10 @@ exports.removeSunGlint = function(image, sunGlintThres) {
     // of the angled banding in the images).
     // This level was adjusted for image: COPERNICUS/S2/20161012T004702_20161012T004701_T54LYP
     // in Torres Strait.
+    // The consequence of this is that the minimum brightness of the B2 channel is lower
+    // than previously resulting in crushing of the blacks. To compensate the
+    // DeepFalse style in bake_s2_colour_grading was adjusted to ensure there is minimal 
+    // lower clipping.
     .addBands(image.select('B1').subtract(sunglintCorr.multiply(0.7)),['B1'], true)
     .addBands(image.select('B2').subtract(sunglintCorr.multiply(0.85)),['B2'], true)
     .addBands(image.select('B3').subtract(sunglintCorr.multiply(0.9)),['B3'], true)
