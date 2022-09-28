@@ -112,7 +112,7 @@ s2Utils.s2_composite_display_and_export(
     //"COPERNICUS/S2/20200229T004709_20200229T004703_T54LZQ",	// Scattered clouds, strong sunglint
     //"COPERNICUS/S2/20200419T004659_20200419T004701_T54LZQ"	// Some banding, scattered clouds, moderate turbidity
   ], 
-  false, true, REF2_OPTIONS_HSG);
+  false, false, REF2_OPTIONS_HSG);
 
 
 // Central Torres Strait, PNG border (Boigu Island, Saibai Island)
@@ -172,7 +172,7 @@ s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20181126T004659_20181126T004702_T54LYP" // Low cloud and very clear
   ], 
-  false, false, REF1_OPTIONS_HSG);
+  true, false, REF1_OPTIONS_HSG);
   
 // South Eastern Torres Strait
 // 10% clouds
