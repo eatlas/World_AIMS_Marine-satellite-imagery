@@ -98,7 +98,10 @@ s2Utils.s2_composite_display_and_export(
 // Bramble cay
 s2Utils.s2_composite_display_and_export(
   [
-    "COPERNICUS/S2/20181221T004701_20181221T004658_T54LZQ",	// Some sunglint
+    // Including this image causes 
+    // Error: Image.select: Pattern 'cloudmask' did not match any bands.
+    //"COPERNICUS/S2/20181221T004701_20181221T004658_T54LZQ",	// Some sunglint 
+    
     // "COPERNICUS/S2/20151117T004742_20170102T064132_T54LZQ",	// Strong sunglint
     //"COPERNICUS/S2/20171121T004659_20171121T004654_T54LZQ",	// Strong Sunglint
     "COPERNICUS/S2/20180219T004659_20180219T004658_T54LZQ", // Fair amount of cloudy clumps
