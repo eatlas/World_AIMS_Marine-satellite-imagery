@@ -40,7 +40,12 @@ REF2_OPTIONS_HSG.sunglintCorrectionLevel = 2;
 //
 // ===============================================================
 
-
+// PNG above western TS
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20181005T005701_20181005T005704_T54LWR"	// Very low cloud
+  ], 
+  false, true, REF1_OPTIONS);
 
 // PNG above central TS
 s2Utils.s2_composite_display_and_export(
