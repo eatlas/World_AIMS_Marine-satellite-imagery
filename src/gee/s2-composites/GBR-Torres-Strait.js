@@ -79,7 +79,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190415T004709_20190415T004711_T54LZR",	// Some sunglint and clouds
     "COPERNICUS/S2/20191216T004701_20191216T004701_T54LZR"	// Low tide, Some sunglint and clouds
   ], 
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS_HSG);
   
 // Western Torres Strait, PNG border (Deliverance Island)
 s2Utils.s2_composite_display_and_export(
@@ -348,7 +348,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180724T004711_20180724T004707_T54LZN",
     "COPERNICUS/S2/20190828T004711_20190828T004707_T54LZN"
   ],
-false, true, REF1_OPTIONS);
+false, false, REF1_OPTIONS);
 
 
 // Australia, GBR, Cape Melville  
