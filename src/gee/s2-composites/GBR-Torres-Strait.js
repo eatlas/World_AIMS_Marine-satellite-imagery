@@ -295,7 +295,18 @@ s2Utils.s2_composite_display_and_export(
 //
 // ===============================================================
   
-  
+// Australia, GBR, East of top of Cape York
+// CLOUDY_PIXEL_PERCENTAGE = 1
+// 21 of 21 images
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20180614T004711_20180614T004705_T54LYN", // Light clouds, not very clear
+    "COPERNICUS/S2/20180724T004711_20180724T004707_T54LYN", // Scattered clouds, clear water
+    "COPERNICUS/S2/20190907T004711_20190907T004705_T54LYN", // Clear water, some scattered clouds
+    "COPERNICUS/S2/20190917T004711_20190917T004705_T54LYN", // Moderate water clarity, some scattered clouds
+    "COPERNICUS/S2/20200926T004709_20200926T004709_T54LYN" 
+  ],
+  false, false, REF1_OPTIONS_HSG);
   
 // Australia, GBR, Great Detached reef, Wishbone reef
 // A lot of scenes have strong sunglint
