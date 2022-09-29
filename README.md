@@ -4,14 +4,13 @@ Eric Lawrey – 13 September 2022
 
 Australian Institute of Marine Science
 
-This repository contains scripts for processing Sentinel 2 imagery using the Google Earth 
-Engine and the Python scripts for subsequent post processing
-of the imagery. 
-
 ## What is this dataset
 
 This repository contains all the scripts used to create clear water composite images from Sentinel 2 and
-Landsat 8. 
+Landsat 8. This is intended to represent a growing repository of scenes that have had images hand selected
+for merging into image mosaics. In general each tile has composite images created from a different collection
+of satellite images (different dates for the one satellite). The purpose of this is to create independent 
+composites that allow differentiation between image anomalies and real features. 
 
 The satellite imagery is processed in the original scenes of the satellites being processed.
 For Sentinel 2 this corresponds to 100 x 100 km scenes. For Landsat 8 this corresponds to 
@@ -109,7 +108,7 @@ optimising the Landsat 8 imagery as its primary purpose was to act as backup ima
 was no good Sentinel 2 images and to provide an independent set of imagery for checking the 
 reef boundary mapping.
 
-## s2 composites
+## Region organisation of imagery
 Sentinel 2 imagery is organised into regions to limit the number of scenes within one file. These regions are based on 
 [Global reef regions](https://github.com/eatlas/World_AIMS_Reef-regions).
 
@@ -120,7 +119,15 @@ and exports them to Google Drive.
 2. Local Python scripts for subsequent optimisation of the image file format,
 generation of GDAL virtual layers and merging of the depth contours. 
 
-This repository does not contain the image data itself.
+This repository does not contain the image data itself. The image data files were too large to include
+in the repository however they are available for [downloading and browsing](https://nextcloud.eatlas.org.au/apps/sharealias/a/world-aims-marine-sat-imagery)
+
+To reconstruct this dataset and scripts as was originally prepared these files should be placed in the `big-files` directory.
+
+## Dataset metadata and lineage
+More information about this dataset can be found on the 
+[Dataset metadata page](https://eatlas.org.au/data/uuid/5d67aa4d-a983-45d0-8cc1-187596fa9c0c).
+
 
 ## Folders
 `big-files`: This contains all large files in this dataset including all the final satellite
@@ -143,11 +150,76 @@ creates GDAL virtual rasters to make the images easier to manipulate in QGIS.
 into this folder. The `src\local\01-convert.py` script will then process them into the `big-files\data`
 folder. Once the image has been processed they can be deleted from this directory.
 
-## Setup
+## Reproducing this dataset
 
-A low tech approach to getting the code in the GEE editor is simply copying and
-pasting the code from GitHub. This approach is only suitable if you want just a few files,
-otherwise it is much better to clone the whole repository over. 
+This repository is intended to allow others to reproduce and extend this
+dataset. 
+
+## Setup and installation
+This dataset is created using the Google Earth Engine followed by some
+file format adjustments using a Python scripts to process the imagery using
+GDAL tools. For the depth contours the Python script uses OGR2OGR to 
+merge all the polygons from each image tile into single shapefiles for
+each region (Coral Sea, Global)
+
+To reproduce this dataset from scratch you will need:
+ - [Google Earth Engine account](https://earthengine.google.com/)
+ - Python and GDAL installed. On Windows [OSGeo4W](https://www.osgeo.org/projects/osgeo4w/) 
+ can be used to install both QGIS and GDAL. If you have troubles with OSGeo4W you can install
+ GDAL via Anaconda)
+ - Git - For copying code from GitHub into Google Earth Engine
+ - Google Drive with >30 GB of space for exporting the imagery from Google Earth Engine.
+
+On Windows this can be done using OSGeo4W or Anaconda.
+ 
+### OSGeo4W
+I have used OSGeo4W for many years to install both QGIS and GDAL.
+1. Download and install OSGeo4W making sure GDAL gets installed (https://www.osgeo.org/projects/osgeo4w/)
+2. Start the OSGeo4W cmd window. The default path for this is C:\OSGeo4W64\OSGeo4W.bat
+3. Test that GDAL installed OK by running: `gdalinfo --version`
+   You should get something like: GDAL 3.4.1, released 2021/12/27
+4. `cd <directory to this script (convert.py)>`
+5. `python convert.py`
+
+If you have trouble with GDAL from OSGeo4W (which sometime happens) you can install GDAL
+via Anaconda.
+
+### Anaconda - GDAL only
+1. Download and install Anaconda from (https://www.anaconda.com/products/individual). 
+2. Start the Anaconda Navigator / CMD.exe 
+3. Run `conda install -c conda-forge gdal`
+4. Test that GDAL installed OK by running: `gdalinfo --version`
+   You should get something like: GDAL 3.0.2, released 2019/10/28
+5. `cd <directory to this script (convert.py)>`
+6. `python convert.py`
+ 
+
+### Google Earth Engine Setup
+
+The most reliable way of getting the code into Google Earth is using Git to pull the 
+code from GitHub then push it into Google Earth Engine. This is described in detail 
+below. You can however also simply manually copy the files from `src\01-gee` into
+a session on Google Earth Engine to run them.
+
+Once you have a copy of the code in Google Earth Engine you need to adjust the 
+path to the `s2Utils.js` and `l8utils.js` in each of the scripts to match
+your username and repository name. Each of the main processing scripts
+uses an associated library file, one for Sentinel 2 processing and one for Landsat8
+processing. This library is imported as the first line in each of the scripts.
+Unfortunately Google Earth Engine does not support relative paths for these
+imports and so they are absolute paths. As a result when you copy the code
+into your repository these paths will not work.
+
+In the sentinel 2 scripts this line will look something like:
+```
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-sat-imagery:src/gee/s2Utils.js');
+```
+If your Google Earth Engine username is `janesmith` and the repository that you copied
+the code into is called `Coral-sea-imagery` then the above code should be changed to:
+```
+var s2Utils = require('users/janesmith/Coral-sea-imagery:src/gee/s2Utils.js');
+```
+
 
 ### Clone this repository into Google Earth Engine
 1. Create an empty repository in GEE using `Scripts\NEW\Repository`. Name the 
@@ -190,6 +262,14 @@ To push code back to GitHub instead of GEE you can simply use.
 git push https://github.com/eatlas/World_AIMS_Marine-satellite-imagery.git
 ```
 
+### Pull from Google Earth Engine to local
+If you have made code changes in Google Earth Engine and would like to bring them back into
+your local copy, so you can push back into GitHub then use:
+```
+git pull
+```
+This is assuming that you set the Google Earth Engine as the origin for the repository.
+(See step 4 in Clone this repository into Google Earth Engine)
 
 ### Setting up pushing to both GitHub and Google Earth Engine at same time
 The following are some of the commands needed to edit this repository locally, but to
@@ -267,3 +347,71 @@ To expand the selection of tiles that have been analysed use the `src\gee\apps\s
 app to select the best images for area of interest.
 
 To determine the Sentinel 2 tile for the area of interest find the tile ID from [this interactive map](https://maps.eatlas.org.au/index.html?intro=false&z=7&ll=146.90137,-19.07287&l0=ea_ref%3AWorld_ESA_Sentinel-2-tiling-grid_Poly,ea_ea-be%3AWorld_Bright-Earth-e-Atlas-basemap,google_SATELLITE&v0=,,f).
+
+## Exporting many images from Google Earth Engine
+The `src/gee/s2-composites/XXX.js` scripts generate many run tasks to perform the export of each
+image. Manually clicking the `Run` button can be quite tedious. Ideally the code could have been
+rewritten into Python to automate this process. (Maybe next time). 
+
+You can automate the clicking of the `Run` button with Javascript pasted
+into the Webbrowser console, noting that this automated attempts to open all the
+export task dialogs at once and so might crash your browser. If this happens try processing
+in smaller batches.
+https://gis.stackexchange.com/questions/290771/batch-task-execution-in-google-earth-engine
+
+1. Run the `src/gee/s2-composites/XXX.js` script and wait for all the tasks to be generated, waiting
+for your input to trigger them.
+2. Open your browser Web Developer Tools (usually Ctrl+Shift+I) and go to the Console. Paste the 
+following Javascript. This setups the functions for triggering run and confirm buttons in the 
+browser.
+
+``` Javascript
+/**
+ * Copyright (c) 2017 Dongdong Kong. All rights reserved.
+ * This work is licensed under the terms of the MIT license.  
+ * For a copy, see <https://opensource.org/licenses/MIT>.
+ *
+ * Batch execute GEE Export task
+ *
+ * First of all, You need to generate export tasks. And run button was shown.
+ *   
+ * Then press F12 get into console, then paste those scripts in it, and press 
+ * enter. All the task will be start automatically. 
+ * (Firefox and Chrome are supported. Other Browsers I didn't test.)
+ * 
+ * @Author: 
+ *  Dongdong Kong, 28 Aug' 2017, Sun Yat-sen University
+ *  yzq.yang, 17 Sep' 2021
+ */
+function runTaskList(){
+    // var tasklist = document.getElementsByClassName('task local type-EXPORT_IMAGE awaiting-user-config');
+    // for (var i = 0; i < tasklist.length; i++)
+    //         tasklist[i].getElementsByClassName('run-button')[0].click();
+    $$('.run-button' ,$$('ee-task-pane')[0].shadowRoot).forEach(function(e) {
+         e.click();
+    })
+}
+
+function confirmAll() {
+    // var ok = document.getElementsByClassName('goog-buttonset-default goog-buttonset-action');
+    // for (var i = 0; i < ok.length; i++)
+    //     ok[i].click();
+    $$('ee-table-config-dialog, ee-image-config-dialog').forEach(function(e) {
+         var eeDialog = $$('ee-dialog', e.shadowRoot)[0]
+         var paperDialog = $$('paper-dialog', eeDialog.shadowRoot)[0]
+         $$('.ok-button', paperDialog)[0].click()
+    })
+}
+```
+Paste the above functions, then paste runTaskList(), then paste confirmAll().
+Run this line then wait until all tasks popups have been created. This might take a few minutes
+as there maybe potentially hundreds of dialogue being rendered. If this process crashes your
+browser then you will need to reduce the number of exports being performed in one batch. See
+the section below.
+``` Javascript
+runTaskList();
+```
+
+Once all the dialogue boxes have appeared then run this command to confirm all of them.
+``` Javascript
+confirmAll();
