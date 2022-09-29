@@ -12,8 +12,8 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 var REF1_OPTIONS = {
   //colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
   //exportScale: [10, 10, 10, 10, 30],
-  colourGrades: ['DeepFalse'],
-  exportScale: [10],
+  colourGrades: ['DeepFalse', 'TrueColour'],
+  exportScale: [10, 10],
   //colourGrades: ['Depth5m'],
   //exportScale: [10],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
@@ -25,10 +25,10 @@ var REF1_OPTIONS = {
 
 // Secondary imagery
 var REF2_OPTIONS = {
-  colourGrades: ['DeepFalse','TrueColour','Slope'],
+  colourGrades: ['DeepFalse','TrueColour'],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R2',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Coral-Sea',
-  exportScale: [10, 10, 30],
+  exportScale: [10, 10],
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };
