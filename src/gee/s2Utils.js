@@ -30,6 +30,18 @@
 // Version: v1.3.2 Fixed scaling code for polygon generation. Had attempted to export at
 //                 5 m resolution, but GEE just doesn't work (it runs out of memory), thus
 //                 10 m is the maximum resolution for Sentinel 2 imagery.
+// Version: v1.4.0 Removed deprecated removeSunGlintB8() function. Adjusted the strength
+//                 of the B2 sunglint correction scalar from 0.75 to 0.85 to give a better
+//                 colour balance for images close to the maximum sunglint correction. This
+//                 was needed in Torres Strait where most images had strong sunglint.
+//                 Added removeSunGlintNormal and removeSunGlintHigh as two thresholds of
+//                 sunglint removal that can be specied with option.sunglintCorrectionLevel.
+//                 option.applySunglintCorrection is now deprecated.
+//                 The createSelectSentinel2ImagesApp now add support to change the level of
+//                 sunglint correction.
+//                 Removed B2ReefBoundary, B3ReefBoundary, ReefTop, SlopeLinearDepth, DryReef
+//                 deprecated styles.
+//                
 
 /**
 * @module s2Utils
@@ -101,11 +113,8 @@
  *                                  colourGrades.
  *        {boolean} applyBrightnessAdjustment - Apply brightness adjustment to the composite to normalise
  *                                  the brightness of marine areas across scenes.
- *        {boolean} applySunglintCorrection - Apply sunglint correction to the imagery prior to
- *                                  creating as a composite. Note that turning off sunglint
- *                                  correction will significantly alter the brightness of the
- *                                  imagery as the contrast enhancements are tailored to 
- *                                  sunglint being applied.
+ *        {int} sunglintCorrectionLevel - Amount of sunglint correction to apply (0-2). 0 - none
+ *        {boolean} applySunglintCorrection - DEPRECATED, specify sunglintCorrectionLevel instead.
  */
 exports.s2_composite_display_and_export = function(imageIds, is_display, is_export, options) {
   
@@ -114,7 +123,10 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
   var exportBasename = options.exportBasename;
   var exportScale = options.exportScale;
   
-  
+  // Handle legacy option of applySunglintCorrection
+  if (typeof options.applySunglintCorrection !== 'undefined') {
+    options.sunglintCorrectionLevel = options.applySunglintCorrection ? 1 : 0;
+  }
   
   // Skip over if nothing to do
   if (!(is_export || is_display)) {
@@ -142,7 +154,7 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
   
 
   var composite = exports.s2_composite(imageIds, 
-    options.applySunglintCorrection, options.applyBrightnessAdjustment);
+    options.sunglintCorrectionLevel, options.applyBrightnessAdjustment);
 
   var utmTilesString = uniqueUtmTiles.join('-');
   
@@ -357,7 +369,15 @@ exports.unique_s2_tiles = function(imageIds) {
  *                                  the generation of example images to show the effect of the 
  *                                  brightness adjustment in the dataset documentation and reporting. 
  *                                  Note: version 0 of this dataset did not have this correction.
- * @param {boolean} applySunglintCorrection - If true then apply sunglint correction (marine areas)
+ * @param {int} sunglintCorrectionLevel - 0 - no sunglint correction
+ *                                  1 - normal sunglint - best balance between sunglint removal and
+ *                                      introduced shoreline artefacts. (threshold 600)
+ *                                  2 - strong sunglint removal - extra sunglint removal. This can 
+ *                                      be used in areas where there are limited images available
+ *                                      and they all have strong sunglint. (threshold 900)
+ *                                  Note: This is quantised because I could work out how to pass a
+ *                                  continuous variable into the map function.
+ * //@param {boolean} applySunglintCorrection - If true then apply sunglint correction (marine areas)
  *                                  and matching static atmospheric for land areas to the imagery
  *                                  prior to creating the composite image. 
  *                                  Normally this parameter should be true, but was added to allow
@@ -367,7 +387,7 @@ exports.unique_s2_tiles = function(imageIds) {
  *                                  image can be ignored if you are using isDisplay or isExport
  *                                  as true and don't wish to perform additional processing.
  */
-exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightnessAdjustment) {
+exports.s2_composite = function(imageIds, sunglintCorrectionLevel, applyBrightnessAdjustment) {
   
   // We only support a single tile. This is to make processing the 
   // projection information more straight forward. 
@@ -384,6 +404,7 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
   // This reduces the number of s2 tiles. Note I couldn't work out
   // how to generate a proper error message when it there are requested
   // s2 tiles that are outside this boundary.
+  
   var tilesGeometry = exports.get_s2_tiles_geometry(
     imageIds, ee.Geometry.BBox(-180, -33, 180, 33));
     
@@ -396,11 +417,15 @@ exports.s2_composite = function(imageIds, applySunglintCorrection, applyBrightne
   
   var composite_collection = s2_cloud_collection;
   
-  
-  if (applySunglintCorrection) {
-    composite_collection = s2_cloud_collection.map(exports.removeSunGlint);
-  } 
-
+  if (sunglintCorrectionLevel === 0) {
+    // Perform this transform (even though it doesn't logically do anything) to 
+    // ensure consistent channel data types
+    composite_collection = s2_cloud_collection.map(exports.removeSunGlintNone);
+  } else if (sunglintCorrectionLevel === 1) {
+    composite_collection = s2_cloud_collection.map(exports.removeSunGlintNormal);
+  } else if (sunglintCorrectionLevel === 2) {
+    composite_collection = s2_cloud_collection.map(exports.removeSunGlintHigh);
+  }
   var composite;  
   
   // When creating the composite we are using the 50 percentile (median).
@@ -892,6 +917,26 @@ exports.get_s2_tiles_geometry = function(image_ids, search_bbox) {
   return tileFeatures.geometry(0.1);
 };
 
+// I can't work out how to pass a parameter to a function that will be passed
+// into the map function. I tried bind and currying but without success.
+// As a crappy alternative I will have multiple functions with different
+// thresholds
+exports.removeSunGlintHigh = function(image) {
+  return exports.removeSunGlint(image, 900);
+};
+
+exports.removeSunGlintNormal = function(image) {
+  return exports.removeSunGlint(image, 600);
+};
+
+// Seems inefficient to do all the calculations to not change the data. However
+// the removeSunGlint function changes the data type of some of the individual
+// channels from integer to doubles. As a result if we don't perform the same 
+// format transformations the subsequent processing fails. 
+exports.removeSunGlintNone = function(image) {
+  return exports.removeSunGlint(image, 0);
+};
+
 /**
  * This function estimates the sunglint from the B8 and B11 Sentinel channels.
  * This estimate is then subtracted from the visible colour bands to
@@ -908,7 +953,7 @@ exports.get_s2_tiles_geometry = function(image_ids, search_bbox) {
  * @return {ee.Image} RGB image based on bands B2 - B4 with sunglint
  *    removal based on B8.
  */ 
-exports.removeSunGlint = function(image) {
+exports.removeSunGlint = function(image, sunGlintThres) {
   
   // Sun Glint Correction
   // Previously I had used the the near-infra red B8 channel for sun glint removal.
@@ -916,7 +961,7 @@ exports.removeSunGlint = function(image) {
   // resolution, but doesn't penetrate the water much.
   //
   // Unfortunately in very shallow areas B8 slightly penetrates the water enough
-  // that it picks up the subtrate, making it much brighter than for open water.  
+  // that it picks up the substrate, making it much brighter than for open water.  
   // When we use B8 to perform a sunglint correction we substract B8 from the visible 
   // colour bands. In these very shallow areas B8 picks up the bottom resulting 
   // in a very strong correction being applied, causing them to become unnaturally dark.
@@ -969,7 +1014,8 @@ exports.removeSunGlint = function(image) {
   // To further refine the land atmospheric correction we allow manual control over the 
   // land atmospheric offset. 
 
-  var LAND_THRES = 600;    // Linear up to this threshold (sunglint correction)
+  // Assign default value if none provided. This is because GEE seems to use Pre ES2015
+  var LAND_THRES = typeof sunGlintThres !== 'undefined' ? sunGlintThres : 600;    // Linear up to this threshold (sunglint correction)
                             // Sunglint in very reflective scenes can reach 900 however
                             // Setting the threshold that high results in an overlap in
                             // close in land areas and shadow areas on land, leading them
@@ -998,7 +1044,7 @@ exports.removeSunGlint = function(image) {
   
   var b8 = image.select('B8');
 
-  // Determin the land sea boundary using the B8 channel rather than the 
+  // Determine the land sea boundary using the B8 channel rather than the 
   // combined B8 + B11 rawSunGlint variable. Using the rawSunGlint it was
   // found that mangrove areas tended to be treated as water and thus
   // end up being black. Switching to B8 fixed this problem. Presumably
@@ -1062,8 +1108,27 @@ exports.removeSunGlint = function(image) {
   // COPERNICUS/S2/20180212T001111_20180212T001105_T56KME (Marion Reef Coral Sea)
   
   var  sunGlintComposite =  image
-    .addBands(image.select('B1').subtract(sunglintCorr.multiply(0.75)),['B1'], true)
-    .addBands(image.select('B2').subtract(sunglintCorr.multiply(0.75)),['B2'], true)
+  
+    // v1.3.2
+    //.addBands(image.select('B1').subtract(sunglintCorr.multiply(0.75)),['B1'], true)
+    //.addBands(image.select('B2').subtract(sunglintCorr.multiply(0.75)),['B2'], true)
+    //.addBands(image.select('B3').subtract(sunglintCorr.multiply(0.9)),['B3'], true)
+    //.addBands(image.select('B4').subtract(sunglintCorr.multiply(1)),['B4'], true)
+    //.addBands(image.select('B5').subtract(B5correction),['B5'], true);
+    
+    // v1.4.0 Adjusted the compensation on the blue channel because in areas where
+    // there was high sunglint the compensation would result in too much green in the 
+    // DeepFalse styling, indicating too little B2 sunglint correction. The level was adjusted
+    // from 0.75 to 0.85 so that the correction was better (it is still not perfect because
+    // of the angled banding in the images).
+    // This level was adjusted for image: COPERNICUS/S2/20161012T004702_20161012T004701_T54LYP
+    // in Torres Strait.
+    // The consequence of this is that the minimum brightness of the B2 channel is lower
+    // than previously resulting in crushing of the blacks. To compensate the
+    // DeepFalse style in bake_s2_colour_grading was adjusted to ensure there is minimal 
+    // lower clipping.
+    .addBands(image.select('B1').subtract(sunglintCorr.multiply(0.7)),['B1'], true)
+    .addBands(image.select('B2').subtract(sunglintCorr.multiply(0.85)),['B2'], true)
     .addBands(image.select('B3').subtract(sunglintCorr.multiply(0.9)),['B3'], true)
     .addBands(image.select('B4').subtract(sunglintCorr.multiply(1)),['B4'], true)
     .addBands(image.select('B5').subtract(B5correction),['B5'], true);
@@ -1071,112 +1136,6 @@ exports.removeSunGlint = function(image) {
   return(sunGlintComposite);
 };
 
-/**
- * This function is deprecated in preference of 'removeSunGlint()'.
- * This function estimates the sunglint from the B8 Sentinel channel.
- * This estimate is then subtracted from the visible colour bands to
- * create a new image. The compensation only works for images with
- * light sunglint.
- * The removeSunGlint function is an improvement on this function.
- * This function has the artifact that the edges of clouds become very dark.
- * This is because clouds are bright in the B8 channel and thus result in
- * a large subtraction from the ocean areas at the edge of the cloud making
- * it black. In the fully clouded area the value of the compensation is
- * clipped resulting in white clouds.
- * @param {ee.Image} img - Sentinel 2 image
- * @return {ee.Image} RGB image based on bands B2 - B4 with sunglint
- *    removal based on B8.
- */ 
-exports.removeSunGlintB8 = function(img) {
-  
-  // The brightness fluctuation of the waves and the sun glint
-  // in B8 matches the same in B2, B3 and B4. Unfortunately
-  // B8 is very bright for clouds and land and so these become
-  // black if B8 is simply subtracted from these channels. We therefore
-  // need to only apply the compensation when the brightness is not too
-  // much. Cloud are assumed to be masked out in a separate process
-  // and so we focus here on the transition from land to sea.
-  
-  var B8 = img.select('B8');
-  var B4 = img.select('B4');
-  var B3 = img.select('B3');
-  var B2 = img.select('B2');
-  
-
-  // Provide linear compensation up to a moderate amount of sun glint.
-  // Above this level clip the amount we subtract so that land areas
-  // don't turn black. At high levels of B8 we can be pretty sure that
-  // we have land pixels and so reduce the amount that we subtract so that
-  // the contrast on the land does not get too high.
-  // We still subtract a small amount even from land areas to compensate 
-  // of haze in the atmosphere making dark areas brighter.
-  
-  // The limitations of this algorithm are that:
-  // 1. land areas with deep shadows such as on the side of mountains or 
-  // cliffs have very low B8 brightness and so are considered water and 
-  // thus receive the full subtraction of the B8 channel from the other 
-  // colours making them black. 
-  // 2. At low tides some reef flats have bright B8 channels resulting
-  // resulting in them being treated as land, resulting in less sun glint
-  // compensation. This leads to an artifical step in brightness across
-  // across the reef flat.
-  // 3. When the sun glint is strong the brightness of the water, overlaps
-  // in values with the brightness of the land and so the algorithm can not
-  // be used. Essentially images with a high sunglint should not be used.
-  // Calculate the amount of sunglint removal to apply. By default
-  // for areas where the sunglint is low (B8 < 200) then keep this as-is.
-  // For areas between 200 - 300, cap the amount to remove at 200. At this
-  // brightness for B8 we can't distinguish between very shallow water (< 0.5 m)
-  // and high levels of sunglint. We therefore choose this threshold as
-  // the maximum level of compensation that we can apply to the image.
-  // In areas where there is high sunglint this limitation will make the
-  // image unusable.
-  
-  // Deep cloud shadows have a B8 value lower than the surrounding water
-  // due to being in a shadow. However the linearity of the sunglint
-  // compensation seems to slightly break down in these conditions.
-  // The visible channels seem to be darkened slightly more than the
-  // B8 channel and so the compensation in these areas results in
-  // very dark areas. This dark cloud shadows can then mess up subsequent
-  // processing. Additionally these large dark shadows seem to be associated
-  // with high clouds that not easy to mask out automatically, as the shadows
-  // are quite separated from the clouds. These clouds have B8 values in
-  // the order of 180 - 240 for high sunglint scene and 100 - 115 for a
-  // low sunglint scene.
-  //var TRANSITION_THRES = 450;
-  //var TRANSITION_THRES = 800;
-  //var PEAK_THRES = 1000;
-  var THRES = 800;
-  var TRANSITION_THRES = 1000;
-  var PEAK_THRES = 1200;
-  var B8new = B8.where(B8.gt(THRES), 
-    B8.subtract(THRES).divide(2).add(THRES));
-
-  // This threshold is intended to help with the transition from very shallow
-  // areas to land. We want land areas to have less compensation for sunglint,
-  // because it makes no sense to apply it to land.
-  B8new = B8new.where(B8.gt(TRANSITION_THRES), ee.Image((TRANSITION_THRES-THRES)/2+THRES));
-  
-  B8new = B8new.where(B8.gt(PEAK_THRES), ee.Image(300));
-  
-  // For really bright areas this probably corresponds to land, so don't
-  // try to remove sunglint. i.e. we only subtract 100 from the image,
-  // which acts as a slight haze removal and reduces the transition gradient
-  // between the land and the ocean making the blending less severe. 
-  // If we let B8 go through for land areas, unclipped then the very high B8
-  // brightness on land results in black land areas after the B8 has been
-  // subtracted from the other colour bands.
-  //B8new = B8new.where(B8.gt(500), ee.Image(150));
-  //B8new = B8new.where(B8.gt(800), ee.Image(400));
-  //B8new = B8new.where(B8.gt(1200), ee.Image(350));
-  //B8new = B8new.where(B8.gt(1800), ee.Image(300));
-
-  // The remaining sunglint is brighter in the red band so increase the
-  // compensation in the red band, to achieve a more pleasing image.
-  return img.addBands(B4.subtract(B8new.multiply(1.15)),['B4'],true)
-    .addBands(B3.subtract(B8new),['B3'], true)
-    .addBands(B2.subtract(B8new),['B2'], true);
-};
 
 
 /**
@@ -1353,34 +1312,11 @@ exports.apply_cloud_shadow_mask = function(img) {
  *      'Shallow'     - False colour image that highlights shallow areas. This is useful
  *                      for determining islands and cays, along with dry exposed reef areas.
  *                      It is determined B5, B8 and B11.
- *      'ReefTop'     - This is a grey scale image with a threshold that is applied to the
- *                      red channel (B4) to approximate reef top areas (~5 m depth) in 
- *                      clear oceananic water. This is close to a binary mask, but has a
- *                      small smooth grey scale transition to help with smooth digitisation.
- *                      This reef top masking has a 10 m radius circular spatial filter applied to
- *                      the image to reduce the noise. The threshold chosen was intended to be close
- *                      to the deepest features visible in red, as this will naturally be close to
- *                      a 6 m depth. The threshold was raised above the noise floor to reduce false
- *                      positives. This threshold was chosen to not have too many false positive 
- *                      in the coral sea, where waves contribute significant noise into the red channel.
- *      'B3ReefBoundary' - This corresponds to a grey scale high contrast (almost binary) image
- *                      with a threshold chosen to match reef boundaries. This threshold was derived
- *                      from the B3 channel.
- *                      This provides a proxy for approximately 20 - 25 m depth in clear water, 
- *                      and is a useful reference in determining reef boundaries, particularly 
- *                      determining sand areas that should be included in the reef boundary. 
- *                      The threshold was chosen to be close to as deep as possible in this channel, 
- *                      without introducing too many false positives due to wave and cloud noise. 
- *                      The threshold was tweaked to approximately match reef boundaries on the GBR.
- *      'B2ReefBoundary' - This corresponds to a grey scale high contrast (almost binary) image
- *                      with a threshold chosen to match reef boundaries. This threshold was derived
- *                      from the B2 channel. 
  *      'Slope' -       This calculates the slope based on the change in the brightness of the imagery.
  *                      In clear water, with a uniform sea bed substrate the brightness is
  *                      can be used to approximate the depth and thus a change in brightness
  *                      represents a change in depth. Steep sloped areas typically correspond to
  *                      the boundaries of marine features. This is based on B2, B3, B4
- *      'SlopeFalse' -  Same as slope but based on B1, B2, B3
  * @param {Boolean} processCloudMask - If true then copy over the cloudMask band.
  *            This is a slight hack because I couldn't work out how to perform
  *            conditional GEE server side execution, and cloning the original
@@ -1462,8 +1398,8 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // process we want to minimise the process time to make the preview images
     // fast to render. As such we make the DeepFalsePreview just a bit brighter.
 
-    B3contrast = exports.contrastEnhance(scaled_img.select('B3'),0.033,0.235, 2.3);
-    B2contrast = exports.contrastEnhance(scaled_img.select('B2'),0.067,0.235, 2.7);
+    B3contrast = exports.contrastEnhance(scaled_img.select('B3'),0.030,0.235, 2.3);
+    B2contrast = exports.contrastEnhance(scaled_img.select('B2'),0.065,0.235, 2.7);
     B1contrast = exports.contrastEnhance(scaled_img.select('B1'),0.101,0.237, 2.7); 
     compositeContrast = ee.Image.rgb(B3contrast, B2contrast, B1contrast);
 
@@ -1481,44 +1417,15 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // doesn't change the contrast much because we are applying a strong nonlinear
     // gamma correction to the image (i.e. values near the minimum are stretched,
     // values near the maximum are compressed.)
-    B3contrast = exports.contrastEnhance(scaled_img.select('B3'),0.033,0.235, 2.3);
-    B2contrast = exports.contrastEnhance(scaled_img.select('B2'),0.0721,0.235, 2.7);
+    //B3contrast = exports.contrastEnhance(scaled_img.select('B3'),0.033,0.235, 2.3);
+    //B2contrast = exports.contrastEnhance(scaled_img.select('B2'),0.0721,0.235, 2.7);
+    //B1contrast = exports.contrastEnhance(scaled_img.select('B1'),0.1075,0.237, 2.7); 
+    
+    // Version 1.4.0 - Adjustment for change in sunglint correction
+    B3contrast = exports.contrastEnhance(scaled_img.select('B3'),0.031,0.235, 2.3);
+    B2contrast = exports.contrastEnhance(scaled_img.select('B2'),0.068,0.235, 2.6);
     B1contrast = exports.contrastEnhance(scaled_img.select('B1'),0.1075,0.237, 2.7); 
     compositeContrast = ee.Image.rgb(B3contrast, B2contrast, B1contrast);
-
-  } else if (colourGradeStyle === 'DryReef') {
-    
-    // The B5 channel has a resolution of 20 m, which once turned to polygons results
-    // in 20 m steps in the polygons. Once polygon simplification is applied, to remove
-    // the raster stair case, it results in poor representation of features smaller than 
-    // 40 m in size. By applying a spatial filter we can interpolate B5 to 10 m resolution
-    // so that there is less loss in the polygon conversion process.
-    // This process is important because the DryReef areas are often long and thin (often 20 - 40 m
-    // in width).
-    filtered = scaled_img.select('B5').focal_mean(
-      {kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 1}
-    );
-
-    // To help exclude noise generated by waves or sunglint we use a mask created from the
-    // green channel. B3 has good sunglint (and thus wave noise) removal, due to the tight
-    // time alignment with B8 channel. 
-    
-    // This is intended to detect very shallow areas that are likely to become dry during
-    // very low tides. These act as a proxy for locations that will have no significant
-    // live coral (because of the exposure). We use B5 instead of B4 or the Depth estimate because
-    // B5 penetrates into the water less than B4, (something like 3 - 5 m) and so is guaranteed 
-    // not to pick up deeper areas. A comparison showed that it was far more accurate than the
-    // B3/B2 depth estimate. 
-    // 0.026 - This detects an area that is too large, picking up areas that clearly have 
-    //         live coral, i.e. they don't get exposed. Based on South Warden Reef (55LBE)
-    // 0.031 - This theshold was chosen so that the known exposed extent of Green Island (55KCB)
-    compositeContrast = filtered.gt(0.031);
-    
-    waterMask = img.select('B8').lt(B8LANDMASK_THRESHOLD);
-    
-    // Mask out any land areas because the depth estimates would 
-    compositeContrast = compositeContrast.updateMask(waterMask);
-    
 
   } else if (colourGradeStyle === 'Breaking') {
     // The development of this style is incomplete. It currently has some holes in the land
@@ -1581,108 +1488,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     var B11contrast = exports.contrastEnhance(scaled_img.select('B11'),0.005,0.7, 3);
     compositeContrast = ee.Image.rgb(B11contrast, B8contrast, B5contrast);
 
-  } 
-  // This style is DEPRECATED as this styling can be reproduced very closely with styling in
-  // QGIS based on the DeepFalse style. The filtering does not appear to make a significant 
-  // difference to the boundary. 
-  // This code is retained as it contains tuning information that might be useful
-  // in the future.
-  else if (colourGradeStyle === 'B3ReefBoundary') {
-    reefKernel = ee.Kernel.circle({radius: 30, units: 'meters'});
-    B3Filtered = scaled_img.select('B3').focal_mean({kernel: reefKernel, iterations: 2});
-    // Sentinel 2 imagery has angled (13 degrees off the vertical) visible bands 
-    // (i.e. brighter wide lines across the image)
-    // at the overlap between the multiple sensors that make the imagery. These
-    // bands at the overlap are brighter than the deepest features visible in the 
-    // green imagery. To make clean thresholds we therefore need to raise the threshold
-    // above these bands. This limits the depth visible in the resulting image.
-    // On the western side of Lihou reef (56KLF) there is rim of deep coral reefs at 
-    // approximately 25 m (noting that nautical charts are not very detailed in this area).
-    // These reefs are just visible in the green channel (B3) but their brightness is 
-    // less than the brightness of the Sentinel 2 angled sensor bands.
-    // Thresholds (Lihou scene, 56KLF):
-    // Open water: 0.034 (90% above), 0.035 (20% above), 0.036 (0% above)
-    // Angled sensor bands: 0.035 (80% above), 0.036 (5% above), 0.037 (0% above)
-    // Lihou reef edge (~ 25m): 0.035 (50% above), (20% above), (0.5% above)
-    //
-    // Dianne Bank (55LGC)
-    // Open water: 0.034 (60%), 0.035 (5%), 0.036 (0%)
-    // Angled sensor bands: 0.034 (90%), 0.035 (40%), 0.036 (0%)
-    // Bank: 0.034 (4x), 0.035 (3x), 0.036 (1.5x), 0.037 (area relative to this threshold)
-    //
-    // Cairns (Arlington, Batt, Tongue Reef)
-    // Reef boundaries: 
-    //    0.037 - boundary is bigger than existing mapped GBR reef boundaries with 
-    //            most of inshore and mid shelf above threshold.
-    //    0.038 - boundary area very similar to existing mapped reef boundaries.
-    // 55KGU Australia, GBR, Hardy Reef, Block Reef
-    //    0.038 - boundary is similar to existing reefs, but does tend to pick up
-    //            noise at boundary due to water turbidity
-    //    0.039 - boundaries are much cleaner, but some deeper areas of reefs
-    //            are missing leading to fragmentation of reef boundaries.
-    // 55LCD Australia, GBR, Lizard Island, Ribbon No 10 reef
-    //    0.039 - All of mid and inshore areas are masked out. Threshold ideally higher.
-    //    0.040 - Not much better than 0.039
-    //    0.043 - Reef boundaries much better. 
-    // 56KLG North Lihou
-    //    0.043 - Boundary is clean. 
-    //    0.038 - Includes more of the reef structures.
-    // 43NCE - Madives
-    //   0.036 - Too sensitive. The whole atoll of reefs appears as one
-    //          blurry blob. Angled sensor lines are also visible.
-    // 56KKC - Australia, GBR, Cockatoo Reef
-    //   0.036 - Too sensitive - lows of turbid waters show up as reefs. 
-    //          Drowned ribbon reefs only just detected. i.e. Deep features
-    //          can't be mapped using a simple feature.
-    //          Angled sensor lines are also visible.
-    B3contrast = exports.contrastEnhance(B3Filtered,0.038,0.0381, 1);
-    compositeContrast = B3contrast;
-  } 
-  // This style is DEPRECATED as this styling can be reproduced very closely with styling in
-  // QGIS based on the DeepFalse style. The filtering does not appear to make a significant 
-  // difference to the boundary. 
-  // This code is retained as it contains tuning information that might be useful
-  // in the future..
-  else if (colourGradeStyle === 'B2ReefBoundary') {
-    reefKernel = ee.Kernel.circle({radius: 30, units: 'meters'});
-    B2Filtered = scaled_img.select('B2').focal_mean({kernel: reefKernel, iterations: 2});
-
-    // On inshore areas where the water quality can vary significantly the
-    // threshold for matching the reef boundaries are not very consistent.
-    // It is therefore difficult to use the B2 channel reliably to get
-    // estimates for reef boundaries and to apply these thresholds to the
-    // Coral Sea. We will therefore tend towards a moderately high thresold
-    // that works most of the time on the GBR.
-    // 55KGU Australia, GBR, Hardy Reef, Block Reef
-    //    0.08 - boundary is larger than mapped reefs, water turbidity being picked up
-    //    0.085 - Some merging of close reefs (Hardy and Line reef), deep reefs still no
-    //            picked up that well.
-    //    0.09 - Clean boundaries, but middles of reefs missing such as line reef and 
-    //           Circular Quay reef
-    // Cairns (Arlington, Batt, Tongue Reef)
-    // The thresholds varied significantly depending on which images were included
-    // in the composite. This is because of the difference in water clarity in
-    // the images. 
-    //   0.085 - Whole marine area above this threshold.
-    //   0.1 - 95% of marine area still above this threshold
-    //   0.11 - Arlington, Batt and Tongue reef have reasonable boundaries.
-    // 55LCD Australia, GBR, Lizard Island, Ribbon No 10 reef
-    //   0.11 - Threshold is higher than ideal
-    //   0.09 - Threshold much better.
-    // 56KLG - North of Lihou
-    //   0.09 - Doesn't include deeper rim reef. Threshold should be lower.
-    //   0.085 - Includes reef on the rim.
-    //   0.08 - Too sensitive. Reefs on rim starting to merge.
-    // 56KKC - Australia, GBR, Cockatoo Reef
-    //   0.08 - Too sensitive. Neighbouring reef features starting to merge
-    //          due to slightly turbid water between the reefs.
-    //          Deep drowned ribbon reefs just detected, threshold map
-    //          not sensitive enough to detect the full boundaries.
-    //          Picking up mid-shelf turbid water.
-    
-    B2contrast = exports.contrastEnhance(B2Filtered,0.085,0.0851, 1);
-    compositeContrast = B2contrast;
-  } else if (colourGradeStyle === 'Slope') {
+  }  else if (colourGradeStyle === 'Slope') {
     
     // The slope calculation requires that the image is in a projection with 
     // units of metres. By default composite images (those from a ee.Reduce())
@@ -1754,120 +1560,6 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
       exports.contrastEnhance(ee.Terrain.slope(filtered.select('B4')),0.0003,0.01, 2),
       exports.contrastEnhance(ee.Terrain.slope(filtered.select('B3')),0.0003,0.01, 3.5),
       exports.contrastEnhance(ee.Terrain.slope(filtered.select('B2')),0.0003,0.01, 3.5)
-    );
-
-  } 
-  // This style is DEPRECATED as a failed attempt at trying to improve the slope
-  // styling for digitising reef boundaries. It is retained here because it shows
-  // what was trialled.
-  //
-  // Why this colourGrade failed - 
-  // While this styling did some what normalise the slope intensity with depth
-  // this led for a decrease in the perceived steepness of the shallow slopes,
-  // thining our the look of the image. It didn't really help with clarity of
-  // the boundaries of deep features as the contrast enhancement of these deep
-  // areas also resulted in increase perceived noise in the image. Setting a
-  // black level threshold to remove this noise resulted in a similar sensitivity
-  // as the original 'Slope' style.
-  else if (colourGradeStyle === 'SlopeLinearDepth') {
-    // This is not an improvement to the Slope colour grade.
-
-    exportProjection = ee.Projection('EPSG:3857');
-
-    projectedComposite = scaled_img.select(['B2','B3','B4']).
-      reproject(exportProjection, null, 30);
-
-    filtered = projectedComposite.focal_median(
-      {kernel: ee.Kernel.circle({radius: 60, units: 'meters'}), iterations: 2}
-    );
-
-    // Apply contrast enhancement to the imagery prior to calculating the slope.
-    // The purpose of this is to normalise the visual contrast with depth.
-    // The deeper features are the more compressed the visual contrast with
-    // the deepest features being tonally very similar to the surrounding water,
-    // where as shallow areas experience large changes in brightness with depth.
-    // This is due to light reducing on a log scale with depth
-    // 
-    // For this processing we don't use satellite derived bathymetry to calculate
-    // the slope because it only works to approximately 25 m depth as it is reliant
-    // on the ratio of blue and green channels, and thus limited to the visibility
-    // of the green channel.
-    //
-    // To approximate a log transform of the brightness we would ideally adjust
-    // the brightness so that open ocean is near black, then apply a log transform
-    // to the brightness. The problem with this approach is that water clarity varies
-    // with nutrients and sediments, resulting non-open waters sometimes being
-    // darker than open oceans. Additionally slight calibration errors in the image
-    // brightness results in bands and shifts in the image brightness, unrelated
-    // to the ocean depth. If we try to apply too much compensation to set a black
-    // point to the image then these residual uncorrected brightness errors and 
-    // water clarity differences will be magnified resulting in a less consistent
-    // result.
-    //
-    // We instead use a more gentle correction that will be more robust against
-    // imperfect imagery.
-    // 56KKC
-    // 0.01 - Background noise is now visible (too low)
-    // 0.013 - Close to critical threshold
-    // 0.02 - Open water noise is cut off (too high) - This threshold looks
-    //        to match the cut off for determining reef tops.
-    // This agrees with the threshold for the DeepMarine colour grade os 0.013
-    B4contrast = exports.contrastEnhance(filtered.select('B4'),0.01,0.3, 2);
-    
-    // Our goal is to set the black point threshold high enough to make the
-    // darkest regions of the image close to black. i.e. after the slope
-    // calculation we should be able to still see the noise of open water
-    // Raising the threshold higher will cut off both the open ocean noise
-    // but also the deep features. We therefore set the threshold just below
-    // where open ocean noise starts to be cut off. This way there is no loss
-    // of reef signal in this stage. This will allow the gamma brightness
-    // correction to best linearise the brightness with depth.
-    // 56KKC
-    // 0.06 - Many deep features cut off (too high)
-    // 0.04 - Many deep features cut off (too high)
-    // 0.035 - Critical threshold, some of the open water is black (below threshold)
-    //        and some is visible (above the threshold)
-    // 0.03 - Background noise is now visible (too low)
-    // 51LXH
-    // 0.04 - All deep features cut off (too high)
-    // 0.035 - Critical threshold, some of the open water is black (below threshold)
-    //        and some is visible (above the threshold). Sections deliniated by
-    //        banding in the image
-    // 0.03 - Background noise is visible (too low)
-    // This largely agrees with the lower threshold used in the DeepFalse of
-    // 0.033
-    B3contrast = exports.contrastEnhance(filtered.select('B3'),0.033,0.31, 2);
-    
-    // Lower threshold of 0.08 cuts off deep reefs in 56KKC, but 0.07 retains these 
-    // reefs. This agrees with the DeepFalse threshold of 0.0721
-    B2contrast = exports.contrastEnhance(filtered.select('B2'),0.072,0.33, 2);
-
-    // The black level threshold needs to remove noise created by open water
-    // after the slope calculation. This maximises the visibility of the
-    // reef features of interest.
-    // 56KKC
-    // B4 - 0.00 - Even dark grey open ocean noise. (too low)
-    //    - 0.003 - Flecks of noise in the open ocean (too low)
-    //    - 0.004 - Small number of noise flecks in the open ocean (too low, but not by much)
-    //    - 0.005 - No open water noise.
-    //    - 0.007 - All open water noise is gone. Slopes internal to reefs
-    //            are significantly culls (too high)
-    // B3 - 0.0 - Even open water slope noise. Turbid flow appears in the noise. (Too low)
-    //    - 0.004 - Most noise removed. Some turbid flow still shows. (about right?)
-    //    - 0.005 - Nearly all open ocean noise is removed. Nearly all deep features are
-    //              retained. On the edge of removing deeper features. (too high?)
-    // B2 - 0.0 - Open water noise and turbid flow. Structure of deep features are clear.
-    //      0.04 - Most open water and turbid flow noise removed.
-    //      0.05 - Slightly more noise removed, similar features retained.    
-    compositeContrast = ee.Image.rgb(
-      // B4 is more noisy and less important for defining the reef boundary
-      // and so don't enhance the contrast as much.
-      //exports.contrastEnhance(ee.Terrain.slope(B4contrast),0.005,0.1, 2),
-      //exports.contrastEnhance(ee.Terrain.slope(B3contrast),0.004,0.1, 2),
-      //exports.contrastEnhance(ee.Terrain.slope(B2contrast),0.005,0.1, 2)
-      exports.contrastEnhance(ee.Terrain.slope(B4contrast),0.006,0.05, 2),
-      exports.contrastEnhance(ee.Terrain.slope(B3contrast),0.006,0.05, 3),
-      exports.contrastEnhance(ee.Terrain.slope(B2contrast),0.006,0.05, 3)
     );
 
   } else if (colourGradeStyle === 'Depth') {
@@ -2070,31 +1762,6 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     ui.Label('IDs are listed in Console. Copy and paste the good ones.')
   ]);
   
-  
-  // Setup the user interface
-  var dateLabel = ui.Label({style: {margin: '2px 0'}});
-  var progressLabel = ui.Label({style: {margin: '2px 0'}});
-  var idLabel = ui.Label({style: {margin: '2px 0'}});
-  var mainPanel = ui.Panel({
-    //widgets: [introPanel, imagePanel, idLabel, dateLabel, progressLabel, buttonPanel,],
-    widgets: [introPanel, idLabel, dateLabel, progressLabel, buttonPanel,],
-    style: {position: 'bottom-left', width: '340px'}
-  });
-  Map.add(mainPanel);
-  
-  
-  
-  var selectedIndex = 0;
-  var collectionLength = 0;
-  // Get the total number of images asynchronously, so we know how far to step.
-  // This async process because we want the value on the client but the size
-  // is a server side value.
-  dates.size().evaluate(function(length) {
-    collectionLength = length;
-    updateUI();
-  });
-  
-  
   var updateUI = function() {
     dates.get(selectedIndex).evaluate(function(date) {
       dateLabel.setValue('Date: ' + date);
@@ -2111,12 +1778,22 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     // image is a good one.
     print(IDs);
   
-  
+    var sunglintFunc;
+    switch(sgSelect.getValue()) {
+      case "None (0)":
+        sunglintFunc = function(image) { return image; }; // Passthrough
+        break;
+      case "Normal (1)":
+        sunglintFunc = exports.removeSunGlintNormal;
+        break;
+      case "High (2)":
+        sunglintFunc = exports.removeSunGlintHigh;
+    }
     // Don't perform the cloud removal because this is computationally
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
     var composite = imagesFiltered
-      .map(exports.removeSunGlint)
+      .map(sunglintFunc)
       .reduce(ee.Reducer.percentile([50],["p50"]))
       //.reduce(ee.Reducer.first())
       .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
@@ -2129,6 +1806,42 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     nextButton.setDisabled(selectedIndex >= collectionLength - 1);
     prevButton.setDisabled(selectedIndex <= 0);
   };
+  
+  // Setup the user interface
+  var dateLabel = ui.Label({style: {margin: '2px 0'}});
+  var progressLabel = ui.Label({style: {margin: '2px 0'}});
+  var idLabel = ui.Label({style: {margin: '2px 0'}});
+
+  var sgSelect = ui.Select(["None (0)","Normal (1)", "High (2)"],
+    "Select sunglint correction level", "Normal (1)");
+  
+  sgSelect.onChange(updateUI);
+  var sgPanel = new ui.Panel(
+      [ui.Label("Sunglint correction level:"),sgSelect],
+      ui.Panel.Layout.Flow('horizontal')
+    );
+  var mainPanel = ui.Panel({
+    //widgets: [introPanel, imagePanel, idLabel, dateLabel, progressLabel, buttonPanel,],
+    widgets: [introPanel, idLabel, sgPanel, dateLabel, progressLabel, buttonPanel,],
+    style: {position: 'bottom-left', width: '340px'}
+  });
+  Map.add(mainPanel);
+  
+  
+  
+  var selectedIndex = 0;
+  var collectionLength = 0;
+  // Get the total number of images asynchronously, so we know how far to step.
+  // This async process because we want the value on the client but the size
+  // is a server side value.
+  dates.size().evaluate(function(length) {
+    collectionLength = length;
+    updateUI();
+  });
+  
+
+  
+  
   
   // Gets the index of the next/previous image in the collection and sets the
   // thumbnail to that image.  Disables the appropriate button when we hit an end.
@@ -2167,16 +1880,8 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
   // to the tropics where reefs are found. This is to speed up the code.
   var tilesGeometry = exports.get_s2_tiles_geometry(imageIds, ee.Geometry.BBox(-180, -33, 180, 33));
   
-  var s2_cloud_collection = exports.get_s2_cloud_collection(imageIds, tilesGeometry);
-  
   // Zoom to our tile of interest.
   Map.centerObject(tilesGeometry, 9);
-  
-  // Adjust the collection of images
-  var collection = s2_cloud_collection;
-    //.map(utils.removeSunGlint);
-  
-  var listOfImage = collection.toList(collection.size());
   
   // Sets up next and previous buttons used to navigate through previews of the
   // images in the collection.
@@ -2198,36 +1903,23 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
   // Setup the user interface
   var progressLabel = ui.Label({style: {margin: '2px 0'}});
   var idLabel = ui.Label({style: {margin: '2px 0'}});
-  var mainPanel = ui.Panel({
-    widgets: [introPanel, idLabel, progressLabel, buttonPanel,],
-    style: {position: 'bottom-left', width: '340px'}
-  });
-  Map.add(mainPanel);
-  
+  var sgSelect = ui.Select([
+    {label:"None (0)", value:0},
+    {label:"Normal (1)", value:1},
+    {label:"High (2)", value:2}],
+    "Select sunglint correction level", 1);
   
   var selectedIndex = 0;
-  var collectionLength = 0;
-  // Get the total number of images asynchronously, so we know how far to step.
-  // This async process because we want the value on the client but the size
-  // is a server side value.
-  listOfImage.size().evaluate(function(length) {
-    collectionLength = length;
-    updateUI();
-  });
-  
-  
-  var updateUI = function() {
+  var collectionLength = imageIds.length;
+  var viewUpdateUI = function() {
   
     progressLabel.setValue('Image: '+(selectedIndex+1)+' of '+(collectionLength));
-  
-  
-    var image = ee.Image(listOfImage.get(selectedIndex));
+
     // Don't perform the cloud removal because this is computationally
     // expensive and significantly slows down the calculation of the images.
     var visParams = {'min': 0, 'max': 1, 'gamma': 1};
-    var composite = exports.removeSunGlint(image)
-      .rename(['B1','B2','B3','B4','B5','B6','B7','B8',
-        'B8A','B9','B10','B11','B12','QA10','QA20','QA60']);
+    
+    var composite = exports.s2_composite([imageIds[selectedIndex]], sgSelect.getValue(), true);
 
     var includeCloudmask = false;
     
@@ -2235,45 +1927,30 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     var trueColour_composite = exports.bake_s2_colour_grading(composite, 'TrueColour', includeCloudmask);
     Map.addLayer(trueColour_composite, visParams, 'Sentinel-2 True Colour',false);
     
-    var deepMarine_composite = exports.bake_s2_colour_grading(composite, 'DeepFalse', includeCloudmask);
+    var deepMarine_composite = exports.bake_s2_colour_grading(composite, 'DeepFalsePreview', includeCloudmask);
     Map.addLayer(deepMarine_composite, visParams, 'Sentinel-2 Deep False',true);
-  
-    var reefTop_composite = exports.bake_s2_colour_grading(composite, 'ReefTop', includeCloudmask);
-    Map.addLayer(reefTop_composite, visParams, 'Sentinel-2 ReefTop',false);
-  
-    var slope_composite = exports.bake_s2_colour_grading(composite, 'Slope', includeCloudmask);
-    Map.addLayer(slope_composite, visParams, 'Sentinel-2 Slope',false);
-    
-    //var deepMarine2_composite = utils.bake_s2_colour_grading(composite, 'TrueColourA', includeCloudmask);
-    //print(deepMarine_composite);
-    //print(deepMarine2_composite);
-    
-    //Map.addLayer(deepMarine2_composite, visParams, 'Sentinel-2 Deep Marine2',true);
-    
-    var shallow_composite = exports.bake_s2_colour_grading(composite, 'Shallow', includeCloudmask);
-    Map.addLayer(shallow_composite, visParams, 'Sentinel-2 Shallow',false);
-  
-    Map.addLayer(deepMarine_composite.select('vis-blue'), visParams, 'Sentinel-2 Deep Marine vis-blue',false);
-    Map.addLayer(deepMarine_composite.select('vis-green'), visParams, 'Sentinel-2 Deep Marine vis-green',false);
-    Map.addLayer(deepMarine_composite.select('vis-red'), visParams, 'Sentinel-2 Deep Marine vis-red',false);
-    Map.addLayer(composite.select("B1"), {'min': 1100, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B1 after glint removal',false);
-    Map.addLayer(composite.select("B2"), {'min': 650, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B2 after glint removal',false);
-    Map.addLayer(composite.select("B4"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B4 after glint removal',false);
-    Map.addLayer(composite.select("B5"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B5 raw',false);
-    Map.addLayer(composite.select("B8"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B8 raw',false);
-    Map.addLayer(composite.select("B11"), {'min': 0, 'max': 1500, 'gamma': 2}, 'Sentinel-2 B11 raw',false);
-    Map.addLayer(image, {
-        bands: ['B4', 'B3', 'B2'],
-        min: [130, 200, 500],
-        max: [1700, 1900, 2000],
-        gamma: [2, 2, 2]
-      }, 'Sentinel-2 Raw',false);
-  
-    
   
     nextButton.setDisabled(selectedIndex >= collectionLength - 1);
     prevButton.setDisabled(selectedIndex <= 0);
   };
+  
+  sgSelect.onChange(viewUpdateUI);
+  var sgPanel = new ui.Panel(
+      [ui.Label("Sunglint correction level:"),sgSelect],
+      ui.Panel.Layout.Flow('horizontal')
+    );
+  var mainPanel = ui.Panel({
+    widgets: [introPanel, idLabel, sgPanel, progressLabel, buttonPanel,],
+    style: {position: 'bottom-left', width: '340px'}
+  });
+  Map.add(mainPanel);
+  
+  
+
+  
+
+  
+  
   
   // Gets the index of the next/previous image in the collection and sets the
   // thumbnail to that image.  Disables the appropriate button when we hit an end.
@@ -2281,12 +1958,12 @@ exports.viewSelectedSentinel2ImagesApp = function(imageIds) {
     if (button.getDisabled()) return;
     //setImageByIndex(selectedIndex += increment);
     selectedIndex += increment;
-    updateUI();
+    viewUpdateUI();
   };
   
   // Set up the next and previous buttons.
   prevButton.onClick(function(button) { setImage(button, -1); });
   nextButton.onClick(function(button) { setImage(button, 1); });
   
-  //updateUI();
+  viewUpdateUI();
 };

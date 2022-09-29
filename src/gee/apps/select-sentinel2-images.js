@@ -16,8 +16,8 @@
 var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/gee/s2Utils.js');
  
 // Date range to iterate through the Sentinel 2 imagery.
-var START_DATE = '2015-01-01';
-var END_DATE = '2022-06-20';
+var START_DATE = '2015-01-19';
+var END_DATE = '2022-09-27';
 
 //var START_DATE = '2020-10-29';
 //var END_DATE = '2020-10-31';
@@ -30,7 +30,7 @@ var END_DATE = '2022-06-20';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 0.1;
+var CLOUDY_PIXEL_PERCENTAGE = 1;
 
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
@@ -210,6 +210,7 @@ tileID = '55KDB';     // Australia, GBR, Moore Reef
 //tileID = '56LKR';   // PNG, Trobriand Islands
 //tileID = '56LLN';   // PNG, 
 
+
 //tileID = '54LZN';   // Australia, GBR, Raine Island
 //tileID = '54LZM';   // Australia, GBR, Great Detached reef, Wishbone reef
 //tileID = '54LYM';   // Australia, GBR, Cockburn Reef, Nomad Reef, Gallon Reef
@@ -226,6 +227,8 @@ tileID = '55KDB';     // Australia, GBR, Moore Reef
 //tileID = '56KMB';   // Australia, GBR, North east Swains, Elusive Reef
 //tileID = '56KMU';   // Australia, GBR, Lady Musgrave
 //tileID = '55KEV';   // Australia, GBR, Davies, Grub, Chicken
+//tileID = '55KCA';     // Australia, GBR, Mission beach
+//tileID = '55KDA';     // Australia, GBR, Howies Reef, Nathan Reefm Otter Reef, King reef
 
 
 
@@ -488,6 +491,13 @@ tileID = '54KTG'; // Arafura Sea
 //tileID = '53LQE'; // Arafura Sea
 //tileID = '49KGQ'; // Western Australia
 //tileID = '51LXD'; // Timor Sea 
+
+//tileID = '55KCA';     // Australia, GBR, Mission beach
+//tileID = '55KDA';     // Australia, GBR, Howies Reef, Nathan Reefm Otter Reef, King reef
+tileID = '54LZQ';   // Australia, Torres Strait, Mer, Bramble Cay
+//tileID = '54LYP';   // Australia, Torres Strait, South East
+//tileID = '54LYQ';   // Australia Eastern Torres Strait, PNG border (Warrior Reef, Daru)
+tileID = '54LXP';   // South central TS
 
 s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
 
