@@ -55,7 +55,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200822T004711_20200822T004712_T55LBK",
     "COPERNICUS/S2/20210802T004709_20210802T004707_T55LBK"
   ],
-  false, false,REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
 
   
 // ======== Ashmore Reef (Coral Sea) - Far North =========
@@ -68,7 +68,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20160823T004902_20160823T004856_T54LZP",
     "COPERNICUS/S2/20210603T004709_20210603T004707_T54LZP"
   ],
-  false, false,REF1_OPTIONS);
+  false, true,REF1_OPTIONS);
 
 // OK images
 s2Utils.s2_composite_display_and_export(
@@ -76,7 +76,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20210723T004709_20210723T004708_T54LZP",
     "COPERNICUS/S2/20200414T004711_20200414T004705_T54LZP"
   ],
-  false, false,REF2_OPTIONS);
+  false, true, REF2_OPTIONS);
   
 // Maybe images
 //COPERNICUS/S2/20160505T004712_20160505T004711_T54LZP
@@ -935,7 +935,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200216T003659_20200216T003700_T55LCJ",
     "COPERNICUS/S2/20200913T003709_20200913T003707_T55LCJ"
   ],
-  false, false,REF1_OPTIONS);
+  false, true,REF1_OPTIONS);
 
 
 s2Utils.s2_composite_display_and_export(
@@ -945,7 +945,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20191203T003701_20191203T003703_T55LCJ",
     "COPERNICUS/S2/20210506T003701_20210506T003703_T55LCJ"
   ],
-  false, false,REF2_OPTIONS); 
+  false, true,REF2_OPTIONS); 
 
 
 // Chesterfield Reefs, New Caledonia
@@ -1328,7 +1328,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200816T002711_20200816T002713_T55KDB"
     // COPERNICUS/S2/20210722T002711_20210722T002711_T55KDB
   ],
-  false, true,REF1_OPTIONS);  
+  false, false,REF1_OPTIONS);  
     // OK 
     //COPERNICUS/S2/20160219T003032_20160219T003057_T55KDB
     
@@ -1661,7 +1661,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200414T004711_20200414T004705_T55LBJ",
     "COPERNICUS/S2/20200802T004711_20200802T004712_T55LBJ"
   ],
-  false, false,REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
 // Maybe left
 //COPERNICUS/S2/20180614T004711_20180614T004705_T55LBJ
 //COPERNICUS/S2/20190510T004711_20190510T004710_T55LBJ
