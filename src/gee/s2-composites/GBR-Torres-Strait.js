@@ -133,7 +133,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180930T005659_20180930T005702_T54LXQ", // Left
     "COPERNICUS/S2/20181211T004701_20181211T004658_T54LXQ", // Right
   ], 
-  true, false, REF2_OPTIONS_HSG);
+  false, true, REF2_OPTIONS_HSG);
   
 // Eastern Torres Strait, PNG border (Warrior Reef, Daru)
 s2Utils.s2_composite_display_and_export(
