@@ -127,7 +127,18 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180917T004659_20180917T004657_T54LXQ"   //scattered clouds, moderate water clarity"
   ], 
   false, true, REF1_OPTIONS);
-
+  
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20151117T004742_20151117T004904_T54LXQ", // Right clear water, high sunglint
+    "COPERNICUS/S2/20170503T005711_20170503T005710_T54LXQ", // Left
+    "COPERNICUS/S2/20170503T005711_20170503T005710_T54LXQ", // Left
+    "COPERNICUS/S2/20171121T004659_20171121T004654_T54LXQ", // Right, pretty clear water, scattered clouds
+    "COPERNICUS/S2/20180930T005659_20180930T005702_T54LXQ", // Left
+    "COPERNICUS/S2/20181211T004701_20181211T004658_T54LXQ", // Right
+  ], 
+  false, true, REF2_OPTIONS_HSG);
+  
 // Eastern Torres Strait, PNG border (Warrior Reef, Daru)
 s2Utils.s2_composite_display_and_export(
   [
