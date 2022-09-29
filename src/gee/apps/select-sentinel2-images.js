@@ -497,7 +497,7 @@ tileID = '54KTG'; // Arafura Sea
 tileID = '54LZQ';   // Australia, Torres Strait, Mer, Bramble Cay
 //tileID = '54LYP';   // Australia, Torres Strait, South East
 //tileID = '54LYQ';   // Australia Eastern Torres Strait, PNG border (Warrior Reef, Daru)
-tileID = '54LXP';   // South central TS
+tileID = '54LYN';   
 
 s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
 
