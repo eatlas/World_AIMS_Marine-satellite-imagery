@@ -45,7 +45,7 @@ s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20181005T005701_20181005T005704_T54LWR"	// Very low cloud
   ], 
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
 
 // PNG above central TS
 s2Utils.s2_composite_display_and_export(
@@ -85,7 +85,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190415T004709_20190415T004711_T54LZR",	// Some sunglint and clouds
     "COPERNICUS/S2/20191216T004701_20191216T004701_T54LZR"	// Low tide, Some sunglint and clouds
   ], 
-  false, true, REF1_OPTIONS_HSG);
+  false, false, REF1_OPTIONS_HSG);
   
 // Western Torres Strait, PNG border (Deliverance Island)
 s2Utils.s2_composite_display_and_export(
@@ -139,7 +139,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180930T005659_20180930T005702_T54LXQ", // Left
     "COPERNICUS/S2/20181211T004701_20181211T004658_T54LXQ", // Right
   ], 
-  false, true, REF2_OPTIONS_HSG);
+  false, false, REF2_OPTIONS_HSG);
   
 // Eastern Torres Strait, PNG border (Warrior Reef, Daru)
 s2Utils.s2_composite_display_and_export(
@@ -306,14 +306,14 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190907T004711_20190907T004705_T54LYN", // Clear water, some scattered clouds
     "COPERNICUS/S2/20190917T004711_20190917T004705_T54LYN" // Moderate water clarity, some scattered clouds 
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
 s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20180614T004711_20180614T004705_T54LYN", // Light clouds, not very clear
     "COPERNICUS/S2/20200926T004709_20200926T004709_T54LYN"  // High sunglint
   ],
-  false, true, REF2_OPTIONS_HSG);
+  false, false, REF2_OPTIONS_HSG);
   
 // Australia, GBR, Great Detached reef, Wishbone reef
 // A lot of scenes have strong sunglint
