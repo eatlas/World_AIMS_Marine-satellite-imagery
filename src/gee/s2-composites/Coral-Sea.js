@@ -1641,7 +1641,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20201127T003711_20201127T003705_T55LBH",
     "COPERNICUS/S2/20211122T003711_20211122T003705_T55LBH"
   ],
-  false, false,REF1_OPTIONS);
+  false, true,REF1_OPTIONS);
   
   
 // (North Western) Coral Sea
