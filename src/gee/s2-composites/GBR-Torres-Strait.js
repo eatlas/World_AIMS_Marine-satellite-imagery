@@ -59,7 +59,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20210320T004711_20210320T004705_T54LXR" // Right scattered clouds
     
   ], 
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
   
 // Fly river PNG. There are no cloud free images and so we use all the 
 // available images with cloud cover < 4% to create a composite.
