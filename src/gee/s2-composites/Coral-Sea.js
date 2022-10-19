@@ -59,6 +59,17 @@ s2Utils.s2_composite_display_and_export(
   ],
   false, true, REF1_OPTIONS);
 
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20200216T003659_20200216T003700_T55LBK", // Right Very low clouds Good visibility
+  ],
+  false, true, REF2_OPTIONS);
+  
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20190115T004709_20190115T004705_T55LBK", // Scattered clouds. Good platform visibility
+  ],
+  false, true, REF3_OPTIONS);
   
 // ======== Ashmore Reef (Coral Sea) - Far North =========
 // Searched 27 out of 27 
