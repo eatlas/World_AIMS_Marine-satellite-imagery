@@ -33,6 +33,16 @@ var REF2_OPTIONS = {
   applyBrightnessAdjustment: true
 };
 
+// Tertiary imagery
+var REF2_OPTIONS = {
+  colourGrades: ['DeepFalse','TrueColour'],
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R3',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Coral-Sea',
+  exportScale: [10, 10],
+  applySunglintCorrection: true,
+  applyBrightnessAdjustment: true
+};
+
 
 // ===============================================================
 //
