@@ -49,7 +49,7 @@ MAKE_LOSSY = False			# Lossy version of dataset (This is not used because we fou
 							# the chroma compression in JPEG was unsuitable for digitisation, and
 							# the masking of the borders didn't work correctly).
 MAKE_PREVIEW = True		# JPEG preview image, suitable for browsing on the web`
-MAKE_GEOPNG = True			# Quartered PNG images with worldfiles for viewing on iPad
+MAKE_GEOPNG = False			# Quartered PNG images with worldfiles for viewing on iPad
 MAKE_VIRTUAL = True		# Virtual raster (GDAL) that makes all the lossless images appear
 							# as a single image mosaic when loaded into QGIS.
 
