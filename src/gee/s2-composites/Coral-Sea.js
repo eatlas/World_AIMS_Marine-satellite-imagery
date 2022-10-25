@@ -12,8 +12,8 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 var REF1_OPTIONS = {
   //colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
   //exportScale: [10, 10, 10, 10, 30],
-  colourGrades: ['DeepFalse'],
-  exportScale: [10],
+  colourGrades: ['DeepFalse', 'TrueColour'],
+  exportScale: [10, 10],
   //colourGrades: ['Depth5m'],
   //exportScale: [10],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
@@ -25,10 +25,20 @@ var REF1_OPTIONS = {
 
 // Secondary imagery
 var REF2_OPTIONS = {
-  colourGrades: ['DeepFalse','TrueColour','Slope'],
+  colourGrades: ['DeepFalse','TrueColour'],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R2',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Coral-Sea',
-  exportScale: [10, 10, 30],
+  exportScale: [10, 10],
+  applySunglintCorrection: true,
+  applyBrightnessAdjustment: true
+};
+
+// Tertiary imagery
+var REF2_OPTIONS = {
+  colourGrades: ['DeepFalse','TrueColour'],
+  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R3',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Coral-Sea',
+  exportScale: [10, 10],
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };
@@ -47,16 +57,29 @@ var REF2_OPTIONS = {
 // 19 of 19 images
 s2Utils.s2_composite_display_and_export(
   [
+    //"COPERNICUS/S2/20191203T003701_20191203T003703_T55LBK", // Right Very low clouds
+    "COPERNICUS/S2/20200216T003659_20200216T003700_T55LBK", // Right Very low clouds Good visibility
     // Maybe
-    "COPERNICUS/S2/20190115T004709_20190115T004705_T55LBK",
+    "COPERNICUS/S2/20190115T004709_20190115T004705_T55LBK", // Scattered clouds. Good platform visibility
     "COPERNICUS/S2/20190510T004711_20190510T004710_T55LBK",
-    "COPERNICUS/S2/20190907T004711_20190907T004705_T55LBK",
+    //"COPERNICUS/S2/20190907T004711_20190907T004705_T55LBK", // Dark water plumes
     "COPERNICUS/S2/20200613T004711_20200613T004712_T55LBK",
     "COPERNICUS/S2/20200822T004711_20200822T004712_T55LBK",
     "COPERNICUS/S2/20210802T004709_20210802T004707_T55LBK"
   ],
-  false, false,REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
 
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20200216T003659_20200216T003700_T55LBK", // Right Very low clouds Good visibility
+  ],
+  false, true, REF2_OPTIONS);
+  
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20190115T004709_20190115T004705_T55LBK", // Scattered clouds. Good platform visibility
+  ],
+  false, true, REF3_OPTIONS);
   
 // ======== Ashmore Reef (Coral Sea) - Far North =========
 // Searched 27 out of 27 
@@ -76,7 +99,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20210723T004709_20210723T004708_T54LZP",
     "COPERNICUS/S2/20200414T004711_20200414T004705_T54LZP"
   ],
-  false, false,REF2_OPTIONS);
+  false, false, REF2_OPTIONS);
   
 // Maybe images
 //COPERNICUS/S2/20160505T004712_20160505T004711_T54LZP
@@ -1328,7 +1351,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200816T002711_20200816T002713_T55KDB"
     // COPERNICUS/S2/20210722T002711_20210722T002711_T55KDB
   ],
-  false, true,REF1_OPTIONS);  
+  false, false,REF1_OPTIONS);  
     // OK 
     //COPERNICUS/S2/20160219T003032_20160219T003057_T55KDB
     
@@ -1639,7 +1662,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20201127T003711_20201127T003705_T55LBH",
     "COPERNICUS/S2/20211122T003711_20211122T003705_T55LBH"
   ],
-  false, false,REF1_OPTIONS);
+  false, true,REF1_OPTIONS);
   
   
 // (North Western) Coral Sea
@@ -1661,7 +1684,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200414T004711_20200414T004705_T55LBJ",
     "COPERNICUS/S2/20200802T004711_20200802T004712_T55LBJ"
   ],
-  false, false,REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
 // Maybe left
 //COPERNICUS/S2/20180614T004711_20180614T004705_T55LBJ
 //COPERNICUS/S2/20190510T004711_20190510T004710_T55LBJ

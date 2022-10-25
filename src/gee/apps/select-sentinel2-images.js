@@ -30,7 +30,7 @@ var END_DATE = '2022-09-27';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 1;
+var CLOUDY_PIXEL_PERCENTAGE = 10;
 
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
@@ -497,7 +497,7 @@ tileID = '54KTG'; // Arafura Sea
 tileID = '54LZQ';   // Australia, Torres Strait, Mer, Bramble Cay
 //tileID = '54LYP';   // Australia, Torres Strait, South East
 //tileID = '54LYQ';   // Australia Eastern Torres Strait, PNG border (Warrior Reef, Daru)
-tileID = '54LXP';   // South central TS
+tileID = '54LZR';   
 
 s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
 
