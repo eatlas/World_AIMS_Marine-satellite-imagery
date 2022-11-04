@@ -41,6 +41,13 @@
 //                 sunglint correction.
 //                 Removed B2ReefBoundary, B3ReefBoundary, ReefTop, SlopeLinearDepth, DryReef
 //                 deprecated styles.
+// Version: v1.5.0 Improved the calibration of the Satellite Derived Bathymetry. The SBD was
+//                 calibrated against the GA GBR30 2020 dataset at 5 m and 10 m. The original
+//                 contours from v1.4.0 were compares with the GBR30 dataset. The GBR30 dataset
+//                 was iteratively adjusted to match the generated contours to get an estimate
+//                 of actual depths indicated by the previous depth contours. We looked at 5
+//                 scenes across the GBR and found the original 10 m and 5 m depth contours came out at
+//                 8.6 m and 4.06 m respectively. This was then used to adjust the slope and offset.
 //                
 
 /**
