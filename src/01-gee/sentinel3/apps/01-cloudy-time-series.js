@@ -16,7 +16,7 @@ var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
 var chart = ui.Chart.image.series({
   imageCollection: s3.select('Oa03_radiance'),
   region: region,
-  reducer: ee.Reducer.percentile(90),
+  reducer: ee.Reducer.percentile(ee.List(90)),
   scale: 10000
 });
 
