@@ -120,7 +120,7 @@ function handleChartClick(chart) {
     // Show the image for the clicked date.
     var equalDate = ee.Filter.equals('system:time_start', xValue);
     var image = ee.Image(s3.filter(equalDate).first());
-    print(image);
+    print(image.select('solar_zenith_angle').multiply(Math.PI / 180).cos());
     var s3Layer = ui.Map.Layer(image, {
       gamma: 1.5,
       min: 40,
