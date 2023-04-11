@@ -17,7 +17,7 @@ var chart = ui.Chart.image.series({
   imageCollection: s3.select('Oa03_radiance'),
   region: region,
   reducer: ee.Reducer.mean(),
-  scale: 60000
+  scale: 30000
 });
 
 // Add the chart to the map.
