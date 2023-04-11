@@ -73,12 +73,12 @@ Map.onClick(function(coords) {
   updateChartAndMap({lon: coords.lon, lat: coords.lat});
 });
 
-
+var sfLayer;
 
 // Outline and center San Francisco on the map.
-var sfLayer = ui.Map.Layer(region, {color: 'FF0000'}, 'GOC');
-/Map.layers().add(sfLayer);
-Map.setCenter(138, -15, 8);
+//var sfLayer = ui.Map.Layer(region, {color: 'FF0000'}, 'GOC');
+//Map.layers().add(sfLayer);
+//Map.setCenter(138, -15, 8);
 
 // Create a label on the map.
 var label = ui.Label('Click on the chart to show the image. Click on map to move location');
