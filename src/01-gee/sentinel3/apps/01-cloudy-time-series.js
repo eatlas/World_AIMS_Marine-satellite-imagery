@@ -9,7 +9,7 @@ var region =
 //    .select('B[1-7]');
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
-    .filterDate('2018-01-01', '2020-01-01')
+    .filterDate('2016-01-01', '2017-01-01')
     .select('Oa0[3-5]_radiance');
     
 // Apply a time series reducer to the images.
@@ -17,46 +17,71 @@ var reducedS3 = s3.map(function(image) {
   var reducedValue = image.reduceRegion({
     reducer: ee.Reducer.percentile([95]),
     geometry: region,
-    scale: 30000,
+    scale: 10000,
     bestEffort: true
   }).get('Oa03_radiance');
   return image.set('reduced_value', reducedValue);
 });
 
 // Filter images with reduced value less than 100.
-var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 80));
+var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
 
 // Create an image time series chart.
 var chart = ui.Chart.image.series({
   imageCollection: filteredS3.select('Oa03_radiance'),
   region: region,
   reducer: ee.Reducer.percentile([95]),
-  scale: 30000
+  scale: 10000
 });
 
-// Create an image time series chart.
-//var chart = ui.Chart.image.series({
-//  imageCollection: s3.select('Oa03_radiance'),
-//  region: region,
-//  reducer: ee.Reducer.percentile([95]),
-//  scale: 10000
-//});
+// Function to update the chart and map.
+function updateChartAndMap(location) {
+  var region = ee.Geometry.Rectangle([
+    location.lon - 1, location.lat - 1,
+    location.lon + 1, location.lat + 1
+  ]);
+
+  // Update the chart.
+  chart.setOptions({
+    imageCollection: filteredS3.select('Oa03_radiance'),
+    region: region,
+    reducer: ee.Reducer.percentile([95]),
+    scale: 10000
+  });
+
+  // Update the map.
+  Map.layers().remove(sfLayer);
+  sfLayer = ui.Map.Layer(region, {color: 'FF0000'}, 'GOC');
+  Map.layers().add(sfLayer);
+  Map.setCenter(location.lon, location.lat, 8);
+}
 
 // Add the chart to the map.
 chart.style().set({
   position: 'bottom-right',
-  width: '700px',
+  width: '500px',
   height: '300px'
 });
 Map.add(chart);
 
+// Initial location.
+var initialLocation = {lon: 138, lat: -15};
+updateChartAndMap(initialLocation);
+
+// Update the location when the map is clicked.
+Map.onClick(function(coords) {
+  updateChartAndMap({lon: coords.lon, lat: coords.lat});
+});
+
+
+
 // Outline and center San Francisco on the map.
-var sfLayer = ui.Map.Layer(region, {color: 'FF0000'}, 'GOC');
-Map.layers().add(sfLayer);
-Map.setCenter(138, -15, 8);
+//var sfLayer = ui.Map.Layer(region, {color: 'FF0000'}, 'GOC');
+//Map.layers().add(sfLayer);
+//Map.setCenter(138, -15, 8);
 
 // Create a label on the map.
-var label = ui.Label('Click a point on the chart to show the image for that date.');
+var label = ui.Label('Click on the chart to show the image. Click on map to move location');
 Map.add(label);
 
 // When the chart is clicked, update the map and label.
