@@ -53,7 +53,7 @@ function updateChartAndMap(location) {
     }).get('Oa03_radiance');
     return image.set('reduced_value', reducedValue);
   });
-  
+
   // Filter images with reduced value less than 100.
   var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
 
@@ -63,27 +63,32 @@ function updateChartAndMap(location) {
     reducer: ee.Reducer.percentile([95]),
     scale: 10000
   };
-  
+
   if (firstRun) {
     chart = ui.Chart.image.series(chartOptions);
-    // Add the chart to the map.
-    chart.style().set({
-      position: 'bottom-right',
-      width: '500px',
-      height: '300px'
-    });
-    Map.add(chart);
+    firstRun = false;
   } else {
-    // Update the chart.
-    chart.setOptions(chartOptions);
-    // Update the map.
-    Map.layers().remove(sfLayer);
+    // Remove the old chart from the map.
+    Map.remove(chart);
+
+    // Recreate the chart object with the updated options.
+    chart = ui.Chart.image.series(chartOptions);
   }
+
+  // Add the chart to the map.
+  chart.style().set({
+    position: 'bottom-right',
+    width: '500px',
+    height: '300px'
+  });
+  Map.add(chart);
+
+  // Update the map.
+  Map.layers().remove(sfLayer);
 
   sfLayer = ui.Map.Layer(region, {color: 'FF0000'}, 'GOC');
   Map.layers().add(sfLayer);
   Map.setCenter(location.lon, location.lat, 8);
-  firstRun = false;
 }
 
 
