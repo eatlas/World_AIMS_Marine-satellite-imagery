@@ -1,40 +1,21 @@
 // Plot Landsat 8 band value means in a section of San Francisco and
 // demonstrate interactive charts.
-
-//var region =
-//    ee.Geometry.Rectangle(137, -16, 139, -14);
-
-//var landsat8Toa = ee.ImageCollection('LANDSAT/LC08/C02/T1_TOA')
-//    .filterDate('2015-12-25', '2016-12-25')
-//    .select('B[1-7]');
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
     .filterDate('2016-01-01', '2017-01-01')
     .select('Oa0[3-5]_radiance');
     
-// Apply a time series reducer to the images.
-//var reducedS3 = s3.map(function(image) {
-//  var reducedValue = image.reduceRegion({
-//    reducer: ee.Reducer.percentile([95]),
-//    geometry: region,
-//    scale: 10000,
-//    bestEffort: true
-//  }).get('Oa03_radiance');
-//  return image.set('reduced_value', reducedValue);
-//});
 
-// Filter images with reduced value less than 100.
-//var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
-
-// Create an image time series chart.
-//var chart = ui.Chart.image.series({
-//  imageCollection: filteredS3.select('Oa03_radiance'),
-//  region: region,
-//  reducer: ee.Reducer.percentile([95]),
-//  scale: 10000
-//});
 var chart;
 var firstRun = true;
+
+function intersectionAreaRatio(image, region) {
+  var imageGeometry = image.geometry();
+  var intersection = imageGeometry.intersection(region);
+  return intersection.area().divide(region.area());
+}
+
+
 
 // Function to update the chart and map.
 function updateChartAndMap(location) {
@@ -44,6 +25,17 @@ function updateChartAndMap(location) {
   ]);
 
   // Apply a time series reducer to the images.
+  //var reducedS3 = s3.map(function(image) {
+  //  var reducedValue = image.reduceRegion({
+  //    reducer: ee.Reducer.percentile([95]),
+  //    geometry: region,
+  //    scale: 10000,
+  //    bestEffort: true
+  //  }).get('Oa03_radiance');
+  //  return image.set('reduced_value', reducedValue);
+  //});
+
+  // Apply a time series reducer to the images.
   var reducedS3 = s3.map(function(image) {
     var reducedValue = image.reduceRegion({
       reducer: ee.Reducer.percentile([95]),
@@ -51,8 +43,13 @@ function updateChartAndMap(location) {
       scale: 10000,
       bestEffort: true
     }).get('Oa03_radiance');
-    return image.set('reduced_value', reducedValue);
-  });
+  
+    // Calculate the intersection area ratio
+    var areaRatio = intersectionAreaRatio(image, region);
+    
+    // Only consider images with coverage ratio greater than or equal to 0.99 (you can adjust this value)
+    return ee.Algorithms.If(areaRatio.gte(0.99), image.set('reduced_value', reducedValue));
+  }).filter(ee.Filter.notNull(['reduced_value']));
 
   // Filter images with reduced value less than 100.
   var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
