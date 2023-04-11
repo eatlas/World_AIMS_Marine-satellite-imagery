@@ -17,21 +17,21 @@ var reducedS3 = s3.map(function(image) {
   var reducedValue = image.reduceRegion({
     reducer: ee.Reducer.percentile([95]),
     geometry: region,
-    scale: 10000,
+    scale: 30000,
     bestEffort: true
   }).get('Oa03_radiance');
   return image.set('reduced_value', reducedValue);
 });
 
 // Filter images with reduced value less than 100.
-var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
+var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 80));
 
 // Create an image time series chart.
 var chart = ui.Chart.image.series({
   imageCollection: filteredS3.select('Oa03_radiance'),
   region: region,
   reducer: ee.Reducer.percentile([95]),
-  scale: 10000
+  scale: 30000
 });
 
 // Create an image time series chart.
@@ -45,7 +45,7 @@ var chart = ui.Chart.image.series({
 // Add the chart to the map.
 chart.style().set({
   position: 'bottom-right',
-  width: '500px',
+  width: '700px',
   height: '300px'
 });
 Map.add(chart);
