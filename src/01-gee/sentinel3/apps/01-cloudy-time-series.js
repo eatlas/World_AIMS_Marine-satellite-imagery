@@ -48,7 +48,7 @@ chart.onClick(function(xValue, yValue, seriesName) {
     gamma: 1.3,
     min: 0,
     max: 0.3,
-    bands: ['B4', 'B3', 'B2']
+    bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
   });
   Map.layers().reset([s3Layer, sfLayer]);
 
