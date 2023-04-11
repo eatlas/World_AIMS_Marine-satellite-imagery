@@ -9,14 +9,15 @@ var region =
 //    .select('B[1-7]');
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
-    .filterDate('2018-01-01', '2018-04-04');
+    .filterDate('2018-01-01', '2018-04-04')
+    .select('Oa0[3-5]_radiance');
 
 // Create an image time series chart.
 var chart = ui.Chart.image.series({
   imageCollection: s3,
   region: region,
   reducer: ee.Reducer.mean(),
-  scale: 50000
+  scale: 40000
 });
 
 // Add the chart to the map.
