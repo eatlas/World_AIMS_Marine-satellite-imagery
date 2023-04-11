@@ -123,10 +123,10 @@ function handleChartClick(chart) {
     print(image.select('solar_zenith_angle').multiply(Math.PI / 180).cos());
     var s3Layer = ui.Map.Layer(image, {
       gamma: 1.5,
-      min: 40,
-      max: 100,
+      min: 40, // a03 40
+      max: 100, // a03 100
       //bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
-      bands: ['Oa03_radiance']
+      bands: ['Oa04_radiance']
     }, 'Sentinel 3');
     Map.layers().reset([s3Layer, sfLayer]);
 
