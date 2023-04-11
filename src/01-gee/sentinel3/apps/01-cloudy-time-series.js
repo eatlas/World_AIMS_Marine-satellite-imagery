@@ -9,7 +9,7 @@ var region =
 //    .select('B[1-7]');
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
-    .filterDate('2016-01-01', '2017-01-01')
+    .filterDate('2016-01-01', '2018-01-01')
     .select('Oa0[3-5]_radiance');
     
 // Apply a time series reducer to the images.
