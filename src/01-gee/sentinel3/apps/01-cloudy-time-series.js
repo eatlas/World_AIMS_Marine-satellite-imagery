@@ -33,7 +33,7 @@ var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
 //  reducer: ee.Reducer.percentile([95]),
 //  scale: 10000
 //});
-
+var chart;
 var firstRun = true;
 
 // Function to update the chart and map.
@@ -63,7 +63,7 @@ function updateChartAndMap(location) {
     reducer: ee.Reducer.percentile([95]),
     scale: 10000
   };
-  var chart;
+  
   if (firstRun) {
     chart = ui.Chart.image.series(chartOptions);
     // Add the chart to the map.
