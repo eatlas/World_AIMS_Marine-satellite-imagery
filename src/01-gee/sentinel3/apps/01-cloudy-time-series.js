@@ -49,7 +49,7 @@ chart.onClick(function(xValue, yValue, seriesName) {
     min: 0,
     max: 0.3,
     bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
-  });
+  }, 'Sentinel 3');
   Map.layers().reset([s3Layer, sfLayer]);
 
   // Show a label with the date on the map.
