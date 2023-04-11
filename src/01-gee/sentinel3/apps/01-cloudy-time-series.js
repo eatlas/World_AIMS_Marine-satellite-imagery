@@ -122,7 +122,7 @@ function handleChartClick(chart) {
     var image = ee.Image(s3.filter(equalDate).first());
     print(image);
     var s3Layer = ui.Map.Layer(image, {
-      gamma: 1,
+      gamma: 1.5,
       min: 40,
       max: 100,
       //bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
