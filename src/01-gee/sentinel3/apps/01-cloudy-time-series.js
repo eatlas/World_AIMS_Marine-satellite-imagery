@@ -17,7 +17,7 @@ var chart = ui.Chart.image.series({
   imageCollection: s3,
   region: region,
   reducer: ee.Reducer.mean(),
-  scale: 40000
+  scale: 60000
 });
 
 // Add the chart to the map.
