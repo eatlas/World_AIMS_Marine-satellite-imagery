@@ -2,7 +2,7 @@
 // demonstrate interactive charts.
 
 var region =
-    ee.Geometry.Rectangle(136, -16.7, 140, -13.1);
+    ee.Geometry.Rectangle(137, -16, 139, -14);
 
 //var landsat8Toa = ee.ImageCollection('LANDSAT/LC08/C02/T1_TOA')
 //    .filterDate('2015-12-25', '2016-12-25')
