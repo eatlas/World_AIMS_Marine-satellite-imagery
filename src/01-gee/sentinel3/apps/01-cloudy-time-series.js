@@ -48,7 +48,7 @@ chart.onClick(function(xValue, yValue, seriesName) {
   var s3Layer = ui.Map.Layer(image, {
     gamma: 1.3,
     min: 0,
-    max: 800,
+    max: 300,
     bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
   }, 'Sentinel 3');
   Map.layers().reset([s3Layer, sfLayer]);
