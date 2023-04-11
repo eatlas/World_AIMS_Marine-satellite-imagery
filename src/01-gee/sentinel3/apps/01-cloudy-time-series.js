@@ -66,13 +66,15 @@ function updateChartAndMap(location) {
 
   if (firstRun) {
     chart = ui.Chart.image.series(chartOptions);
+    handleChartClick(chart);  // Add this line
     firstRun = false;
   } else {
     // Remove the old chart from the map.
     Map.remove(chart);
-
+  
     // Recreate the chart object with the updated options.
     chart = ui.Chart.image.series(chartOptions);
+    handleChartClick(chart);  // Add this line
   }
 
   // Add the chart to the map.
@@ -114,22 +116,23 @@ var sfLayer;
 var label = ui.Label('Click on the chart to show the image. Click on map to move location');
 Map.add(label);
 
-// When the chart is clicked, update the map and label.
-chart.onClick(function(xValue, yValue, seriesName) {
-  if (!xValue) return;  // Selection was cleared.
+function handleChartClick(chart) {
+  chart.onClick(function(xValue, yValue, seriesName) {
+    if (!xValue) return;  // Selection was cleared.
 
-  // Show the image for the clicked date.
-  var equalDate = ee.Filter.equals('system:time_start', xValue);
-  var image = ee.Image(s3.filter(equalDate).first());
-  print(image);
-  var s3Layer = ui.Map.Layer(image, {
-    gamma: 2,
-    min: 30,
-    max: 200,
-    bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
-  }, 'Sentinel 3');
-  Map.layers().reset([s3Layer, sfLayer]);
+    // Show the image for the clicked date.
+    var equalDate = ee.Filter.equals('system:time_start', xValue);
+    var image = ee.Image(s3.filter(equalDate).first());
+    print(image);
+    var s3Layer = ui.Map.Layer(image, {
+      gamma: 2,
+      min: 30,
+      max: 200,
+      bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
+    }, 'Sentinel 3');
+    Map.layers().reset([s3Layer, sfLayer]);
 
-  // Show a label with the date on the map.
-  label.setValue((new Date(xValue)).toUTCString());
-});
+    // Show a label with the date on the map.
+    label.setValue((new Date(xValue)).toUTCString());
+  });
+}
