@@ -48,7 +48,7 @@ function updateChartAndMap(location) {
   var areaRatio = intersectionAreaRatio(image, region);
 
   // Only consider images with coverage ratio greater than or equal to 0.99 (you can adjust this value)
-  return ee.Algorithms.If(areaRatio.gte(0.99), image.set('reduced_value', reducedValue), null);
+  return ee.Algorithms.If(areaRatio.gte(0.99), image.set('reduced_value', reducedValue), image.set('reduced_value', null));
 }).filter(ee.Filter.notNull(['reduced_value']));
 
   // Filter images with reduced value less than 100.
