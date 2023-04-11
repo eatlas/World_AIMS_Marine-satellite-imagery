@@ -78,7 +78,7 @@ function updateChartAndMap(location) {
   // Add the chart to the map.
   chart.style().set({
     position: 'bottom-right',
-    width: '500px',
+    width: '800px',
     height: '300px'
   });
   Map.add(chart);
