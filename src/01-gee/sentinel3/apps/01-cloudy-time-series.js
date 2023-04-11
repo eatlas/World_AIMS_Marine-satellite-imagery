@@ -16,7 +16,7 @@ var chart = ui.Chart.image.series({
   imageCollection: s3,
   region: region,
   reducer: ee.Reducer.mean(),
-  scale: 20000
+  scale: 50000
 });
 
 // Add the chart to the map.
@@ -43,6 +43,7 @@ chart.onClick(function(xValue, yValue, seriesName) {
   // Show the image for the clicked date.
   var equalDate = ee.Filter.equals('system:time_start', xValue);
   var image = ee.Image(s3.filter(equalDate).first());
+  print(image);
   var s3Layer = ui.Map.Layer(image, {
     gamma: 1.3,
     min: 0,
