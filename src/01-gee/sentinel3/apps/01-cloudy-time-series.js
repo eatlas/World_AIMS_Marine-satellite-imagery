@@ -125,7 +125,8 @@ function handleChartClick(chart) {
       gamma: 2,
       min: 30,
       max: 100,
-      bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
+      //bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
+      bands: ['Oa03_radiance']
     }, 'Sentinel 3');
     Map.layers().reset([s3Layer, sfLayer]);
 
