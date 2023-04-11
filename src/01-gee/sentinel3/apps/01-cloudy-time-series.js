@@ -1,8 +1,8 @@
 // Plot Landsat 8 band value means in a section of San Francisco and
 // demonstrate interactive charts.
 
-var region =
-    ee.Geometry.Rectangle(137, -16, 139, -14);
+//var region =
+//    ee.Geometry.Rectangle(137, -16, 139, -14);
 
 //var landsat8Toa = ee.ImageCollection('LANDSAT/LC08/C02/T1_TOA')
 //    .filterDate('2015-12-25', '2016-12-25')
@@ -13,18 +13,18 @@ var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
     .select('Oa0[3-5]_radiance');
     
 // Apply a time series reducer to the images.
-var reducedS3 = s3.map(function(image) {
-  var reducedValue = image.reduceRegion({
-    reducer: ee.Reducer.percentile([95]),
-    geometry: region,
-    scale: 10000,
-    bestEffort: true
-  }).get('Oa03_radiance');
-  return image.set('reduced_value', reducedValue);
-});
+//var reducedS3 = s3.map(function(image) {
+//  var reducedValue = image.reduceRegion({
+//    reducer: ee.Reducer.percentile([95]),
+//    geometry: region,
+//    scale: 10000,
+//    bestEffort: true
+//  }).get('Oa03_radiance');
+//  return image.set('reduced_value', reducedValue);
+//});
 
 // Filter images with reduced value less than 100.
-var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
+//var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
 
 // Create an image time series chart.
 var chart = ui.Chart.image.series({
@@ -40,6 +40,21 @@ function updateChartAndMap(location) {
     location.lon - 1, location.lat - 1,
     location.lon + 1, location.lat + 1
   ]);
+
+  // Apply a time series reducer to the images.
+  var reducedS3 = s3.map(function(image) {
+    var reducedValue = image.reduceRegion({
+      reducer: ee.Reducer.percentile([95]),
+      geometry: region,
+      scale: 10000,
+      bestEffort: true
+    }).get('Oa03_radiance');
+    return image.set('reduced_value', reducedValue);
+  });
+  
+  // Filter images with reduced value less than 100.
+  var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
+
 
   // Update the chart.
   chart.setOptions({
