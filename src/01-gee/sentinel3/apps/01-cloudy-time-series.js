@@ -20,8 +20,8 @@ function intersectionAreaRatio(image, region) {
 // Function to update the chart and map.
 function updateChartAndMap(location) {
   var region = ee.Geometry.Rectangle([
-    location.lon - 1, location.lat - 1,
-    location.lon + 1, location.lat + 1
+    location.lon - 0.5, location.lat - 0.5,
+    location.lon + 0.5, location.lat + 0.5
   ]);
 
   // Apply a time series reducer to the images.
