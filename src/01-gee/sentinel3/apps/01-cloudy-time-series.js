@@ -34,6 +34,8 @@ var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
 //  scale: 10000
 //});
 
+var firstRun = true;
+
 // Function to update the chart and map.
 function updateChartAndMap(location) {
   var region = ee.Geometry.Rectangle([
@@ -55,29 +57,36 @@ function updateChartAndMap(location) {
   // Filter images with reduced value less than 100.
   var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
 
-
-  // Update the chart.
-  chart.setOptions({
+  var chartOptions = {
     imageCollection: filteredS3.select('Oa03_radiance'),
     region: region,
     reducer: ee.Reducer.percentile([95]),
     scale: 10000
-  });
+  };
+  var chart;
+  if (firstRun) {
+    chart = ui.Chart.image.series(chartOptions);
+    // Add the chart to the map.
+    chart.style().set({
+      position: 'bottom-right',
+      width: '500px',
+      height: '300px'
+    });
+    Map.add(chart);
+  } else {
+    // Update the chart.
+    chart.setOptions(chartOptions);
+    // Update the map.
+    Map.layers().remove(sfLayer);
+  }
 
-  // Update the map.
-  Map.layers().remove(sfLayer);
   sfLayer = ui.Map.Layer(region, {color: 'FF0000'}, 'GOC');
   Map.layers().add(sfLayer);
   Map.setCenter(location.lon, location.lat, 8);
+  firstRun = false;
 }
 
-// Add the chart to the map.
-chart.style().set({
-  position: 'bottom-right',
-  width: '500px',
-  height: '300px'
-});
-Map.add(chart);
+
 
 // Initial location.
 var initialLocation = {lon: 138, lat: -15};
