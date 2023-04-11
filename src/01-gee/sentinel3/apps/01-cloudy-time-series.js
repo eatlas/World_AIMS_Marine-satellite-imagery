@@ -27,12 +27,12 @@ var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
 //var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
 
 // Create an image time series chart.
-var chart = ui.Chart.image.series({
-  imageCollection: filteredS3.select('Oa03_radiance'),
-  region: region,
-  reducer: ee.Reducer.percentile([95]),
-  scale: 10000
-});
+//var chart = ui.Chart.image.series({
+//  imageCollection: filteredS3.select('Oa03_radiance'),
+//  region: region,
+//  reducer: ee.Reducer.percentile([95]),
+//  scale: 10000
+//});
 
 // Function to update the chart and map.
 function updateChartAndMap(location) {
