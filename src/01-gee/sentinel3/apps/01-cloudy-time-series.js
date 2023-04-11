@@ -9,7 +9,7 @@ var region =
 //    .select('B[1-7]');
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
-    .filterDate('2017-01-01', '2018-04-04')
+    .filterDate('2016-01-01', '2017-01-01')
     .select('Oa0[3-5]_radiance');
 
 // Create an image time series chart.
