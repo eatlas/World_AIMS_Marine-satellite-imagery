@@ -86,7 +86,8 @@ function updateChartAndMap(location) {
   // Update the map.
   Map.layers().remove(sfLayer);
 
-  sfLayer = ui.Map.Layer(region, {color: 'FF0000'}, 'GOC');
+  // AARRGGBB
+  sfLayer = ui.Map.Layer(region, {color: '40FF0000', fillColor: '00000000'}, 'GOC');
   Map.layers().add(sfLayer);
   Map.setCenter(location.lon, location.lat, 8);
 }
