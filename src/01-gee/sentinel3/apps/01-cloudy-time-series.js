@@ -11,14 +11,36 @@ var region =
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
     .filterDate('2016-01-01', '2017-01-01')
     .select('Oa0[3-5]_radiance');
+    
+// Apply a time series reducer to the images.
+var reducedS3 = s3.map(function(image) {
+  var reducedValue = image.reduceRegion({
+    reducer: ee.Reducer.percentile([95]),
+    geometry: region,
+    scale: 10000,
+    bestEffort: true
+  }).get('Oa03_radiance');
+  return image.set('reduced_value', reducedValue);
+});
+
+// Filter images with reduced value less than 100.
+var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
 
 // Create an image time series chart.
 var chart = ui.Chart.image.series({
-  imageCollection: s3.select('Oa03_radiance'),
+  imageCollection: filteredS3.select('Oa03_radiance'),
   region: region,
   reducer: ee.Reducer.percentile([95]),
   scale: 10000
 });
+
+// Create an image time series chart.
+//var chart = ui.Chart.image.series({
+//  imageCollection: s3.select('Oa03_radiance'),
+//  region: region,
+//  reducer: ee.Reducer.percentile([95]),
+//  scale: 10000
+//});
 
 // Add the chart to the map.
 chart.style().set({
