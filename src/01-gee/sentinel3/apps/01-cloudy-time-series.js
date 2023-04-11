@@ -46,7 +46,7 @@ chart.onClick(function(xValue, yValue, seriesName) {
   var image = ee.Image(s3.filter(equalDate).first());
   print(image);
   var s3Layer = ui.Map.Layer(image, {
-    gamma: 1.3,
+    gamma: 2,
     min: 0,
     max: 300,
     bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
