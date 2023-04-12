@@ -147,6 +147,9 @@ function createSolarZenithImage(image) {
   //var solarHourAngle = localSolarTime.subtract(12).multiply(15).multiply(Math.PI/180);
   //print(solarDeclination);
   //print(solarHourAngle);
+  
+  // Check if solarHourAngle is valid. Middle of image should map to 12 noon - 10:36am 1.4 hours
+  // behind noon
 
   var solarHourAngle = ee.Image.pixelLonLat().select('longitude').multiply(Math.PI/180)
         .subtract(angleOfNoon).divide(15*Math.PI/180);
