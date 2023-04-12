@@ -135,7 +135,7 @@ function createSolarZenithImage(image) {
   var date = ee.Date(image.get('system:time_start'));
   var dayOfYear = date.getRelative('day', 'year').add(1);
   var localSolarTime = date.getFraction('day').multiply(24);
-  print(dayOfYear);
+  //print(dayOfYear);
   print(date.getFraction('day'));
   var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').divide(24).multiply(Math.PI));
 
