@@ -112,7 +112,7 @@ function handleChartClick(chart) {
     print(image); 
     var s3Layer = ui.Map.Layer(image, {
       gamma: 1.3,
-      min: 40, // a03 40
+      min: 35, // a03 40
       max: 85, // a03 85
       //bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
       bands: ['Oa04_radiance']
