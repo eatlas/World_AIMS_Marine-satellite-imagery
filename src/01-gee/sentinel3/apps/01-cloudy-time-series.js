@@ -143,15 +143,15 @@ function createSolarZenithImage(image) {
   // If we are 11 hours after mid-night at Greenwich then it will just under a half
   // turn from west to east and noon is still 1 hours away. This means the noon longitude
   // is close to Greenwich (on the eastern side, so the number should be positive). 
-  // The fraction of the day would be 11 am /24 hr per day = 0.458
   // Time   angleOfNoon
   // 0 UTC  (180 deg) PI
   // 1      (180-15 deg) = 165 deg
   // 11     (180-15*11 deg) = 15 deg
   // 13     (180-15*13 deg) = -15 deg
+  // The math needs to be done in radians
   var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').multiply(2*Math.PI));
 
-  print(angleOfNoon);
+  print(angleOfNoon*180/Math.PI);
 
   // solarDeclination =-arcsin [0.39779*cos(0.98565 deg(N+10)+1.914 deg * sin(0.98565 deg *(N-2)))]
   // Where N is the day of the year
@@ -161,7 +161,7 @@ function createSolarZenithImage(image) {
     .add(dayOfYear.subtract(2).multiply(0.98565*Math.PI/180).sin().multiply(1.914*Math.PI/180))
     .cos().multiply(0.39779).asin().multiply(-1);
 
-  print(solarDeclination);
+  print(solarDeclination*180/Math.PI);
 
   
   // Check if solarHourAngle is valid. Middle of image should map to 12 noon - 10:36am 1.4 hours
@@ -173,7 +173,7 @@ function createSolarZenithImage(image) {
   var solarHourAngle = ee.Image.pixelLonLat().select('longitude').multiply(Math.PI/180)
         .subtract(angleOfNoon); //.divide(15*Math.PI/180);
         
-  print(solarHourAngle);
+  print(solarHourAngle*180/Math.PI);
   var solarZenith = ee.Image().expression(
     "cos(latitude) * cos(declination) * cos(hourAngle) + sin(latitude) * sin(declination)", {
       'latitude': ee.Image.pixelLonLat().select('latitude').multiply(Math.PI / 180),
