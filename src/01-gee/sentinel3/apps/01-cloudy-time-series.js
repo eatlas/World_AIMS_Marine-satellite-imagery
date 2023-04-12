@@ -151,7 +151,7 @@ function createSolarZenithImage(image) {
   // The math needs to be done in radians
   var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').multiply(2*Math.PI));
 
-  print(angleOfNoon);
+  print(angleOfNoon.multiply(180/Math.PI));
 
   // solarDeclination =-arcsin [0.39779*cos(0.98565 deg(N+10)+1.914 deg * sin(0.98565 deg *(N-2)))]
   // Where N is the day of the year
@@ -161,7 +161,7 @@ function createSolarZenithImage(image) {
     .add(dayOfYear.subtract(2).multiply(0.98565*Math.PI/180).sin().multiply(1.914*Math.PI/180))
     .cos().multiply(0.39779).asin().multiply(-1);
 
-  print(solarDeclination*180/Math.PI);
+  print(solarDeclination.multiply(180/Math.PI));
 
   
   // Check if solarHourAngle is valid. Middle of image should map to 12 noon - 10:36am 1.4 hours
@@ -173,7 +173,7 @@ function createSolarZenithImage(image) {
   var solarHourAngle = ee.Image.pixelLonLat().select('longitude').multiply(Math.PI/180)
         .subtract(angleOfNoon); //.divide(15*Math.PI/180);
         
-  print(solarHourAngle*180/Math.PI);
+  print(solarHourAngle.multiply(180/Math.PI));
   var solarZenith = ee.Image().expression(
     "cos(latitude) * cos(declination) * cos(hourAngle) + sin(latitude) * sin(declination)", {
       'latitude': ee.Image.pixelLonLat().select('latitude').multiply(Math.PI / 180),
