@@ -141,7 +141,7 @@ Map.add(buttonPanel);
 
 // Function to step through the chart
 function stepChart(step) {
-  print(chart);
+  print(chart.getDataTable());
   var currentSelection = chart.getDataTable()[0];
 
   // If there is no current selection, use the first point
