@@ -42,7 +42,7 @@ function updateChartAndMap(location) {
       scale: 5000,
       bestEffort: true
     }).get('Oa04_radiance');
-    return image.set('Oa04_brightness');
+    return image.set('Oa04_brightness',reducedValue);
   });
 
   // Filter images with reduced value less than 100.
