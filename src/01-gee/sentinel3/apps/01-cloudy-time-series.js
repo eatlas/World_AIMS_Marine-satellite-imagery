@@ -151,7 +151,7 @@ function createSolarZenithImage(image) {
   // The math needs to be done in radians
   var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').multiply(2*Math.PI));
 
-  print(angleOfNoon*180/Math.PI);
+  print(angleOfNoon);
 
   // solarDeclination =-arcsin [0.39779*cos(0.98565 deg(N+10)+1.914 deg * sin(0.98565 deg *(N-2)))]
   // Where N is the day of the year
