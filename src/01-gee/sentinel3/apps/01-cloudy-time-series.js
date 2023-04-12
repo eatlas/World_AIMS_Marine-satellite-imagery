@@ -29,7 +29,7 @@ function updateChartAndMap(location) {
   var reducedValue = image.reduceRegion({
     reducer: ee.Reducer.percentile([95]),
     geometry: region,
-    scale: 10000,
+    scale: 5000,
     bestEffort: true
   }).get('Oa03_radiance');
 
