@@ -94,7 +94,6 @@ function updateChartAndMap(location) {
     width: '800px',
     height: '300px'
   });
-  chart.setChartType('ColumnChart');
   Map.add(chart);
 
   // Update the map.
