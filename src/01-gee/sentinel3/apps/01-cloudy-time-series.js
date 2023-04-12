@@ -77,7 +77,7 @@ function updateChartAndMap(location) {
 
   if (firstRun) {
     chart = ui.Chart.image.series(chartOptions);
-    handleChartClick(chart);  // Add this line
+    //handleChartClick(chart);  // Add this line
     firstRun = false;
   } else {
     // Remove the old chart from the map.
