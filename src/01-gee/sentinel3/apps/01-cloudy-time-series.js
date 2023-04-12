@@ -21,7 +21,7 @@ var geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
 // demonstrate interactive charts.
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
-    .filterDate('2017-01-01', '2018-01-01')
+    .filterDate('2017-01-01', '2017-06-01')
     .select('Oa0[3-5]_radiance');
     
 
