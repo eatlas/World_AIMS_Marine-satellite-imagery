@@ -150,6 +150,7 @@ function createSolarZenithImage(image) {
 // Function to add the solar zenith angle layer to the map
 function addSolarZenithLayer(image) {
   var solarZenithImage = createSolarZenithImage(image);
+  print(solarZenithImage);
   var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
     min: 0,
     max: 90,
