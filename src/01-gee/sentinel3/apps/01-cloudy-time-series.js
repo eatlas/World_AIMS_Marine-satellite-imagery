@@ -185,7 +185,7 @@ function handleChartClick(xValue, yValue, seriesName) {
   Map.layers().reset([s3Layer, sfLayer]);
 
   // Show a label with the date on the map.
-  label.setValue((new Date(xValue)).toUTCString());
+  //label.setValue((new Date(xValue)).toUTCString());
 }
 
 // Update the chart onClick event to pass xValue, yValue, and seriesName to handleChartClick
