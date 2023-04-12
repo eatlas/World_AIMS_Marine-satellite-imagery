@@ -21,7 +21,7 @@ var geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
 // demonstrate interactive charts.
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
-    .filterDate('2017-01-01', '2017-03-01')
+    .filterDate('2017-12-01', '2018-01-01')
     .select('Oa0[3-5]_radiance');
     
 
@@ -67,7 +67,7 @@ function updateChartAndMap(location) {
 
 
   // Filter images with reduced value less than 80.
-  filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 80));
+  filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 200));
 
   var chartOptions = {
     imageCollection: filteredS3.select('Oa04_radiance'),
@@ -138,18 +138,26 @@ function createSolarZenithImage(image) {
   //print(dayOfYear);
   print(date.getFraction('day'));
   // Which longitude corresponds to noon for the time the image was taken, in radians
-  // Relative to Greenich (0 deg)
-  var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').multiply(Math.PI));
+  // Relative to Greenwich (0 deg)
+  // Each day the world rotates 2pi radians. date.getFraction('day') of 0 corresponds
+  // to mid-night at Greenwich (0 deg), therefore noon corresponds to 180 deg or PI.
+  // If we are 11 hours after mid-night at Greenwich then it will just under a half
+  // turn from west to east and noon is still 1 hours away. This means the noon longitude
+  // is close to Greenwich. The fraction of the day would be 11 am /24 hr per day = 0.458
+  // Time angleOfNoon
+  // 0    PI
+  // 11   PI-(0.458*2*PI) = 0.26 radians (14.8 deg) 
+  var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').multiply(2*Math.PI));
 
   print(angleOfNoon);
-  //var solarDeclination = dayOfYear.multiply(1.914).add(10).multiply(1.914).cos().multiply(-0.39779).asin();
+
   // solarDeclination =-arcsin [0.39779*cos(0.98565 deg(N+10)+1.914 deg * sin(0.98565 deg *(N-2)))]
   // Where N is the day of the year
   var solarDeclination = dayOfYear.add(10).multiply(0.98565*Math.PI/180)
     .add(dayOfYear.subtract(2).multiply(0.98565*Math.PI/180).sin().multiply(1.914*Math.PI/180))
     .cos().multiply(0.39779).asin().multiply(-1);
   //var solarHourAngle = localSolarTime.subtract(12).multiply(15).multiply(Math.PI/180);
-  //print(solarDeclination);
+  print(solarDeclination);
   //print(solarHourAngle);
   
   // Check if solarHourAngle is valid. Middle of image should map to 12 noon - 10:36am 1.4 hours
