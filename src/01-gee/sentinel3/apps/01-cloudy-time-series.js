@@ -125,7 +125,7 @@ function handleChartClick(chart) {
     var image = ee.Image(s3.filter(equalDate).first());
     
     // Map the custom function to the Sentinel-3 OLCI collection
-    var imageScaled = image.map(applyRadianceScaling);
+    var imageScaled = applyRadianceScaling(image);
     //print(image); //.select('solar_zenith_angle').multiply(Math.PI / 180).cos());
     var s3Layer = ui.Map.Layer(imageScaled, {
       gamma: 1.5,
