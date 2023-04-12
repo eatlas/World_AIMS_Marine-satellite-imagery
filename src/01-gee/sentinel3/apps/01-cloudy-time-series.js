@@ -134,8 +134,7 @@ updateChartAndMap(initialLocation);
 function createSolarZenithImage(image) {
   var date = ee.Date(image.get('system:time_start'));
   var dayOfYear = date.getRelative('day', 'year').add(1);
-  var localSolarTime = date.getFraction('day').multiply(24);
-  //print(dayOfYear);
+
   print(date.getFraction('day'));
   // Which longitude corresponds to noon for the time the image was taken, in radians
   // Relative to Greenwich (0 deg)
@@ -158,15 +157,20 @@ function createSolarZenithImage(image) {
   var solarDeclination = dayOfYear.add(10).multiply(0.98565*Math.PI/180)
     .add(dayOfYear.subtract(2).multiply(0.98565*Math.PI/180).sin().multiply(1.914*Math.PI/180))
     .cos().multiply(0.39779).asin().multiply(-1);
-  //var solarHourAngle = localSolarTime.subtract(12).multiply(15).multiply(Math.PI/180);
+
   print(solarDeclination);
-  //print(solarHourAngle);
+
   
   // Check if solarHourAngle is valid. Middle of image should map to 12 noon - 10:36am 1.4 hours
   // behind noon
-
+  // The solarHourAngle is the angle from noon at any given location.
+  // So for example if the angle of noon was 15 deg (1/24 *360), then this would be 1 hour
+  // ahead of Greenwich (i.e. in 1 hour noon would be over Greenwich). The solarHourAngle
+  // at Greenwich would be longitude(0)-angleOfNoon(15) = -15 deg (0.26 radians)
   var solarHourAngle = ee.Image.pixelLonLat().select('longitude').multiply(Math.PI/180)
-        .subtract(angleOfNoon).divide(15*Math.PI/180);
+        .subtract(angleOfNoon); //.divide(15*Math.PI/180);
+        
+  print(solarHourAngle);
   var solarZenith = ee.Image().expression(
     "cos(latitude) * cos(declination) * cos(hourAngle) + sin(latitude) * sin(declination)", {
       'latitude': ee.Image.pixelLonLat().select('latitude').multiply(Math.PI / 180),
