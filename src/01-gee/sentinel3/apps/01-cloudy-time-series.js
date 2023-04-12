@@ -216,7 +216,7 @@ function handleChartClick(chart) {
     }, 'Sentinel 3');
     
     
-    Map.layers().reset([s3Layer, sfLayer]);
+    //Map.layers().reset([s3Layer, sfLayer]);
 
     // Show a label with the date on the map.
     label.setValue((new Date(xValue)).toUTCString());
