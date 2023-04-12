@@ -153,27 +153,6 @@ function createSolarZenithImage2(image) {
 }
 
 
-// Function to add the solar zenith angle layer to the map
-function addSolarZenithLayer(image) {
-  var solarZenithImage = createSolarZenithImage2(image);
-  print(solarZenithImage);
- //var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
-//    min: 0,
-//    max: 90,
-//    palette: ['0000FF', 'FF0000'],
-//    bands: ['latitude']
-//  }, 'Solar Zenith Angle');
-  
-  var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
-      gamma: 1.3,
-      min: [25, 30, 40], // a03 40 30 25
-      max: [70, 75, 85], // a03 85 70 70
-      bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
-      //bands: ['Oa05_radiance']
-    }, 'Solar Zenith Angle');
-  
-  Map.layers().add(solarZenithLayer);
-}
 
 var sfLayer;
 
@@ -189,18 +168,16 @@ function handleChartClick(chart) {
     var equalDate = ee.Filter.equals('system:time_start', xValue);
     var image = ee.Image(filteredS3.filter(equalDate).first()); // Use filteredS3 instead of s3
     
-    // Add the solar zenith angle layer
-    addSolarZenithLayer(image);
-    
-    var solarZenithImage = createSolarZenithImage2(image);
 
     
+    var solarZenithImage = createSolarZenithImage(image);
+
     var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
-        gamma: 1.3,
-        min: [25, 30, 40], // a03 40 30 25
-        max: [70, 75, 85], // a03 85 70 70
-        bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
-      }, 'Solar Zenith Angle');
+      min: 0,
+      max: 90,
+      palette: ['0000FF', 'FF0000'],
+      bands: ['latitude']
+    }, 'Solar Zenith Angle');
     
     Map.layers().add(solarZenithLayer);
     
