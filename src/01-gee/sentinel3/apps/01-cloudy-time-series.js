@@ -128,6 +128,7 @@ function handleChartClick(chart) {
     // Map the custom function to the Sentinel-3 OLCI collection
     //var imageScaled = applyRadianceScaling(image);
     print(image); 
+    print(image.get("Oa03_radiance_scale"));
     var s3Layer = ui.Map.Layer(image, {
       gamma: 1.5,
       min: 0.4, // a03 40 0.35
