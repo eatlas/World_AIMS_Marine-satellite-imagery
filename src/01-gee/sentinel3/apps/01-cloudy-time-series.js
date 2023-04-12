@@ -93,7 +93,7 @@ function updateChartAndMap(location) {
     position: 'bottom-right',
     width: '800px',
     height: '300px'
-  });
+  }).setChartType('ColumnChart');
   Map.add(chart);
 
   // Update the map.
