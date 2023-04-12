@@ -21,7 +21,7 @@ var geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
 // demonstrate interactive charts.
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
-    .filterDate('2017-01-01', '2018-01-01')
+    .filterDate('2017-01-01', '2017-08-01')
     .select('Oa0[3-5]_radiance');
     
 
@@ -127,6 +127,36 @@ Map.onClick(function(coords) {
   updateChartAndMap({lon: coords.lon, lat: coords.lat});
 });
 
+// Function to create a solar zenith angle image
+function createSolarZenithImage(image) {
+  var date = ee.Date(image.get('system:time_start'));
+  var dayOfYear = date.getRelative('day', 'year').add(1);
+  var localSolarTime = date.getFraction('day').multiply(24);
+
+  var solarDeclination = dayOfYear.multiply(1.914).add(10).multiply(1.914).cos().multiply(-0.39779).asin();
+  var solarHourAngle = localSolarTime.subtract(12).multiply(15);
+
+  var solarZenith = ee.Image().expression(
+    "cos(latitude) * cos(declination) * cos(hourAngle) + sin(latitude) * sin(declination)", {
+      'latitude': ee.Image.pixelLonLat().select('latitude').multiply(Math.PI / 180),
+      'declination': solarDeclination.multiply(Math.PI / 180),
+      'hourAngle': solarHourAngle.multiply(Math.PI / 180)
+    }
+  );
+
+  return solarZenith.acos().multiply(180 / Math.PI).updateMask(image.mask());
+}
+
+// Function to add the solar zenith angle layer to the map
+function addSolarZenithLayer(image) {
+  var solarZenithImage = createSolarZenithImage(image);
+  var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
+    min: 0,
+    max: 90,
+    palette: ['0000FF', 'FF0000']
+  }, 'Solar Zenith Angle');
+  Map.layers().add(solarZenithLayer);
+}
 
 var sfLayer;
 
@@ -142,6 +172,8 @@ function handleChartClick(chart) {
     var equalDate = ee.Filter.equals('system:time_start', xValue);
     var image = ee.Image(s3.filter(equalDate).first());
     
+    // Add the solar zenith angle layer
+    addSolarZenithLayer(image);
     // Map the custom function to the Sentinel-3 OLCI collection
     //var imageScaled = applyRadianceScaling(image);
     print(image); 
