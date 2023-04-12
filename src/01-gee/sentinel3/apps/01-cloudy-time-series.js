@@ -76,17 +76,24 @@ function updateChartAndMap(location) {
   };
 
   if (firstRun) {
-    chart = ui.Chart.image.series(chartOptions);
+    //chart = ui.Chart.image.series(chartOptions);
     //handleChartClick(chart);  // Add this line
     firstRun = false;
   } else {
     // Remove the old chart from the map.
     Map.remove(chart);
   
-    // Recreate the chart object with the updated options.
-    chart = ui.Chart.image.series(chartOptions);
-    handleChartClick(chart);  // Add this line
+    
+    //handleChartClick(chart);  // Add this line
+    
   }
+  // Recreate the chart object with the updated options.
+  chart = ui.Chart.image.series(chartOptions);
+    
+  // Update the chart onClick event to pass xValue, yValue, and seriesName to handleChartClick
+  chart.onClick(function(xValue, yValue, seriesName) {
+    handleChartClick(xValue, yValue, seriesName);
+  });
 
   // Add the chart to the map.
   chart.style().set({
@@ -165,7 +172,7 @@ Map.add(label);
 
 
 // Update handleChartClick to accept xValue, yValue, and seriesName as arguments
-/*function handleChartClick(xValue, yValue, seriesName) {
+function handleChartClick(xValue, yValue, seriesName) {
   if (!xValue) return;  // Selection was cleared.
 
   // Show the image for the clicked date.
@@ -188,8 +195,4 @@ Map.add(label);
   //label.setValue((new Date(xValue)).toUTCString());
 }
 
-// Update the chart onClick event to pass xValue, yValue, and seriesName to handleChartClick
-chart.onClick(function(xValue, yValue, seriesName) {
-  handleChartClick(xValue, yValue, seriesName);
-});
-*/
+
