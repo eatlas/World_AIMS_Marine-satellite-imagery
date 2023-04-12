@@ -212,8 +212,8 @@ function handleChartClick(chart) {
     var solarZenithImage = createSolarZenithImage(image);
 
     var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
-      min: 0,
-      max: 90,
+      min: -2*Math.PI,
+      max: 2*Math.PI,
       palette: ['FFFFFF', '000000'],
       bands: ['latitude']
     }, 'Solar Zenith Angle');
@@ -225,8 +225,10 @@ function handleChartClick(chart) {
     print(image); 
     var s3Layer = ui.Map.Layer(image, {
       gamma: 1.3,
+      //min: [25, 30, 40], // a03 40 30 25
+      //max: [70, 75, 85], // a03 85 70 70
       min: [25, 30, 40], // a03 40 30 25
-      max: [70, 75, 85], // a03 85 70 70
+      max: [100, 110, 120], // a03 85 70 70
       bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
       //bands: ['Oa05_radiance']
     }, 'Sentinel 3');
