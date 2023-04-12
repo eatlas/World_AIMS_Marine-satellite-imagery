@@ -136,6 +136,7 @@ function createSolarZenithImage(image) {
   var dayOfYear = date.getRelative('day', 'year').add(1);
   var localSolarTime = date.getFraction('day').multiply(24);
   print(dayOfYear);
+  print(localSolarTime);
 
   //var solarDeclination = dayOfYear.multiply(1.914).add(10).multiply(1.914).cos().multiply(-0.39779).asin();
   var solarDeclination = dayOfYear.add(10).multiply(0.98565*Math.PI/180)
@@ -149,7 +150,7 @@ function createSolarZenithImage(image) {
     "cos(latitude) * cos(declination) * cos(hourAngle) + sin(latitude) * sin(declination)", {
       'latitude': ee.Image.pixelLonLat().select('latitude').multiply(Math.PI / 180),
       'declination': solarDeclination, //.multiply(Math.PI / 180),
-      'hourAngle': solarHourAngle//.multiply(Math.PI / 180)
+      'hourAngle': ee.Image.pixelLonLat().select('longitude')//.multiply(Math.PI / 180)
     }
   );
 
