@@ -233,7 +233,7 @@ function handleChartClick(chart) {
       //bands: ['Oa05_radiance']
     }, 'Sentinel 3');
     
-    Map.layers().reset([s3Layer, solarZenithLayer, sfLayer]);
+    Map.layers().reset([s3Layer, sfLayer]);
     //Map.layers().reset([s3Layer, solarZenithLayer, sfLayer]);
 
     // Show a label with the date on the map.
