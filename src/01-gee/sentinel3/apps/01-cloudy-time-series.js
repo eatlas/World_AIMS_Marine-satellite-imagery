@@ -191,6 +191,19 @@ function handleChartClick(chart) {
     
     // Add the solar zenith angle layer
     addSolarZenithLayer(image);
+    
+    var solarZenithImage = createSolarZenithImage2(image);
+
+    
+    var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
+        gamma: 1.3,
+        min: [25, 30, 40], // a03 40 30 25
+        max: [70, 75, 85], // a03 85 70 70
+        bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
+      }, 'Solar Zenith Angle');
+    
+    Map.layers().add(solarZenithLayer);
+    
     // Map the custom function to the Sentinel-3 OLCI collection
     //var imageScaled = applyRadianceScaling(image);
     print(image); 
@@ -201,6 +214,8 @@ function handleChartClick(chart) {
       bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
       //bands: ['Oa05_radiance']
     }, 'Sentinel 3');
+    
+    
     Map.layers().reset([s3Layer, sfLayer]);
 
     // Show a label with the date on the map.
