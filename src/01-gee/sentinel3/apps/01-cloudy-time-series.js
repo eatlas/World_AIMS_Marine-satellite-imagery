@@ -171,7 +171,7 @@ function handleChartClick(chart) {
 
     // Show the image for the clicked date.
     var equalDate = ee.Filter.equals('system:time_start', xValue);
-    var image = ee.Image(s3.filter(equalDate).first());
+    var image = ee.Image(filteredS3.filter(equalDate).first()); // Use filteredS3 instead of s3
     
     // Add the solar zenith angle layer
     addSolarZenithLayer(image);
@@ -191,3 +191,4 @@ function handleChartClick(chart) {
     label.setValue((new Date(xValue)).toUTCString());
   });
 }
+
