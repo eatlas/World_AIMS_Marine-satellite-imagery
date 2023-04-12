@@ -67,7 +67,7 @@ function updateChartAndMap(location) {
 
 
   // Filter images with reduced value less than 80.
-  filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 500));
+  filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 5000));
 
   var chartOptions = {
     imageCollection: filteredS3.select('Oa04_radiance'),
