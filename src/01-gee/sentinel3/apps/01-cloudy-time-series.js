@@ -124,9 +124,9 @@ var initialLocation = {lon: 138, lat: -15};
 updateChartAndMap(initialLocation);
 
 // Update the location when the map is clicked.
-//Map.onClick(function(coords) {
-//  updateChartAndMap({lon: coords.lon, lat: coords.lat});
-//});
+Map.onClick(function(coords) {
+  updateChartAndMap({lon: coords.lon, lat: coords.lat});
+});
 
 // Based on https://en.wikipedia.org/wiki/Solar_zenith_angle
 // https://en.wikipedia.org/wiki/Hour_angle
