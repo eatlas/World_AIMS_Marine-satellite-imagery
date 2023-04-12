@@ -175,7 +175,7 @@ function handleChartClick(chart) {
     var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
       min: 0,
       max: 90,
-      palette: ['0000FF', 'FF0000'],
+      palette: ['FFFFFF', '000000'],
       bands: ['latitude']
     }, 'Solar Zenith Angle');
     
