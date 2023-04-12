@@ -102,7 +102,7 @@ function updateChartAndMap(location) {
     0: {lineWidth: 2, color: 'E37D05', pointSize: 4},
   },
   chartArea: {backgroundColor: 'FFFFFF'}
-};
+  };
   // Apply custom style properties to the chart.
   chart.setOptions(chartStyle);
 
@@ -218,7 +218,7 @@ function handleChartClick(chart) {
       bands: ['latitude']
     }, 'Solar Zenith Angle');
     
-    Map.layers().add(solarZenithLayer);
+    //Map.layers().add(solarZenithLayer);
     
     // Map the custom function to the Sentinel-3 OLCI collection
     //var imageScaled = applyRadianceScaling(image);
@@ -233,8 +233,8 @@ function handleChartClick(chart) {
       //bands: ['Oa05_radiance']
     }, 'Sentinel 3');
     
-    
     Map.layers().reset([s3Layer, solarZenithLayer, sfLayer]);
+    //Map.layers().reset([s3Layer, solarZenithLayer, sfLayer]);
 
     // Show a label with the date on the map.
     label.setValue((new Date(xValue)).toUTCString());
