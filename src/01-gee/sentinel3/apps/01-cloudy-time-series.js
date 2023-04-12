@@ -42,7 +42,7 @@ function updateChartAndMap(location) {
 
   
   // Filter images with reduced value less than 100.
-  var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
+  var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 80));
 
   var chartOptions = {
     imageCollection: filteredS3.select('Oa03_radiance'),
