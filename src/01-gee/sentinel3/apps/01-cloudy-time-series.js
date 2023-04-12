@@ -34,16 +34,25 @@ function updateChartAndMap(location) {
   }).filter(ee.Filter.notNull(['areaRatio']));
   
      
-  // Calculate the brightness of the region and add this as a property
+  // Calculate the brightness of the region and add this as a property for each band
   var withBrightnessS3 = areaFilteredS3.map(function(image) {
-    var reducedValue = image.reduceRegion({
-      reducer: ee.Reducer.percentile([95]),
-      geometry: region,
-      scale: 5000,
-      bestEffort: true
-    }).get('Oa04_radiance');
-    return image.set('Oa04_brightness',reducedValue);
+    var bandNames = ['Oa03_radiance', 'Oa04_radiance', 'Oa05_radiance'];
+  
+    // Calculate brightness for each band and set it as a property
+    bandNames.forEach(function(bandName) {
+      var reducedValue = image.reduceRegion({
+        reducer: ee.Reducer.percentile([95]),
+        geometry: region,
+        scale: 5000,
+        bestEffort: true
+      }).get(bandName);
+  
+      image = image.set(bandName + '_brightness', reducedValue);
+    });
+  
+    return image;
   });
+
 
   // Filter images with reduced value less than 100.
   var filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 80));
