@@ -21,7 +21,7 @@ var geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
 // demonstrate interactive charts.
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
-    .filterDate('2017-12-01', '2018-01-01')
+    .filterDate('2017-06-01', '2017-07-01')
     .select('Oa0[3-5]_radiance');
     
 
@@ -67,7 +67,7 @@ function updateChartAndMap(location) {
 
 
   // Filter images with reduced value less than 80.
-  filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 200));
+  filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 500));
 
   var chartOptions = {
     imageCollection: filteredS3.select('Oa04_radiance'),
@@ -153,6 +153,8 @@ function createSolarZenithImage(image) {
 
   // solarDeclination =-arcsin [0.39779*cos(0.98565 deg(N+10)+1.914 deg * sin(0.98565 deg *(N-2)))]
   // Where N is the day of the year
+  // At 21 Dec the solarDeclination should be -23.4 deg (-0.409 radians) (i.e. summer over southern hemisphere)
+  // At 21 Jun it should be +23.4 deg (0.409 radians)
   var solarDeclination = dayOfYear.add(10).multiply(0.98565*Math.PI/180)
     .add(dayOfYear.subtract(2).multiply(0.98565*Math.PI/180).sin().multiply(1.914*Math.PI/180))
     .cos().multiply(0.39779).asin().multiply(-1);
