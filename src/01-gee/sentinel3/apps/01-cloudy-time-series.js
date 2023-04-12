@@ -43,7 +43,7 @@ function applyRadianceScaling(image) {
 //var scaledS3 = s3.map(applyRadianceScaling);
 
   // Apply a time series reducer to the images.
- var reducedS3 = scaledS3.map(function(image) {
+ var reducedS3 = s3.map(function(image) {
   var reducedValue = image.reduceRegion({
     reducer: ee.Reducer.percentile([95]),
     geometry: region,
