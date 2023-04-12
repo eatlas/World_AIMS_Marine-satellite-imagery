@@ -27,6 +27,7 @@ var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
 
 var chart;
 var firstRun = true;
+var filteredS3; // Declare filteredS3 as a global variable
 
 function intersectionAreaRatio(image, region) {
   var imageGeometry = image.geometry();
@@ -65,8 +66,8 @@ function updateChartAndMap(location) {
   });
 
 
-  // Filter images with reduced value less than 100.
-  var filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 80));
+  // Filter images with reduced value less than 80.
+  filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 80));
 
   var chartOptions = {
     imageCollection: filteredS3.select('Oa04_radiance'),
