@@ -155,7 +155,7 @@ function createSolarZenithImage(image) {
     }
   );
   //return solarZenith.acos().multiply(180 / Math.PI);
-  return ee.Image.pixelLonLat().select('longitude').subtract(180).divide(15*Math.PI/180);
+  return ee.Image.pixelLonLat().select('longitude').subtract(180).divide(15*Math.PI/180).rename('latitude');
   //var clippedSolarZenith = solarZenith.acos().multiply(180 / Math.PI).clip(image.geometry());
   //return clippedSolarZenith.updateMask(image.select('Oa04_radiance').mask());
 }
