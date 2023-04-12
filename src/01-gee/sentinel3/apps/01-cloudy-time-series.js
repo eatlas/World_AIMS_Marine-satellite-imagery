@@ -142,10 +142,13 @@ function createSolarZenithImage(image) {
   // to mid-night at Greenwich (0 deg), therefore noon corresponds to 180 deg or PI.
   // If we are 11 hours after mid-night at Greenwich then it will just under a half
   // turn from west to east and noon is still 1 hours away. This means the noon longitude
-  // is close to Greenwich. The fraction of the day would be 11 am /24 hr per day = 0.458
-  // Time angleOfNoon
-  // 0    PI
-  // 11   PI-(0.458*2*PI) = 0.26 radians (14.8 deg) 
+  // is close to Greenwich (on the eastern side, so the number should be positive). 
+  // The fraction of the day would be 11 am /24 hr per day = 0.458
+  // Time   angleOfNoon
+  // 0 UTC  (180 deg) PI
+  // 1      (180-15 deg) = 165 deg
+  // 11     (180-15*11 deg) = 15 deg
+  // 13     (180-15*13 deg) = -15 deg
   var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').multiply(2*Math.PI));
 
   print(angleOfNoon);
