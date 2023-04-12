@@ -130,7 +130,7 @@ Map.onClick(function(coords) {
 
 
 // Add buttons below the chart
-/*var prevButton = ui.Button('Previous', function() {
+var prevButton = ui.Button('Previous', function() {
   stepChart(-1);
 });
 var nextButton = ui.Button('Next', function() {
@@ -164,7 +164,7 @@ function stepChart(step) {
   var seriesName = chart.data().getColumnLabel(currentSelection.column);
   handleChartClick(xValue, yValue, seriesName);
 }
-*/
+
 
 // Create a label on the map.
 var label = ui.Label('Click on the chart to show the image. Click on map to move location');
