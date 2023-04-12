@@ -124,9 +124,9 @@ var initialLocation = {lon: 138, lat: -15};
 updateChartAndMap(initialLocation);
 
 // Update the location when the map is clicked.
-Map.onClick(function(coords) {
-  updateChartAndMap({lon: coords.lon, lat: coords.lat});
-});
+//Map.onClick(function(coords) {
+//  updateChartAndMap({lon: coords.lon, lat: coords.lat});
+//});
 
 function createSolarZenithImage(image) {
   var date = ee.Date(image.get('system:time_start'));
