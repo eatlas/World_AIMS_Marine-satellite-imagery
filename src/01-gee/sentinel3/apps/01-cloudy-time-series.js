@@ -154,7 +154,8 @@ function createSolarZenithImage(image) {
       'hourAngle': ee.Image.pixelLonLat().select('longitude').subtract(180).divide(15*Math.PI/180)//.multiply(Math.PI / 180)
     }
   );
-  return solarZenith.acos().multiply(180 / Math.PI);
+  //return solarZenith.acos().multiply(180 / Math.PI);
+  return ee.Image.pixelLonLat().select('longitude').subtract(180).divide(15*Math.PI/180);
   //var clippedSolarZenith = solarZenith.acos().multiply(180 / Math.PI).clip(image.geometry());
   //return clippedSolarZenith.updateMask(image.select('Oa04_radiance').mask());
 }
