@@ -148,9 +148,14 @@ function createSolarZenithImage(image) {
   return clippedSolarZenith.updateMask(image.select('Oa04_radiance').mask());
 }
 
+function createSolarZenithImage2(image) {
+  return image;
+}
+
+
 // Function to add the solar zenith angle layer to the map
 function addSolarZenithLayer(image) {
-  var solarZenithImage = createSolarZenithImage(image);
+  var solarZenithImage = createSolarZenithImage2(image);
   print(solarZenithImage);
   var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
     min: 0,
