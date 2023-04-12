@@ -69,7 +69,7 @@ function updateChartAndMap(location) {
   var filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 80));
 
   var chartOptions = {
-    imageCollection: filteredS3, //.select('Oa04_radiance'),
+    imageCollection: filteredS3.select('Oa04_radiance'),
     region: region,
     reducer: ee.Reducer.percentile([95]),
     scale: 10000
