@@ -23,24 +23,6 @@ function updateChartAndMap(location) {
     location.lon - 0.5, location.lat - 0.5,
     location.lon + 0.5, location.lat + 0.5
   ]);
-  
-// Custom function to apply radiance scaling based on Oa0x_radiance_scale properties
-function applyRadianceScaling(image) {
-  var bandNames = ['Oa03_radiance', 'Oa04_radiance', 'Oa05_radiance'];
-  var scaleFactorNames = ['Oa03_radiance_scale', 'Oa04_radiance_scale', 'Oa05_radiance_scale'];
-
-  var scaledBands = bandNames.map(function(bandName, index) {
-    var scaleFactor = ee.Number(image.get(scaleFactorNames[index]));
-    return image.select(bandName).multiply(scaleFactor).rename(bandName);
-  });
-
-  var scaledImage = ee.Image.cat(scaledBands);
-
-  return image.addBands(scaledImage, null, true);
-}
-
-
-//var scaledS3 = s3.map(applyRadianceScaling);
 
   // Apply a time series reducer to the images.
  var reducedS3 = s3.map(function(image) {
@@ -131,8 +113,8 @@ function handleChartClick(chart) {
     print(image.get("Oa03_radiance_scale"));
     var s3Layer = ui.Map.Layer(image, {
       gamma: 1.5,
-      min: 0.4, // a03 40 0.35
-      max: 1, // a03 100 0.8
+      min: 40, // a03 40
+      max: 100, // a03 100
       //bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
       bands: ['Oa03_radiance']
     }, 'Sentinel 3');
