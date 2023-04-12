@@ -151,7 +151,8 @@ function createSolarZenithImage(image) {
     "cos(latitude) * cos(declination) * cos(hourAngle) + sin(latitude) * sin(declination)", {
       'latitude': ee.Image.pixelLonLat().select('latitude').multiply(Math.PI / 180),
       'declination': solarDeclination, //.multiply(Math.PI / 180),
-      'hourAngle': ee.Image.pixelLonLat().select('longitude').subtract(Math.PI).divide(15*Math.PI/180)//.multiply(Math.PI / 180)
+      'hourAngle': ee.Image.pixelLonLat().select('longitude').multiply(Math.PI/180)
+        .subtract(Math.PI).divide(15*Math.PI/180)//.multiply(Math.PI / 180)
     }
   );
   //return solarZenith.acos().multiply(180 / Math.PI);
