@@ -117,33 +117,78 @@ Map.onClick(function(coords) {
 });
 
 
+
+
 var sfLayer;
+
+
+// Add buttons below the chart
+var prevButton = ui.Button('Previous', function() {
+  stepChart(-1);
+});
+var nextButton = ui.Button('Next', function() {
+  stepChart(1);
+});
+var buttonPanel = ui.Panel([prevButton, nextButton], ui.Panel.Layout.Flow('horizontal'));
+Map.add(buttonPanel);
+
+// Function to step through the chart
+function stepChart(step) {
+  var currentSelection = chart.getSelection()[0];
+
+  // If there is no current selection, use the first point
+  if (!currentSelection) {
+    currentSelection = {row: 0, column: 1};
+  } else {
+    currentSelection.row = currentSelection.row + step;
+
+    // Check if the row is within the bounds of the chart
+    if (currentSelection.row >= chart.data().getNumberOfRows()) {
+      currentSelection.row = chart.data().getNumberOfRows() - 1;
+    } else if (currentSelection.row < 0) {
+      currentSelection.row = 0;
+    }
+  }
+
+  // Set the new selection and trigger click event
+  chart.setSelection([currentSelection]);
+  var xValue = chart.data().getValue(currentSelection.row, 0);
+  var yValue = chart.data().getValue(currentSelection.row, currentSelection.column);
+  var seriesName = chart.data().getColumnLabel(currentSelection.column);
+  handleChartClick(xValue, yValue, seriesName);
+}
+
 
 // Create a label on the map.
 var label = ui.Label('Click on the chart to show the image. Click on map to move location');
 Map.add(label);
 
-function handleChartClick(chart) {
-  chart.onClick(function(xValue, yValue, seriesName) {
-    if (!xValue) return;  // Selection was cleared.
 
-    // Show the image for the clicked date.
-    var equalDate = ee.Filter.equals('system:time_start', xValue);
-    var image = ee.Image(s3.filter(equalDate).first());
-    
-    // Map the custom function to the Sentinel-3 OLCI collection
-    //var imageScaled = applyRadianceScaling(image);
-    print(image); 
-    var s3Layer = ui.Map.Layer(image, {
-      gamma: 1.3,
-      min: [25, 30, 40], // a03 40 30 25
-      max: [70, 75, 85], // a03 85 70 70
-      bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
-      //bands: ['Oa05_radiance']
-    }, 'Sentinel 3');
-    Map.layers().reset([s3Layer, sfLayer]);
+// Update handleChartClick to accept xValue, yValue, and seriesName as arguments
+function handleChartClick(xValue, yValue, seriesName) {
+  if (!xValue) return;  // Selection was cleared.
 
-    // Show a label with the date on the map.
-    label.setValue((new Date(xValue)).toUTCString());
-  });
+  // Show the image for the clicked date.
+  var equalDate = ee.Filter.equals('system:time_start', xValue);
+  var image = ee.Image(s3.filter(equalDate).first());
+
+  // Map the custom function to the Sentinel-3 OLCI collection
+  //var imageScaled = applyRadianceScaling(image);
+  print(image); 
+  var s3Layer = ui.Map.Layer(image, {
+    gamma: 1.3,
+    min: [25, 30, 40], // a03 40 30 25
+    max: [70, 75, 85], // a03 85 70 70
+    bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
+    //bands: ['Oa05_radiance']
+  }, 'Sentinel 3');
+  Map.layers().reset([s3Layer, sfLayer]);
+
+  // Show a label with the date on the map.
+  label.setValue((new Date(xValue)).toUTCString());
 }
+
+// Update the chart onClick event to pass xValue, yValue, and seriesName to handleChartClick
+chart.onClick(function(xValue, yValue, seriesName) {
+  handleChartClick(xValue, yValue, seriesName);
+});
