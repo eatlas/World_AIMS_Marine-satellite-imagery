@@ -157,12 +157,21 @@ function createSolarZenithImage2(image) {
 function addSolarZenithLayer(image) {
   var solarZenithImage = createSolarZenithImage2(image);
   print(solarZenithImage);
+ //var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
+//    min: 0,
+//    max: 90,
+//    palette: ['0000FF', 'FF0000'],
+//    bands: ['latitude']
+//  }, 'Solar Zenith Angle');
+  
   var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
-    min: 0,
-    max: 90,
-    palette: ['0000FF', 'FF0000'],
-    bands: ['latitude']
-  }, 'Solar Zenith Angle');
+      gamma: 1.3,
+      min: [25, 30, 40], // a03 40 30 25
+      max: [70, 75, 85], // a03 85 70 70
+      bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
+      //bands: ['Oa05_radiance']
+    }, 'Solar Zenith Angle');
+  
   Map.layers().add(solarZenithLayer);
 }
 
