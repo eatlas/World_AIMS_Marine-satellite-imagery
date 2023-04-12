@@ -189,6 +189,6 @@ function handleChartClick(xValue, yValue, seriesName) {
 }
 
 // Update the chart onClick event to pass xValue, yValue, and seriesName to handleChartClick
-chart.onClick(function(xValue, yValue, seriesName) {
-  handleChartClick(xValue, yValue, seriesName);
-});
+//chart.onClick(function(xValue, yValue, seriesName) {
+//  handleChartClick(xValue, yValue, seriesName);
+//});
