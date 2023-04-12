@@ -24,16 +24,6 @@ function updateChartAndMap(location) {
     location.lon + 0.5, location.lat + 0.5
   ]);
 
-  // Apply a time series reducer to the images.
-  //var reducedS3 = s3.map(function(image) {
-  //  var reducedValue = image.reduceRegion({
-  //    reducer: ee.Reducer.percentile([95]),
-  //    geometry: region,
-  //    scale: 10000,
-  //    bestEffort: true
-  //  }).get('Oa03_radiance');
-  //  return image.set('reduced_value', reducedValue);
-  //});
 
   // Apply a time series reducer to the images.
  var reducedS3 = s3.map(function(image) {
@@ -102,12 +92,25 @@ Map.onClick(function(coords) {
   updateChartAndMap({lon: coords.lon, lat: coords.lat});
 });
 
-var sfLayer;
 
-// Outline and center San Francisco on the map.
-//var sfLayer = ui.Map.Layer(region, {color: 'FF0000'}, 'GOC');
-//Map.layers().add(sfLayer);
-//Map.setCenter(138, -15, 8);
+// Custom function to apply radiance scaling based on Oa0x_radiance_scale properties
+function applyRadianceScaling(image) {
+  var bandNames = ['Oa03_radiance', 'Oa04_radiance', 'Oa05_radiance'];
+  var scaleFactorNames = ['Oa03_radiance_scale', 'Oa04_radiance_scale', 'Oa05_radiance_scale'];
+
+  var scaledBands = bandNames.map(function(bandName, index) {
+    var scaleFactor = ee.Number(image.get(scaleFactorNames[index]));
+    return image.select(bandName).multiply(scaleFactor).rename(bandName);
+  });
+
+  var scaledImage = ee.Image.cat(scaledBands);
+
+  return image.addBands(scaledImage, null, true);
+}
+
+
+
+var sfLayer;
 
 // Create a label on the map.
 var label = ui.Label('Click on the chart to show the image. Click on map to move location');
@@ -120,7 +123,10 @@ function handleChartClick(chart) {
     // Show the image for the clicked date.
     var equalDate = ee.Filter.equals('system:time_start', xValue);
     var image = ee.Image(s3.filter(equalDate).first());
-    print(image); //.select('solar_zenith_angle').multiply(Math.PI / 180).cos());
+    
+    // Map the custom function to the Sentinel-3 OLCI collection
+    var imageScaled = image.map(applyRadianceScaling);
+    //print(image); //.select('solar_zenith_angle').multiply(Math.PI / 180).cos());
     var s3Layer = ui.Map.Layer(image, {
       gamma: 1.5,
       min: 30, // a03 40
