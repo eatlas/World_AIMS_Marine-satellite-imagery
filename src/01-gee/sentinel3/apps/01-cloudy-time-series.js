@@ -58,7 +58,7 @@ function updateChartAndMap(location) {
     var reducedValue = image.reduceRegion({
       reducer: ee.Reducer.percentile([95]),
       geometry: region,
-      scale: 5000,
+      scale: 10000,
       bestEffort: true
     }).get('Oa04_radiance');
     return image.set('Oa04_brightness',reducedValue);
