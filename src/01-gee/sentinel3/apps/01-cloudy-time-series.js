@@ -44,7 +44,7 @@ var scaledS3 = s3.map(applyRadianceScaling);
 
   
   // Filter images with reduced value less than 100.
-  var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 1.1));
+  var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
 
   var chartOptions = {
     imageCollection: filteredS3.select('Oa03_radiance'),
