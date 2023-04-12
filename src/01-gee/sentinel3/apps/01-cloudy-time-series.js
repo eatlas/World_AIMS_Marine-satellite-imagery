@@ -137,10 +137,14 @@ function createSolarZenithImage(image) {
   var localSolarTime = date.getFraction('day').multiply(24);
   //print(dayOfYear);
   print(date.getFraction('day'));
-  var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').divide(24).multiply(Math.PI));
+  // Which longitude corresponds to noon for the time the image was taken, in radians
+  // Relative to Greenich (0 deg)
+  var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').multiply(Math.PI));
 
   print(angleOfNoon);
   //var solarDeclination = dayOfYear.multiply(1.914).add(10).multiply(1.914).cos().multiply(-0.39779).asin();
+  // solarDeclination =-arcsin [0.39779*cos(0.98565 deg(N+10)+1.914 deg * sin(0.98565 deg *(N-2)))]
+  // Where N is the day of the year
   var solarDeclination = dayOfYear.add(10).multiply(0.98565*Math.PI/180)
     .add(dayOfYear.subtract(2).multiply(0.98565*Math.PI/180).sin().multiply(1.914*Math.PI/180))
     .cos().multiply(0.39779).asin().multiply(-1);
