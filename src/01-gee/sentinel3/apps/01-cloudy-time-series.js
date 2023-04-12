@@ -24,26 +24,29 @@ function updateChartAndMap(location) {
     location.lon + 0.5, location.lat + 0.5
   ]);
 
-  // Apply a time series reducer to the images.
- var reducedS3 = s3.map(function(image) {
-  var reducedValue = image.reduceRegion({
-    reducer: ee.Reducer.percentile([95]),
-    geometry: region,
-    scale: 5000,
-    bestEffort: true
-  }).get('Oa04_radiance');
-
+  // Remove images that don't fully overlap the region of interest
+  var areaFilteredS3 = s3.map(function(image) {
+    // Calculate the intersection area ratio
+    var areaRatio = intersectionAreaRatio(image, region);
   
-  // Calculate the intersection area ratio
-  var areaRatio = intersectionAreaRatio(image, region);
-
-  // Only consider images with coverage ratio greater than or equal to 0.99 (you can adjust this value)
-  return ee.Algorithms.If(areaRatio.gte(0.99), image.set('reduced_value', reducedValue), image.set('reduced_value', null));
-}).filter(ee.Filter.notNull(['reduced_value']));
-
+    // Only consider images with coverage ratio greater than or equal to 0.99 (you can adjust this value)
+    return ee.Algorithms.If(areaRatio.gte(0.99), image.set('areaRatio', reducedValue), image.set('areaRatio', null));
+  }).filter(ee.Filter.notNull(['areaRatio']));
   
+     
+  // Calculate the brightness of the region and add this as a property
+  var withBrightnessS3 = areaFilteredS3.map(function(image) {
+    var reducedValue = image.reduceRegion({
+      reducer: ee.Reducer.percentile([95]),
+      geometry: region,
+      scale: 5000,
+      bestEffort: true
+    }).get('Oa04_radiance');
+    return image.set('Oa04_brightness');
+  });
+
   // Filter images with reduced value less than 100.
-  var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 80));
+  var filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 80));
 
   var chartOptions = {
     imageCollection: filteredS3.select('Oa04_radiance'),
