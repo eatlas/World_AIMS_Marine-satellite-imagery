@@ -139,6 +139,7 @@ function createSolarZenithImage(image) {
   print(date.getFraction('day'));
   var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').divide(24).multiply(Math.PI));
 
+  print(angleOfNoon.multiply(180/Math.PI));
   //var solarDeclination = dayOfYear.multiply(1.914).add(10).multiply(1.914).cos().multiply(-0.39779).asin();
   var solarDeclination = dayOfYear.add(10).multiply(0.98565*Math.PI/180)
     .add(dayOfYear.subtract(2).multiply(0.98565*Math.PI/180).sin().multiply(1.914*Math.PI/180))
