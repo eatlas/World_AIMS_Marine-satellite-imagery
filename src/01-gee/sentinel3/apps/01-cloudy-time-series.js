@@ -94,6 +94,17 @@ function updateChartAndMap(location) {
     width: '800px',
     height: '300px'
   });
+  
+  var chartStyle = {
+  title: 'Region brightness over time',
+  series: {
+    0: {lineWidth: 2, color: 'E37D05', pointSize: 4},
+  },
+  chartArea: {backgroundColor: 'FFFFFF'}
+};
+  // Apply custom style properties to the chart.
+  chart.setOptions(chartStyle);
+
   Map.add(chart);
 
   // Update the map.
