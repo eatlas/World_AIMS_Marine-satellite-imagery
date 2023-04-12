@@ -165,7 +165,7 @@ Map.add(label);
 
 
 // Update handleChartClick to accept xValue, yValue, and seriesName as arguments
-function handleChartClick(xValue, yValue, seriesName) {
+/*function handleChartClick(xValue, yValue, seriesName) {
   if (!xValue) return;  // Selection was cleared.
 
   // Show the image for the clicked date.
@@ -189,6 +189,7 @@ function handleChartClick(xValue, yValue, seriesName) {
 }
 
 // Update the chart onClick event to pass xValue, yValue, and seriesName to handleChartClick
-//chart.onClick(function(xValue, yValue, seriesName) {
-//  handleChartClick(xValue, yValue, seriesName);
-//});
+chart.onClick(function(xValue, yValue, seriesName) {
+  handleChartClick(xValue, yValue, seriesName);
+});
+*/
