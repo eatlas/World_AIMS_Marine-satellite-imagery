@@ -137,26 +137,27 @@ function createSolarZenithImage(image) {
   var localSolarTime = date.getFraction('day').multiply(24);
   print(dayOfYear);
   print(date.getFraction('day'));
-  var angleOfNoon = ee.Number(180).subtract(date.getFraction('day').divide(24).multiply(Math.PI/180));
+  var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').divide(24).multiply(Math.PI/180));
 
   //var solarDeclination = dayOfYear.multiply(1.914).add(10).multiply(1.914).cos().multiply(-0.39779).asin();
   var solarDeclination = dayOfYear.add(10).multiply(0.98565*Math.PI/180)
     .add(dayOfYear.subtract(2).multiply(0.98565*Math.PI/180).sin().multiply(1.914*Math.PI/180))
     .cos().multiply(0.39779).asin().multiply(-1);
-  var solarHourAngle = localSolarTime.subtract(12).multiply(15).multiply(Math.PI/180);
-  print(solarDeclination);
-  print(solarHourAngle);
+  //var solarHourAngle = localSolarTime.subtract(12).multiply(15).multiply(Math.PI/180);
+  //print(solarDeclination);
+  //print(solarHourAngle);
 
+  var solarHourAngle = ee.Image.pixelLonLat().select('longitude').multiply(Math.PI/180)
+        .subtract(angleOfNoon).divide(15*Math.PI/180);
   var solarZenith = ee.Image().expression(
     "cos(latitude) * cos(declination) * cos(hourAngle) + sin(latitude) * sin(declination)", {
       'latitude': ee.Image.pixelLonLat().select('latitude').multiply(Math.PI / 180),
       'declination': solarDeclination, //.multiply(Math.PI / 180),
-      'hourAngle': ee.Image.pixelLonLat().select('longitude').multiply(Math.PI/180)
-        .subtract(Math.PI).divide(15*Math.PI/180)//.multiply(Math.PI / 180)
+      'hourAngle': solarHourAngle
     }
   );
   //return solarZenith.acos().multiply(180 / Math.PI);
-  return ee.Image.pixelLonLat().select('longitude').subtract(180).divide(15*Math.PI/180).rename('latitude');
+  return solarHourAngle.rename('latitude');
   //var clippedSolarZenith = solarZenith.acos().multiply(180 / Math.PI).clip(image.geometry());
   //return clippedSolarZenith.updateMask(image.select('Oa04_radiance').mask());
 }
