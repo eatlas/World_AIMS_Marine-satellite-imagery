@@ -40,7 +40,7 @@ function applyRadianceScaling(image) {
 }
 
 
-var scaledS3 = s3.map(applyRadianceScaling);
+//var scaledS3 = s3.map(applyRadianceScaling);
 
   // Apply a time series reducer to the images.
  var reducedS3 = scaledS3.map(function(image) {
