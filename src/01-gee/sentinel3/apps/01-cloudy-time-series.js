@@ -146,7 +146,7 @@ function createSolarZenithImage(image) {
   var solarZenith = ee.Image().expression(
     "cos(latitude) * cos(declination) * cos(hourAngle) + sin(latitude) * sin(declination)", {
       'latitude': ee.Image.pixelLonLat().select('latitude').multiply(Math.PI / 180),
-      'declination': solarDeclination.multiply(Math.PI / 180),
+      'declination': solarDeclination, //.multiply(Math.PI / 180),
       'hourAngle': solarHourAngle.multiply(Math.PI / 180)
     }
   );
