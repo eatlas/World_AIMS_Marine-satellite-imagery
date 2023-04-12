@@ -129,8 +129,8 @@ function handleChartClick(chart) {
     //print(image); //.select('solar_zenith_angle').multiply(Math.PI / 180).cos());
     var s3Layer = ui.Map.Layer(imageScaled, {
       gamma: 1.5,
-      min: 0.35, // a03 40 0.35
-      max: 0.8, // a03 100 0.8
+      min: 0.4, // a03 40 0.35
+      max: 1, // a03 100 0.8
       //bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
       bands: ['Oa03_radiance']
     }, 'Sentinel 3');
