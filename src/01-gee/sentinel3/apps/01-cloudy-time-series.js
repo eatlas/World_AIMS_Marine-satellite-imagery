@@ -127,7 +127,6 @@ Map.onClick(function(coords) {
   updateChartAndMap({lon: coords.lon, lat: coords.lat});
 });
 
-// Function to create a solar zenith angle image
 function createSolarZenithImage(image) {
   var date = ee.Date(image.get('system:time_start'));
   var dayOfYear = date.getRelative('day', 'year').add(1);
@@ -144,7 +143,8 @@ function createSolarZenithImage(image) {
     }
   );
 
-  return solarZenith.acos().multiply(180 / Math.PI).updateMask(image.select('Oa04_radiance').mask());
+  var clippedSolarZenith = solarZenith.acos().multiply(180 / Math.PI).clip(image.geometry());
+  return clippedSolarZenith.updateMask(image.select('Oa04_radiance').mask());
 }
 
 // Function to add the solar zenith angle layer to the map
