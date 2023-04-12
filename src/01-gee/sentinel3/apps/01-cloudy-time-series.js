@@ -24,9 +24,10 @@ function updateChartAndMap(location) {
     location.lon + 0.5, location.lat + 0.5
   ]);
 
+var scaledS3 = s3.map(applyRadianceScaling);
 
   // Apply a time series reducer to the images.
- var reducedS3 = s3.map(function(image) {
+ var reducedS3 = scaledS3.map(function(image) {
   var reducedValue = image.reduceRegion({
     reducer: ee.Reducer.percentile([95]),
     geometry: region,
@@ -41,8 +42,9 @@ function updateChartAndMap(location) {
   return ee.Algorithms.If(areaRatio.gte(0.99), image.set('reduced_value', reducedValue), image.set('reduced_value', null));
 }).filter(ee.Filter.notNull(['reduced_value']));
 
+  
   // Filter images with reduced value less than 100.
-  var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 100));
+  var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 1.1));
 
   var chartOptions = {
     imageCollection: filteredS3.select('Oa03_radiance'),
@@ -125,9 +127,9 @@ function handleChartClick(chart) {
     var image = ee.Image(s3.filter(equalDate).first());
     
     // Map the custom function to the Sentinel-3 OLCI collection
-    var imageScaled = applyRadianceScaling(image);
+    //var imageScaled = applyRadianceScaling(image);
     //print(image); //.select('solar_zenith_angle').multiply(Math.PI / 180).cos());
-    var s3Layer = ui.Map.Layer(imageScaled, {
+    var s3Layer = ui.Map.Layer(image, {
       gamma: 1.5,
       min: 0.4, // a03 40 0.35
       max: 1, // a03 100 0.8
