@@ -155,7 +155,8 @@ function addSolarZenithLayer(image) {
   var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
     min: 0,
     max: 90,
-    palette: ['0000FF', 'FF0000']
+    palette: ['0000FF', 'FF0000'],
+    bands: ['latitude']
   }, 'Solar Zenith Angle');
   Map.layers().add(solarZenithLayer);
 }
