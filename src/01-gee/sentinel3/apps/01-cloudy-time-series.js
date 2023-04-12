@@ -31,7 +31,7 @@ function updateChartAndMap(location) {
     geometry: region,
     scale: 5000,
     bestEffort: true
-  }).get('Oa03_radiance');
+  }).get(['Oa03_radiance','Oa04_radiance','Oa05_radiance']);
 
   // Calculate the intersection area ratio
   var areaRatio = intersectionAreaRatio(image, region);
@@ -45,7 +45,7 @@ function updateChartAndMap(location) {
   var filteredS3 = reducedS3.filter(ee.Filter.lt('reduced_value', 80));
 
   var chartOptions = {
-    imageCollection: filteredS3.select('Oa03_radiance'),
+    imageCollection: filteredS3.select(['Oa03_radiance','Oa04_radiance','Oa05_radiance']),
     region: region,
     reducer: ee.Reducer.percentile([95]),
     scale: 10000
