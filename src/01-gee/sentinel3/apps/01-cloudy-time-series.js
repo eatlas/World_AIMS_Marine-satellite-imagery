@@ -183,6 +183,8 @@ function createSolarZenithImage(image) {
       'hourAngle': solarHourAngle
     }
   );
+  
+  // Remove the clip to see the effect over the full globe
   return solarZenith.acos().rename('solarZenithRad').clip(image.geometry());
   //return solarHourAngle.multiply(180/Math.PI).rename('latitude');
   //var clippedSolarZenith = solarZenith.acos().multiply(180 / Math.PI).clip(image.geometry());
