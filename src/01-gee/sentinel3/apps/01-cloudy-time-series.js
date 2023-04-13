@@ -54,12 +54,12 @@ function updateChartAndMap(location) {
   }).filter(ee.Filter.notNull(['areaRatio']));
   
   // Normalise the brightness of the images over time using the angle of the sun
-  var normS3 = areaFilteredS3.map(function(image) {
-    return normaliseSolarBrightness(image);
-  });
+  //var normS3 = areaFilteredS3.map(function(image) {
+  //  return normaliseSolarBrightness(image);
+  //});
   
-  var chartS3 = normS3;
-  //var chartS3 = areaFilteredS3;
+  //var chartS3 = normS3;
+  var chartS3 = areaFilteredS3;
   // Calculate the brightness of the region and add this as a property
   var withBrightnessS3 = chartS3.map(function(image) {
     var reducedValue = image.reduceRegion({
@@ -67,7 +67,6 @@ function updateChartAndMap(location) {
       geometry: region,
       scale: 10000,
       bestEffort: true,
-      
     }).get('Oa04_radiance');
     return image.set('Oa04_brightness',reducedValue);
   });
@@ -227,20 +226,8 @@ function handleChartClick(chart) {
     var equalDate = ee.Filter.equals('system:time_start', xValue);
     var image = ee.Image(filteredS3.filter(equalDate).first()); // Use filteredS3 instead of s3
 
-    // Work out for each pixel what the intensity of the solar radiation.
-    var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos().max(0);
-    
-    var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage).min(5).rename('brightnessNorm');
-
-    // adjust the brightness of the image and restore the image attributes
-    var normImage = image.multiply(brightnessNormalisationImage)
-      .copyProperties(image, image.propertyNames());
-
-    // Restore the properties to the original image
-    //var normImageWithMetadata = normImage.set({'properties': image.get('properties')});
-    //print(normImageWithMetadata);
-    print(image.multiply(1.1).copyProperties(image, image.propertyNames()));
-    var solarZenithLayer = ui.Map.Layer(brightnessNormalisationImage, {
+    var normImage = normaliseSolarBrightness(image);
+    /*var solarZenithLayer = ui.Map.Layer(brightnessNormalisationImage, {
       min: 0,
       max: 5,
       palette: ['000000', 'FFFFFF'],
@@ -248,11 +235,11 @@ function handleChartClick(chart) {
     }, 'Solar Zenith Angle');
     
     Map.layers().add(solarZenithLayer);
-    
+    */
     // Map the custom function to the Sentinel-3 OLCI collection
     //var imageScaled = applyRadianceScaling(image);
     print(image); 
-    var s3Layer = ui.Map.Layer(image, {
+    var s3Layer = ui.Map.Layer(normImage, {
       gamma: 1.3,
       //min: [25, 30, 40], // a03 40 30 25
       //max: [70, 75, 85], // a03 85 70 70
