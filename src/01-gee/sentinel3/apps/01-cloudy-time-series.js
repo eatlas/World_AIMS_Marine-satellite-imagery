@@ -207,8 +207,11 @@ function normaliseSolarBrightness(image) {
     .min(10).rename('brightnessNorm');
   
   // adjust the brightness of the image and restore the image attributes
-  var normImage = image.multiply(brightnessNormalisationImage)
-    .copyProperties(image, image.propertyNames());
+  var normImage = image.multiply(brightnessNormalisationImage);
+    // For some reason copying over all the attributes causes the map rendering to 
+    // fail with an error 'Cannot add an object of type <Element> to the map.'
+    // The print of the image with the copied properties looks good.
+    //.copyProperties(image, image.propertyNames());
   return normImage;
 }
 
@@ -242,12 +245,12 @@ function handleChartClick(chart) {
     print(image); 
     var s3Layer = ui.Map.Layer(normImage, {
       gamma: 1.3,
-      //min: [25, 30, 40], // a03 40 30 25
-      //max: [100, 110, 120], // a03 85 70 70
-      //bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
+      min: [25, 30, 40], // a03 40 30 25
+      max: [100, 110, 120], // a03 85 70 70
+      bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
       
-      min: 1, // a03 40 30 25
-      max: 3, 
+      //min: 1, // a03 40 30 25
+      //max: 3, 
     }, 'Sentinel 3');
     
     
