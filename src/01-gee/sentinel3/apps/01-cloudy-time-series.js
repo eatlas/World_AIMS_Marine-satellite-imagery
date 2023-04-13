@@ -21,7 +21,7 @@ var geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
 // demonstrate interactive charts.
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
-    .filterDate('2017-01-01', '2017-12-30')
+    .filterDate('2017-01-01', '2017-03-30')
     .select('Oa0[3-5]_radiance');
     
 
@@ -207,8 +207,8 @@ function normaliseSolarBrightness(image) {
     .min(5).rename('brightnessNorm');
   
   // adjust the brightness of the image and restore the image attributes
-  var normImage = image.multiply(brightnessNormalisationImage)
-    .copyProperties(image, image.propertyNames());
+  var normImage = image; //.multiply(brightnessNormalisationImage)
+    //.copyProperties(image, image.propertyNames());
   return normImage;
 }
 
@@ -240,7 +240,7 @@ function handleChartClick(chart) {
     // Map the custom function to the Sentinel-3 OLCI collection
     //var imageScaled = applyRadianceScaling(image);
     print(image); 
-    var s3Layer = ui.Map.Layer(image, {
+    var s3Layer = ui.Map.Layer(normImage, {
       gamma: 1.3,
       //min: [25, 30, 40], // a03 40 30 25
       //max: [70, 75, 85], // a03 85 70 70
@@ -251,7 +251,7 @@ function handleChartClick(chart) {
     }, 'Sentinel 3');
     
     
-    Map.layers().reset([s3Layer, solarZenithLayer, sfLayer]);
+    Map.layers().reset([s3Layer, sfLayer]);
 
     // Show a label with the date on the map.
     label.setValue((new Date(xValue)).toUTCString());
