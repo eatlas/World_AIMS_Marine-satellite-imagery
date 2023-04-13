@@ -54,7 +54,9 @@ function updateChartAndMap(location) {
   }).filter(ee.Filter.notNull(['areaRatio']));
   
   // Normalise the brightness of the images over time using the angle of the sun
-  var normS3 = areaFilteredS3.map(normaliseSolarBrightness());
+  var normS3 = areaFilteredS3.map(function(image) {
+    return normaliseSolarBrightness(image);
+    });
   
   var chartS3 = normS3;
   // Calculate the brightness of the region and add this as a property
