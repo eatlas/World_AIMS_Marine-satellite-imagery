@@ -128,6 +128,9 @@ updateChartAndMap(initialLocation);
 //  updateChartAndMap({lon: coords.lon, lat: coords.lat});
 //});
 
+// This function generates an image that corresponds to the angle between the
+// sun and each pixel location based on the time of the provided image. The
+// angle is returned in radians.
 // Based on https://en.wikipedia.org/wiki/Solar_zenith_angle
 // https://en.wikipedia.org/wiki/Hour_angle
 // https://en.wikipedia.org/wiki/Position_of_the_Sun
@@ -135,7 +138,6 @@ function createSolarZenithImage(image) {
   var date = ee.Date(image.get('system:time_start'));
   var dayOfYear = date.getRelative('day', 'year').add(1);
 
-  print(date.getFraction('day'));
   // Which longitude corresponds to noon for the time the image was taken, in radians
   // Relative to Greenwich (0 deg)
   // Each day the world rotates 2pi radians. date.getFraction('day') of 0 corresponds
@@ -151,7 +153,7 @@ function createSolarZenithImage(image) {
   // The math needs to be done in radians
   var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').multiply(2*Math.PI));
 
-  print(angleOfNoon.multiply(180/Math.PI));
+  //print(angleOfNoon.multiply(180/Math.PI));
 
   // solarDeclination =-arcsin [0.39779*cos(0.98565 deg(N+10)+1.914 deg * sin(0.98565 deg *(N-2)))]
   // Where N is the day of the year
@@ -161,11 +163,9 @@ function createSolarZenithImage(image) {
     .add(dayOfYear.subtract(2).multiply(0.98565*Math.PI/180).sin().multiply(1.914*Math.PI/180))
     .cos().multiply(0.39779).asin().multiply(-1);
 
-  print(solarDeclination.multiply(180/Math.PI));
+  //print(solarDeclination.multiply(180/Math.PI));
 
   
-  // Check if solarHourAngle is valid. Middle of image should map to 12 noon - 10:36am 1.4 hours
-  // behind noon
   // The solarHourAngle is the angle from noon at any given location.
   // So for example if the angle of noon was 15 deg (1/24 *360), then this would be 1 hour
   // ahead of Greenwich (i.e. in 1 hour noon would be over Greenwich). The solarHourAngle
@@ -183,17 +183,11 @@ function createSolarZenithImage(image) {
       'hourAngle': solarHourAngle
     }
   );
-  return solarZenith.acos().multiply(180 / Math.PI);
+  return solarZenith.acos().rename('solarZenithRad');
   //return solarHourAngle.multiply(180/Math.PI).rename('latitude');
   //var clippedSolarZenith = solarZenith.acos().multiply(180 / Math.PI).clip(image.geometry());
   //return clippedSolarZenith.updateMask(image.select('Oa04_radiance').mask());
 }
-
-function createSolarZenithImage2(image) {
-  return image;
-}
-
-
 
 var sfLayer;
 
@@ -211,13 +205,14 @@ function handleChartClick(chart) {
     
 
     
-    var solarZenithImage = createSolarZenithImage(image);
+    // Work out for each pixel what the intensity of the solar radiation.
+    var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos();
 
-    var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
+    var solarZenithLayer = ui.Map.Layer(toaIncidentSolarFluxImage, {
       min: 0,
-      max: 90,
+      max: 1,
       palette: ['FFFFFF', '000000'],
-      bands: ['latitude']
+      bands: ['solarZenithRad']
     }, 'Solar Zenith Angle');
     
     Map.layers().add(solarZenithLayer);
