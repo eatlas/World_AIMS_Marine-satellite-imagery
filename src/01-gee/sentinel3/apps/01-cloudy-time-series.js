@@ -222,7 +222,14 @@ var label = ui.Label('Click on the chart to show the image. Click on map to move
 Map.add(label);
 
 function renderImage(image) {
-  [1.5 * samples.B07 + 2.1 * samples.B09 - 0.15 * samples.B14, 1.65 * samples.B05 + 2.1 * samples.B06 - 0.3 * samples.B14, 3.9 * samples.B04 - samples.B14 * 0.9, samples.dataMask];
+  var red = image.select('Oa07_radiance').multiply(1.5).add(image.select('Oa09_radiance').multiply(2.1))
+    .subtract(image.select('Oa14_radiance').multiply(0.15));
+  var green = mage.select('Oa05_radiance').multiply(1.65).add(image.select('Oa06_radiance').multiply(2.1))
+    .subtract(image.select('Oa14_radiance').multiply(0.3));
+  var blue = mage.select('Oa04_radiance').multiply(3.9)
+    .subtract(image.select('Oa14_radiance').multiply(0.9));
+  return ee.Image.rgb(red, green, blue);
+  //[1.5 * samples.B07 + 2.1 * samples.B09 - 0.15 * samples.B14, 1.65 * samples.B05 + 2.1 * samples.B06 - 0.3 * samples.B14, 3.9 * samples.B04 - samples.B14 * 0.9, samples.dataMask];
 }
 
 function handleChartClick(chart) {
@@ -234,6 +241,14 @@ function handleChartClick(chart) {
     var image = ee.Image(filteredS3.filter(equalDate).first()); // Use filteredS3 instead of s3
 
     var normImage = normaliseSolarBrightness(image);
+    var rgbImage = renderImage(normImage);
+    
+    var s3LayerRGB = ui.Map.Layer(rgbImage, {
+      gamma: 1,
+      min: 0,
+      max: 255,
+    }, 'Sentinel 3 RGB');
+    
     print(normImage);
     /*var solarZenithLayer = ui.Map.Layer(brightnessNormalisationImage, {
       min: 0,
@@ -258,7 +273,7 @@ function handleChartClick(chart) {
     }, 'Sentinel 3');
     
     
-    Map.layers().reset([s3Layer, sfLayer]);
+    Map.layers().reset([s3Layer, s3LayerRGB, sfLayer]);
 
     // Show a label with the date on the map.
     label.setValue((new Date(xValue)).toUTCString());
