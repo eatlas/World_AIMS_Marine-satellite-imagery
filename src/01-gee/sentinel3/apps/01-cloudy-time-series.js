@@ -196,7 +196,8 @@ function createSolarZenithImage(image) {
 // This function adjusts the brightness of the image based on the incident
 // radiation across the scene, using the location and time of the image.
 // This should compensate for brightness changes due to seasons, helping to
-// standardised the brightness over time and location.
+// standardised the brightness over time and location. Assumes that the 
+// image contains the 'system:time_start' property.
 function normaliseSolarBrightness(image) {
   // Work out for each pixel what the intensity of the solar radiation.
   var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos().max(0);
@@ -255,6 +256,19 @@ function handleChartClick(chart) {
       max: 500,
     }, 'Sentinel 3 No Norm');
     
+    // Work out for each pixel what the intensity of the solar radiation.
+    var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos().max(0);
+  
+    // Limit the brightness compensation to 10 so we don't have 1/0 issues. All
+    // images should be in the 1 - 4 range anyway. 
+    var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage)
+      .min(10).rename('brightnessNorm');
+    var s3LayerBright = ui.Map.Layer(brightnessNormalisationImage, {
+      gamma: 1,
+      min: 1,
+      max: 5,
+    }, 'Brightness Norm');
+    
     print(normImage);
     /*var solarZenithLayer = ui.Map.Layer(brightnessNormalisationImage, {
       min: 0,
@@ -280,7 +294,7 @@ function handleChartClick(chart) {
     
     
     //Map.layers().reset([s3Layer, s3LayerRGB, sfLayer]);
-    Map.layers().reset([s3LayerRGB, s3LayerNoNorm, sfLayer]);
+    Map.layers().reset([s3LayerRGB, s3LayerNoNorm, s3LayerBright, sfLayer]);
 
     // Show a label with the date on the map.
     label.setValue((new Date(xValue)).toUTCString());
