@@ -58,7 +58,7 @@ function updateChartAndMap(location) {
     return normaliseSolarBrightness(image);
   });
   
-  var chartS3 = areaFilteredS3;
+  var chartS3 = normS3;
   // Calculate the brightness of the region and add this as a property
   var withBrightnessS3 = chartS3.map(function(image) {
     var reducedValue = image.reduceRegion({
@@ -189,7 +189,7 @@ function createSolarZenithImage(image) {
   
   // Convert to an angle, set the band name and clip to the extent of the original image
   // Note: Remove the clip to see the effect over the full globe
-  return solarZenith.acos().rename('solarZenithRad').clip(image.geometry());
+  return solarZenith.acos().rename('solarZenithRad'); //.clip(image.geometry());
 }
 
 // This function adjusts the brightness of the image based on the incident
