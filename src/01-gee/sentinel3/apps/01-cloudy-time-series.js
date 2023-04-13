@@ -58,8 +58,8 @@ function updateChartAndMap(location) {
     return normaliseSolarBrightness(image);
   });
   
-  //var chartS3 = normS3;
-  var chartS3 = areaFilteredS3;
+  var chartS3 = normS3;
+  //var chartS3 = areaFilteredS3;
   // Calculate the brightness of the region and add this as a property
   var withBrightnessS3 = chartS3.map(function(image) {
     var reducedValue = image.reduceRegion({
