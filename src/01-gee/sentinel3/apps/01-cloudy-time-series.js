@@ -243,11 +243,11 @@ function handleChartClick(chart) {
     var s3Layer = ui.Map.Layer(normImage, {
       gamma: 1.3,
       //min: [25, 30, 40], // a03 40 30 25
-      //max: [70, 75, 85], // a03 85 70 70
-      min: [25, 30, 40], // a03 40 30 25
-      max: [100, 110, 120], // a03 85 70 70
-      bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
-      //bands: ['Oa05_radiance']
+      //max: [100, 110, 120], // a03 85 70 70
+      //bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
+      
+      min: 1, // a03 40 30 25
+      max: 2, 
     }, 'Sentinel 3');
     
     
