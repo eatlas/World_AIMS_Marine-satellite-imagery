@@ -21,7 +21,7 @@ var geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
 // demonstrate interactive charts.
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
-    .filterDate('2017-12-01', '2017-12-31')
+    .filterDate('2017-06-01', '2017-06-30')
     .select('Oa0[3-5]_radiance');
     
 
@@ -214,8 +214,8 @@ function handleChartClick(chart) {
     var solarZenithImage = createSolarZenithImage(image);
 
     var solarZenithLayer = ui.Map.Layer(solarZenithImage, {
-      min: -2*Math.PI,
-      max: 2*Math.PI,
+      min: 0,
+      max: 90,
       palette: ['FFFFFF', '000000'],
       bands: ['latitude']
     }, 'Solar Zenith Angle');
