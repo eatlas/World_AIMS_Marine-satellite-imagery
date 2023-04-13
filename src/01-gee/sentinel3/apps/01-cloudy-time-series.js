@@ -22,7 +22,7 @@ var geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
     .filterDate('2017-06-01', '2017-08-30')
-    .select('Oa0[3-5]_radiance');
+    .select('Oa0[4-14]_radiance');
     
 
 var chart;
@@ -220,6 +220,10 @@ var sfLayer;
 // Create a label on the map.
 var label = ui.Label('Click on the chart to show the image. Click on map to move location');
 Map.add(label);
+
+function renderImage(image) {
+  [1.5 * samples.B07 + 2.1 * samples.B09 - 0.15 * samples.B14, 1.65 * samples.B05 + 2.1 * samples.B06 - 0.3 * samples.B14, 3.9 * samples.B04 - samples.B14 * 0.9, samples.dataMask];
+}
 
 function handleChartClick(chart) {
   chart.onClick(function(xValue, yValue, seriesName) {
