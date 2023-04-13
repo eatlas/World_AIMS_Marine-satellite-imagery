@@ -211,16 +211,17 @@ function handleChartClick(chart) {
     // Show the image for the clicked date.
     var equalDate = ee.Filter.equals('system:time_start', xValue);
     var image = ee.Image(filteredS3.filter(equalDate).first()); // Use filteredS3 instead of s3
-    
 
-    
     // Work out for each pixel what the intensity of the solar radiation.
     var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos().max(0);
     
     var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage).min(5).rename('brightnessNorm');
 
-    var normImage = image.multiply(brightnessNormalisationImage).set(image.getInfo());
-    print(normImage);
+    var normImage = image.multiply(brightnessNormalisationImage);
+    // Restore the properties to the original image
+    //var normImageWithMetadata = normImage.set({'properties': image.get('properties')});
+    //print(normImageWithMetadata);
+    print(image.multiply(1.1));
     var solarZenithLayer = ui.Map.Layer(brightnessNormalisationImage, {
       min: 0,
       max: 5,
