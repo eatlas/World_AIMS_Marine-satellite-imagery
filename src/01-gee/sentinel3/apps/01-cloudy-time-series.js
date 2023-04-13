@@ -201,15 +201,15 @@ function normaliseSolarBrightness(image) {
   // Work out for each pixel what the intensity of the solar radiation.
   var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos().max(0);
   
-  // Limit the brightness compensation to 5 so we don't have 1/0 issues. All
-  // images should be in the 1 - 1.5 range anyway. 
+  // Limit the brightness compensation to 10 so we don't have 1/0 issues. All
+  // images should be in the 1 - 4 range anyway. 
   var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage)
-    .min(5).rename('brightnessNorm');
+    .min(10).rename('brightnessNorm');
   
   // adjust the brightness of the image and restore the image attributes
   var normImage = image.multiply(brightnessNormalisationImage)
     //.copyProperties(image, image.propertyNames());
-  return brightnessNormalisationImage;
+  return normImage;
 }
 
 var sfLayer;
@@ -247,7 +247,7 @@ function handleChartClick(chart) {
       //bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
       
       min: 1, // a03 40 30 25
-      max: 2, 
+      max: 3, 
     }, 'Sentinel 3');
     
     
