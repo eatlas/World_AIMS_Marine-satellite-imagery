@@ -183,7 +183,7 @@ function createSolarZenithImage(image) {
       'hourAngle': solarHourAngle
     }
   );
-  return solarZenith.acos().rename('solarZenithRad');
+  return solarZenith.acos().rename('solarZenithRad').clip(image.geometry();
   //return solarHourAngle.multiply(180/Math.PI).rename('latitude');
   //var clippedSolarZenith = solarZenith.acos().multiply(180 / Math.PI).clip(image.geometry());
   //return clippedSolarZenith.updateMask(image.select('Oa04_radiance').mask());
@@ -208,13 +208,13 @@ function handleChartClick(chart) {
     // Work out for each pixel what the intensity of the solar radiation.
     var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos().max(0);
     
-    var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage).min(5);
+    var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage).min(5).rename('brightnessNorm');
 
     var solarZenithLayer = ui.Map.Layer(brightnessNormalisationImage, {
       min: 0,
       max: 5,
       palette: ['000000', 'FFFFFF'],
-      bands: ['solarZenithRad']
+      bands: ['brightnessNorm']
     }, 'Solar Zenith Angle');
     
     Map.layers().add(solarZenithLayer);
