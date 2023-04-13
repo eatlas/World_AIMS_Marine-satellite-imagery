@@ -21,7 +21,7 @@ var geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
 // demonstrate interactive charts.
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
-    .filterDate('2017-06-01', '2017-06-30')
+    .filterDate('2017-01-01', '2017-12-30')
     .select('Oa0[3-5]_radiance');
     
 
@@ -73,7 +73,7 @@ function updateChartAndMap(location) {
 
 
   // Filter images with reduced value less than 80.
-  filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 100));
+  filteredS3 = withBrightnessS3.filter(ee.Filter.lt('Oa04_brightness', 200));
 
   var chartOptions = {
     imageCollection: filteredS3.select('Oa04_radiance'),
