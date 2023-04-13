@@ -207,10 +207,12 @@ function handleChartClick(chart) {
     
     // Work out for each pixel what the intensity of the solar radiation.
     var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos().max(0);
+    
+    var brightnessNormalisationImage = ee.Number(1).divide(toaIncidentSolarFluxImage).min(5);
 
-    var solarZenithLayer = ui.Map.Layer(toaIncidentSolarFluxImage, {
+    var solarZenithLayer = ui.Map.Layer(brightnessNormalisationImage, {
       min: 0,
-      max: 1,
+      max: 5,
       palette: ['000000', 'FFFFFF'],
       bands: ['solarZenithRad']
     }, 'Solar Zenith Angle');
