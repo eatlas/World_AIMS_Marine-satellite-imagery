@@ -198,6 +198,15 @@ function createSolarZenithImage(image) {
 // This should compensate for brightness changes due to seasons, helping to
 // standardised the brightness over time and location. Assumes that the 
 // image contains the 'system:time_start' property.
+// Note: This normalisation DOES NOT WORK. While I can see any problem
+// with the math, the imagery does not change in brightness as much as
+// predicted by the math. For London on 21 Dec the normalisation is
+// about 5x but the ratio of the brightness between 21 Jun and 21 Dec is
+// only 1.3 - 1.8 depending on the band. This implies that there is some
+// existing compensation. To make matters worse the Sentinel 3 sensor is
+// brighter on the left and this has nothing to do with the solar zenith.
+// The sun is actually on the right side of the image and so this brightness
+// seems to be a calibration issue?
 function normaliseSolarBrightness(image) {
   // Work out for each pixel what the intensity of the solar radiation.
   var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos().max(0);
