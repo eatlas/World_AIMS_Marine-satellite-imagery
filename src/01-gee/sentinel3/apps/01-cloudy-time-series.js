@@ -207,9 +207,9 @@ function normaliseSolarBrightness(image) {
     .min(5).rename('brightnessNorm');
   
   // adjust the brightness of the image and restore the image attributes
-  var normImage = image; //.multiply(brightnessNormalisationImage)
+  var normImage = image.multiply(brightnessNormalisationImage)
     //.copyProperties(image, image.propertyNames());
-  return normImage;
+  return brightnessNormalisationImage;
 }
 
 var sfLayer;
