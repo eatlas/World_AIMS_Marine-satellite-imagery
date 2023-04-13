@@ -224,9 +224,9 @@ Map.add(label);
 function renderImage(image) {
   var red = image.select('Oa07_radiance').multiply(1.5).add(image.select('Oa09_radiance').multiply(2.1))
     .subtract(image.select('Oa14_radiance').multiply(0.15));
-  var green = mage.select('Oa05_radiance').multiply(1.65).add(image.select('Oa06_radiance').multiply(2.1))
+  var green = image.select('Oa05_radiance').multiply(1.65).add(image.select('Oa06_radiance').multiply(2.1))
     .subtract(image.select('Oa14_radiance').multiply(0.3));
-  var blue = mage.select('Oa04_radiance').multiply(3.9)
+  var blue = image.select('Oa04_radiance').multiply(3.9)
     .subtract(image.select('Oa14_radiance').multiply(0.9));
   return ee.Image.rgb(red, green, blue);
   //[1.5 * samples.B07 + 2.1 * samples.B09 - 0.15 * samples.B14, 1.65 * samples.B05 + 2.1 * samples.B06 - 0.3 * samples.B14, 3.9 * samples.B04 - samples.B14 * 0.9, samples.dataMask];
