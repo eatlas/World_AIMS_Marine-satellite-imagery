@@ -21,7 +21,7 @@ var geometry = /* color: #d63000 */ee.Geometry.MultiPoint(
 // demonstrate interactive charts.
     
 var s3 = ee.ImageCollection('COPERNICUS/S3/OLCI')
-    .filterDate('2017-01-01', '2017-03-30')
+    .filterDate('2017-06-01', '2017-08-30')
     .select('Oa0[3-5]_radiance');
     
 
@@ -246,7 +246,7 @@ function handleChartClick(chart) {
     var s3Layer = ui.Map.Layer(normImage, {
       gamma: 1.3,
       min: [25, 30, 40], // a03 40 30 25
-      max: [100, 110, 120], // a03 85 70 70
+      max: [150, 170, 200], // a03 85 70 70
       bands: ['Oa05_radiance', 'Oa04_radiance', 'Oa03_radiance']
       
       //min: 1, // a03 40 30 25
