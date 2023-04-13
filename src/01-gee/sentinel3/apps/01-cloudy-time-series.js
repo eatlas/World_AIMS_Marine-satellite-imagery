@@ -56,7 +56,7 @@ function updateChartAndMap(location) {
   // Normalise the brightness of the images over time using the angle of the sun
   var normS3 = areaFilteredS3.map(function(image) {
     return normaliseSolarBrightness(image);
-    });
+  });
   
   var chartS3 = normS3;
   // Calculate the brightness of the region and add this as a property
@@ -140,6 +140,8 @@ updateChartAndMap(initialLocation);
 // https://en.wikipedia.org/wiki/Hour_angle
 // https://en.wikipedia.org/wiki/Position_of_the_Sun
 function createSolarZenithImage(image) {
+  // Work out the image capture time from the image property. This works
+  // for Sentinel 3 images.
   var date = ee.Date(image.get('system:time_start'));
   var dayOfYear = date.getRelative('day', 'year').add(1);
 
@@ -158,8 +160,6 @@ function createSolarZenithImage(image) {
   // The math needs to be done in radians
   var angleOfNoon = ee.Number(Math.PI).subtract(date.getFraction('day').multiply(2*Math.PI));
 
-  //print(angleOfNoon.multiply(180/Math.PI));
-
   // solarDeclination =-arcsin [0.39779*cos(0.98565 deg(N+10)+1.914 deg * sin(0.98565 deg *(N-2)))]
   // Where N is the day of the year
   // At 21 Dec the solarDeclination should be -23.4 deg (-0.409 radians) (i.e. summer over southern hemisphere)
@@ -167,8 +167,6 @@ function createSolarZenithImage(image) {
   var solarDeclination = dayOfYear.add(10).multiply(0.98565*Math.PI/180)
     .add(dayOfYear.subtract(2).multiply(0.98565*Math.PI/180).sin().multiply(1.914*Math.PI/180))
     .cos().multiply(0.39779).asin().multiply(-1);
-
-  //print(solarDeclination.multiply(180/Math.PI));
 
   
   // The solarHourAngle is the angle from noon at any given location.
@@ -189,11 +187,9 @@ function createSolarZenithImage(image) {
     }
   );
   
-  // Remove the clip to see the effect over the full globe
+  // Convert to an angle, set the band name and clip to the extent of the original image
+  // Note: Remove the clip to see the effect over the full globe
   return solarZenith.acos().rename('solarZenithRad').clip(image.geometry());
-  //return solarHourAngle.multiply(180/Math.PI).rename('latitude');
-  //var clippedSolarZenith = solarZenith.acos().multiply(180 / Math.PI).clip(image.geometry());
-  //return clippedSolarZenith.updateMask(image.select('Oa04_radiance').mask());
 }
 
 // This function adjusts the brightness of the image based on the incident
