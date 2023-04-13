@@ -120,7 +120,7 @@ function updateChartAndMap(location) {
 
 
 // Initial location.
-var initialLocation = {lon: 0, lat: 0};
+var initialLocation = {lon: 0, lat: 51};
 updateChartAndMap(initialLocation);
 
 // Update the location when the map is clicked.
