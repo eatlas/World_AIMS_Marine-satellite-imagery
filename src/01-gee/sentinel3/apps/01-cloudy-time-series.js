@@ -50,12 +50,15 @@ function updateChartAndMap(location) {
     var areaRatio = intersectionAreaRatio(image, region);
   
     // Only consider images with coverage ratio greater than or equal to 0.99 (you can adjust this value)
-    return ee.Algorithms.If(areaRatio.gte(0.0), image.set('areaRatio', areaRatio), image.set('areaRatio', null));
+    return ee.Algorithms.If(areaRatio.gte(0.99), image.set('areaRatio', areaRatio), image.set('areaRatio', null));
   }).filter(ee.Filter.notNull(['areaRatio']));
   
-     
-// Calculate the brightness of the region and add this as a property
-  var withBrightnessS3 = areaFilteredS3.map(function(image) {
+  // Normalise the brightness of the images over time using the angle of the sun
+  var normS3 = areaFilteredS3.map(normaliseSolarBrightness());
+  
+  var chartS3 = normS3;
+  // Calculate the brightness of the region and add this as a property
+  var withBrightnessS3 = chartS3.map(function(image) {
     var reducedValue = image.reduceRegion({
       reducer: ee.Reducer.percentile([95]),
       geometry: region,
@@ -191,13 +194,22 @@ function createSolarZenithImage(image) {
   //return clippedSolarZenith.updateMask(image.select('Oa04_radiance').mask());
 }
 
+// This function adjusts the brightness of the image based on the incident
+// radiation across the scene, using the location and time of the image.
+// This should compensate for brightness changes due to seasons, helping to
+// standardised the brightness over time and location.
 function normaliseSolarBrightness(image) {
   // Work out for each pixel what the intensity of the solar radiation.
   var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos().max(0);
     
   var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage).min(5).rename('brightnessNorm');
   
+  // adjust the brightness of the image and restore the image attributes
+  var normImage = image.multiply(brightnessNormalisationImage)
+    .copyProperties(image, image.propertyNames());
+  return normImage;
 }
+
 var sfLayer;
 
 // Create a label on the map.
@@ -217,11 +229,14 @@ function handleChartClick(chart) {
     
     var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage).min(5).rename('brightnessNorm');
 
-    var normImage = image.multiply(brightnessNormalisationImage);
+    // adjust the brightness of the image and restore the image attributes
+    var normImage = image.multiply(brightnessNormalisationImage)
+      .copyProperties(image, image.propertyNames());
+
     // Restore the properties to the original image
     //var normImageWithMetadata = normImage.set({'properties': image.get('properties')});
     //print(normImageWithMetadata);
-    print(image.multiply(1.1));
+    print(image.multiply(1.1).copyProperties(image, image.propertyNames()));
     var solarZenithLayer = ui.Map.Layer(brightnessNormalisationImage, {
       min: 0,
       max: 5,
