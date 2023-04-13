@@ -66,7 +66,8 @@ function updateChartAndMap(location) {
       reducer: ee.Reducer.percentile([95]),
       geometry: region,
       scale: 10000,
-      bestEffort: true
+      bestEffort: true,
+      
     }).get('Oa04_radiance');
     return image.set('Oa04_brightness',reducedValue);
   });
