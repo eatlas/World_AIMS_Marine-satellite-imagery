@@ -173,7 +173,9 @@ function createSolarZenithImage(image) {
   var solarHourAngle = ee.Image.pixelLonLat().select('longitude').multiply(Math.PI/180)
         .subtract(angleOfNoon); //.divide(15*Math.PI/180);
         
-  //print(solarHourAngle.multiply(180/Math.PI));
+
+  // https://en.wikipedia.org/wiki/Solar_zenith_angle
+  // solarZenithAngle = acos(sin(latitude)*sin(declination)+cos(latitude)*cos(declination)*cos(hourAngle))
   var solarZenith = ee.Image().expression(
     "cos(latitude) * cos(declination) * cos(hourAngle) + sin(latitude) * sin(declination)", {
       'latitude': ee.Image.pixelLonLat().select('latitude').multiply(Math.PI / 180),
@@ -181,8 +183,8 @@ function createSolarZenithImage(image) {
       'hourAngle': solarHourAngle
     }
   );
-  //return solarZenith.acos().multiply(180 / Math.PI);
-  return solarHourAngle.multiply(180/Math.PI).rename('latitude');
+  return solarZenith.acos().multiply(180 / Math.PI);
+  //return solarHourAngle.multiply(180/Math.PI).rename('latitude');
   //var clippedSolarZenith = solarZenith.acos().multiply(180 / Math.PI).clip(image.geometry());
   //return clippedSolarZenith.updateMask(image.select('Oa04_radiance').mask());
 }
