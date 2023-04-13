@@ -227,6 +227,7 @@ function handleChartClick(chart) {
     var image = ee.Image(filteredS3.filter(equalDate).first()); // Use filteredS3 instead of s3
 
     var normImage = normaliseSolarBrightness(image);
+    print(normImage);
     /*var solarZenithLayer = ui.Map.Layer(brightnessNormalisationImage, {
       min: 0,
       max: 5,
@@ -239,7 +240,7 @@ function handleChartClick(chart) {
     // Map the custom function to the Sentinel-3 OLCI collection
     //var imageScaled = applyRadianceScaling(image);
     print(image); 
-    var s3Layer = ui.Map.Layer(normImage, {
+    var s3Layer = ui.Map.Layer(image, {
       gamma: 1.3,
       //min: [25, 30, 40], // a03 40 30 25
       //max: [70, 75, 85], // a03 85 70 70
