@@ -246,8 +246,14 @@ function handleChartClick(chart) {
     var s3LayerRGB = ui.Map.Layer(rgbImage, {
       gamma: 1,
       min: 0,
-      max: 255,
+      max: 500,
     }, 'Sentinel 3 RGB');
+    
+    var s3LayerNoNorm = ui.Map.Layer(renderImage(image), {
+      gamma: 1,
+      min: 0,
+      max: 500,
+    }, 'Sentinel 3 No Norm');
     
     print(normImage);
     /*var solarZenithLayer = ui.Map.Layer(brightnessNormalisationImage, {
@@ -274,7 +280,7 @@ function handleChartClick(chart) {
     
     
     //Map.layers().reset([s3Layer, s3LayerRGB, sfLayer]);
-    Map.layers().reset([s3LayerRGB, sfLayer]);
+    Map.layers().reset([s3LayerRGB, s3LayerNoNorm, sfLayer]);
 
     // Show a label with the date on the map.
     label.setValue((new Date(xValue)).toUTCString());
