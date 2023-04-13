@@ -206,7 +206,7 @@ function handleChartClick(chart) {
 
     
     // Work out for each pixel what the intensity of the solar radiation.
-    var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos();
+    var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos().max(0);
 
     var solarZenithLayer = ui.Map.Layer(toaIncidentSolarFluxImage, {
       min: 0,
