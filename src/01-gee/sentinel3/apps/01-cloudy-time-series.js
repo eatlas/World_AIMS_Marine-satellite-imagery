@@ -261,7 +261,7 @@ function handleChartClick(chart) {
     */
     // Map the custom function to the Sentinel-3 OLCI collection
     //var imageScaled = applyRadianceScaling(image);
-    print(image); 
+   /* print(image); 
     var s3Layer = ui.Map.Layer(normImage, {
       gamma: 1.3,
       min: [25, 30, 40], // a03 40 30 25
@@ -270,10 +270,11 @@ function handleChartClick(chart) {
       
       //min: 1, // a03 40 30 25
       //max: 3, 
-    }, 'Sentinel 3');
+    }, 'Sentinel 3'); */
     
     
-    Map.layers().reset([s3Layer, s3LayerRGB, sfLayer]);
+    //Map.layers().reset([s3Layer, s3LayerRGB, sfLayer]);
+    Map.layers().reset([s3LayerRGB, sfLayer]);
 
     // Show a label with the date on the map.
     label.setValue((new Date(xValue)).toUTCString());
