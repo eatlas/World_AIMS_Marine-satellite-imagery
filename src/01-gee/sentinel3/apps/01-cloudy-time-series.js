@@ -219,7 +219,7 @@ function handleChartClick(chart) {
     
     var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage).min(5).rename('brightnessNorm');
 
-    var normImage = image.multiply(brightnessNormalisationImage);
+    var normImage = image.multiply(brightnessNormalisationImage).set(image.getInfo());
     print(normImage);
     var solarZenithLayer = ui.Map.Layer(brightnessNormalisationImage, {
       min: 0,
