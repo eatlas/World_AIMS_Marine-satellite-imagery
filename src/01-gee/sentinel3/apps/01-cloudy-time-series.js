@@ -183,7 +183,7 @@ function createSolarZenithImage(image) {
       'hourAngle': solarHourAngle
     }
   );
-  return solarZenith.acos().rename('solarZenithRad').clip(image.geometry();
+  return solarZenith.acos().rename('solarZenithRad').clip(image.geometry());
   //return solarHourAngle.multiply(180/Math.PI).rename('latitude');
   //var clippedSolarZenith = solarZenith.acos().multiply(180 / Math.PI).clip(image.geometry());
   //return clippedSolarZenith.updateMask(image.select('Oa04_radiance').mask());
