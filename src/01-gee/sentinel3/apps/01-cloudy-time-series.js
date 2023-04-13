@@ -58,7 +58,7 @@ function updateChartAndMap(location) {
     return normaliseSolarBrightness(image);
   });
   
-  var chartS3 = normS3;
+  var chartS3 = areaFilteredS3;
   // Calculate the brightness of the region and add this as a property
   var withBrightnessS3 = chartS3.map(function(image) {
     var reducedValue = image.reduceRegion({
@@ -199,8 +199,11 @@ function createSolarZenithImage(image) {
 function normaliseSolarBrightness(image) {
   // Work out for each pixel what the intensity of the solar radiation.
   var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos().max(0);
-    
-  var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage).min(5).rename('brightnessNorm');
+  
+  // Limit the brightness compensation to 5 so we don't have 1/0 issues. All
+  // images should be in the 1 - 1.5 range anyway. 
+  var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage)
+    .min(5).rename('brightnessNorm');
   
   // adjust the brightness of the image and restore the image attributes
   var normImage = image.multiply(brightnessNormalisationImage)
