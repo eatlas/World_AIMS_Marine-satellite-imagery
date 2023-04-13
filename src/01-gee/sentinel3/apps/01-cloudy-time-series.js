@@ -191,6 +191,13 @@ function createSolarZenithImage(image) {
   //return clippedSolarZenith.updateMask(image.select('Oa04_radiance').mask());
 }
 
+function normaliseSolarBrightness(image) {
+  // Work out for each pixel what the intensity of the solar radiation.
+  var toaIncidentSolarFluxImage = createSolarZenithImage(image).cos().max(0);
+    
+  var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage).min(5).rename('brightnessNorm');
+  
+}
 var sfLayer;
 
 // Create a label on the map.
@@ -212,6 +219,8 @@ function handleChartClick(chart) {
     
     var brightnessNormalisationImage = ee.Image.constant(1).divide(toaIncidentSolarFluxImage).min(5).rename('brightnessNorm');
 
+    var normImage = image.multiply(brightnessNormalisationImage);
+    print(normImage);
     var solarZenithLayer = ui.Map.Layer(brightnessNormalisationImage, {
       min: 0,
       max: 5,
