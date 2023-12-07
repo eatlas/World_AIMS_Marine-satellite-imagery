@@ -277,7 +277,7 @@ tileID = '54LVH';      // Gulf of Carpentaria, South East (2 north of Karumba) (
                       // recognising dark substrates due to the seagrass meadows.
 tileID = '51KWB';   // King Sound 
 tileID = '51LWC';   // Buccaneer Archipelago
-tileID = '51LXC';   // Montgomery Reef
+//tileID = '51LXC';   // Montgomery Reef
 //tileID = '51KXB';   // Wallcott Inlet
                       
 
