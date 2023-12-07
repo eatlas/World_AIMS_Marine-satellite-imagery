@@ -278,7 +278,7 @@ tileID = '54LVH';      // Gulf of Carpentaria, South East (2 north of Karumba) (
 tileID = '51KWB';   // King Sound 
 tileID = '51LWC';   // Buccaneer Archipelago
 tileID = '51LXC';   // Montgomery Reef
-tileID = '51KXB';   // Wallcott Inlet
+//tileID = '51KXB';   // Wallcott Inlet
                       
 
 // ============== Speed run =====================
