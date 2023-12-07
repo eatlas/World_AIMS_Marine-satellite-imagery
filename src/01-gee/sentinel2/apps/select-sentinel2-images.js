@@ -13,10 +13,10 @@
 // === README: Change the path to your local copy of the s2Utils code ====
 // The path to the util code must be an absolute path including the
 // username and repository
-var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/gee/s2Utils.js');
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/01-gee/sentinel2/s2Utils.js');
  
 // Date range to iterate through the Sentinel 2 imagery.
-var START_DATE = '2023-01-01';
+var START_DATE = '2022-01-01';
 var END_DATE = '2023-12-01';
 
 //var START_DATE = '2020-10-29';
@@ -30,7 +30,7 @@ var END_DATE = '2023-12-01';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 10;
+var CLOUDY_PIXEL_PERCENTAGE = 2;
 
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
