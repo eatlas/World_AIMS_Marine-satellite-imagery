@@ -1869,7 +1869,7 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     //var deepFalse_composite = exports.bake_s2_colour_grading(composite, 'DeepFalsePreview', includeCloudmask);
     //Map.addLayer(deepFalse_composite, visParams, 'Sentinel-2 DeefFalse',true);
     var trueColour_composite = exports.bake_s2_colour_grading(composite, 'TrueColour', includeCloudmask);
-    Map.addLayer(deepFalse_composite, visParams, 'Sentinel-2 TrueColour',true);
+    Map.addLayer(trueColour_composite, visParams, 'Sentinel-2 TrueColour',true);
     nextButton.setDisabled(selectedIndex >= collectionLength - 1);
     prevButton.setDisabled(selectedIndex <= 0);
   };
