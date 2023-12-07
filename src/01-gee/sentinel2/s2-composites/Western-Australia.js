@@ -1,4 +1,4 @@
-var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/gee/s2Utils.js');
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/01-gee/sentinel2/s2Utils.js');
 
 // Primary imagery
 var REF1_OPTIONS = {
@@ -149,7 +149,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220722T020449_20220722T020606_T51KWB",
     "COPERNICUS/S2_HARMONIZED/20220727T020501_20220727T020455_T51KWB"
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
   
 s2Utils.s2_composite_display_and_export(
   [
@@ -159,12 +159,12 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220520T015619_20220520T015844_T51KWB",
     "COPERNICUS/S2_HARMONIZED/20220704T015631_20220704T015634_T51KWB",
 
-    // Low tid left
+    // Low tide left
     "COPERNICUS/S2_HARMONIZED/20220423T020439_20220423T021004_T51KWB",
     "COPERNICUS/S2_HARMONIZED/20220801T020449_20220801T020606_T51KWB",
     "COPERNICUS/S2_HARMONIZED/20220806T020501_20220806T020456_T51KWB"
   ],
-  false, false, REF2_OPTIONS);
+  false, true, REF2_OPTIONS);
   
 
 // 49KGR - Australia, WA, Ningaloo reef
