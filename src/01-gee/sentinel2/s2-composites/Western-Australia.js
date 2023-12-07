@@ -7,7 +7,7 @@ var REF1_OPTIONS = {
   
   //colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
   //exportScale: [10, 10, 10, 10],
-  colourGrades: ['Shallow'],
+  colourGrades: ['TrueColour'],
   exportScale: [10],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Western-Australia',
