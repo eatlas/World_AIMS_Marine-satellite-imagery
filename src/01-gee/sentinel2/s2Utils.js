@@ -1778,7 +1778,7 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
   var s2Tiles = ee.FeatureCollection("users/ericlawrey/World_ESA_Sentinel-2-tiling-grid");
   // Find all the images that correspond to the specied tile that are in the
   // date range and with a suitable cloud cover.
-  var images = ee.ImageCollection('COPERNICUS/S2')
+  var images = ee.ImageCollection('COPERNICUS/S2_HARMONIZED')
       .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', cloudPixelPercentage))
       .filter(ee.Filter.gt('system:asset_size', 100E6))  // Remove small fragments of tiles
       .filterDate(ee.Date(startDate), ee.Date(endDate))
