@@ -68,7 +68,7 @@
 //                 For this reason the final threshold was chosen to match those scenes with clearer
 //                 water as this would better match the Coral Sea. The difference in the thresholds
 //                 results in approxiately 3 m difference between scenes.
-// Version v1.5.2  Switched to using COPERNICUS/S2_HARMONIZED
+// Version v1.5.2  Switched to using COPERNICUS/S2_HARMONIZED. Switch select-sentinel2-images to TrueColour
 
 /**
 * @module s2Utils
