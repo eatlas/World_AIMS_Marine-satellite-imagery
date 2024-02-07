@@ -1398,6 +1398,9 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
   // This can be an improvement for the future.
   var B8LAND_THRESHOLD = 1600; 
   
+  var B11contrast;
+  var B8contrast;
+  var B5contrast;
   var B4contrast;
   var B3contrast;
   var B2contrast;
@@ -1514,12 +1517,19 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     compositeContrast = B4contrast;
   } else if (colourGradeStyle === 'Shallow') {
 
-    var B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.02,0.7, 3);
-    var B8contrast = exports.contrastEnhance(scaled_img.select('B8'),0.013,0.7, 3);
-    var B11contrast = exports.contrastEnhance(scaled_img.select('B11'),0.005,0.7, 3);
+    B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.02,0.7, 3);
+    B8contrast = exports.contrastEnhance(scaled_img.select('B8'),0.013,0.7, 3);
+    B11contrast = exports.contrastEnhance(scaled_img.select('B11'),0.005,0.7, 3);
     compositeContrast = ee.Image.rgb(B11contrast, B8contrast, B5contrast);
 
-  }  else if (colourGradeStyle === 'Slope') {
+  }  else if (colourGradeStyle === 'Infrared') {
+
+    B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.0,1.0, 1);
+    B8contrast = exports.contrastEnhance(scaled_img.select('B8'),0.0,1.0, 1);
+    B11contrast = exports.contrastEnhance(scaled_img.select('B11'),0.0,1.0, 1);
+    compositeContrast = ee.Image.rgb(B11contrast, B8contrast, B5contrast);
+
+  } else if (colourGradeStyle === 'Slope') {
     
     // The slope calculation requires that the image is in a projection with 
     // units of metres. By default composite images (those from a ee.Reduce())
