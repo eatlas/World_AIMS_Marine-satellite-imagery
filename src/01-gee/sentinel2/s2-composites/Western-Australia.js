@@ -289,4 +289,4 @@ imgIds = [
     "COPERNICUS/S2/20170717T024319_20170717T024321_T49KGQ", // 2
     "COPERNICUS/S2/20170806T024319_20170806T024320_T49KGQ"  // 2
 ];
-s2Utils.s2_composite_display_and_export(imgIds, true, false, REF1_OPTIONS);
+s2Utils.s2_composite_display_and_export(imgIds, false, false, REF1_OPTIONS);
