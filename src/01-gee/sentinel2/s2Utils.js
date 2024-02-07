@@ -69,7 +69,10 @@
 //                 water as this would better match the Coral Sea. The difference in the thresholds
 //                 results in approxiately 3 m difference between scenes.
 // Version v1.5.2  Switched to using COPERNICUS/S2_HARMONIZED. Switch select-sentinel2-images to TrueColour
-
+// Version v1.5.3  Added filtering to ensure the processing only includes the expected bands. Seems
+//                 that Google added some bands that broke a rename operation. Added the 'Infrared' 
+//                 styling. This is to allow the development of Land masking imagery. I used 
+//                 a gamma of 2 to allow more detail to be retained in dark areas when store in 8 bit.
 /**
 * @module s2Utils
 * 
@@ -492,10 +495,10 @@ exports.s2_composite = function(imageIds, sunglintCorrectionLevel, applyBrightne
 
   // Filter the collection to only include the specified bands
   var filteredCollection = composite_collection.select(IMG_BANDS);
-  var reducedCollection = filteredCollection
-      .reduce(ee.Reducer.percentile([50],["p50"]));
-  print(reducedCollection);
-  var compositeNoCloudMask  = reducedCollection.rename(IMG_BANDS);
+  
+  var compositeNoCloudMask = filteredCollection
+      .reduce(ee.Reducer.percentile([50],["p50"]))
+      .rename(IMG_BANDS);
   
   // Only process with cloud mask if there is more than one image
   if (imageIds.length > 1) {    
