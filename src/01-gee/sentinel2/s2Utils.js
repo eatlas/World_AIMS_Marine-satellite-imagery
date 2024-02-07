@@ -490,9 +490,10 @@ exports.s2_composite = function(imageIds, sunglintCorrectionLevel, applyBrightne
   var IMG_BANDS = ['B1','B2','B3','B4','B5','B6','B7','B8',
         'B8A','B9','B10','B11','B12','QA10','QA20','QA60'];
       
-  var compositeNoCloudMask = composite_collection
+  var reducedCollection = composite_collection
       .reduce(ee.Reducer.percentile([50],["p50"]))
-      .rename(IMG_BANDS);
+  print(reducedCollection);
+  var compositeNoCloudMask  = reducedCollection.rename(IMG_BANDS);
   
   // Only process with cloud mask if there is more than one image
   if (imageIds.length > 1) {    
@@ -1510,7 +1511,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     B4contrast = exports.contrastEnhance(B4Filtered,0.018,0.019, 1);
     compositeContrast = B4contrast;
   } else if (colourGradeStyle === 'Shallow') {
-    print(scaled_img);
+
     var B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.02,0.7, 3);
     var B8contrast = exports.contrastEnhance(scaled_img.select('B8'),0.013,0.7, 3);
     var B11contrast = exports.contrastEnhance(scaled_img.select('B11'),0.005,0.7, 3);
