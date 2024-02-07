@@ -1523,7 +1523,9 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     compositeContrast = ee.Image.rgb(B11contrast, B8contrast, B5contrast);
 
   }  else if (colourGradeStyle === 'Infrared') {
-
+    // Use sqrt and range limiting to ensure that a decent amount of information
+    // about dark features are retained when encoded in 8 bit rather then the
+    // original 16 bit.
     B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.0,0.7, 2);
     B8contrast = exports.contrastEnhance(scaled_img.select('B8'),0.0,0.7, 2);
     B11contrast = exports.contrastEnhance(scaled_img.select('B11'),0.0,0.7, 2);
