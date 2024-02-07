@@ -22,7 +22,7 @@ var REF2_OPTIONS = {
   
   //colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
   //exportScale: [10, 10, 10, 10],
-  colourGrades: ['Shallow'],
+  colourGrades: ['TrueColour'],
   exportScale: [10],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R2',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Western-Australia',
@@ -44,7 +44,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20230729T015621_20230729T015624_T51KXB",
     "COPERNICUS/S2_HARMONIZED/20220709T015629_20220709T015849_T51KXB",
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
 s2Utils.s2_composite_display_and_export(
   [
@@ -57,7 +57,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220902T015631_20220902T015633_T51KXB",
     "COPERNICUS/S2_HARMONIZED/20220917T015619_20220917T015846_T51KXB"
   ],
-  false, true, REF2_OPTIONS);
+  false, false, REF2_OPTIONS);
   
 // 51LXC - Australia, WA, Montgomery Reef
 // CLOUDY_PIXEL_PERCENTAGE = 2
@@ -76,7 +76,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20230813T015629_20230813T015624_T51LXC",
     "COPERNICUS/S2_HARMONIZED/20230828T015631_20230828T015625_T51LXC"
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
   s2Utils.s2_composite_display_and_export(
   [
@@ -92,7 +92,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20230808T015621_20230808T015624_T51LXC",
     "COPERNICUS/S2_HARMONIZED/20230823T015629_20230823T015623_T51LXC"
   ],
-  false, true, REF2_OPTIONS);
+  false, false, REF2_OPTIONS);
 
 // 51LWC - Australia, WA, Buccaneer Archipelago
 // CLOUDY_PIXEL_PERCENTAGE = 2
@@ -113,7 +113,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220727T020501_20220727T020455_T51LWC",
     "COPERNICUS/S2_HARMONIZED/20220907T015619_20220907T015846_T51LWC"
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
   s2Utils.s2_composite_display_and_export(
   [
@@ -123,7 +123,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220722T020449_20220722T020606_T51LWC",
     "COPERNICUS/S2_HARMONIZED/20220821T020449_20220821T020602_T51LWC"
   ],
-  false, true, REF2_OPTIONS);
+  false, false, REF2_OPTIONS);
   
 // 51KWB - Australia, WA, King Sound
 // CLOUDY_PIXEL_PERCENTAGE = 2
