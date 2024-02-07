@@ -22,7 +22,7 @@ var REF2_OPTIONS = {
   
   //colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
   //exportScale: [10, 10, 10, 10],
-  colourGrades: ['TrueColour'],
+  colourGrades: ['Infrared'],
   exportScale: [10],
   exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R2',
   exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Western-Australia',
@@ -149,7 +149,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220722T020449_20220722T020606_T51KWB",
     "COPERNICUS/S2_HARMONIZED/20220727T020501_20220727T020455_T51KWB"
   ],
-  true, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
   
 s2Utils.s2_composite_display_and_export(
   [
@@ -164,7 +164,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220801T020449_20220801T020606_T51KWB",
     "COPERNICUS/S2_HARMONIZED/20220806T020501_20220806T020456_T51KWB"
   ],
-  false, false, REF2_OPTIONS);
+  false, true, REF2_OPTIONS);
   
 
 // 49KGR - Australia, WA, Ningaloo reef
