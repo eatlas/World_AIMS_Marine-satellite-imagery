@@ -492,7 +492,7 @@ exports.s2_composite = function(imageIds, sunglintCorrectionLevel, applyBrightne
 
   // Filter the collection to only include the specified bands
   var filteredCollection = composite_collection.select(IMG_BANDS);
-  var reducedCollection = composite_collection
+  var reducedCollection = filteredCollection
       .reduce(ee.Reducer.percentile([50],["p50"]));
   print(reducedCollection);
   var compositeNoCloudMask  = reducedCollection.rename(IMG_BANDS);
