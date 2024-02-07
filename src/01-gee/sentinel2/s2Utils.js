@@ -1524,9 +1524,9 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
 
   }  else if (colourGradeStyle === 'Infrared') {
 
-    B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.0,1.0, 1);
-    B8contrast = exports.contrastEnhance(scaled_img.select('B8'),0.0,1.0, 1);
-    B11contrast = exports.contrastEnhance(scaled_img.select('B11'),0.0,1.0, 1);
+    B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.0,0.7, 2);
+    B8contrast = exports.contrastEnhance(scaled_img.select('B8'),0.0,0.7, 2);
+    B11contrast = exports.contrastEnhance(scaled_img.select('B11'),0.0,0.7, 2);
     compositeContrast = ee.Image.rgb(B11contrast, B8contrast, B5contrast);
 
   } else if (colourGradeStyle === 'Slope') {
