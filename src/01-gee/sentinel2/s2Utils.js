@@ -1510,7 +1510,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     B4contrast = exports.contrastEnhance(B4Filtered,0.018,0.019, 1);
     compositeContrast = B4contrast;
   } else if (colourGradeStyle === 'Shallow') {
-    //print(scaled_img);
+    print(scaled_img);
     var B5contrast = exports.contrastEnhance(scaled_img.select('B5'),0.02,0.7, 3);
     var B8contrast = exports.contrastEnhance(scaled_img.select('B8'),0.013,0.7, 3);
     var B11contrast = exports.contrastEnhance(scaled_img.select('B11'),0.005,0.7, 3);
