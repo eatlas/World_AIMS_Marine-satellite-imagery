@@ -489,9 +489,11 @@ exports.s2_composite = function(imageIds, sunglintCorrectionLevel, applyBrightne
   // All the bands to process  
   var IMG_BANDS = ['B1','B2','B3','B4','B5','B6','B7','B8',
         'B8A','B9','B10','B11','B12','QA10','QA20','QA60'];
-      
+
+  // Filter the collection to only include the specified bands
+  var filteredCollection = composite_collection.select(IMG_BANDS);
   var reducedCollection = composite_collection
-      .reduce(ee.Reducer.percentile([50],["p50"]))
+      .reduce(ee.Reducer.percentile([50],["p50"]));
   print(reducedCollection);
   var compositeNoCloudMask  = reducedCollection.rename(IMG_BANDS);
   
