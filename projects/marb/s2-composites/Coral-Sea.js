@@ -9,8 +9,8 @@
 var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/01-gee/sentinel2/s2Utils.js');
 
 
-REGION = 'Coral-Sea'
-PROJECT = 'marb'
+var REGION = 'Coral-Sea';
+var PROJECT = 'marb';
 
 var REF1_OPTIONS = {
   colourGrades: ['TrueColour', 'Infrared'],
@@ -23,7 +23,7 @@ var REF1_OPTIONS = {
 };
 
 var REF2_OPTIONS = REF1_OPTIONS;
-REF2_OPTIONS.exportBasename = 'World_AIMS_Marine-sat-imagery_S2_R2'
+REF2_OPTIONS.exportBasename = 'World_AIMS_Marine-sat-imagery_S2_R2';
 
 
 // ======== Flinders, Dart Heralds Surprise (Coral Sea) =========
