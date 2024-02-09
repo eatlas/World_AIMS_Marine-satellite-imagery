@@ -11,7 +11,7 @@ var REF1_OPTIONS = {
   colourGrades: ['TrueColour', 'Infrared'],
   exportScale: [10, 20],
   exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
-  exportFolder: f'EarthEngine/World_AIMS_Marine-sat-imagery/{PROJECT}/{REGION}',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/'+PROJECT+'/'+REGION,
   
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
