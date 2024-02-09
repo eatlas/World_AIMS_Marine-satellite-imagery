@@ -11,8 +11,6 @@
 # To run this Python script you will need GDAL installed and available in the same
 # environment as this script.
 
-
-
 import os
 import subprocess
 import glob
@@ -22,42 +20,45 @@ import math
 # Here we assume that the directory structure is that the SRC_PATH points to
 # the images downloaded from GEE organised into folders corresponding to
 # regions.
-# Two versions of the imagery are produced. A lossless version very similar
-# to the original imagery from GEE is saved to the pearl-only directory.
-# This imagery is large and is only needed for regenerating the output.
-# It is not intended to be published due to the large image file sizes.
-# A public version is also generated that saves the imagery using low
-# compression JPEG. This format is 4x smaller than the raw output.
-# This is saved in OUT_LOSSY.
-# unprocessed-data
+# SRC_PATH
 #     - CoralSea
 #       - *.tif
-#     - Global
+#     - Western-Australia
 #       - *.tif
-# OUT_LOSSLESS
-#     - CoralSea
-#       - S2_R1_DeepFalse
-#         - *.tif
+# OUT_BASE
+#     - lossless
+#       - Coral-Sea
+#         - S2_R1_DeepFalse
+#           - *.tif
+#     - preview
+#       - Coral-Sea
+#         - S2_R1_DeepFalse
+#           - *.tif
 #       ...
-SRC_PATH = '../../unprocessed-data'
-#SRC_PATH = '../../big-files/lossless'   # Use this path if you need to reprocess 
-										# existing data
-OUT_PATH = '../../big-files/data'
 
-MAKE_LOSSLESS = True			# Lossless GeoTiff format with overviews and tiling
-MAKE_LOSSY = False			# Lossy version of dataset (This is not used because we found that
-							# the chroma compression in JPEG was unsuitable for digitisation, and
-							# the masking of the borders didn't work correctly).
-MAKE_PREVIEW = True		# JPEG preview image, suitable for browsing on the web`
-MAKE_GEOPNG = False			# Quartered PNG images with worldfiles for viewing on iPad
-MAKE_VIRTUAL = True		# Virtual raster (GDAL) that makes all the lossless images appear
-							# as a single image mosaic when loaded into QGIS.
+# All files associated with a project are grouped into a subfolder. Should be short.
+PROJECT = 'marb'
+
+SRC_PATH = f'../../unprocessed-data/{PROJECT}'
+
+# Base path for the files to be processed
+OUT_BASE = f'../../big-files/{PROJECT}'
 
 
-OUT_LOSSLESS = '../../big-files/lossless/' # Lossless original data (with minor fix ups)
-OUT_LOSSY = '../../big-files/lossy'	# Compressed version of the data suitable for sharing 
-OUT_GEOPNG = '../../big-files/geopng'
-OUT_PREVIEW = '../../big-files/preview'	# Path for preview images
+MAKE_LOSSLESS = True # Lossless GeoTiff format with overviews and tiling
+MAKE_LOSSY = False   # Lossy version of dataset (This is not used because we found that
+                     # the chroma compression in JPEG was unsuitable for digitisation, and
+                     # the masking of the borders didn't work correctly).
+MAKE_PREVIEW = True  # JPEG preview image, suitable for browsing on the web`
+MAKE_GEOPNG = False  # Quartered PNG images with worldfiles for viewing on iPad
+MAKE_VIRTUAL = True  # Virtual raster (GDAL) that makes all the lossless images appear
+                     # as a single image mosaic when loaded into QGIS.
+
+
+OUT_LOSSLESS = f'{OUT_BASE}/lossless/' # Lossless original data (with minor fix ups)
+OUT_LOSSY = f'{OUT_BASE}/lossy' # Compressed version of the data suitable for sharing 
+OUT_GEOPNG = f'{OUT_BASE}/geopng'
+OUT_PREVIEW = f'{OUT_BASE}/preview' # Path for preview images
 
 
 if not os.path.exists(OUT_LOSSLESS) and MAKE_LOSSLESS:
@@ -74,11 +75,11 @@ if not os.path.exists(OUT_LOSSY) and MAKE_LOSSY:
 # to limit the amount of parsing that is needed in this script.
 styles = [
 	'S2_R1_DeepMarine','S2_R2_DeepMarine','L8_R1_DeepMarine','L8_R2_DeepMarine',
-	'S2_R1_DeepFalse', 'S2_R2_DeepFalse','L8_R1_DeepFalse', 'L8_R2_DeepFalse',
-	'S2_R1_ReefTop', 'S2_R2_ReefTop','L8_R1_ReefTop', 'L8_R2_ReefTop',
-	'S2_R1_Shallow', 'S2_R2_Shallow','L8_R1_Shallow', 'L8_R2_Shallow',
-	'S2_R1_TrueColour', 'S2_R2_TrueColour','L8_R1_TrueColour', 'L8_R2_TrueColour',
-	'S2_R1_Slope', 'S2_R2_Slope','L8_R1_Slope', 'L8_R2_Slope'
+	'S2_R1_DeepFalse', 'S2_R2_DeepFalse','S2_LT1_DeepFalse', 'L8_R1_DeepFalse', 'L8_R2_DeepFalse',
+	'S2_R1_ReefTop', 'S2_R2_ReefTop', 'S2_LT1_ReefTop', 'L8_R1_ReefTop', 'L8_R2_ReefTop',
+	'S2_R1_Shallow', 'S2_R2_Shallow', 'S2_LT1_Shallow', 'L8_R1_Shallow', 'L8_R2_Shallow',
+	'S2_R1_TrueColour', 'S2_R2_TrueColour', 'S2_LT1_TrueColour', 'L8_R1_TrueColour', 'L8_R2_TrueColour',
+	'S2_R1_Slope', 'S2_R2_Slope', 'S2_LT1_Slope', 'L8_R1_Slope', 'L8_R2_Slope'
 	]
 
 # =======================================
