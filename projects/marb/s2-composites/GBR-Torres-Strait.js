@@ -40,14 +40,14 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190907T004711_20190907T004705_T54LYN", // Clear water, some scattered clouds
     "COPERNICUS/S2/20190917T004711_20190917T004705_T54LYN" // Moderate water clarity, some scattered clouds 
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
   
 s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20180614T004711_20180614T004705_T54LYN", // Light clouds, not very clear
     "COPERNICUS/S2/20200926T004709_20200926T004709_T54LYN"  // High sunglint
   ],
-  false, false, REF2_OPTIONS_HSG);
+  false, true, REF2_OPTIONS_HSG);
   
   
   
@@ -65,7 +65,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20160830T003952_20160830T003955_T55LCD",
     "COPERNICUS/S2/20180810T003701_20180810T003704_T55LCD"
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
 
 
 s2Utils.s2_composite_display_and_export(
@@ -77,7 +77,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190211T003709_20190211T003704_T55LCD",
     "COPERNICUS/S2/20190221T003709_20190221T003704_T55LCD"
   ],
-  false, false, REF2_OPTIONS);
+  false, true, REF2_OPTIONS);
  
 
  //55KFU Australia, GBR, Dingo Reefs, Gould Reefs
@@ -94,7 +94,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20210729T002101_20210729T002058_T55KFU",
     "COPERNICUS/S2/20210922T002049_20210922T002052_T55KFU"
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
 
 
 s2Utils.s2_composite_display_and_export(
@@ -109,7 +109,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190809T002101_20190809T002058_T55KFU",
     "COPERNICUS/S2/20211012T002059_20211012T002055_T55KFU"
   ],
-  false, false, REF2_OPTIONS);
+  false, true, REF2_OPTIONS);
   
 
 
