@@ -2,14 +2,11 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 // Primary imagery
 var REF1_OPTIONS = {
-  //colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
-  //exportScale: [10, 10, 10, 10, 30],
-  //colourGrades: ['ReefTop','Depth5m', 'Depth10m'],
-  //exportScale: [10, 10, 10],
-  colourGrades: ['DeepFalse','TrueColour'],
-  exportScale: [10, 10],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/GBR-Torres-Strait',
+  // Preview
+  colourGrades: ['TrueColour'],
+  exportScale: [30],
+  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/GBR-Torres-Strait',
   
   sunglintCorrectionLevel: 1,
   applyBrightnessAdjustment: true
@@ -22,10 +19,11 @@ REF1_OPTIONS_HSG.sunglintCorrectionLevel = 2;
 
 // Secondary imagery
 var REF2_OPTIONS = {
-  colourGrades: ['DeepFalse','TrueColour'],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R2',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/GBR-Torres-Strait',
-  exportScale: [10, 10],
+  // Preview
+  colourGrades: ['TrueColour'],
+  exportScale: [30],
+  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R2',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/GBR-Torres-Strait',
   sunglintCorrectionLevel: 1,
   applyBrightnessAdjustment: true
 };

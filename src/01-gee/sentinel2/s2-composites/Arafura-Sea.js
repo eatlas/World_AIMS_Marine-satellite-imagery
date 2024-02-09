@@ -2,10 +2,15 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 // Primary imagery
 var REF1_OPTIONS = {
-  colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
-  exportScale: [10, 10, 10, 10],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Arafura-Sea',
+  
+  //colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m', 'Shallow'],
+  //exportScale: [10, 10, 10, 10, 10],
+  
+  // Preview
+  colourGrades: ['TrueColour'],
+  exportScale: [30],
+  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/Arafura-Sea',
   
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true

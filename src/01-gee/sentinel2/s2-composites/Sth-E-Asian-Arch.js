@@ -2,10 +2,11 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 // Primary imagery
 var REF1_OPTIONS = {
-  colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
-  exportScale: [10, 10, 10, 10, 30],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Sth-E-Asian-Arch',
+  // Preview
+  colourGrades: ['TrueColour'],
+  exportScale: [30],
+  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/Sth-E-Asian-Arch',
   
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true

@@ -2,10 +2,11 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 // Primary imagery
 var REF1_OPTIONS = {
-  colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
-  exportScale: [10, 10, 10, 10, 30],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Sth-Western-Pacific',
+  // Preview
+  colourGrades: ['TrueColour'],
+  exportScale: [30],
+  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/Sth-Western-Pacific',
   
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
@@ -13,10 +14,11 @@ var REF1_OPTIONS = {
 
 // Secondary imagery
 var REF2_OPTIONS = {
-  colourGrades: ['DeepFalse','TrueColour','Slope'],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R2',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Sth-Western-Pacific',
-  exportScale: [10, 10, 30],
+  // Preview
+  colourGrades: ['TrueColour'],
+  exportScale: [30],
+  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R2',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/Sth-Western-Pacific',
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };

@@ -10,14 +10,11 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 // to get the cleanest image.
 
 var REF1_OPTIONS = {
-  //colourGrades: ['TrueColour','DeepFalse','ReefTop','Shallow','Slope'],
-  //exportScale: [10, 10, 10, 10, 30],
-
-  colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
-  exportScale: [10, 10, 10, 10],
-  //colourGrades: ['DeepFalse'],//,'SlopeNew'],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Timor-Sea',
+  // Preview
+  colourGrades: ['TrueColour'],
+  exportScale: [30],
+  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/Timor-Sea',
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };
@@ -27,10 +24,11 @@ var REF1_OPTIONS = {
 // is to provide a second set of imagery to determine if spots
 // in the imagery are artefacts (from clouds) or real features.
 var REF2_OPTIONS = {
-  colourGrades: ['DeepFalse','Slope'],
-    exportScale: [10, 30],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Timor-Sea',
+  // Preview
+  colourGrades: ['TrueColour'],
+  exportScale: [30],
+  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/Timor-Sea',
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };

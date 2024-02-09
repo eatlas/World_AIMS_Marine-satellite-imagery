@@ -2,30 +2,35 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 // Primary imagery
 var REF1_OPTIONS = {
- // colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
- // exportScale: [10, 10, 10, 10, 30],
-  
-  //colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
-  //exportScale: [10, 10, 10, 10],
-  colourGrades: ['Infrared'],
-  exportScale: [10],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Western-Australia',
+  // Preview
+  colourGrades: ['TrueColour'],
+  exportScale: [30],
+  //colourGrades: ['Infrared'],
+  //exportScale: [10],
+  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-sate-imagery/Western-Australia',
   
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };
 
 var REF2_OPTIONS = {
- // colourGrades: ['DeepFalse','TrueColour','ReefTop','Shallow','Slope'],
- // exportScale: [10, 10, 10, 10, 30],
+  // Preview
+  colourGrades: ['TrueColour'],
+  exportScale: [30],
+  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R2',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/Western-Australia',
   
-  //colourGrades: ['DeepFalse','TrueColour','Depth5m', 'Depth10m'],
-  //exportScale: [10, 10, 10, 10],
-  colourGrades: ['Infrared'],
-  exportScale: [10],
-  exportBasename: 'World_AIMS_Marine-satellite-imagery_S2_R2',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-satellite-imagery/Western-Australia',
+  applySunglintCorrection: true,
+  applyBrightnessAdjustment: true
+};
+
+var LOW_TIDE_OPTIONS = {
+  // Preview
+  colourGrades: ['TrueColour'],
+  exportScale: [30],
+  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_LT1',
+  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/Western-Australia',
   
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
@@ -57,7 +62,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220902T015631_20220902T015633_T51KXB",
     "COPERNICUS/S2_HARMONIZED/20220917T015619_20220917T015846_T51KXB"
   ],
-  false, false, REF2_OPTIONS);
+  false, false, LOW_TIDE_OPTIONS);
   
 // 51LXC - Australia, WA, Montgomery Reef
 // CLOUDY_PIXEL_PERCENTAGE = 2
@@ -92,7 +97,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20230808T015621_20230808T015624_T51LXC",
     "COPERNICUS/S2_HARMONIZED/20230823T015629_20230823T015623_T51LXC"
   ],
-  false, false, REF2_OPTIONS);
+  false, false, LOW_TIDE_OPTIONS);
 
 // 51LWC - Australia, WA, Buccaneer Archipelago
 // CLOUDY_PIXEL_PERCENTAGE = 2
@@ -123,7 +128,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220722T020449_20220722T020606_T51LWC",
     "COPERNICUS/S2_HARMONIZED/20220821T020449_20220821T020602_T51LWC"
   ],
-  false, false, REF2_OPTIONS);
+  false, false, LOW_TIDE_OPTIONS);
   
 // 51KWB - Australia, WA, King Sound
 // CLOUDY_PIXEL_PERCENTAGE = 2
@@ -164,7 +169,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220801T020449_20220801T020606_T51KWB",
     "COPERNICUS/S2_HARMONIZED/20220806T020501_20220806T020456_T51KWB"
   ],
-  false, true, REF2_OPTIONS);
+  false, true, LOW_TIDE_OPTIONS);
   
 
 // 49KGR - Australia, WA, Ningaloo reef
