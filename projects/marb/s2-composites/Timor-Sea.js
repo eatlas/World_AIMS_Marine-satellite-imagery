@@ -49,7 +49,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180710T015619_20180710T020050_T51LYE", // (3)
     "COPERNICUS/S2/20180918T015609_20180918T020006_T51LYE", // (3)
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
   
 s2Utils.s2_composite_display_and_export(
   [
@@ -61,5 +61,5 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180411T015619_20180411T020056_T51LYE", // (4)
     "COPERNICUS/S2/20180918T015609_20180918T020006_T51LYE" //(5)
   ],
-  false, false, REF2_OPTIONS);
+  false, true, REF2_OPTIONS);
   
