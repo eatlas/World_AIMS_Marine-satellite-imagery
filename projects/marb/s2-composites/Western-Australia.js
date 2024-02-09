@@ -1,42 +1,23 @@
 var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/01-gee/sentinel2/s2Utils.js');
 
-// Primary imagery
+REGION = 'Western-Australia'
+PROJECT = 'marb'
+
 var REF1_OPTIONS = {
-  // Preview
-  colourGrades: ['TrueColour'],
-  exportScale: [30],
-  //colourGrades: ['Infrared'],
-  //exportScale: [10],
+  colourGrades: ['TrueColour', 'Infrared'],
+  exportScale: [10, 20],
   exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-sate-imagery/Western-Australia',
+  exportFolder: f'EarthEngine/World_AIMS_Marine-sat-imagery/{PROJECT}/{REGION}',
   
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };
 
-var REF2_OPTIONS = {
-  // Preview
-  colourGrades: ['TrueColour'],
-  exportScale: [30],
-  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R2',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/Western-Australia',
-  
-  applySunglintCorrection: true,
-  applyBrightnessAdjustment: true
-};
+var REF2_OPTIONS = REF1_OPTIONS;
+REF2_OPTIONS.exportBasename = 'World_AIMS_Marine-sat-imagery_S2_R2'
 
-var LOW_TIDE_OPTIONS = {
-  // Preview
-  colourGrades: ['TrueColour'],
-  exportScale: [30],
-  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_LT1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/Western-Australia',
-  
-  applySunglintCorrection: true,
-  applyBrightnessAdjustment: true
-};
-
-var imgIds;
+var LOW_TIDE_OPTIONS = REF1_OPTIONS;
+LOW_TIDE_OPTIONS.exportBasename = 'World_AIMS_Marine-sat-imagery_S2_LT1'
 
 
 // 51KXB - Australia, WA, Wallcott Inlet
