@@ -420,11 +420,7 @@ landsat8CompositeDisplayAndExport(
         "LANDSAT/LC08/C02/T1_TOA/LC08_095067_20180215"
     ],
     false, true, REF1_OPTIONS);
-    landsat8CompositeDisplayAndExport(
-    [
-        "LANDSAT/LC08/C02/T1_TOA/LC08_096066_20191124"
-    ],
-    false, true, REF1_OPTIONS);
+
     landsat8CompositeDisplayAndExport(
     [
         "LANDSAT/LC08/C02/T1_TOA/LC08_094066_20150811",
