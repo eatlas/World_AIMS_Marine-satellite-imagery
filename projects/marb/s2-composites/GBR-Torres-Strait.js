@@ -2,27 +2,37 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 var REGION = 'GBR-Torres-Strait';
 var PROJECT = 'marb';
+var EXPORT_FOLDER = 'EarthEngine/World_AIMS_Marine-sat-imagery/'+PROJECT+'/'+REGION;
+var BASEPRE = 'World_AIMS_Marine-sat-imagery_S2_';
 
 var REF1_OPTIONS = {
   colourGrades: ['TrueColour', 'Infrared'],
   exportScale: [10, 20],
-  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/'+PROJECT+'/'+REGION,
-  
+  exportBasename: BASEPRE+'R1',
+  exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };
 
-var REF2_OPTIONS = REF1_OPTIONS;
-REF2_OPTIONS.exportBasename = 'World_AIMS_Marine-sat-imagery_S2_R2';
+var REF2_OPTIONS = {
+  colourGrades: ['TrueColour'],
+  exportScale: [10],
+  exportBasename: BASEPRE+'R2',
+  exportFolder: EXPORT_FOLDER,
+  applySunglintCorrection: true,
+  applyBrightnessAdjustment: true
+};
 
-// High SunGlint
-var REF1_OPTIONS_HSG = REF1_OPTIONS;
-REF1_OPTIONS_HSG.sunglintCorrectionLevel = 2;
+var REF2_OPTIONS_HSG = {
+  colourGrades: ['TrueColour'],
+  exportScale: [10],
+  exportBasename: BASEPRE+'R2',
+  exportFolder: EXPORT_FOLDER,
+  applySunglintCorrection: true,
+  applyBrightnessAdjustment: true,
+  sunglintCorrectionLevel: 2
+};
 
-// High SunGlint
-var REF2_OPTIONS_HSG = REF2_OPTIONS;
-REF2_OPTIONS_HSG.sunglintCorrectionLevel = 2;
 
   
 // ===============================================================
