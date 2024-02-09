@@ -11,19 +11,28 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 var REGION = 'Coral-Sea';
 var PROJECT = 'marb';
+var COLOUR_GRADES = ['TrueColour', 'Infrared'];
+var EXPORT_SCALE = [10, 20];
+var EXPORT_FOLDER = 'EarthEngine/World_AIMS_Marine-sat-imagery/'+PROJECT+'/'+REGION;
+var BASEPRE = 'World_AIMS_Marine-sat-imagery_S2_';
 
 var REF1_OPTIONS = {
-  colourGrades: ['TrueColour', 'Infrared'],
-  exportScale: [10, 20],
-  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/'+PROJECT+'/'+REGION,
-  
+  colourGrades: COLOUR_GRADES,
+  exportScale: EXPORT_SCALE,
+  exportBasename: BASEPRE+'R1',
+  exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };
 
-var REF2_OPTIONS = REF1_OPTIONS;
-REF2_OPTIONS.exportBasename = 'World_AIMS_Marine-sat-imagery_S2_R2';
+var REF2_OPTIONS = {
+  colourGrades: COLOUR_GRADES,
+  exportScale: EXPORT_SCALE,
+  exportBasename: BASEPRE+'R2',
+  exportFolder: EXPORT_FOLDER,
+  applySunglintCorrection: true,
+  applyBrightnessAdjustment: true
+};
 
 
 // ======== Flinders, Dart Heralds Surprise (Coral Sea) =========
