@@ -2,7 +2,7 @@
 //
 // MIT License https://mit-license.org/
 // This script is written to run on the Google Earth Engine 
-var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/gee/s2Utils.js');
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/01-gee/sentinel2/s2Utils.js');
 
 // These are the options for the primary reference imagery.
 // The primary reference imagery should correspond to a composite

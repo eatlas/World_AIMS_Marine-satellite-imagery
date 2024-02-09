@@ -138,10 +138,10 @@ These files are available for [download and browsing](https://nextcloud.eatlas.o
 `media`: This contains preview images. These images are kept small to allow this repository
 to be uploaded to Google Earth Engine, which only supports small files.
 
-`src\gee`: This corresponds to the Google Earth Engine scripts used for the production
+`src\01-gee`: This corresponds to the Google Earth Engine scripts used for the production
 of this imagery in this dataset.
 
-`src\local`: This contains the Python\GDAL script that is run on your local machine to
+`src\01-local`: This contains the Python\GDAL script that is run on your local machine to
 post process the imagery downloaded from GEE into the `unprocessed-data` folder. This script
 optimises the internals of the GeoTiff images (adding internal tiling and overviews) and
 creates GDAL virtual rasters to make the images easier to manipulate in QGIS.
@@ -212,12 +212,12 @@ into your repository these paths will not work.
 
 In the sentinel 2 scripts this line will look something like:
 ```
-var s2Utils = require('users/ericlawrey/World_AIMS_Marine-sat-imagery:src/gee/s2Utils.js');
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-sat-imagery:src/01-gee/sentinel2/s2Utils.js');
 ```
 If your Google Earth Engine username is `janesmith` and the repository that you copied
 the code into is called `Coral-sea-imagery` then the above code should be changed to:
 ```
-var s2Utils = require('users/janesmith/Coral-sea-imagery:src/gee/s2Utils.js');
+var s2Utils = require('users/janesmith/Coral-sea-imagery:src/01-gee/sentinel2/s2Utils.js');
 ```
 
 
@@ -355,13 +355,13 @@ git push origin <name of tag>
 ```
 
 ## Choosing new image tiles
-To expand the selection of tiles that have been analysed use the `src\gee\apps\select-sentinel2-images.js`
+To expand the selection of tiles that have been analysed use the `src/01-gee/sentinel2/apps/select-sentinel2-images.js`
 app to select the best images for area of interest.
 
 To determine the Sentinel 2 tile for the area of interest find the tile ID from [this interactive map](https://maps.eatlas.org.au/index.html?intro=false&z=7&ll=146.90137,-19.07287&l0=ea_ref%3AWorld_ESA_Sentinel-2-tiling-grid_Poly,ea_ea-be%3AWorld_Bright-Earth-e-Atlas-basemap,google_SATELLITE&v0=,,f).
 
 ## Exporting many images from Google Earth Engine
-The `src/gee/s2-composites/XXX.js` scripts generate many run tasks to perform the export of each
+The `src/01-gee/sentinel2/s2-composites/XXX.js` scripts generate many run tasks to perform the export of each
 image. Manually clicking the `Run` button can be quite tedious. Ideally the code could have been
 rewritten into Python to automate this process. (Maybe next time). 
 
@@ -371,7 +371,7 @@ export task dialogs at once and so might crash your browser. If this happens try
 in smaller batches.
 https://gis.stackexchange.com/questions/290771/batch-task-execution-in-google-earth-engine
 
-1. Run the `src/gee/s2-composites/XXX.js` script and wait for all the tasks to be generated, waiting
+1. Run the `src/01-gee/sentinel2/s2-composites/XXX.js` script and wait for all the tasks to be generated, waiting
 for your input to trigger them.
 2. Open your browser Web Developer Tools (usually Ctrl+Shift+I) and go to the Console. Paste the 
 following Javascript. This setups the functions for triggering run and confirm buttons in the 

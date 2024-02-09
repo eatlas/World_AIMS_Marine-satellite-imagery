@@ -1,4 +1,4 @@
-var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/gee/s2Utils.js');
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/01-gee/sentinel2/s2Utils.js');
 
 // Primary imagery
 var REF1_OPTIONS = {
