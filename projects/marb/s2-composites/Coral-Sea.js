@@ -11,14 +11,12 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 var REGION = 'Coral-Sea';
 var PROJECT = 'marb';
-var COLOUR_GRADES = ['TrueColour', 'Infrared'];
-var EXPORT_SCALE = [10, 20];
 var EXPORT_FOLDER = 'EarthEngine/World_AIMS_Marine-sat-imagery/'+PROJECT+'/'+REGION;
 var BASEPRE = 'World_AIMS_Marine-sat-imagery_S2_';
 
 var REF1_OPTIONS = {
-  colourGrades: COLOUR_GRADES,
-  exportScale: EXPORT_SCALE,
+  colourGrades: ['TrueColour', 'Infrared'],
+  exportScale: [10, 20],
   exportBasename: BASEPRE+'R1',
   exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
@@ -26,8 +24,8 @@ var REF1_OPTIONS = {
 };
 
 var REF2_OPTIONS = {
-  colourGrades: COLOUR_GRADES,
-  exportScale: EXPORT_SCALE,
+  colourGrades: ['TrueColour'],
+  exportScale: [10],
   exportBasename: BASEPRE+'R2',
   exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
