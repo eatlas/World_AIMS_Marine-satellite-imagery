@@ -13,11 +13,11 @@
 // === README: Change the path to your local copy of the s2Utils code ====
 // The path to the util code must be an absolute path including the
 // username and repository
-var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/gee/s2Utils.js');
+var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/01-gee/sentinel2/s2Utils.js');
  
 // Date range to iterate through the Sentinel 2 imagery.
-var START_DATE = '2015-01-19';
-var END_DATE = '2022-09-27';
+var START_DATE = '2022-01-01';
+var END_DATE = '2023-12-01';
 
 //var START_DATE = '2020-10-29';
 //var END_DATE = '2020-10-31';
@@ -30,7 +30,7 @@ var END_DATE = '2022-09-27';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 10;
+var CLOUDY_PIXEL_PERCENTAGE = 2;
 
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
@@ -275,11 +275,14 @@ tileID = '54LVH';      // Gulf of Carpentaria, South East (2 north of Karumba) (
 //tileID = '51LYE';   // Australia, WA, Bonaparte Archipelago, Long Reef 
 //tileID = '49JGM';   // Australia, WA, Shark bay. This scene is used to highlight
                       // recognising dark substrates due to the seagrass meadows.
-                      
+tileID = '51KWB';   // King Sound 
+//tileID = '51LWC';   // Buccaneer Archipelago
+//tileID = '51LXC';   // Montgomery Reef
+//tileID = '51KXB';   // Wallcott Inlet
                       
 
 // ============== Speed run =====================
-tileID = '52LHQ'; // Arafura Sea
+/* tileID = '52LHQ'; // Arafura Sea
 tileID = '53KRB'; // Arafura Sea
 tileID = '53LKJ'; // Arafura Sea
 tileID = '53LKK'; // Arafura Sea
@@ -498,6 +501,6 @@ tileID = '54LZQ';   // Australia, Torres Strait, Mer, Bramble Cay
 //tileID = '54LYP';   // Australia, Torres Strait, South East
 //tileID = '54LYQ';   // Australia Eastern Torres Strait, PNG border (Warrior Reef, Daru)
 tileID = '54LZR';   
-
+*/
 s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
 
