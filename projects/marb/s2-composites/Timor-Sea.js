@@ -7,20 +7,26 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 var REGION = 'Timor-Sea';
 var PROJECT = 'marb';
 
+var EXPORT_FOLDER = 'EarthEngine/World_AIMS_Marine-sat-imagery/'+PROJECT+'/'+REGION;
+var BASEPRE = 'World_AIMS_Marine-sat-imagery_S2_';
+
 var REF1_OPTIONS = {
   colourGrades: ['TrueColour', 'Infrared'],
   exportScale: [10, 20],
-  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/'+PROJECT+'/'+REGION,
-  
+  exportBasename: BASEPRE+'R1',
+  exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
   applyBrightnessAdjustment: true
 };
 
-var REF2_OPTIONS = REF1_OPTIONS;
-REF2_OPTIONS.exportBasename = 'World_AIMS_Marine-sat-imagery_S2_R2';
-REF2_OPTIONS.colourGrades = ['TrueColour'];
-REF2_OPTIONS.exportScale = [10];
+var REF2_OPTIONS = {
+  colourGrades: ['TrueColour'],
+  exportScale: [10],
+  exportBasename: BASEPRE+'R2',
+  exportFolder: EXPORT_FOLDER,
+  applySunglintCorrection: true,
+  applyBrightnessAdjustment: true
+};
 // ===============================================================
 //
 //                    Timor Sea
@@ -55,5 +61,5 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180411T015619_20180411T020056_T51LYE", // (4)
     "COPERNICUS/S2/20180918T015609_20180918T020006_T51LYE" //(5)
   ],
-  false, false, REF1_OPTIONS);
+  false, false, REF2_OPTIONS);
   
