@@ -24,7 +24,7 @@ var REF2_OPTIONS = {
   applyBrightnessAdjustment: true
 };
 
-var REF2_OPTIONS = {
+var LOW_TIDE_OPTIONS = {
   colourGrades: ['TrueColour'],
   exportScale: [10],
   exportBasename: BASEPRE+'LT1',
