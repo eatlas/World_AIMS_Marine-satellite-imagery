@@ -4,8 +4,8 @@
 // This script is written to run on the Google Earth Engine 
 var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/01-gee/sentinel2/s2Utils.js');
 
-REGION = 'Timor-Sea'
-PROJECT = 'marb'
+var REGION = 'Timor-Sea';
+var PROJECT = 'marb';
 
 var REF1_OPTIONS = {
   colourGrades: ['TrueColour', 'Infrared'],
@@ -18,7 +18,9 @@ var REF1_OPTIONS = {
 };
 
 var REF2_OPTIONS = REF1_OPTIONS;
-REF2_OPTIONS.exportBasename = 'World_AIMS_Marine-sat-imagery_S2_R2'
+REF2_OPTIONS.exportBasename = 'World_AIMS_Marine-sat-imagery_S2_R2';
+REF2_OPTIONS.colourGrades = ['TrueColour'];
+REF2_OPTIONS.exportScale = [10];
 // ===============================================================
 //
 //                    Timor Sea
@@ -40,8 +42,14 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180511T015619_20180511T015619_T51LYE", // (3)
     "COPERNICUS/S2/20180710T015619_20180710T020050_T51LYE", // (3)
     "COPERNICUS/S2/20180918T015609_20180918T020006_T51LYE", // (3)
-    //"COPERNICUS/S2/20160715T015622_20160715T015624_T51LYE", // (2) (removed due to lower water clarity)
-    //"COPERNICUS/S2/20160824T015622_20160824T015622_T51LYE", // (2) (removed due to lower water clarity)
+  ],
+  false, false, REF1_OPTIONS);
+  
+s2Utils.s2_composite_display_and_export(
+  [
+    //Relative water clarity index 1 - awful, 5 - ok
+    "COPERNICUS/S2/20160715T015622_20160715T015624_T51LYE", // (2) (removed due to lower water clarity)
+    "COPERNICUS/S2/20160824T015622_20160824T015622_T51LYE", // (2) (removed due to lower water clarity)
 
     // Good
     "COPERNICUS/S2/20180411T015619_20180411T020056_T51LYE", // (4)
