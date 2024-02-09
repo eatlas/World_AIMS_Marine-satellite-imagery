@@ -321,6 +321,18 @@ only update from the `master` branch.
 	merge = refs/heads/master
 ```
 
+## Google Source Crediential Renewal
+
+If you haven't used Google Earth Engine for a while connecting to the source with `git pull` might fail as the authentication might fail.
+
+```
+remote: INVALID_ARGUMENT: Request contains an invalid argument
+remote: [type.googleapis.com/google.rpc.LocalizedMessage]
+remote: locale: "en-US"
+remote: message: "Invalid authentication credentials. Please generate a new identifier: https://earthengine.googlesource.com/new-password"
+```
+In this case follow the link in the error message to update the authentication.
+
 ## Tagging new versions of the library
 When there is a new release version of this dataset or the utility libraries (s2Utils.js) then
 update the version number in the library, commit this, then add a tag to the repo.
