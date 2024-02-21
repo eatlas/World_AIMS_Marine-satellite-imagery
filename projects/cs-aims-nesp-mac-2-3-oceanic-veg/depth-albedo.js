@@ -15,7 +15,7 @@ var EXPORT_FOLDER = 'EarthEngine/World_AIMS_Marine-sat-imagery/'+PROJECT+'/'+REG
 var BASEPRE = 'World_AIMS_Marine-sat-imagery_S2_';
 
 var REF1_OPTIONS = {
-  colourGrades: ['Raw'],
+  colourGrades: ['Raw-B1-B4'],
   exportScale: [10],
   exportBasename: BASEPRE+'R1',
   exportFolder: EXPORT_FOLDER,
@@ -24,7 +24,7 @@ var REF1_OPTIONS = {
 };
 
 var REF2_OPTIONS = {
-  colourGrades: ['Raw'],
+  colourGrades: ['Raw-B1-B4'],
   exportScale: [10],
   exportBasename: BASEPRE+'R2',
   exportFolder: EXPORT_FOLDER,
