@@ -1652,7 +1652,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
 
   } else if (colourGradeStyle === 'Raw') {
     
-    compositeContrast = img;
+    compositeContrast = img.select(['B1','B2','B3','B4','B5','B8','B11']);
     
   } else {
     print("Error: unknown colourGradeStyle: "+colourGradeStyle);
