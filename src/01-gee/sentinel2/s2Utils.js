@@ -73,6 +73,10 @@
 //                 that Google added some bands that broke a rename operation. Added the 'Infrared' 
 //                 styling. This is to allow the development of Land masking imagery. I used 
 //                 a gamma of 2 to allow more detail to be retained in dark areas when store in 8 bit.
+// Version v1.5.4  Added the option of a 'Raw' export. This does not perform any scaling of the imagery
+//                 other than adjustments from sunglint correction, brightness adjustment, etc. The
+//                 Purpose of this style is for reporting on the original linear scaling of the satellite
+//                 imagery. This export should be in 16 bit format.
 /**
 * @module s2Utils
 * 
@@ -262,6 +266,8 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
         export_composite = final_composite;
         displayMin = -25;
         displayMax = 0;
+      } else if (colourGrades[i] === 'Raw') {
+        export_composite = final_composite;
       } else {
         // Scale and convert the image to an 8 bit image to make the export
         // file size considerably smaller.
@@ -278,10 +284,7 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
     
       if (is_export) {
         print("======= Exporting image "+exportName+" =======");
-        //var saLayer = ui.Map.Layer(tilesGeometry, {color: 'FF0000'}, 'Export Area');
-        //Map.layers().add(saLayer);
-        
-      
+
         Export.image.toDrive({
           //image: final_composite,
           image: export_composite,
@@ -1647,6 +1650,10 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
       .focal_mean({kernel: ee.Kernel.circle({radius: 20, units: 'meters'}), iterations: 1})
       .gt(0.041);
 
+  } else if (colourGradeStyle === 'Raw') {
+    
+    compositeContrast = img;
+    
   } else {
     print("Error: unknown colourGradeStyle: "+colourGradeStyle);
   }
