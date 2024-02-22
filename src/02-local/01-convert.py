@@ -53,16 +53,16 @@ parser.add_argument('--src_path', default='../../unprocessed-data/{PROJECT}',
     help='Source path where images from GEE are stored.')
 parser.add_argument('--out_base', default='../../big-files/{PROJECT}', 
     help='Base path for processed files.')
-parser.add_argument('--make_lossless', action='store_true', default=True, 
-    help='Generate lossless GeoTiff format (default: True).')
+parser.add_argument('--make_lossless', action='store_true', default=False, 
+    help='Generate lossless GeoTiff format.')
 parser.add_argument('--make_lossy', action='store_true', default=False, 
-    help='Generate lossy version of dataset (default: False).')
-parser.add_argument('--make_preview', action='store_true', default=True, 
-    help='Generate JPEG preview images (default: True).')
+    help='Generate lossy version of dataset.')
+parser.add_argument('--make_preview', action='store_true', default=False, 
+    help='Generate JPEG preview images.')
 parser.add_argument('--make_geopng', action='store_true', default=False, 
-    help='Generate quartered PNG images for iPad (default: False).')
-parser.add_argument('--make_virtual', action='store_true', default=True, 
-    help='Generate virtual raster for QGIS (default: True).')
+    help='Generate quartered PNG images for iPad.')
+parser.add_argument('--make_virtual', action='store_true', default=False, 
+    help='Generate virtual raster for QGIS.')
 
 # Parse arguments
 args = parser.parse_args()
@@ -76,6 +76,10 @@ MAKE_LOSSY = args.make_lossy
 MAKE_PREVIEW = args.make_preview
 MAKE_GEOPNG = args.make_geopng
 MAKE_VIRTUAL = args.make_virtual
+
+# Check if no processing options are selected
+if not (MAKE_LOSSLESS or MAKE_LOSSY or MAKE_PREVIEW or MAKE_GEOPNG or MAKE_VIRTUAL):
+    parser.error('No processing options selected. At least one of --make_lossless, --make_lossy, --make_preview, --make_geopng, or --make_virtual must be true.')
 
 # All files associated with a project are grouped into a subfolder. Should be short.
 #PROJECT = 'marb'
@@ -102,14 +106,6 @@ OUT_GEOPNG = f'{OUT_BASE}/geopng'
 OUT_PREVIEW = f'{OUT_BASE}/preview' # Path for preview images
 
 
-if not os.path.exists(OUT_LOSSLESS) and MAKE_LOSSLESS:
-    os.mkdir(OUT_LOSSLESS)
-    print("Making output directory"+OUT_LOSSLESS)
-    
-if not os.path.exists(OUT_LOSSY) and MAKE_LOSSY:
-    os.mkdir(OUT_LOSSY)
-    print("Making output directory"+OUT_LOSSY)
-
 
 # List of all the styles to potentially process. Images will be sorted
 # into directories matching these style names.
@@ -121,7 +117,8 @@ styles = [
     'S2_R1_ReefTop', 'S2_R2_ReefTop', 'S2_LT1_ReefTop', 'L8_R1_ReefTop', 'L8_R2_ReefTop',
     'S2_R1_Shallow', 'S2_R2_Shallow', 'S2_LT1_Shallow', 'L8_R1_Shallow', 'L8_R2_Shallow',
     'S2_R1_TrueColour', 'S2_R2_TrueColour', 'S2_LT1_TrueColour', 'L8_R1_TrueColour', 'L8_R2_TrueColour',
-    'S2_R1_Slope', 'S2_R2_Slope', 'S2_LT1_Slope', 'L8_R1_Slope', 'L8_R2_Slope'
+    'S2_R1_Slope', 'S2_R2_Slope', 'S2_LT1_Slope', 'L8_R1_Slope', 'L8_R2_Slope',
+    'S2_R1_Infrared', 'S2_R2_Infrared', 'S2_LT1_Infrared'
     ]
 
 # =======================================
@@ -273,6 +270,7 @@ for srcRegionDir in srcRegionDirs:
             #print("Out raw path: "+outStylePath)
             if not os.path.exists(outStylePath):
                 os.makedirs(outStylePath)
+                print(f'Making output directory: {outStylePath}')
             
             # Temp hack to rename old generated files
             #origDest = os.path.join(outStylePath, fileName)
@@ -304,6 +302,7 @@ for srcRegionDir in srcRegionDirs:
             # print("Out public path: "+outStylePath)
             if not os.path.exists(outStylePath):
                 os.makedirs(outStylePath)
+                print(f'Making output directory: {outStylePath}')
 
             dest = os.path.join(outStylePath, outFileName)
             # Test if the destination file already exists. If so skip over the conversion.
