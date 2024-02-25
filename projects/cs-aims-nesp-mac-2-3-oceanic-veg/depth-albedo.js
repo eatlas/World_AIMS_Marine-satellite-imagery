@@ -61,3 +61,15 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200714T002101_20200714T002059_T55KFA"
   ],
   false, false, REF2_OPTIONS);
+  
+// ======== Holmes Reefs (West), Flora Reef, McDermott Bank (Coral Sea) =========
+// Searched 61 out of 61 images
+// 3 Excellent, 1 Good images
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20160608T002712_20160608T002733_T55KEB",
+    "COPERNICUS/S2/20160608T002733_20160608T033407_T55KEB",
+    "COPERNICUS/S2/20190906T002709_20190906T002709_T55KEB",
+    "COPERNICUS/S2/20180812T002659_20180812T002702_T55KEB"
+  ],
+  false, true,REF1_OPTIONS);
