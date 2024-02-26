@@ -23,6 +23,8 @@ var REF1_OPTIONS = {
   applyBrightnessAdjustment: true
 };
 
+
+
 var REF2_OPTIONS = {
   colourGrades: ['Raw-B1-B4'],
   exportScale: [10],
@@ -47,6 +49,23 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200729T002059_20200729T002057_T55KFA",
     "COPERNICUS/S2/20200823T002101_20200823T002100_T55KFA",
     "COPERNICUS/S2/20210515T002059_20210515T002053_T55KFA"
+  ],
+  false, false,REF1_OPTIONS);
+  
+// Save the single best image as a comparison with the
+// composite.
+var REF_SINGLE_OPTIONS = {
+  colourGrades: ['Raw-B1-B4'],
+  exportScale: [10],
+  exportBasename: BASEPRE+'20200818',
+  exportFolder: EXPORT_FOLDER,
+  applySunglintCorrection: true,
+  applyBrightnessAdjustment: true
+};
+
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20200818T002059_20200818T002058_T55KFA"
   ],
   false, true,REF1_OPTIONS);
 
