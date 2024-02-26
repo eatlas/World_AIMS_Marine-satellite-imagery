@@ -20,7 +20,7 @@ var REF1_OPTIONS = {
   exportBasename: BASEPRE+'R1',
   exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
-  applyBrightnessAdjustment: true
+  applyBrightnessAdjustment: false
 };
 
 
@@ -31,7 +31,7 @@ var REF2_OPTIONS = {
   exportBasename: BASEPRE+'R2',
   exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
-  applyBrightnessAdjustment: true
+  applyBrightnessAdjustment: false
 };
 
 
@@ -50,7 +50,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200823T002101_20200823T002100_T55KFA",
     "COPERNICUS/S2/20210515T002059_20210515T002053_T55KFA"
   ],
-  false, false,REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
   
 // Save the single best image as a comparison with the
 // composite.
@@ -60,7 +60,7 @@ var REF_SINGLE_OPTIONS = {
   exportBasename: BASEPRE+'20200818',
   exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
-  applyBrightnessAdjustment: true
+  applyBrightnessAdjustment: false
 };
 
 s2Utils.s2_composite_display_and_export(
