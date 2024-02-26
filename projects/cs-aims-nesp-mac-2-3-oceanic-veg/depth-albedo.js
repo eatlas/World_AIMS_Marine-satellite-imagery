@@ -50,7 +50,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200823T002101_20200823T002100_T55KFA"
     //"COPERNICUS/S2/20210515T002059_20210515T002053_T55KFA"  // High CDOM
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
 // Save the single best image as a comparison with the
 // composite.
@@ -91,4 +91,4 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190906T002709_20190906T002709_T55KEB",
     "COPERNICUS/S2/20180812T002659_20180812T002702_T55KEB"
   ],
-  false, true,REF1_OPTIONS);
+  false, false,REF1_OPTIONS);
