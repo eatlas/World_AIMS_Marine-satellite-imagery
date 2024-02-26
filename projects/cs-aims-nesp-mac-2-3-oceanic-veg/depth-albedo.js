@@ -67,7 +67,7 @@ s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20200818T002059_20200818T002058_T55KFA"
   ],
-  false, true,REF1_OPTIONS);
+  false, true,REF_SINGLE_OPTIONS);
 
 
 // Good images
