@@ -51,6 +51,31 @@ s2Utils.s2_composite_display_and_export(
     //"COPERNICUS/S2/20210515T002059_20210515T002053_T55KFA"  // High CDOM
   ],
   false, false, REF1_OPTIONS);
+
+// Save the single best image as a comparison with the
+// composite.
+var REF_SINGLE_OPTIONS = {
+  colourGrades: ['Raw-B1-B4'],
+  exportScale: [10],
+  exportBasename: BASEPRE+'NoSGC',
+  exportFolder: EXPORT_FOLDER,
+  applySunglintCorrection: false,
+  applyBrightnessAdjustment: false
+};
+
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20180426T002101_20180426T002056_T55KFA",
+    "COPERNICUS/S2/20181018T002049_20181018T002051_T55KFA",
+    "COPERNICUS/S2/20190220T001631_20190220T001625_T55KFA",
+    "COPERNICUS/S2/20190824T002059_20190824T002059_T55KFA",
+    "COPERNICUS/S2/20190918T002051_20190918T002054_T55KFA",
+    "COPERNICUS/S2/20200818T002059_20200818T002058_T55KFA",
+    "COPERNICUS/S2/20200729T002059_20200729T002057_T55KFA",
+    "COPERNICUS/S2/20200823T002101_20200823T002100_T55KFA"
+    //"COPERNICUS/S2/20210515T002059_20210515T002053_T55KFA"  // High CDOM
+  ],
+  false, true, REF1_OPTIONS);
   
 // Save the single best image as a comparison with the
 // composite.
@@ -67,7 +92,7 @@ s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20200818T002059_20200818T002058_T55KFA"
   ],
-  false, true,REF_SINGLE_OPTIONS);
+  false, false,REF_SINGLE_OPTIONS);
 
 
 // Good images
@@ -96,13 +121,18 @@ s2Utils.s2_composite_display_and_export(
 
 // ======== Lihou reef (South West) (Coral Sea, Australia) - Central =========
 // AUS00614 - Nautical charts. 
-// Searched 54 out of 54 images
+// Searched 83 out of 83 images
 s2Utils.s2_composite_display_and_export(
   [
     // Excellent
     "COPERNICUS/S2/20190905T001111_20190905T001109_T56KLF",
     "COPERNICUS/S2/20210721T001109_20210721T001111_T56KLF",
     "COPERNICUS/S2/20180811T001111_20180811T001108_T56KLF",
-    "COPERNICUS/S2/20201019T001111_20201019T001114_T56KLF" // Sunglint in corner
+    "COPERNICUS/S2/20201019T001111_20201019T001114_T56KLF", // Sunglint in corner
+    "COPERNICUS/S2/20180217T001059_20180217T001101_T56KLF", // pretty good
+    "COPERNICUS/S2/20190702T001119_20190702T001117_T56KLF", // pretty good
+    "COPERNICUS/S2/20200820T001121_20200820T001115_T56KLF", // pretty good
+    "COPERNICUS/S2_HARMONIZED/20210721T001109_20210721T001111_T56KLF", // Pretty good
+    "COPERNICUS/S2_HARMONIZED/20230313T001119_20230313T001113_T56KLF" // Pretty good
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
