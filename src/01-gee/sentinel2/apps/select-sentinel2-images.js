@@ -16,7 +16,7 @@
 var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/01-gee/sentinel2/s2Utils.js');
  
 // Date range to iterate through the Sentinel 2 imagery.
-var START_DATE = '2022-01-01';
+var START_DATE = '2021-01-01';
 var END_DATE = '2023-12-01';
 
 //var START_DATE = '2020-10-29';
@@ -30,7 +30,7 @@ var END_DATE = '2023-12-01';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 2;
+var CLOUDY_PIXEL_PERCENTAGE = 1;
 
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
@@ -73,7 +73,7 @@ var tileID;
 //tileID = '55KHA';     // Tregrosse Reefs, Diamond Islet West, Magdelaine Cays, Coringa Islet (South) 
                         // (Coral Sea) - Central
 //tileID = '56KKF';     // Tregrosse Reefs, Diamond Islet (Coral Sea) - Central
-//tileID = '56KLF';     // (V0) Lihou reef (South West) (Coral Sea, Australia) - Central
+tileID = '56KLF';     // (V0) Lihou reef (South West) (Coral Sea, Australia) - Central
 //tileID = '56KMF';     // Lihou reef (West) (Coral Sea, Australia) - Central
 //tileID = '56KQF';     // Mellish Reef (Coral Sea) - Central
                         // This tile only had 2 images with < 1% cloud cover,
@@ -233,8 +233,8 @@ tileID = '55KDB';     // Australia, GBR, Moore Reef
 
 
 // ======== Arafura-Sea ======
-tileID = '54LVJ';      // Gulf of Carpentaria, South East (3 north of Karumba) (Two shoals on marine charts)
-tileID = '54LVH';      // Gulf of Carpentaria, South East (2 north of Karumba) (Two shoals on marine charts)
+//tileID = '54LVJ';      // Gulf of Carpentaria, South East (3 north of Karumba) (Two shoals on marine charts)
+//tileID = '54LVH';      // Gulf of Carpentaria, South East (2 north of Karumba) (Two shoals on marine charts)
 //tileID = '54KVG';      // Gulf of Carpentaria, South East (1 north of Karumba) (Two shoals on marine charts)
 
 // ======== Timor-Sea =======
