@@ -52,9 +52,8 @@ s2Utils.s2_composite_display_and_export(
   ],
   false, false, REF1_OPTIONS);
 
-// Save the single best image as a comparison with the
-// composite.
-var REF_SINGLE_OPTIONS = {
+// No Sunglint Correction
+var REF_NoSGC_OPTIONS = {
   colourGrades: ['Raw-B1-B4'],
   exportScale: [10],
   exportBasename: BASEPRE+'NoSGC',
@@ -75,7 +74,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200823T002101_20200823T002100_T55KFA"
     //"COPERNICUS/S2/20210515T002059_20210515T002053_T55KFA"  // High CDOM
   ],
-  false, true, REF1_OPTIONS);
+  false, true, REF_NoSGC_OPTIONS);
   
 // Save the single best image as a comparison with the
 // composite.
