@@ -92,3 +92,17 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20180812T002659_20180812T002702_T55KEB"
   ],
   false, false,REF1_OPTIONS);
+
+
+// ======== Lihou reef (South West) (Coral Sea, Australia) - Central =========
+// AUS00614 - Nautical charts. 
+// Searched 54 out of 54 images
+s2Utils.s2_composite_display_and_export(
+  [
+    // Excellent
+    "COPERNICUS/S2/20190905T001111_20190905T001109_T56KLF",
+    "COPERNICUS/S2/20210721T001109_20210721T001111_T56KLF",
+    "COPERNICUS/S2/20180811T001111_20180811T001108_T56KLF",
+    "COPERNICUS/S2/20201019T001111_20201019T001114_T56KLF" // Sunglint in corner
+  ],
+  false, false, REF1_OPTIONS);
