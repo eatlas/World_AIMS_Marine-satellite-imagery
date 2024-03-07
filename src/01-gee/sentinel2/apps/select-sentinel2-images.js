@@ -32,6 +32,8 @@ var END_DATE = '2024-03-01';
 // imagery.
 var CLOUDY_PIXEL_PERCENTAGE = 1;
 
+var STYLE = 'DeepFalsePreview';
+
 // Select the Sentinel 2 tiling grid to review the images for.
 // Use the map link below to find the tileID for the area of interest.
 // https://maps.eatlas.org.au/index.html?intro=false&z=7&ll=146.90137,-19.07287&l0=ea_ref%3AWorld_ESA_Sentinel-2-tiling-grid_Poly,ea_ea-be%3AWorld_Bright-Earth-e-Atlas-basemap,google_SATELLITE&v0=,,f
@@ -502,5 +504,5 @@ tileID = '54LZQ';   // Australia, Torres Strait, Mer, Bramble Cay
 //tileID = '54LYQ';   // Australia Eastern Torres Strait, PNG border (Warrior Reef, Daru)
 tileID = '54LZR';   
 */
-s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE);
+s2Utils.createSelectSentinel2ImagesApp(tileID, START_DATE, END_DATE, CLOUDY_PIXEL_PERCENTAGE, STYLE);
 
