@@ -74,7 +74,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200823T002101_20200823T002100_T55KFA"
     //"COPERNICUS/S2/20210515T002059_20210515T002053_T55KFA"  // High CDOM
   ],
-  false, true, REF_NoSGC_OPTIONS);
+  false, false, REF_NoSGC_OPTIONS);
   
 // Save the single best image as a comparison with the
 // composite.
@@ -156,6 +156,7 @@ s2Utils.s2_composite_display_and_export(
 // ======== Osprey Reef (Coral Sea) - North =========
 // 2016 - 2024-03
 // little difference when trying different image combinations
+// Getting Image.select: Pattern 'cloudmask' did not match any bands. Available bands
 s2Utils.s2_composite_display_and_export(
   [
     //"COPERNICUS/S2_HARMONIZED/20161215T003032_20161215T003028_T55LDE", //4/10
@@ -168,4 +169,21 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20211025T002709_20211025T002709_T55LDE", // 6/10
     //"COPERNICUS/S2_HARMONIZED/20220113T002709_20220113T002703_T55LDE", // 6/10 no cloud
   ],
-  false, true,REF1_OPTIONS);
+  false, false,REF1_OPTIONS);
+  
+// 55KEV - Australia, GBR, Davies, Grub, Chicken
+// CLOUDY_PIXEL_PERCENTAGE = 0.1
+// 27 of 27 Images
+s2Utils.s2_composite_display_and_export(
+  [
+    // Excellent (Water clarity index 1 - low visibility, 5 - excellent)
+    //"COPERNICUS/S2/20160708T003035_20160708T015011_T55KEV", // (2) - Removed due to lower WQ
+    "COPERNICUS/S2/20190812T002711_20190812T002711_T55KEV", // (4)
+    "COPERNICUS/S2/20190822T002711_20190822T002710_T55KEV", // (4)
+    "COPERNICUS/S2/20190906T002709_20190906T002709_T55KEV", // (5) Can see the midshelf sea floor. Great view of weird ring contours
+    "COPERNICUS/S2/20200727T002711_20200727T002713_T55KEV", // (3)
+    "COPERNICUS/S2/20200816T002711_20200816T002713_T55KEV", // (3)
+    //"COPERNICUS/S2/20200821T002709_20200821T002711_T55KEV", // (1) Low Water Quality, bit excellent view of plumes around reefs.
+    "COPERNICUS/S2/20210915T002709_20210915T002703_T55KEV"  // (3)
+  ],
+  false, true, REF1_OPTIONS);
