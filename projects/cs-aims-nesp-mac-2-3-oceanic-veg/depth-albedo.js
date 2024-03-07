@@ -50,7 +50,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200823T002101_20200823T002100_T55KFA"
     //"COPERNICUS/S2/20210515T002059_20210515T002053_T55KFA"  // High CDOM
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
 
 // No Sunglint Correction
 var REF_NoSGC_OPTIONS = {
@@ -74,7 +74,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20200823T002101_20200823T002100_T55KFA"
     //"COPERNICUS/S2/20210515T002059_20210515T002053_T55KFA"  // High CDOM
   ],
-  false, false, REF_NoSGC_OPTIONS);
+  false, true, REF_NoSGC_OPTIONS);
   
 // Save the single best image as a comparison with the
 // composite.
@@ -91,19 +91,9 @@ s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2/20200818T002059_20200818T002058_T55KFA"
   ],
-  false, false,REF_SINGLE_OPTIONS);
+  false, true,REF_SINGLE_OPTIONS);
 
 
-// Good images
-s2Utils.s2_composite_display_and_export(
-  [
-    "COPERNICUS/S2/20210306T002059_20210306T002053_T55KFA",
-    "COPERNICUS/S2/20181018T002049_20181018T002051_T55KFA",
-    "COPERNICUS/S2/20190220T001631_20190220T001625_T55KFA",
-    "COPERNICUS/S2/20191013T002059_20191013T002055_T55KFA",
-    "COPERNICUS/S2/20200714T002101_20200714T002059_T55KFA"
-  ],
-  false, false, REF2_OPTIONS);
   
 // ======== Holmes Reefs (West), Flora Reef, McDermott Bank (Coral Sea) =========
 // Searched 61 out of 61 images
@@ -115,7 +105,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20190906T002709_20190906T002709_T55KEB",
     "COPERNICUS/S2/20180812T002659_20180812T002702_T55KEB"
   ],
-  false, false,REF1_OPTIONS);
+  false, true,REF1_OPTIONS);
 
 
 // ======== Lihou reef (South West) (Coral Sea, Australia) - Central =========
@@ -134,7 +124,7 @@ s2Utils.s2_composite_display_and_export(
     //"COPERNICUS/S2_HARMONIZED/20210721T001109_20210721T001111_T56KLF", // Pretty good
     //"COPERNICUS/S2_HARMONIZED/20230313T001119_20230313T001113_T56KLF" // Pretty good
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
   
 // ======== Ashmore Reef (Coral Sea) - Far North =========
 // Searched 73 out of 73 
@@ -150,7 +140,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20210802T004709_20210802T004707_T54LZP", // Some cloud, vegetation not very visible
     "COPERNICUS/S2_HARMONIZED/20220529T004709_20220529T004706_T54LZP", // very low cloud, moderately clear 6/10
   ],
-  false, false,REF1_OPTIONS);
+  false, true,REF1_OPTIONS);
   
   
 // ======== Osprey Reef (Coral Sea) - North =========
