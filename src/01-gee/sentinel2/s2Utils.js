@@ -77,6 +77,8 @@
 //                 other than adjustments from sunglint correction, brightness adjustment, etc. The
 //                 Purpose of this style is for reporting on the original linear scaling of the satellite
 //                 imagery. This export should be in 16 bit format.
+// Version v1.5.5  Added the ability to specify the visualisation style as an option to 
+//                 createSelectSentinel2ImagesApp. 
 /**
 * @module s2Utils
 * 
@@ -1797,7 +1799,8 @@ exports.estimateDepth = function(img, filterRadius, filterIterations) {
 // @param {String} startDate - Starting date ('YYYY-MM-DD' format} to search for images such as '2015-01-01'
 // @param {String} endDate - End date to search for images.
 // @param {number} cloudPixelPercentage - Remove all images with more than this % cloud cover
-exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cloudPixelPercentage) {
+// @param {style} What image style, such as 'DeepFalsePreview', 'TrueColour' to apply to images in the preview
+exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cloudPixelPercentage, style) {
 
   // Used to find the geometry of the selected images. For more info checkout
   // https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59
@@ -1891,10 +1894,10 @@ exports.createSelectSentinel2ImagesApp = function(tileID, startDate, endDate, cl
     Map.layers().reset();
     
     
-    //var deepFalse_composite = exports.bake_s2_colour_grading(composite, 'DeepFalsePreview', includeCloudmask);
-    //Map.addLayer(deepFalse_composite, visParams, 'Sentinel-2 DeefFalse',true);
-    var trueColour_composite = exports.bake_s2_colour_grading(composite, 'TrueColour', includeCloudmask);
-    Map.addLayer(trueColour_composite, visParams, 'Sentinel-2 TrueColour',true);
+    var styled_composite = exports.bake_s2_colour_grading(composite, style, includeCloudmask);
+    Map.addLayer(styled_composite, visParams, 'Sentinel-2 '+style,true);
+    //var trueColour_composite = exports.bake_s2_colour_grading(composite, 'TrueColour', includeCloudmask);
+    //Map.addLayer(trueColour_composite, visParams, 'Sentinel-2 TrueColour',true);
     nextButton.setDisabled(selectedIndex >= collectionLength - 1);
     prevButton.setDisabled(selectedIndex <= 0);
   };
