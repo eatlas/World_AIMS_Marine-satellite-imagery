@@ -79,6 +79,7 @@
 //                 imagery. This export should be in 16 bit format.
 // Version v1.5.5  Added the ability to specify the visualisation style as an option to 
 //                 createSelectSentinel2ImagesApp. 
+// Version v1.5.6  Change the export image to use Cloud Optimised GeoTiffs (to save space)
 /**
 * @module s2Utils
 * 
