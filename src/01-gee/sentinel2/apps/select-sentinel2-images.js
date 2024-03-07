@@ -16,7 +16,7 @@
 var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/01-gee/sentinel2/s2Utils.js');
  
 // Date range to iterate through the Sentinel 2 imagery.
-var START_DATE = '2016-01-01';
+var START_DATE = '2021-03-01';
 var END_DATE = '2024-03-01';
 
 //var START_DATE = '2020-10-29';
@@ -57,8 +57,8 @@ var tileID;
 
 // ---------- Coral Sea -------------------
 //tileID = '55LBK';     // Boot Reef, Portlock Reefs (Coral Sea) - Far North
-tileID = '54LZP';     // Ashmore Reef (Coral Sea) - Far North
-//tileID = '55LDE';     // Osprey Reef (Coral Sea) - North
+//tileID = '54LZP';     // Ashmore Reef (Coral Sea) - Far North
+tileID = '55LDE';     // Osprey Reef (Coral Sea) - North
 //tileID = '55LEC';     // Bougainville Reef (Coral Sea) - Central
 //tileID = '55LGC';     // Diane Bank (Coral Sea) - Central
 //tileID = '55LHC';     // Willis Islets (Coral Sea) - Central
