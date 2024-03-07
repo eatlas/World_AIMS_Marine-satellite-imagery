@@ -151,3 +151,19 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220529T004709_20220529T004706_T54LZP", // very low cloud, moderately clear 6/10
   ],
   false, true,REF1_OPTIONS);
+  
+  
+// ======== Osprey Reef (Coral Sea) - North =========
+// Searched 75 out of 75
+// Good images
+// little difference when trying different image combinations
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2/20161215T003032_20161215T003028_T55LDE",
+    "COPERNICUS/S2/20170713T002711_20170713T002708_T55LDE",
+    "COPERNICUS/S2/20181016T002701_20181016T002704_T55LDE",
+    "COPERNICUS/S2/20181115T002701_20181115T002702_T55LDE",
+    "COPERNICUS/S2/20210319T002709_20210319T002706_T55LDE",
+    "COPERNICUS/S2/20201005T002711_20201005T002713_T55LDE"
+  ],
+  false, false,REF1_OPTIONS);
