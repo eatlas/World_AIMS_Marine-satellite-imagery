@@ -55,7 +55,7 @@ var tileID;
 
 // ---------- Coral Sea -------------------
 //tileID = '55LBK';     // Boot Reef, Portlock Reefs (Coral Sea) - Far North
-//tileID = '54LZP';     // Ashmore Reef (Coral Sea) - Far North
+tileID = '54LZP';     // Ashmore Reef (Coral Sea) - Far North
 //tileID = '55LDE';     // Osprey Reef (Coral Sea) - North
 //tileID = '55LEC';     // Bougainville Reef (Coral Sea) - Central
 //tileID = '55LGC';     // Diane Bank (Coral Sea) - Central
@@ -73,7 +73,7 @@ var tileID;
 //tileID = '55KHA';     // Tregrosse Reefs, Diamond Islet West, Magdelaine Cays, Coringa Islet (South) 
                         // (Coral Sea) - Central
 //tileID = '56KKF';     // Tregrosse Reefs, Diamond Islet (Coral Sea) - Central
-tileID = '56KLF';     // (V0) Lihou reef (South West) (Coral Sea, Australia) - Central
+//tileID = '56KLF';     // (V0) Lihou reef (South West) (Coral Sea, Australia) - Central
 //tileID = '56KMF';     // Lihou reef (West) (Coral Sea, Australia) - Central
 //tileID = '56KQF';     // Mellish Reef (Coral Sea) - Central
                         // This tile only had 2 images with < 1% cloud cover,
