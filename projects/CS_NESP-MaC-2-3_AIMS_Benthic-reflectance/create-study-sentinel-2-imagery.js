@@ -10,7 +10,7 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 
 
 var REGION = 'Coral-Sea';
-var PROJECT = 'cs-aims-nesp-mac-2-3-oceanic-veg';
+var PROJECT = 'cs-aims-nesp-mac-2-3';
 var EXPORT_FOLDER = 'EarthEngine/World_AIMS_Marine-sat-imagery/'+PROJECT+'/'+REGION;
 var BASEPRE = 'World_AIMS_Marine-sat-imagery_S2_';
 
@@ -129,7 +129,8 @@ s2Utils.s2_composite_display_and_export(
 // ======== Ashmore Reef (Coral Sea) - Far North =========
 // Searched 73 out of 73 
 // 2016 - 2024-03-01
-s2Utils.s2_composite_display_and_export(
+// Not used as the bathymetry was too poor to create benthic reflectance map.
+/*s2Utils.s2_composite_display_and_export(
   [
     "COPERNICUS/S2_HARMONIZED/20160823T004902_20160823T021200_T54LZP", // clouds, but shows some vegetation structure
     //"COPERNICUS/S2_HARMONIZED/20180813T004711_20180813T004705_T54LZP", // Clear top half, clouds in bottom. High CDOM
@@ -140,14 +141,15 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20210802T004709_20210802T004707_T54LZP", // Some cloud, vegetation not very visible
     "COPERNICUS/S2_HARMONIZED/20220529T004709_20220529T004706_T54LZP", // very low cloud, moderately clear 6/10
   ],
-  false, true,REF1_OPTIONS);
+  false, true,REF1_OPTIONS);*/
   
   
 // ======== Osprey Reef (Coral Sea) - North =========
 // 2016 - 2024-03
 // little difference when trying different image combinations
-// Getting Image.select: Pattern 'cloudmask' did not match any bands. Available bands
-s2Utils.s2_composite_display_and_export(
+// Getting error: Image.select: Pattern 'cloudmask' did not match any bands. Available bands
+// For this reason the imagery was not used.
+/*s2Utils.s2_composite_display_and_export(
   [
     //"COPERNICUS/S2_HARMONIZED/20161215T003032_20161215T003028_T55LDE", //4/10
     //"COPERNICUS/S2_HARMONIZED/20170713T002711_20170713T002708_T55LDE", // large clouds
@@ -159,7 +161,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20211025T002709_20211025T002709_T55LDE", // 6/10
     //"COPERNICUS/S2_HARMONIZED/20220113T002709_20220113T002703_T55LDE", // 6/10 no cloud
   ],
-  false, false,REF1_OPTIONS);
+  false, false,REF1_OPTIONS); */
   
 // 55KEV - Australia, GBR, Davies, Grub, Chicken
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
