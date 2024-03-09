@@ -79,8 +79,7 @@
 //                 imagery. This export should be in 16 bit format.
 // Version v1.5.5  Added the ability to specify the visualisation style as an option to 
 //                 createSelectSentinel2ImagesApp. 
-// Version v1.5.6  Change the export image to use Cloud Optimised GeoTiffs (to add pyramids) and
-//                 Uint16 for Raw format.
+// Version v1.5.6  Changed from Float32 to Uint16 for Raw format.
 /**
 * @module s2Utils
 * 
