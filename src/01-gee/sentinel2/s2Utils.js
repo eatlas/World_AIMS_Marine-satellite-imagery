@@ -298,9 +298,9 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
           region: tilesGeometry,
           maxPixels: 6e8,                 // Raise the default limit of 1e8 to fit the export 
                                           // of full sized Sentinel 2 images
-          formatOptions: {                // Doesn't seem to apply compression 
-            cloudOptimized: true
-          }
+          //formatOptions: {                // Doesn't seem to apply compression 
+          //  cloudOptimized: true
+          //}
         });
       }
       if (is_display) {
