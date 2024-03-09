@@ -270,7 +270,7 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
         displayMin = -25;
         displayMax = 0;
       } else if (colourGrades[i] === 'Raw-B1-B4') {
-        export_composite = final_composite;
+        export_composite = final_composite.toUint16();
       } else {
         // Scale and convert the image to an 8 bit image to make the export
         // file size considerably smaller.
@@ -298,7 +298,7 @@ exports.s2_composite_display_and_export = function(imageIds, is_display, is_expo
           region: tilesGeometry,
           maxPixels: 6e8,                 // Raise the default limit of 1e8 to fit the export 
                                           // of full sized Sentinel 2 images
-          formatOptions: {
+          formatOptions: {                // Doesn't seem to apply compression 
             cloudOptimized: true
           }
         });
