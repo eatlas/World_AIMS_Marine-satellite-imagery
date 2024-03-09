@@ -1,20 +1,22 @@
 # World Marine satellite imagery
 
-Eric Lawrey – 13 September 2022
+Eric Lawrey – 7 March 2024
 
 Australian Institute of Marine Science
 
-## What is this dataset
+## What is this repository
 
-This repository contains all the scripts used to create clear water composite images from Sentinel 2 and
-Landsat 8. This is intended to represent a growing repository of scenes that have had images hand selected
-for merging into image mosaics. In general each tile has composite images created from a different collection
-of satellite images (different dates for the one satellite). The purpose of this is to create independent 
-composites that allow differentiation between image anomalies and real features. 
+This repository contains both scripts and image data for creating clear water composite images from Sentinel 2 and Landsat 8 for a range of projects. This contains a growing repository of scenes that have image composites created from a manually selected collection of specific image dates. This repository contains scripts and images prepared for multiple projects, based on a common processing code base. Each of these projects typically has a set of images that are created to test various remote sensing algorithms and mapping techniques. This dataset provides the imagery for the subsequent processing in these projects.  
 
-The satellite imagery is processed in the original scenes of the satellites being processed.
-For Sentinel 2 this corresponds to 100 x 100 km scenes. For Landsat 8 this corresponds to 
-larger scenes.
+This code base includes:
+* Core utility libraries for Google Earth Engine (`src\01-gee\sentinel2\s2Utils.js` and `src\01-gee\landsat8\l8Utils.js`)
+* Tool for sequentially previewing images for a scene, with cloud filtering and over a date range. This is typically used manual collation of images to be used in image composites. `\src\01-gee\sentinel2\apps\select-sentinel2-images.js`
+* Tool for reviewing a specific set of image, by IDs. This is used checking or manually ranking a small set of preknown images. `\src\01-gee\sentinel2\apps\view-selected-sentinel2-images.js`
+* Code and images prepared for various projects (`projects` folder). 
+
+This code base is an extension of the scripts developed for the mapping of the Coral Sea ([Lawrey and Hammerton, 2022](https://doi.org/10.26274/NH77-ZW79)).
+
+
 
 The image composites were processed into a number of different styles that each
 focus on a different task:
@@ -23,44 +25,27 @@ focus on a different task:
 - `TrueColour` - True colour imagery (B3, B4, B5)
 - `Depth5m` - Reef top features down to 5 m depth. No tidal compensation.
 - `Depth10m` - Reef top features down to 10 m depth. No tidal compensation.
+- `Raw-B1-B4` - No contrast enhance applied, 16 bit. Optional sunglint correction.
 
 ## Sentinel 2 image processing
 
-The satellite image composites were created using the following processing:
-1. The Sentinel 2 tiles to be processed were selected using the 
+The following is a general guide to how the satellite image composites were prepared for each project.
+1. A subfolder of `projects` is created for each project needing a set of composite images. A Google Earth Engine script, such as `projects\CS_NESP-MaC-2-3_AIMS_Benthic-reflectance\depth-albedo.js` is created to record the images prepared for that project. 
+2. The Sentinel 2 tiles to be processed were selected using the 
 [map of Sentinel 2 tiles](https://maps.eatlas.org.au/index.html?intro=false&z=7&ll=146.90137,-19.07287&l0=ea_ref%3AWorld_ESA_Sentinel-2-tiling-grid_Poly,google_SATELLITE)
 to find the IDs of the locations of interest.
-2. The `src\01-gee\sentinel2\01-select-sentinel2-images.js` tool in Google Earth Engine was used
-to select the best images (lowest cloud, low sunglint, clear water) from those available. Typically
-a low cloud cover filter used (typically starting with 1%) to eliminate unsuitable images. This
-threshold was increased if not enough good images could be found.
-3. These images were partitioned into two collections: the clearest of the images and the rest of the images.
-These were recorded in `src\01-gee\sentinel2\03-create-composite-X.js`, where X corresponds to
-the region. In this dataset the tiles were split into regions:
- - `Coral-Sea` - Images of Coral Sea reefs
- - `Coral-Sea-water` - Open water images of the Coral Sea. Used to verify that there are no new
- coral platforms.
- - `Global` - Selected reefal areas around the world to verify the robustness of the
- imaging techinques.
-4. These two collections were then converted into two satellite composite images. 
-5. Each image was preprocessed, prior to being combined into a composite by:
+3. The `src\01-gee\sentinel2\app\select-sentinel2-images.js` was modified to specify the scene, cloud cover and date range to review. This tool was used in Google Earth Engine to select the best images (lowest cloud, low sunglint, clear water) from those available. A cloud cover filter typically starting with 1% was used to eliminate unsuitable images. This threshold was increased if not enough good images could be found.
+4. In some projects the collection of good images found were partitioned into two collections: the clearest of the images (R1) and the rest of the images (R2). In other projects only a single composite image was create for a given scene.
+5. As part of the processing on GEE, each image is preprocessed, prior to being combined into a composite by:
     1. Removing surface reflectance on the water based on estimates of the reflection using infrared bands.
     2. Clouds masking was applied to cut out the clouds and their shadows.
-6. A composite was then created using the available images in each collection. The composite was
-created using a median of the images in the collection (i.e. at each location the matching pixel of each
+6. The composite is created using a median of the images in the collection (i.e. at each location the matching pixel of each
 of the images in the collection was located and the final composite value was the median of those pixels).
-7. A composite of the images with and without cloud masking was created and layered together. This 
-was to solve the problem that some coral cays were misinterpretted as clouds and thus would result in
-holes in the composite image. These holes are plugged with an underlying image composite created from
-the same set of images, just with no cloud masking applied. Since the composite image were created using
-a median reducer, as long as the cays are covered in clouds less than 50% of the time then the resulting
-image would be cloud free. This works because the image collections were chosen to have very low cloud cover
-and coral cays are bright areas that are much less sensitive to brightness adjustments from the fringes of 
+7. A composite of the images with and without cloud masking was created and layered together. This was to solve the problem that some coral cays were misinterpretted as clouds and thus would result in holes in the composite image. These holes are plugged with an underlying image composite created from
+the same set of images, just with no cloud masking applied. Since the composite image were created using a median reducer, as long as the cays are covered in clouds less than 50% of the time then the resulting image would be cloud free. This works because the image collections were chosen to have very low cloud cover and coral cays are bright areas that are much less sensitive to brightness adjustments from the fringes of 
 clouds.
-8. The brightness of the image was normalised to ensure that the deep water areas of the image were
-consistent from one scene to the next. This was done by creating a mask of 'deep water' areas in the image.
-The difference between the average brightness of these masked areas and a reference image was calculated. 
-This adjustment was then applied to the whole image. This brightness adjustment helps ensure consistent
+8. The brightness of the image was normalised to ensure that the deep water areas of the image were consistent from one scene to the next. This was done by creating a mask of 'deep water' areas in the image.
+The difference between the average brightness of these masked areas and a reference image was calculated. This adjustment was then applied to the whole image. This brightness adjustment helps ensure consistent
 brighness across all scenes and that when subsequent contrast enhancement is applied to the images then 
 no areas of the image become overly dark. Without this adjustment it was found that certain regions
 would consistently produce slightly darker imagery. This can be seen in the [original draft version of this dataset](https://eatlas.org.au/data/uuid/2932dc63-9c9b-465f-80bf-09073aacaf1c) where this adjustment was not made.
@@ -427,3 +412,6 @@ runTaskList();
 Once all the dialogue boxes have appeared then run this command to confirm all of them.
 ``` Javascript
 confirmAll();
+
+# References
+Lawrey, E., & Hammerton, M. (2022). Coral Sea features satellite imagery and raw depth contours (Sentinel 2 and Landsat 8) 2015 – 2021 (AIMS) [Data set]. eAtlas. https://doi.org/10.26274/NH77-ZW79
