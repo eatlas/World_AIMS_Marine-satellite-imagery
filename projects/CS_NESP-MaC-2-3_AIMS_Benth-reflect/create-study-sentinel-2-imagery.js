@@ -46,7 +46,7 @@ s2Utils.s2_composite_display_and_export(
 var REF_NoSGC_OPTIONS = {
   colourGrades: ['Raw-B1-B4'],
   exportScale: [10],
-  exportBasename: BASEPRE+'NoSGC',
+  exportBasename: BASEPRE+'_NoSGC',
   exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: false,
   applyBrightnessAdjustment: false
@@ -71,7 +71,7 @@ s2Utils.s2_composite_display_and_export(
 var REF_SINGLE_OPTIONS = {
   colourGrades: ['Raw-B1-B4'],
   exportScale: [10],
-  exportBasename: BASEPRE+'20200818',
+  exportBasename: BASEPRE+'_20200818',
   exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
   applyBrightnessAdjustment: false
