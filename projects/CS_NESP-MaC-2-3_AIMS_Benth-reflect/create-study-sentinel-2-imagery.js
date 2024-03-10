@@ -12,7 +12,7 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 var REGION = 'Coral-Sea';
 var PROJECT = 'cs-aims-nesp-mac-2-3';
 var EXPORT_FOLDER = 'EarthEngine/Wld_AIMS_Marine-sat-img/'+PROJECT+'/'+REGION;
-var BASEPRE = 'Wld_AIMS_Marine-sat-img_S2_';
+var BASEPRE = 'Wld_AIMS_Marine-sat-img_S2';
 
 var REF1_OPTIONS = {
   colourGrades: ['Raw-B1-B4'],
