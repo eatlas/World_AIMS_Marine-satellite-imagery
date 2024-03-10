@@ -17,22 +17,12 @@ var BASEPRE = 'Wld_AIMS_Marine-sat-img_S2_';
 var REF1_OPTIONS = {
   colourGrades: ['Raw-B1-B4'],
   exportScale: [10],
-  exportBasename: BASEPRE+'R1',
+  exportBasename: BASEPRE,
   exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
   applyBrightnessAdjustment: false
 };
 
-
-
-var REF2_OPTIONS = {
-  colourGrades: ['Raw-B1-B4'],
-  exportScale: [10],
-  exportBasename: BASEPRE+'R2',
-  exportFolder: EXPORT_FOLDER,
-  applySunglintCorrection: true,
-  applyBrightnessAdjustment: false
-};
 
 
 // ======== Flinders, Dart Heralds Surprise (Coral Sea) =========
