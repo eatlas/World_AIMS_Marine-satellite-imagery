@@ -14,3 +14,5 @@ The purpose of this change log is to track how in sync the big-files are in sync
 main code base. A new changelog entry should be added each time the files in the `big-files`
 directory is updated or added for download. This can then be compared with the versioning 
 and dates of the source code.
+
+* 9 March 2024 - Added CS_NESP-MaC-2-3_AIMS_Benthic-reflectance data.

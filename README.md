@@ -8,6 +8,8 @@ Australian Institute of Marine Science
 
 This repository contains both scripts and image data for creating clear water composite images from Sentinel 2 and Landsat 8 for a range of projects. This contains a growing repository of scenes that have image composites created from a manually selected collection of specific image dates. This repository contains scripts and images prepared for multiple projects, based on a common processing code base. Each of these projects typically has a set of images that are created to test various remote sensing algorithms and mapping techniques. This dataset provides the imagery for the subsequent processing in these projects.  
 
+More details are provided on the projects in the [metadata record](https://eatlas.org.au/geonetwork/srv/eng/catalog.search#/metadata/db1cc6b1-47fb-4027-94e7-fc4f25183399) for this repository.
+
 This code base includes:
 * Core utility libraries for Google Earth Engine (`src\01-gee\sentinel2\s2Utils.js` and `src\01-gee\landsat8\l8Utils.js`)
 * Tool for sequentially previewing images for a scene, with cloud filtering and over a date range. This is typically used manual collation of images to be used in image composites. `\src\01-gee\sentinel2\apps\select-sentinel2-images.js`
@@ -103,6 +105,8 @@ Sentinel 2 imagery is organised into regions to limit the number of scenes withi
 and exports them to Google Drive. 
 2. Local Python scripts for subsequent optimisation of the image file format,
 generation of GDAL virtual layers and merging of the depth contours. 
+
+Note: Not all projects use all scripts.
 
 This repository does not contain the image data itself. The image data files were too large to include
 in the repository however they are available for [downloading and browsing](https://nextcloud.eatlas.org.au/apps/sharealias/a/world-aims-marine-sat-imagery)
