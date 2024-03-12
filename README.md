@@ -1,4 +1,4 @@
-# World Marine satellite imagery
+# Marine satellite image test collections (AIMS)
 
 Eric Lawrey – 7 March 2024
 
