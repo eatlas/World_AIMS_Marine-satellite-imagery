@@ -39,12 +39,11 @@ to find the IDs of the locations of interest.
 3. The `src\01-gee\sentinel2\app\select-sentinel2-images.js` was modified to specify the scene, cloud cover and date range to review. This tool was used in Google Earth Engine to select the best images (lowest cloud, low sunglint, clear water) from those available. A cloud cover filter typically starting with 1% was used to eliminate unsuitable images. This threshold was increased if not enough good images could be found.
 4. In some projects the collection of good images found were partitioned into two collections: the clearest of the images (R1) and the rest of the images (R2). In other projects only a single composite image was create for a given scene.
 5. As part of the processing on GEE, each image is preprocessed, prior to being combined into a composite by:
-    1. Removing surface reflectance on the water based on estimates of the reflection using infrared bands.
+    1. Removing sun glint on the water based on estimates of the reflection using infrared bands.
     2. Clouds masking was applied to cut out the clouds and their shadows.
 6. The composite is created using a median of the images in the collection (i.e. at each location the matching pixel of each
 of the images in the collection was located and the final composite value was the median of those pixels).
-7. A composite of the images with and without cloud masking was created and layered together. This was to solve the problem that some coral cays were misinterpretted as clouds and thus would result in holes in the composite image. These holes are plugged with an underlying image composite created from
-the same set of images, just with no cloud masking applied. Since the composite image were created using a median reducer, as long as the cays are covered in clouds less than 50% of the time then the resulting image would be cloud free. This works because the image collections were chosen to have very low cloud cover and coral cays are bright areas that are much less sensitive to brightness adjustments from the fringes of 
+7. A composite of the images with and without cloud masking was created and layered together. This was to solve the problem that some coral cays were misinterpretted as clouds and thus would result in holes in the composite image. These holes are plugged with an underlying image composite created from the same set of images, just with no cloud masking applied. Since the composite image were created using a median reducer, as long as the cays are covered in clouds less than 50% of the time then the resulting image would be cloud free. This works because the image collections were chosen to have very low cloud cover and coral cays are bright areas that are much less sensitive to brightness adjustments from the fringes of 
 clouds.
 8. The brightness of the image was normalised to ensure that the deep water areas of the image were consistent from one scene to the next. This was done by creating a mask of 'deep water' areas in the image.
 The difference between the average brightness of these masked areas and a reference image was calculated. This adjustment was then applied to the whole image. This brightness adjustment helps ensure consistent
@@ -115,7 +114,7 @@ To reconstruct this dataset and scripts as was originally prepared these files s
 
 ## Dataset metadata and lineage
 More information about this dataset can be found on the 
-[Dataset metadata page](https://eatlas.org.au/data/uuid/5d67aa4d-a983-45d0-8cc1-187596fa9c0c).
+[Dataset metadata page](https://doi.org/10.26274/zq26-a956).
 
 
 ## Folders
