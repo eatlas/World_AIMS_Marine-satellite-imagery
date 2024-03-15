@@ -44,16 +44,28 @@ s2Utils.s2_composite_display_and_export(
 var REF2_OPTIONS = {
   colourGrades: ['DeepFalse'],
   exportScale: [10],
-  exportBasename: BASEPRE+'_R2',
+  exportBasename: BASEPRE+'_20200414',
   exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
   applyBrightnessAdjustment: false
 };
 s2Utils.s2_composite_display_and_export(
   [
-    "COPERNICUS/S2_HARMONIZED/20180813T004711_20180813T004705_T54LZP", // Clear top half, clouds in bottom. High CDOM
-    "COPERNICUS/S2_HARMONIZED/20200822T004711_20200822T004712_T54LZP", // Low cloud, but sunglint reduces depth visbility
+    "COPERNICUS/S2_HARMONIZED/20200414T004711_20200414T004705_T54LZP", // Cloud free, vegetation not super clear due to sunglint
   ],
   false, true,REF2_OPTIONS);
   
+var REF2_OPTIONS = {
+  colourGrades: ['DeepFalse'],
+  exportScale: [10],
+  exportBasename: BASEPRE+'_20210603',
+  exportFolder: EXPORT_FOLDER,
+  applySunglintCorrection: true,
+  applyBrightnessAdjustment: false
+};
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2_HARMONIZED/20210603T004709_20210603T004707_T54LZP", // Some cloud patches. Vegetation boundaries visible in parts. 9/10
+  ],
+  false, true,REF2_OPTIONS);
   
