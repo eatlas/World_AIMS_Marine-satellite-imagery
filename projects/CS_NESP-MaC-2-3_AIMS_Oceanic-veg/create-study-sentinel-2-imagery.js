@@ -39,7 +39,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20210802T004709_20210802T004707_T54LZP", // Some cloud, vegetation not very visible
     "COPERNICUS/S2_HARMONIZED/20220529T004709_20220529T004706_T54LZP", // very low cloud, moderately clear 6/10
   ],
-  false, true,REF1_OPTIONS);
+  false, false,REF1_OPTIONS);
   
 var REF2_OPTIONS = {
   colourGrades: ['DeepFalse'],
