@@ -17,7 +17,7 @@ var BASEPRE = 'Wld_AIMS_Marine-sat-img_S2';
 var REF1_OPTIONS = {
   colourGrades: ['DeepFalse'],
   exportScale: [10],
-  exportBasename: BASEPRE,
+  exportBasename: BASEPRE+'_R1',
   exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
   applyBrightnessAdjustment: false
@@ -40,5 +40,20 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220529T004709_20220529T004706_T54LZP", // very low cloud, moderately clear 6/10
   ],
   false, true,REF1_OPTIONS);
+  
+var REF2_OPTIONS = {
+  colourGrades: ['DeepFalse'],
+  exportScale: [10],
+  exportBasename: BASEPRE+'_R2',
+  exportFolder: EXPORT_FOLDER,
+  applySunglintCorrection: true,
+  applyBrightnessAdjustment: false
+};
+s2Utils.s2_composite_display_and_export(
+  [
+    "COPERNICUS/S2_HARMONIZED/20180813T004711_20180813T004705_T54LZP", // Clear top half, clouds in bottom. High CDOM
+    "COPERNICUS/S2_HARMONIZED/20200822T004711_20200822T004712_T54LZP", // Low cloud, but sunglint reduces depth visbility
+  ],
+  false, true,REF2_OPTIONS);
   
   
