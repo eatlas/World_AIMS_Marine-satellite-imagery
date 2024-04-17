@@ -30,7 +30,7 @@ var END_DATE = '2024-03-01';
 // In some areas where there are very few images available. In which case
 // this can be raised up to 100 (%) to allow previewing of all available
 // imagery.
-var CLOUDY_PIXEL_PERCENTAGE = 1;
+var CLOUDY_PIXEL_PERCENTAGE = 0.1;
 
 var STYLE = 'DeepFalsePreview';
 
