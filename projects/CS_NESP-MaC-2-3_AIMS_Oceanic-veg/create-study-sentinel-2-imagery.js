@@ -17,7 +17,7 @@ var BASEPRE = 'Wld_AIMS_Marine-sat-img_S2';
 var REF1_OPTIONS = {
   colourGrades: ['DeepFalse'],
   exportScale: [10],
-  exportBasename: BASEPRE+'_R1',
+  exportBasename: BASEPRE,
   exportFolder: EXPORT_FOLDER,
   applySunglintCorrection: true,
   applyBrightnessAdjustment: false
@@ -39,33 +39,6 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20210802T004709_20210802T004707_T54LZP", // Some cloud, vegetation not very visible
     "COPERNICUS/S2_HARMONIZED/20220529T004709_20220529T004706_T54LZP", // very low cloud, moderately clear 6/10
   ],
-  false, false,REF1_OPTIONS);
+  false, true,REF1_OPTIONS);
   
-var REF2_OPTIONS = {
-  colourGrades: ['DeepFalse'],
-  exportScale: [10],
-  exportBasename: BASEPRE+'_20200414',
-  exportFolder: EXPORT_FOLDER,
-  applySunglintCorrection: true,
-  applyBrightnessAdjustment: false
-};
-s2Utils.s2_composite_display_and_export(
-  [
-    "COPERNICUS/S2_HARMONIZED/20200414T004711_20200414T004705_T54LZP", // Cloud free, vegetation not super clear due to sunglint
-  ],
-  false, true,REF2_OPTIONS);
-  
-var REF2_OPTIONS = {
-  colourGrades: ['DeepFalse'],
-  exportScale: [10],
-  exportBasename: BASEPRE+'_20210603',
-  exportFolder: EXPORT_FOLDER,
-  applySunglintCorrection: true,
-  applyBrightnessAdjustment: false
-};
-s2Utils.s2_composite_display_and_export(
-  [
-    "COPERNICUS/S2_HARMONIZED/20210603T004709_20210603T004707_T54LZP", // Some cloud patches. Vegetation boundaries visible in parts. 9/10
-  ],
-  false, true,REF2_OPTIONS);
   

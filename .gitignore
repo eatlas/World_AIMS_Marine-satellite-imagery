@@ -10,3 +10,4 @@ unprocessed-data/*
 !unprocessed-data/README.md
 data/**/*.png
 data/*/*.jpg
+deprecated/**
