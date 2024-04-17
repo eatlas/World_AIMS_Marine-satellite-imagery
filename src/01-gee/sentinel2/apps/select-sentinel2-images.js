@@ -55,10 +55,12 @@ var tileID;
 // Where a reef has been split across multiple tiles then which section of the reef is
 // on the tile is indicated in brackets after the reef name.
 
+tileID = '50HLH';     // South West WA
+tileID = '50HLJ';     // South West WA
 // ---------- Coral Sea -------------------
 //tileID = '55LBK';     // Boot Reef, Portlock Reefs (Coral Sea) - Far North
 //tileID = '54LZP';     // Ashmore Reef (Coral Sea) - Far North
-tileID = '55LDE';     // Osprey Reef (Coral Sea) - North
+//tileID = '55LDE';     // Osprey Reef (Coral Sea) - North
 //tileID = '55LEC';     // Bougainville Reef (Coral Sea) - Central
 //tileID = '55LGC';     // Diane Bank (Coral Sea) - Central
 //tileID = '55LHC';     // Willis Islets (Coral Sea) - Central
