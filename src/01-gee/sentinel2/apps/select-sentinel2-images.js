@@ -55,7 +55,7 @@ var tileID;
 // Where a reef has been split across multiple tiles then which section of the reef is
 // on the tile is indicated in brackets after the reef name.
 
-tileID = '50HLH';     // South West WA
+//tileID = '50HLH';     // South West WA
 tileID = '50HLJ';     // South West WA
 // ---------- Coral Sea -------------------
 //tileID = '55LBK';     // Boot Reef, Portlock Reefs (Coral Sea) - Far North
