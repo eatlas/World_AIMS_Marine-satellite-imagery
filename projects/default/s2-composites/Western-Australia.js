@@ -154,7 +154,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220722T020449_20220722T020606_T51KWB",
     "COPERNICUS/S2_HARMONIZED/20220727T020501_20220727T020455_T51KWB"
   ],
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
 s2Utils.s2_composite_display_and_export(
   [
@@ -169,7 +169,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20220801T020449_20220801T020606_T51KWB",
     "COPERNICUS/S2_HARMONIZED/20220806T020501_20220806T020456_T51KWB"
   ],
-  false, true, LOW_TIDE_OPTIONS);
+  false, false, LOW_TIDE_OPTIONS);
   
 
 // 49KGR - Australia, WA, Ningaloo reef
