@@ -4,9 +4,9 @@ var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/
 var REF1_OPTIONS = {
   // Preview
   colourGrades: ['TrueColour'],
-  exportScale: [30],
-  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R1',
-  exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/GBR-Torres-Strait',
+  exportScale: [10],
+  exportBasename: 'Wld_AIMS_Marine-sat-img_S2_R1',
+  exportFolder: 'EarthEngine/Wld_AIMS_Marine-sat-img/GBR-TS',
   
   sunglintCorrectionLevel: 1,
   applyBrightnessAdjustment: true
@@ -22,7 +22,7 @@ var REF2_OPTIONS = {
   // Preview
   colourGrades: ['TrueColour'],
   exportScale: [30],
-  exportBasename: 'World_AIMS_Marine-sat-imagery_S2_R2',
+  exportBasename: 'Wld_AIMS_Marine-sat-img_S2_S2_R2',
   exportFolder: 'EarthEngine/World_AIMS_Marine-sat-imagery/GBR-Torres-Strait',
   sunglintCorrectionLevel: 1,
   applyBrightnessAdjustment: true
@@ -57,7 +57,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20210320T004711_20210320T004705_T54LXR" // Right scattered clouds
     
   ], 
-  false, true, REF1_OPTIONS);
+  false, false, REF1_OPTIONS);
   
 // Fly river PNG. There are no cloud free images and so we use all the 
 // available images with cloud cover < 4% to create a composite.
@@ -97,7 +97,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2/20191231T004659_20191231T004701_T54LZR" // Low cloud
     //"COPERNICUS/S2/20201220T004701_20201220T004704_T54LZR" // Moderate clouds
   ], 
-  false, true, REF1_OPTIONS_HSG);
+  false, false, REF1_OPTIONS_HSG);
   
 // Western Torres Strait, PNG border (Deliverance Island)
 s2Utils.s2_composite_display_and_export(
@@ -775,7 +775,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20200623T000239_20200623T000242_T56KMU", // 3
     "COPERNICUS/S2_HARMONIZED/20200728T000251_20200728T000246_T56KMU" // 4
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
 // All
 //    "COPERNICUS/S2_HARMONIZED/20160828T000222_20160828T000219_T56KMU", // (4) Can see the sea floor
 //    "COPERNICUS/S2_HARMONIZED/20160530T000222_20160530T000223_T56KMU",
