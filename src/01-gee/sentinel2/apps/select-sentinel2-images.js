@@ -16,7 +16,7 @@
 var s2Utils = require('users/ericlawrey/World_AIMS_Marine-satellite-imagery:src/01-gee/sentinel2/s2Utils.js');
  
 // Date range to iterate through the Sentinel 2 imagery.
-var START_DATE = '2021-03-01';
+var START_DATE = '2018-08-01';
 var END_DATE = '2024-03-01';
 
 //var START_DATE = '2020-10-29';
@@ -55,7 +55,7 @@ var tileID;
 // Where a reef has been split across multiple tiles then which section of the reef is
 // on the tile is indicated in brackets after the reef name.
 
-tileID = '50HLH';     // South West WA
+//tileID = '50HLH';     // South West WA
 //tileID = '50HLJ';     // South West WA
 // ---------- Coral Sea -------------------
 //tileID = '55LBK';     // Boot Reef, Portlock Reefs (Coral Sea) - Far North
@@ -229,7 +229,7 @@ tileID = '50HLH';     // South West WA
 //tileID = '56KLB';   // Australia, GBR, North west Swains, Heralds Reef
 //tileID = '56KMA';   // Australia, GBR, South east Swains, Horseshoe, Hackle
 //tileID = '56KMB';   // Australia, GBR, North east Swains, Elusive Reef
-//tileID = '56KMU';   // Australia, GBR, Lady Musgrave
+tileID = '56KMU';   // Australia, GBR, Lady Musgrave
 //tileID = '55KEV';   // Australia, GBR, Davies, Grub, Chicken
 //tileID = '55KCA';     // Australia, GBR, Mission beach
 //tileID = '55KDA';     // Australia, GBR, Howies Reef, Nathan Reefm Otter Reef, King reef
