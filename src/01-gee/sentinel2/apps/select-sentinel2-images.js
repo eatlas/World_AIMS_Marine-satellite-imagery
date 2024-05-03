@@ -230,8 +230,8 @@ var tileID;
 //tileID = '56KMA';   // Australia, GBR, South east Swains, Horseshoe, Hackle
 //tileID = '56KMB';   // Australia, GBR, North east Swains, Elusive Reef
 //tileID = '56KMU';   // Australia, GBR, Lady Musgrave
-tileID = '56KLV';
-tileID = '56KMV';
+//tileID = '56KLV';
+//tileID = '56KMV';
 tileID = '56KLU';
 //tileID = '55KEV';   // Australia, GBR, Davies, Grub, Chicken
 //tileID = '55KCA';     // Australia, GBR, Mission beach
