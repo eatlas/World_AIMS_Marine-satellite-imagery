@@ -231,8 +231,8 @@ var tileID;
 //tileID = '56KMB';   // Australia, GBR, North east Swains, Elusive Reef
 //tileID = '56KMU';   // Australia, GBR, Lady Musgrave
 //tileID = '56KLU';     // Australia, GBR, Gladstone
-tileID = '56KLV';     // Australia, GBR, Heron Island
-//tileID = '56KMV';
+//tileID = '56KLV';     // Australia, GBR, Heron Island
+tileID = '56KMV';
 
 //tileID = '55KEV';   // Australia, GBR, Davies, Grub, Chicken
 //tileID = '55KCA';     // Australia, GBR, Mission beach
