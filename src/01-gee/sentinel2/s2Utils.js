@@ -80,6 +80,7 @@
 // Version v1.5.5  Added the ability to specify the visualisation style as an option to 
 //                 createSelectSentinel2ImagesApp. 
 // Version v1.5.6  Changed from Float32 to Uint16 for Raw format.
+// Version v1.5.7  Added B12 style for testing of ideas for banding removal
 /**
 * @module s2Utils
 * 
@@ -1505,7 +1506,11 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
     // Mask out any land areas because the depth estimates would 
     compositeContrast = compositeContrast.updateMask(waterMask);
 
-  }  else if (colourGradeStyle === 'Land') {
+  } else if (colourGradeStyle === 'B12') {
+    // Export for testing purposes. Scale to 0.25 max to retain detail in banding sunglint
+    // when in 8 bit colour.
+    compositeContrast = exports.contrastEnhance(img.select('B12'), 0, 0.25, 1)
+  } else if (colourGradeStyle === 'Land') {
     // Perform a basic mapping of land areas.
     
 
