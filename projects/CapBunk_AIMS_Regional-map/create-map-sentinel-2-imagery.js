@@ -15,11 +15,11 @@ var REF1_OPTIONS = {
   applyBrightnessAdjustment: true
 };
 
-s2Utils.s2_composite_display_and_export(
-  [
-    "COPERNICUS/S2_HARMONIZED/20160828T000222_20160828T000219_T56KMU", // (4) Can see the sea floor
-  ],
-  true, false, REF1_OPTIONS);
+//s2Utils.s2_composite_display_and_export(
+//  [
+//    "COPERNICUS/S2_HARMONIZED/20160828T000222_20160828T000219_T56KMU", // (4) Can see the sea floor
+//  ],
+//  true, false, REF1_OPTIONS);
 
 // 56KMU - Australia, GBR, Lady Musgrave - Cap Bunkers
 // CLOUDY_PIXEL_PERCENTAGE = 0.1
@@ -37,7 +37,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20200623T000239_20200623T000242_T56KMU", // 3
     "COPERNICUS/S2_HARMONIZED/20200728T000251_20200728T000246_T56KMU" // 4
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
 // All
 //    "COPERNICUS/S2_HARMONIZED/20160828T000222_20160828T000219_T56KMU", // (4) Can see the sea floor
 //    "COPERNICUS/S2_HARMONIZED/20160530T000222_20160530T000223_T56KMU",
@@ -81,7 +81,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20200817T000251_20200817T000246_T56KLU", //4
     "COPERNICUS/S2_HARMONIZED/20210718T000239_20210718T000242_T56KLU" //3
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
   
 // 56KLV - Heron Island
 // 0.1% cloud cover
@@ -119,7 +119,7 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20210718T000239_20210718T000242_T56KLV", // 4
     "COPERNICUS/S2_HARMONIZED/20211016T000239_20211016T000241_T56KLV" // 4
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
 
 // 56KMV Below Swains, Right of Heron
 // 51 of 51 images
@@ -137,4 +137,4 @@ s2Utils.s2_composite_display_and_export(
     "COPERNICUS/S2_HARMONIZED/20230409T000229_20230409T000223_T56KMV", // 4
     "COPERNICUS/S2_HARMONIZED/20231031T000221_20231031T000221_T56KMV" // 4
   ],
-  false, false, REF1_OPTIONS);
+  false, true, REF1_OPTIONS);
