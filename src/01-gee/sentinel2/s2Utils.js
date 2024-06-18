@@ -1509,7 +1509,7 @@ exports.bake_s2_colour_grading = function(img, colourGradeStyle, processCloudMas
   } else if (colourGradeStyle === 'B12') {
     // Export for testing purposes. Scale to 0.25 max to retain detail in banding sunglint
     // when in 8 bit colour.
-    compositeContrast = exports.contrastEnhance(scaled_img.select('B12'), 0, 0.25, 1)
+    compositeContrast = exports.contrastEnhance(scaled_img.select('B12'), 0, 0.05, 1)
   } else if (colourGradeStyle === 'Land') {
     // Perform a basic mapping of land areas.
     
